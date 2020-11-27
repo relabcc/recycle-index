@@ -1,13 +1,19 @@
 {
   "files": {
-    "main.js": "./static/js/main.cba0f46e.chunk.js",
-    "main.js.map": "./static/js/main.cba0f46e.chunk.js.map",
+    "main.js": "./static/js/main.b271ca73.chunk.js",
+    "main.js.map": "./static/js/main.b271ca73.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.ab7cb817.js",
     "runtime-main.js.map": "./static/js/runtime-main.ab7cb817.js.map",
-    "static/js/2.49988797.chunk.js": "./static/js/2.49988797.chunk.js",
-    "static/js/2.49988797.chunk.js.map": "./static/js/2.49988797.chunk.js.map",
+    "static/js/2.371ae16c.chunk.js": "./static/js/2.371ae16c.chunk.js",
+    "static/js/2.371ae16c.chunk.js.map": "./static/js/2.371ae16c.chunk.js.map",
     "index.html": "./index.html",
-    "static/js/2.49988797.chunk.js.LICENSE.txt": "./static/js/2.49988797.chunk.js.LICENSE.txt",
+    "static/js/2.371ae16c.chunk.js.LICENSE.txt": "./static/js/2.371ae16c.chunk.js.LICENSE.txt",
+    "static/media/cfg.9254086e.tsv": "./static/media/cfg.9254086e.tsv",
+    "static/media/便當盒-橡皮圈-上@2x.png": "./static/media/便當盒-橡皮圈-上@2x.847feec7.png",
+    "static/media/便當盒-橡皮圈-下@2x.png": "./static/media/便當盒-橡皮圈-下@2x.302503a5.png",
+    "static/media/便當盒-餐盒上@2x.png": "./static/media/便當盒-餐盒上@2x.05bf8313.png",
+    "static/media/便當盒-餐盒下@2x.png": "./static/media/便當盒-餐盒下@2x.36e23d80.png",
+    "static/media/便當盒-餐盒蓋@2x.png": "./static/media/便當盒-餐盒蓋@2x.a8debe27.png",
     "static/media/咖啡杯-杯上@2x.png": "./static/media/咖啡杯-杯上@2x.eb200360.png",
     "static/media/咖啡杯-杯下@2x.png": "./static/media/咖啡杯-杯下@2x.ed9d2a03.png",
     "static/media/咖啡杯-杯套@2x.png": "./static/media/咖啡杯-杯套@2x.366a7b54.png",
@@ -24,7 +30,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.ab7cb817.js",
-    "static/js/2.49988797.chunk.js",
-    "static/js/main.cba0f46e.chunk.js"
+    "static/js/2.371ae16c.chunk.js",
+    "static/js/main.b271ca73.chunk.js"
   ]
 }
