@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="62" viewBox="0 0 72 62">
+  <g id="圖層_12" data-name="圖層 12">
+    <g>
+      <path d="M36.24,6.31h-.48l-28.85,0,3.52,50.88a3.65,3.65,0,0,0,3.64,3.39H57.93a3.65,3.65,0,0,0,3.64-3.39L65.09,6.35Z" fill="#fbb03b" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+      <path d="M65.2,11.23H6.8A4.93,4.93,0,0,1,1.87,6.3h0A4.93,4.93,0,0,1,6.8,1.38H65.2A4.93,4.93,0,0,1,70.13,6.3h0A4.93,4.93,0,0,1,65.2,11.23Z" fill="#fbb03b" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="36" y1="18.84" x2="36" y2="53.1" fill="#fbb03b" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="20.16" y1="18.84" x2="23.73" y2="53.1" fill="#fbb03b" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="51.17" y1="18.84" x2="47.61" y2="53.1" fill="#fbb03b" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

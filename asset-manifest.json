@@ -1,14 +1,27 @@
 {
   "files": {
-    "main.js": "./static/js/main.b271ca73.chunk.js",
-    "main.js.map": "./static/js/main.b271ca73.chunk.js.map",
+    "main.js": "./static/js/main.171121ba.chunk.js",
+    "main.js.map": "./static/js/main.171121ba.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.ab7cb817.js",
     "runtime-main.js.map": "./static/js/runtime-main.ab7cb817.js.map",
-    "static/js/2.371ae16c.chunk.js": "./static/js/2.371ae16c.chunk.js",
-    "static/js/2.371ae16c.chunk.js.map": "./static/js/2.371ae16c.chunk.js.map",
+    "static/js/2.3354fc29.chunk.js": "./static/js/2.3354fc29.chunk.js",
+    "static/js/2.3354fc29.chunk.js.map": "./static/js/2.3354fc29.chunk.js.map",
     "index.html": "./index.html",
-    "static/js/2.371ae16c.chunk.js.LICENSE.txt": "./static/js/2.371ae16c.chunk.js.LICENSE.txt",
-    "static/media/cfg.9254086e.tsv": "./static/media/cfg.9254086e.tsv",
+    "static/js/2.3354fc29.chunk.js.LICENSE.txt": "./static/js/2.3354fc29.chunk.js.LICENSE.txt",
+    "static/media/bin.4d7c62a8.svg": "./static/media/bin.4d7c62a8.svg",
+    "static/media/bin.7e86c100.svg": "./static/media/bin.7e86c100.svg",
+    "static/media/cfg.8cd27980.tsv": "./static/media/cfg.8cd27980.tsv",
+    "static/media/chev-down.3d2e85e9.svg": "./static/media/chev-down.3d2e85e9.svg",
+    "static/media/crush.4971570a.svg": "./static/media/crush.4971570a.svg",
+    "static/media/data.2217c2b3.tsv": "./static/media/data.2217c2b3.tsv",
+    "static/media/hashtag-shape.1eb16836.svg": "./static/media/hashtag-shape.1eb16836.svg",
+    "static/media/next.267297fd.svg": "./static/media/next.267297fd.svg",
+    "static/media/peal.f025aee9.svg": "./static/media/peal.f025aee9.svg",
+    "static/media/seperate.ae5e5501.svg": "./static/media/seperate.ae5e5501.svg",
+    "static/media/share-bg.1527818e.svg": "./static/media/share-bg.1527818e.svg",
+    "static/media/teal.7bd2410b.svg": "./static/media/teal.7bd2410b.svg",
+    "static/media/trash.c0cffbdc.svg": "./static/media/trash.c0cffbdc.svg",
+    "static/media/wash.fd3562a3.svg": "./static/media/wash.fd3562a3.svg",
     "static/media/便當盒-橡皮圈-上@2x.png": "./static/media/便當盒-橡皮圈-上@2x.847feec7.png",
     "static/media/便當盒-橡皮圈-下@2x.png": "./static/media/便當盒-橡皮圈-下@2x.302503a5.png",
     "static/media/便當盒-餐盒上@2x.png": "./static/media/便當盒-餐盒上@2x.05bf8313.png",
@@ -30,7 +43,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.ab7cb817.js",
-    "static/js/2.371ae16c.chunk.js",
-    "static/js/main.b271ca73.chunk.js"
+    "static/js/2.3354fc29.chunk.js",
+    "static/js/main.171121ba.chunk.js"
   ]
 }
