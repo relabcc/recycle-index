@@ -1,15 +1,18 @@
 {
   "files": {
-    "main.js": "./static/js/main.860495f4.chunk.js",
-    "main.js.map": "./static/js/main.860495f4.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.ab7cb817.js",
-    "runtime-main.js.map": "./static/js/runtime-main.ab7cb817.js.map",
-    "static/js/2.7d76bd22.chunk.js": "./static/js/2.7d76bd22.chunk.js",
-    "static/js/2.7d76bd22.chunk.js.map": "./static/js/2.7d76bd22.chunk.js.map",
+    "main.js": "./static/js/main.dca2d625.chunk.js",
+    "main.js.map": "./static/js/main.dca2d625.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.1a3abd18.js",
+    "runtime-main.js.map": "./static/js/runtime-main.1a3abd18.js.map",
+    "static/css/2.b4ebbe46.chunk.css": "./static/css/2.b4ebbe46.chunk.css",
+    "static/js/2.08999d9f.chunk.js": "./static/js/2.08999d9f.chunk.js",
+    "static/js/2.08999d9f.chunk.js.map": "./static/js/2.08999d9f.chunk.js.map",
     "index.html": "./index.html",
-    "static/js/2.7d76bd22.chunk.js.LICENSE.txt": "./static/js/2.7d76bd22.chunk.js.LICENSE.txt",
+    "static/css/2.b4ebbe46.chunk.css.map": "./static/css/2.b4ebbe46.chunk.css.map",
+    "static/js/2.08999d9f.chunk.js.LICENSE.txt": "./static/js/2.08999d9f.chunk.js.LICENSE.txt",
     "static/media/bin.4d7c62a8.svg": "./static/media/bin.4d7c62a8.svg",
     "static/media/bin.7e86c100.svg": "./static/media/bin.7e86c100.svg",
+    "static/media/bubble.744e8794.svg": "./static/media/bubble.744e8794.svg",
     "static/media/cfg.fa3316f7.tsv": "./static/media/cfg.fa3316f7.tsv",
     "static/media/chev-down.3d2e85e9.svg": "./static/media/chev-down.3d2e85e9.svg",
     "static/media/crush.4971570a.svg": "./static/media/crush.4971570a.svg",
@@ -17,8 +20,10 @@
     "static/media/game-banner.203e0b12.svg": "./static/media/game-banner.203e0b12.svg",
     "static/media/hand.5164a66a.svg": "./static/media/hand.5164a66a.svg",
     "static/media/hashtag-shape.1eb16836.svg": "./static/media/hashtag-shape.1eb16836.svg",
+    "static/media/highlight-trashes.1d956446.png": "./static/media/highlight-trashes.1d956446.png",
     "static/media/next.267297fd.svg": "./static/media/next.267297fd.svg",
     "static/media/peal.f025aee9.svg": "./static/media/peal.f025aee9.svg",
+    "static/media/popup-charts.9b0fa81f.svg": "./static/media/popup-charts.9b0fa81f.svg",
     "static/media/recycle.bf445961.svg": "./static/media/recycle.bf445961.svg",
     "static/media/recycle_1.7f88f58a.svg": "./static/media/recycle_1.7f88f58a.svg",
     "static/media/seperate.ae5e5501.svg": "./static/media/seperate.ae5e5501.svg",
@@ -26,9 +31,12 @@
     "static/media/share-bg.1527818e.svg": "./static/media/share-bg.1527818e.svg",
     "static/media/teal.7bd2410b.svg": "./static/media/teal.7bd2410b.svg",
     "static/media/timer.e292eda8.svg": "./static/media/timer.e292eda8.svg",
+    "static/media/title-overlay.ce094ed9.svg": "./static/media/title-overlay.ce094ed9.svg",
+    "static/media/title.d58e0dcd.svg": "./static/media/title.d58e0dcd.svg",
     "static/media/trash.c0cffbdc.svg": "./static/media/trash.c0cffbdc.svg",
     "static/media/trash.ce769d5f.svg": "./static/media/trash.ce769d5f.svg",
     "static/media/trash_1.ef0fd1d7.svg": "./static/media/trash_1.ef0fd1d7.svg",
+    "static/media/trashes.1881fe5c.png": "./static/media/trashes.1881fe5c.png",
     "static/media/wash.fd3562a3.svg": "./static/media/wash.fd3562a3.svg",
     "static/media/上部2.png": "./static/media/上部2.ed9d27b3.png",
     "static/media/信用卡.png": "./static/media/信用卡.44ce264a.png",
@@ -156,8 +164,9 @@
     "static/media/馬桶刷.png": "./static/media/馬桶刷.48c768d8.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ab7cb817.js",
-    "static/js/2.7d76bd22.chunk.js",
-    "static/js/main.860495f4.chunk.js"
+    "static/js/runtime-main.1a3abd18.js",
+    "static/css/2.b4ebbe46.chunk.css",
+    "static/js/2.08999d9f.chunk.js",
+    "static/js/main.dca2d625.chunk.js"
   ]
 }
