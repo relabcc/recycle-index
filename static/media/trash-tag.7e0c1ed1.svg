@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="73.988" height="73.988" viewBox="0 0 73.988 73.988">
-    <g>
-        <path fill="#fec332" stroke="#fec332" stroke-width="2px" d="M68.276 16.555L13 0 0 13.976 15 25.47l50.886 6.039z" transform="rotate(-12.04 296.55 260.26) scale(-1) rotate(-33 -33.594 221.484)"/>
-        <text fill="#fff" font-family="NotoSansCJKtc-Bold, Noto Sans CJK TC, Noto Sans TC" font-size="12px" font-weight="700" letter-spacing="0.06em" transform="rotate(-12.04 296.55 260.26) matrix(.946 -.326 .326 .946 64.081 .046)">
-            <tspan x="0" y="0">一般垃圾</tspan>
-        </text>
-    </g>
-</svg>
