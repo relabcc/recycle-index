@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.51fc917a.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.51fc917a.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.ef0abb28.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.ef0abb28.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.239a9ecc.chunk.js": "/recycle-index/static/js/2.239a9ecc.chunk.js",
-    "static/js/2.239a9ecc.chunk.js.map": "/recycle-index/static/js/2.239a9ecc.chunk.js.map",
+    "static/js/2.16d864cc.chunk.js": "/recycle-index/static/js/2.16d864cc.chunk.js",
+    "static/js/2.16d864cc.chunk.js.map": "/recycle-index/static/js/2.16d864cc.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.239a9ecc.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.239a9ecc.chunk.js.LICENSE.txt",
+    "static/js/2.16d864cc.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.16d864cc.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -30,13 +30,12 @@
     "static/media/5外盒.png": "/recycle-index/static/media/5外盒.a11ed4d8.png",
     "static/media/bin.4d7c62a8.svg": "/recycle-index/static/media/bin.4d7c62a8.svg",
     "static/media/bin.7e86c100.svg": "/recycle-index/static/media/bin.7e86c100.svg",
-    "static/media/bridge.b580a2ab.svg": "/recycle-index/static/media/bridge.b580a2ab.svg",
     "static/media/bubble-1.41b11dd6.svg": "/recycle-index/static/media/bubble-1.41b11dd6.svg",
     "static/media/bubble-2.30e673fc.svg": "/recycle-index/static/media/bubble-2.30e673fc.svg",
     "static/media/bubble-3.cfdbe091.svg": "/recycle-index/static/media/bubble-3.cfdbe091.svg",
     "static/media/bubble-4.c5adca23.svg": "/recycle-index/static/media/bubble-4.c5adca23.svg",
     "static/media/bubble-5.9e9a3ca7.svg": "/recycle-index/static/media/bubble-5.9e9a3ca7.svg",
-    "static/media/cfg.d3ac9642.tsv": "/recycle-index/static/media/cfg.d3ac9642.tsv",
+    "static/media/cfg.8cfba481.tsv": "/recycle-index/static/media/cfg.8cfba481.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/complete.a72a0659.svg": "/recycle-index/static/media/complete.a72a0659.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
@@ -195,7 +194,7 @@
     "static/media/旅行行李箱.png": "/recycle-index/static/media/旅行行李箱.40d34ab8.png",
     "static/media/木製品.png": "/recycle-index/static/media/木製品.c1dae77d.png",
     "static/media/杯子2.png": "/recycle-index/static/media/杯子2.4d10b4af.png",
-    "static/media/杯緣5.png": "/recycle-index/static/media/杯緣5.506aea2d.png",
+    "static/media/杯緣5.png": "/recycle-index/static/media/杯緣5.99cb307c.png",
     "static/media/杯緣7.png": "/recycle-index/static/media/杯緣7.2931d8d0.png",
     "static/media/杯緣（前）3.png": "/recycle-index/static/media/杯緣（前）3.448dfc58.png",
     "static/media/杯緣（前）4.png": "/recycle-index/static/media/杯緣（前）4.c98dc56d.png",
@@ -378,12 +377,13 @@
     "static/media/馬桶刷.png": "/recycle-index/static/media/馬桶刷.d8624487.png",
     "static/media/高壓瓶-塑膠蓋.png": "/recycle-index/static/media/高壓瓶-塑膠蓋.059f45b9.png",
     "static/media/高壓瓶-瓶蓋.png": "/recycle-index/static/media/高壓瓶-瓶蓋.ec55fbea.png",
-    "static/media/高壓瓶-高壓瓶.png": "/recycle-index/static/media/高壓瓶-高壓瓶.ec87ba91.png",
+    "static/media/高壓瓶-瓶身.png": "/recycle-index/static/media/高壓瓶-瓶身.ec87ba91.png",
+    "static/media/高壓瓶-高壓瓶.png": "/recycle-index/static/media/高壓瓶-高壓瓶.a631905b.png",
     "static/media/高壓瓶.png": "/recycle-index/static/media/高壓瓶.9541e35b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.239a9ecc.chunk.js",
-    "static/js/main.51fc917a.chunk.js"
+    "static/js/2.16d864cc.chunk.js",
+    "static/js/main.ef0abb28.chunk.js"
   ]
 }
