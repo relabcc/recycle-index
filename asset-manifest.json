@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.b89a69a2.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.b89a69a2.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.dcd60a8f.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.dcd60a8f.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.1e91ffc2.chunk.js": "/recycle-index/static/js/2.1e91ffc2.chunk.js",
-    "static/js/2.1e91ffc2.chunk.js.map": "/recycle-index/static/js/2.1e91ffc2.chunk.js.map",
+    "static/js/2.54d3953f.chunk.js": "/recycle-index/static/js/2.54d3953f.chunk.js",
+    "static/js/2.54d3953f.chunk.js.map": "/recycle-index/static/js/2.54d3953f.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.1e91ffc2.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.1e91ffc2.chunk.js.LICENSE.txt",
+    "static/js/2.54d3953f.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.54d3953f.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -36,11 +36,11 @@
     "static/media/bubble-3.cfdbe091.svg": "/recycle-index/static/media/bubble-3.cfdbe091.svg",
     "static/media/bubble-4.c5adca23.svg": "/recycle-index/static/media/bubble-4.c5adca23.svg",
     "static/media/bubble-5.9e9a3ca7.svg": "/recycle-index/static/media/bubble-5.9e9a3ca7.svg",
-    "static/media/cfg.555987ef.tsv": "/recycle-index/static/media/cfg.555987ef.tsv",
+    "static/media/cfg.274303dc.tsv": "/recycle-index/static/media/cfg.274303dc.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/complete.a72a0659.svg": "/recycle-index/static/media/complete.a72a0659.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
-    "static/media/data.bc2cb666.tsv": "/recycle-index/static/media/data.bc2cb666.tsv",
+    "static/media/data.995f3739.tsv": "/recycle-index/static/media/data.995f3739.tsv",
     "static/media/game-banner.43d6e119.svg": "/recycle-index/static/media/game-banner.43d6e119.svg",
     "static/media/glow.d6389f16.svg": "/recycle-index/static/media/glow.d6389f16.svg",
     "static/media/grid.0ea1b5a2.tsv": "/recycle-index/static/media/grid.0ea1b5a2.tsv",
@@ -92,7 +92,7 @@
     "static/media/免洗筷-筷子.png": "/recycle-index/static/media/免洗筷-筷子.912d837c.png",
     "static/media/免洗筷.png": "/recycle-index/static/media/免洗筷.2287aba6.png",
     "static/media/包裝盒蓋.png": "/recycle-index/static/media/包裝盒蓋.b25cabb1.png",
-    "static/media/化妝品瓶罐-瓶蓋.png": "/recycle-index/static/media/化妝品瓶罐-瓶蓋.da92bcdb.png",
+    "static/media/化妝品瓶罐-瓶蓋.png": "/recycle-index/static/media/化妝品瓶罐-瓶蓋.d32fb5b1.png",
     "static/media/化妝品瓶罐-瓶身.png": "/recycle-index/static/media/化妝品瓶罐-瓶身.f0f73c24.png",
     "static/media/化妝品瓶罐.png": "/recycle-index/static/media/化妝品瓶罐.b076b191.png",
     "static/media/原子筆-筆管（前）.png": "/recycle-index/static/media/原子筆-筆管（前）.fceb71fd.png",
@@ -383,7 +383,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.1e91ffc2.chunk.js",
-    "static/js/main.b89a69a2.chunk.js"
+    "static/js/2.54d3953f.chunk.js",
+    "static/js/main.dcd60a8f.chunk.js"
   ]
 }
