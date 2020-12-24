@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.a25bfccc.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.a25bfccc.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.51fc917a.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.51fc917a.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
     "static/js/2.239a9ecc.chunk.js": "/recycle-index/static/js/2.239a9ecc.chunk.js",
@@ -384,6 +384,6 @@
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
     "static/js/2.239a9ecc.chunk.js",
-    "static/js/main.a25bfccc.chunk.js"
+    "static/js/main.51fc917a.chunk.js"
   ]
 }
