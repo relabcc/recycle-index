@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.dcd60a8f.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.dcd60a8f.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.a25bfccc.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.a25bfccc.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.54d3953f.chunk.js": "/recycle-index/static/js/2.54d3953f.chunk.js",
-    "static/js/2.54d3953f.chunk.js.map": "/recycle-index/static/js/2.54d3953f.chunk.js.map",
+    "static/js/2.239a9ecc.chunk.js": "/recycle-index/static/js/2.239a9ecc.chunk.js",
+    "static/js/2.239a9ecc.chunk.js.map": "/recycle-index/static/js/2.239a9ecc.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.54d3953f.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.54d3953f.chunk.js.LICENSE.txt",
+    "static/js/2.239a9ecc.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.239a9ecc.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -36,11 +36,11 @@
     "static/media/bubble-3.cfdbe091.svg": "/recycle-index/static/media/bubble-3.cfdbe091.svg",
     "static/media/bubble-4.c5adca23.svg": "/recycle-index/static/media/bubble-4.c5adca23.svg",
     "static/media/bubble-5.9e9a3ca7.svg": "/recycle-index/static/media/bubble-5.9e9a3ca7.svg",
-    "static/media/cfg.274303dc.tsv": "/recycle-index/static/media/cfg.274303dc.tsv",
+    "static/media/cfg.d3ac9642.tsv": "/recycle-index/static/media/cfg.d3ac9642.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/complete.a72a0659.svg": "/recycle-index/static/media/complete.a72a0659.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
-    "static/media/data.995f3739.tsv": "/recycle-index/static/media/data.995f3739.tsv",
+    "static/media/data.c499506b.tsv": "/recycle-index/static/media/data.c499506b.tsv",
     "static/media/game-banner.43d6e119.svg": "/recycle-index/static/media/game-banner.43d6e119.svg",
     "static/media/glow.d6389f16.svg": "/recycle-index/static/media/glow.d6389f16.svg",
     "static/media/grid.0ea1b5a2.tsv": "/recycle-index/static/media/grid.0ea1b5a2.tsv",
@@ -383,7 +383,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.54d3953f.chunk.js",
-    "static/js/main.dcd60a8f.chunk.js"
+    "static/js/2.239a9ecc.chunk.js",
+    "static/js/main.a25bfccc.chunk.js"
   ]
 }
