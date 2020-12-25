@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.795aa058.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.795aa058.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.4069ccfb.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.4069ccfb.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.fb82f881.chunk.js": "/recycle-index/static/js/2.fb82f881.chunk.js",
-    "static/js/2.fb82f881.chunk.js.map": "/recycle-index/static/js/2.fb82f881.chunk.js.map",
+    "static/js/2.aa7bb70b.chunk.js": "/recycle-index/static/js/2.aa7bb70b.chunk.js",
+    "static/js/2.aa7bb70b.chunk.js.map": "/recycle-index/static/js/2.aa7bb70b.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.fb82f881.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.fb82f881.chunk.js.LICENSE.txt",
+    "static/js/2.aa7bb70b.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.aa7bb70b.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -57,8 +57,8 @@
     "static/media/picture.1b705141.svg": "/recycle-index/static/media/picture.1b705141.svg",
     "static/media/rc.4bf1e46c.svg": "/recycle-index/static/media/rc.4bf1e46c.svg",
     "static/media/recycle-tag.1ac2ab58.svg": "/recycle-index/static/media/recycle-tag.1ac2ab58.svg",
-    "static/media/recycle.3fdb5fec.svg": "/recycle-index/static/media/recycle.3fdb5fec.svg",
-    "static/media/recycle_1.6aa885c3.svg": "/recycle-index/static/media/recycle_1.6aa885c3.svg",
+    "static/media/recycle.b0475946.svg": "/recycle-index/static/media/recycle.b0475946.svg",
+    "static/media/recycle_1.35d5543a.svg": "/recycle-index/static/media/recycle_1.35d5543a.svg",
     "static/media/relab.07dc9dac.svg": "/recycle-index/static/media/relab.07dc9dac.svg",
     "static/media/renato.c8e0c368.svg": "/recycle-index/static/media/renato.c8e0c368.svg",
     "static/media/result-bg.425dbca3.svg": "/recycle-index/static/media/result-bg.425dbca3.svg",
@@ -81,9 +81,9 @@
     "static/media/trash-2.4a2dca4b.png": "/recycle-index/static/media/trash-2.4a2dca4b.png",
     "static/media/trash-3.d74bffac.png": "/recycle-index/static/media/trash-3.d74bffac.png",
     "static/media/trash-4.8892aeb4.png": "/recycle-index/static/media/trash-4.8892aeb4.png",
-    "static/media/trash.38847d95.svg": "/recycle-index/static/media/trash.38847d95.svg",
+    "static/media/trash.6b6e08df.svg": "/recycle-index/static/media/trash.6b6e08df.svg",
     "static/media/trash.c0cffbdc.svg": "/recycle-index/static/media/trash.c0cffbdc.svg",
-    "static/media/trash_1.b5d3ea76.svg": "/recycle-index/static/media/trash_1.b5d3ea76.svg",
+    "static/media/trash_1.83f5ff12.svg": "/recycle-index/static/media/trash_1.83f5ff12.svg",
     "static/media/wash.fd3562a3.svg": "/recycle-index/static/media/wash.fd3562a3.svg",
     "static/media/上部2.png": "/recycle-index/static/media/上部2.ed9d27b3.png",
     "static/media/不織布提袋.png": "/recycle-index/static/media/不織布提袋.391ffd9b.png",
@@ -360,7 +360,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.fb82f881.chunk.js",
-    "static/js/main.795aa058.chunk.js"
+    "static/js/2.aa7bb70b.chunk.js",
+    "static/js/main.4069ccfb.chunk.js"
   ]
 }
