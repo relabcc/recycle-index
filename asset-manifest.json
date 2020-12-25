@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.1ca8311f.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.1ca8311f.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.d3600e3d.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.d3600e3d.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
     "static/js/2.8d5bce5f.chunk.js": "/recycle-index/static/js/2.8d5bce5f.chunk.js",
@@ -28,6 +28,7 @@
     "static/media/4內盒.png": "/recycle-index/static/media/4內盒.b6829f17.png",
     "static/media/4扣環.png": "/recycle-index/static/media/4扣環.ab54a7e7.png",
     "static/media/5外盒.png": "/recycle-index/static/media/5外盒.a11ed4d8.png",
+    "static/media/about.fb53d42b.svg": "/recycle-index/static/media/about.fb53d42b.svg",
     "static/media/banner.05ee31b1.svg": "/recycle-index/static/media/banner.05ee31b1.svg",
     "static/media/bin.4d7c62a8.svg": "/recycle-index/static/media/bin.4d7c62a8.svg",
     "static/media/bin.7e86c100.svg": "/recycle-index/static/media/bin.7e86c100.svg",
@@ -52,6 +53,7 @@
     "static/media/mount-top.5509906c.png": "/recycle-index/static/media/mount-top.5509906c.png",
     "static/media/next.267297fd.svg": "/recycle-index/static/media/next.267297fd.svg",
     "static/media/peal.f025aee9.svg": "/recycle-index/static/media/peal.f025aee9.svg",
+    "static/media/picture.426eafed.svg": "/recycle-index/static/media/picture.426eafed.svg",
     "static/media/rc.4bf1e46c.svg": "/recycle-index/static/media/rc.4bf1e46c.svg",
     "static/media/recycle-tag.1ac2ab58.svg": "/recycle-index/static/media/recycle-tag.1ac2ab58.svg",
     "static/media/recycle.3fdb5fec.svg": "/recycle-index/static/media/recycle.3fdb5fec.svg",
@@ -359,6 +361,6 @@
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
     "static/js/2.8d5bce5f.chunk.js",
-    "static/js/main.1ca8311f.chunk.js"
+    "static/js/main.d3600e3d.chunk.js"
   ]
 }
