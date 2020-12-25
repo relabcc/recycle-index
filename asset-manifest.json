@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.d3600e3d.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.d3600e3d.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.f5616551.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.f5616551.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.8d5bce5f.chunk.js": "/recycle-index/static/js/2.8d5bce5f.chunk.js",
-    "static/js/2.8d5bce5f.chunk.js.map": "/recycle-index/static/js/2.8d5bce5f.chunk.js.map",
+    "static/js/2.fb82f881.chunk.js": "/recycle-index/static/js/2.fb82f881.chunk.js",
+    "static/js/2.fb82f881.chunk.js.map": "/recycle-index/static/js/2.fb82f881.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.8d5bce5f.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.8d5bce5f.chunk.js.LICENSE.txt",
+    "static/js/2.fb82f881.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.fb82f881.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -28,7 +28,7 @@
     "static/media/4內盒.png": "/recycle-index/static/media/4內盒.b6829f17.png",
     "static/media/4扣環.png": "/recycle-index/static/media/4扣環.ab54a7e7.png",
     "static/media/5外盒.png": "/recycle-index/static/media/5外盒.a11ed4d8.png",
-    "static/media/about.fb53d42b.svg": "/recycle-index/static/media/about.fb53d42b.svg",
+    "static/media/about.985f2580.svg": "/recycle-index/static/media/about.985f2580.svg",
     "static/media/banner.05ee31b1.svg": "/recycle-index/static/media/banner.05ee31b1.svg",
     "static/media/bin.4d7c62a8.svg": "/recycle-index/static/media/bin.4d7c62a8.svg",
     "static/media/bin.7e86c100.svg": "/recycle-index/static/media/bin.7e86c100.svg",
@@ -43,6 +43,7 @@
     "static/media/complete.d6562ec3.svg": "/recycle-index/static/media/complete.d6562ec3.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
     "static/media/data.c499506b.tsv": "/recycle-index/static/media/data.c499506b.tsv",
+    "static/media/foodpanda.c48405ce.svg": "/recycle-index/static/media/foodpanda.c48405ce.svg",
     "static/media/glow.a77b65af.svg": "/recycle-index/static/media/glow.a77b65af.svg",
     "static/media/grid.0ea1b5a2.tsv": "/recycle-index/static/media/grid.0ea1b5a2.tsv",
     "static/media/hand.a515f464.svg": "/recycle-index/static/media/hand.a515f464.svg",
@@ -53,7 +54,7 @@
     "static/media/mount-top.5509906c.png": "/recycle-index/static/media/mount-top.5509906c.png",
     "static/media/next.267297fd.svg": "/recycle-index/static/media/next.267297fd.svg",
     "static/media/peal.f025aee9.svg": "/recycle-index/static/media/peal.f025aee9.svg",
-    "static/media/picture.426eafed.svg": "/recycle-index/static/media/picture.426eafed.svg",
+    "static/media/picture.1b705141.svg": "/recycle-index/static/media/picture.1b705141.svg",
     "static/media/rc.4bf1e46c.svg": "/recycle-index/static/media/rc.4bf1e46c.svg",
     "static/media/recycle-tag.1ac2ab58.svg": "/recycle-index/static/media/recycle-tag.1ac2ab58.svg",
     "static/media/recycle.3fdb5fec.svg": "/recycle-index/static/media/recycle.3fdb5fec.svg",
@@ -80,7 +81,6 @@
     "static/media/trash-2.4a2dca4b.png": "/recycle-index/static/media/trash-2.4a2dca4b.png",
     "static/media/trash-3.d74bffac.png": "/recycle-index/static/media/trash-3.d74bffac.png",
     "static/media/trash-4.8892aeb4.png": "/recycle-index/static/media/trash-4.8892aeb4.png",
-    "static/media/trash-tag.141746b6.svg": "/recycle-index/static/media/trash-tag.141746b6.svg",
     "static/media/trash.38847d95.svg": "/recycle-index/static/media/trash.38847d95.svg",
     "static/media/trash.c0cffbdc.svg": "/recycle-index/static/media/trash.c0cffbdc.svg",
     "static/media/trash_1.b5d3ea76.svg": "/recycle-index/static/media/trash_1.b5d3ea76.svg",
@@ -360,7 +360,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.8d5bce5f.chunk.js",
-    "static/js/main.d3600e3d.chunk.js"
+    "static/js/2.fb82f881.chunk.js",
+    "static/js/main.f5616551.chunk.js"
   ]
 }
