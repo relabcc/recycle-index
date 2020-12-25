@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.f5616551.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.f5616551.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.795aa058.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.795aa058.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
     "static/js/2.fb82f881.chunk.js": "/recycle-index/static/js/2.fb82f881.chunk.js",
@@ -32,11 +32,11 @@
     "static/media/banner.05ee31b1.svg": "/recycle-index/static/media/banner.05ee31b1.svg",
     "static/media/bin.4d7c62a8.svg": "/recycle-index/static/media/bin.4d7c62a8.svg",
     "static/media/bin.7e86c100.svg": "/recycle-index/static/media/bin.7e86c100.svg",
-    "static/media/bubble-1.41b11dd6.svg": "/recycle-index/static/media/bubble-1.41b11dd6.svg",
-    "static/media/bubble-2.30e673fc.svg": "/recycle-index/static/media/bubble-2.30e673fc.svg",
-    "static/media/bubble-3.cfdbe091.svg": "/recycle-index/static/media/bubble-3.cfdbe091.svg",
-    "static/media/bubble-4.c5adca23.svg": "/recycle-index/static/media/bubble-4.c5adca23.svg",
-    "static/media/bubble-5.9e9a3ca7.svg": "/recycle-index/static/media/bubble-5.9e9a3ca7.svg",
+    "static/media/bubble-1.3a19af6e.svg": "/recycle-index/static/media/bubble-1.3a19af6e.svg",
+    "static/media/bubble-2.a2318e3d.svg": "/recycle-index/static/media/bubble-2.a2318e3d.svg",
+    "static/media/bubble-3.ac1df154.svg": "/recycle-index/static/media/bubble-3.ac1df154.svg",
+    "static/media/bubble-4.528dac2b.svg": "/recycle-index/static/media/bubble-4.528dac2b.svg",
+    "static/media/bubble-5.8c90c0ec.svg": "/recycle-index/static/media/bubble-5.8c90c0ec.svg",
     "static/media/cfg.a602301e.tsv": "/recycle-index/static/media/cfg.a602301e.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/citi.fd367fcc.svg": "/recycle-index/static/media/citi.fd367fcc.svg",
@@ -361,6 +361,6 @@
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
     "static/js/2.fb82f881.chunk.js",
-    "static/js/main.f5616551.chunk.js"
+    "static/js/main.795aa058.chunk.js"
   ]
 }
