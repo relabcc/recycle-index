@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.532502a7.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.532502a7.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.594324ff.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.594324ff.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.64a72675.chunk.js": "/recycle-index/static/js/2.64a72675.chunk.js",
-    "static/js/2.64a72675.chunk.js.map": "/recycle-index/static/js/2.64a72675.chunk.js.map",
+    "static/js/2.28b25771.chunk.js": "/recycle-index/static/js/2.28b25771.chunk.js",
+    "static/js/2.28b25771.chunk.js.map": "/recycle-index/static/js/2.28b25771.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.64a72675.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.64a72675.chunk.js.LICENSE.txt",
+    "static/js/2.28b25771.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.28b25771.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -37,12 +37,12 @@
     "static/media/bubble-3.ac1df154.svg": "/recycle-index/static/media/bubble-3.ac1df154.svg",
     "static/media/bubble-4.528dac2b.svg": "/recycle-index/static/media/bubble-4.528dac2b.svg",
     "static/media/bubble-5.8c90c0ec.svg": "/recycle-index/static/media/bubble-5.8c90c0ec.svg",
-    "static/media/cfg.b6b58f53.tsv": "/recycle-index/static/media/cfg.b6b58f53.tsv",
+    "static/media/cfg.81d79d49.tsv": "/recycle-index/static/media/cfg.81d79d49.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/citi.fd367fcc.svg": "/recycle-index/static/media/citi.fd367fcc.svg",
     "static/media/complete.d6562ec3.svg": "/recycle-index/static/media/complete.d6562ec3.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
-    "static/media/data.59a19e0c.tsv": "/recycle-index/static/media/data.59a19e0c.tsv",
+    "static/media/data.c09a9957.tsv": "/recycle-index/static/media/data.c09a9957.tsv",
     "static/media/fb.20feab9b.svg": "/recycle-index/static/media/fb.20feab9b.svg",
     "static/media/foodpanda.c48405ce.svg": "/recycle-index/static/media/foodpanda.c48405ce.svg",
     "static/media/glow.a77b65af.svg": "/recycle-index/static/media/glow.a77b65af.svg",
@@ -276,7 +276,7 @@
     "static/media/紙製便當盒-餐盒下.png": "/recycle-index/static/media/紙製便當盒-餐盒下.36e23d80.png",
     "static/media/紙製便當盒-餐盒蓋.png": "/recycle-index/static/media/紙製便當盒-餐盒蓋.a8debe27.png",
     "static/media/紙飲料杯.png": "/recycle-index/static/media/紙飲料杯.fca88132.png",
-    "static/media/絨毛玩偶.png": "/recycle-index/static/media/絨毛玩偶.ecfbafed.png",
+    "static/media/絨毛玩偶.png": "/recycle-index/static/media/絨毛玩偶.97fe3a79.png",
     "static/media/網購破壞袋-膠條.png": "/recycle-index/static/media/網購破壞袋-膠條.a7dc7222.png",
     "static/media/網購破壞袋-袋子.png": "/recycle-index/static/media/網購破壞袋-袋子.0948b5fb.png",
     "static/media/網購破壞袋.png": "/recycle-index/static/media/網購破壞袋.2f89d8ed.png",
@@ -362,7 +362,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.64a72675.chunk.js",
-    "static/js/main.532502a7.chunk.js"
+    "static/js/2.28b25771.chunk.js",
+    "static/js/main.594324ff.chunk.js"
   ]
 }
