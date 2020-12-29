@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.460cf80f.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.460cf80f.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.0dcf8e34.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.0dcf8e34.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.28b25771.chunk.js": "/recycle-index/static/js/2.28b25771.chunk.js",
-    "static/js/2.28b25771.chunk.js.map": "/recycle-index/static/js/2.28b25771.chunk.js.map",
+    "static/js/2.02570d54.chunk.js": "/recycle-index/static/js/2.02570d54.chunk.js",
+    "static/js/2.02570d54.chunk.js.map": "/recycle-index/static/js/2.02570d54.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.28b25771.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.28b25771.chunk.js.LICENSE.txt",
+    "static/js/2.02570d54.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.02570d54.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -37,12 +37,12 @@
     "static/media/bubble-3.ac1df154.svg": "/recycle-index/static/media/bubble-3.ac1df154.svg",
     "static/media/bubble-4.528dac2b.svg": "/recycle-index/static/media/bubble-4.528dac2b.svg",
     "static/media/bubble-5.8c90c0ec.svg": "/recycle-index/static/media/bubble-5.8c90c0ec.svg",
-    "static/media/cfg.81d79d49.tsv": "/recycle-index/static/media/cfg.81d79d49.tsv",
+    "static/media/cfg.d0eeb4dc.tsv": "/recycle-index/static/media/cfg.d0eeb4dc.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/citi.fd367fcc.svg": "/recycle-index/static/media/citi.fd367fcc.svg",
     "static/media/complete.d6562ec3.svg": "/recycle-index/static/media/complete.d6562ec3.svg",
     "static/media/crush.4971570a.svg": "/recycle-index/static/media/crush.4971570a.svg",
-    "static/media/data.c09a9957.tsv": "/recycle-index/static/media/data.c09a9957.tsv",
+    "static/media/data.3a923e4f.tsv": "/recycle-index/static/media/data.3a923e4f.tsv",
     "static/media/fb.20feab9b.svg": "/recycle-index/static/media/fb.20feab9b.svg",
     "static/media/foodpanda.c48405ce.svg": "/recycle-index/static/media/foodpanda.c48405ce.svg",
     "static/media/glow.a77b65af.svg": "/recycle-index/static/media/glow.a77b65af.svg",
@@ -356,13 +356,14 @@
     "static/media/馬桶刷-收納盒（後）.png": "/recycle-index/static/media/馬桶刷-收納盒（後）.12280204.png",
     "static/media/馬桶刷-柄.png": "/recycle-index/static/media/馬桶刷-柄.d7ce9251.png",
     "static/media/馬桶刷.png": "/recycle-index/static/media/馬桶刷.48c768d8.png",
+    "static/media/髒髒塑膠袋.png": "/recycle-index/static/media/髒髒塑膠袋.97f59c6f.png",
     "static/media/高壓瓶-瓶蓋.png": "/recycle-index/static/media/高壓瓶-瓶蓋.ec55fbea.png",
     "static/media/高壓瓶-瓶身.png": "/recycle-index/static/media/高壓瓶-瓶身.ec87ba91.png",
     "static/media/高壓瓶.png": "/recycle-index/static/media/高壓瓶.9541e35b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.28b25771.chunk.js",
-    "static/js/main.460cf80f.chunk.js"
+    "static/js/2.02570d54.chunk.js",
+    "static/js/main.0dcf8e34.chunk.js"
   ]
 }
