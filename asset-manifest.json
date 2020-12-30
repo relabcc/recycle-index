@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.3081e82f.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.3081e82f.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.61b0ea66.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.61b0ea66.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.b0c48098.chunk.js": "/recycle-index/static/js/2.b0c48098.chunk.js",
-    "static/js/2.b0c48098.chunk.js.map": "/recycle-index/static/js/2.b0c48098.chunk.js.map",
+    "static/js/2.efdadb16.chunk.js": "/recycle-index/static/js/2.efdadb16.chunk.js",
+    "static/js/2.efdadb16.chunk.js.map": "/recycle-index/static/js/2.efdadb16.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.b0c48098.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.b0c48098.chunk.js.LICENSE.txt",
+    "static/js/2.efdadb16.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.efdadb16.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -43,7 +43,7 @@
     "static/media/clean.ed5a8bc1.svg": "/recycle-index/static/media/clean.ed5a8bc1.svg",
     "static/media/complete.d6562ec3.svg": "/recycle-index/static/media/complete.d6562ec3.svg",
     "static/media/crush.b32c8765.svg": "/recycle-index/static/media/crush.b32c8765.svg",
-    "static/media/data.d7b49518.tsv": "/recycle-index/static/media/data.d7b49518.tsv",
+    "static/media/data.cd01c39d.tsv": "/recycle-index/static/media/data.cd01c39d.tsv",
     "static/media/dry.517cb213.svg": "/recycle-index/static/media/dry.517cb213.svg",
     "static/media/fb.20feab9b.svg": "/recycle-index/static/media/fb.20feab9b.svg",
     "static/media/foodpanda.c48405ce.svg": "/recycle-index/static/media/foodpanda.c48405ce.svg",
@@ -367,7 +367,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.b0c48098.chunk.js",
-    "static/js/main.3081e82f.chunk.js"
+    "static/js/2.efdadb16.chunk.js",
+    "static/js/main.61b0ea66.chunk.js"
   ]
 }
