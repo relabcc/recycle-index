@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.1a586692.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.1a586692.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.c87d9c40.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.c87d9c40.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.4906986f.chunk.js": "/recycle-index/static/js/2.4906986f.chunk.js",
-    "static/js/2.4906986f.chunk.js.map": "/recycle-index/static/js/2.4906986f.chunk.js.map",
+    "static/js/2.27c43097.chunk.js": "/recycle-index/static/js/2.27c43097.chunk.js",
+    "static/js/2.27c43097.chunk.js.map": "/recycle-index/static/js/2.27c43097.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.4906986f.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.4906986f.chunk.js.LICENSE.txt",
+    "static/js/2.27c43097.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.27c43097.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -84,7 +84,7 @@
     "static/media/timer.e292eda8.svg": "/recycle-index/static/media/timer.e292eda8.svg",
     "static/media/title-overlay.886acfc5.svg": "/recycle-index/static/media/title-overlay.886acfc5.svg",
     "static/media/title-shape-desktop.de47abee.svg": "/recycle-index/static/media/title-shape-desktop.de47abee.svg",
-    "static/media/title.e0336ee2.svg": "/recycle-index/static/media/title.e0336ee2.svg",
+    "static/media/title.2f8d46d0.svg": "/recycle-index/static/media/title.2f8d46d0.svg",
     "static/media/trash-bag.53e7746d.svg": "/recycle-index/static/media/trash-bag.53e7746d.svg",
     "static/media/trash.6b6e08df.svg": "/recycle-index/static/media/trash.6b6e08df.svg",
     "static/media/trash.c0cffbdc.svg": "/recycle-index/static/media/trash.c0cffbdc.svg",
@@ -367,7 +367,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.4906986f.chunk.js",
-    "static/js/main.1a586692.chunk.js"
+    "static/js/2.27c43097.chunk.js",
+    "static/js/main.c87d9c40.chunk.js"
   ]
 }
