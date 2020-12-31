@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.24ed3a80.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.24ed3a80.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.54dff384.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.54dff384.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.9bf72e89.chunk.js": "/recycle-index/static/js/2.9bf72e89.chunk.js",
-    "static/js/2.9bf72e89.chunk.js.map": "/recycle-index/static/js/2.9bf72e89.chunk.js.map",
+    "static/js/2.6960f0a7.chunk.js": "/recycle-index/static/js/2.6960f0a7.chunk.js",
+    "static/js/2.6960f0a7.chunk.js.map": "/recycle-index/static/js/2.6960f0a7.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.9bf72e89.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.9bf72e89.chunk.js.LICENSE.txt",
+    "static/js/2.6960f0a7.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.6960f0a7.chunk.js.LICENSE.txt",
     "static/media/1外殼.png": "/recycle-index/static/media/1外殼.522721db.png",
     "static/media/1封膜.png": "/recycle-index/static/media/1封膜.2d877e1f.png",
     "static/media/1拉桿.png": "/recycle-index/static/media/1拉桿.2952db72.png",
@@ -71,6 +71,7 @@
     "static/media/result-right-shape.74df497f.svg": "/recycle-index/static/media/result-right-shape.74df497f.svg",
     "static/media/result-shape.80bbeef0.svg": "/recycle-index/static/media/result-shape.80bbeef0.svg",
     "static/media/rethink.e6f11bb5.svg": "/recycle-index/static/media/rethink.e6f11bb5.svg",
+    "static/media/scale.03525ca8.tsv": "/recycle-index/static/media/scale.03525ca8.tsv",
     "static/media/seperate.03c2acf5.svg": "/recycle-index/static/media/seperate.03c2acf5.svg",
     "static/media/share-bg-mobile.bf0a9404.svg": "/recycle-index/static/media/share-bg-mobile.bf0a9404.svg",
     "static/media/share-bg.1527818e.svg": "/recycle-index/static/media/share-bg.1527818e.svg",
@@ -367,7 +368,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.9bf72e89.chunk.js",
-    "static/js/main.24ed3a80.chunk.js"
+    "static/js/2.6960f0a7.chunk.js",
+    "static/js/main.54dff384.chunk.js"
   ]
 }
