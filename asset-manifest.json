@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.5029f7ae.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.5029f7ae.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.65361763.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.65361763.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
     "static/js/2.7de42957.chunk.js": "/recycle-index/static/js/2.7de42957.chunk.js",
@@ -37,18 +37,18 @@
     "static/media/bubble-3.12aa7e9e.svg": "/recycle-index/static/media/bubble-3.12aa7e9e.svg",
     "static/media/bubble-4.233dd2ca.svg": "/recycle-index/static/media/bubble-4.233dd2ca.svg",
     "static/media/bubble-5.341a969c.svg": "/recycle-index/static/media/bubble-5.341a969c.svg",
-    "static/media/cfg.d0eeb4dc.tsv": "/recycle-index/static/media/cfg.d0eeb4dc.tsv",
+    "static/media/cfg.50fafdc6.tsv": "/recycle-index/static/media/cfg.50fafdc6.tsv",
     "static/media/chev-down.3d2e85e9.svg": "/recycle-index/static/media/chev-down.3d2e85e9.svg",
     "static/media/citi.fd367fcc.svg": "/recycle-index/static/media/citi.fd367fcc.svg",
     "static/media/clean.ed5a8bc1.svg": "/recycle-index/static/media/clean.ed5a8bc1.svg",
     "static/media/complete.d6562ec3.svg": "/recycle-index/static/media/complete.d6562ec3.svg",
     "static/media/crush.b32c8765.svg": "/recycle-index/static/media/crush.b32c8765.svg",
-    "static/media/data.cd01c39d.tsv": "/recycle-index/static/media/data.cd01c39d.tsv",
+    "static/media/data.5b30a88c.tsv": "/recycle-index/static/media/data.5b30a88c.tsv",
     "static/media/dry.517cb213.svg": "/recycle-index/static/media/dry.517cb213.svg",
     "static/media/fb.20feab9b.svg": "/recycle-index/static/media/fb.20feab9b.svg",
     "static/media/foodpanda.c48405ce.svg": "/recycle-index/static/media/foodpanda.c48405ce.svg",
     "static/media/glow.a77b65af.svg": "/recycle-index/static/media/glow.a77b65af.svg",
-    "static/media/grid.0ea1b5a2.tsv": "/recycle-index/static/media/grid.0ea1b5a2.tsv",
+    "static/media/grid.73a1e798.tsv": "/recycle-index/static/media/grid.73a1e798.tsv",
     "static/media/hand.a515f464.svg": "/recycle-index/static/media/hand.a515f464.svg",
     "static/media/hashtag-shape.1eb16836.svg": "/recycle-index/static/media/hashtag-shape.1eb16836.svg",
     "static/media/line.171c19fe.svg": "/recycle-index/static/media/line.171c19fe.svg",
@@ -72,7 +72,7 @@
     "static/media/result-right-shape.74df497f.svg": "/recycle-index/static/media/result-right-shape.74df497f.svg",
     "static/media/result-shape.80bbeef0.svg": "/recycle-index/static/media/result-shape.80bbeef0.svg",
     "static/media/rethink.e6f11bb5.svg": "/recycle-index/static/media/rethink.e6f11bb5.svg",
-    "static/media/scale.03525ca8.tsv": "/recycle-index/static/media/scale.03525ca8.tsv",
+    "static/media/scale.41a62aad.tsv": "/recycle-index/static/media/scale.41a62aad.tsv",
     "static/media/seperate.03c2acf5.svg": "/recycle-index/static/media/seperate.03c2acf5.svg",
     "static/media/share-bg-mobile.bf0a9404.svg": "/recycle-index/static/media/share-bg-mobile.bf0a9404.svg",
     "static/media/share-bg.1527818e.svg": "/recycle-index/static/media/share-bg.1527818e.svg",
@@ -126,7 +126,6 @@
     "static/media/塑膠吸管-吸管.png": "/recycle-index/static/media/塑膠吸管-吸管.14c347bb.png",
     "static/media/塑膠吸管-吸管套.png": "/recycle-index/static/media/塑膠吸管-吸管套.07c746e6.png",
     "static/media/塑膠吸管.png": "/recycle-index/static/media/塑膠吸管.48cc8dd6.png",
-    "static/media/塑膠梳子.png": "/recycle-index/static/media/塑膠梳子.441c42e5.png",
     "static/media/塑膠湯匙.png": "/recycle-index/static/media/塑膠湯匙.851d051e.png",
     "static/media/塑膠牙線棒.png": "/recycle-index/static/media/塑膠牙線棒.275e4bfd.png",
     "static/media/塑膠膜1.png": "/recycle-index/static/media/塑膠膜1.039dcf5c.png",
@@ -202,6 +201,7 @@
     "static/media/杯緣（前）3.png": "/recycle-index/static/media/杯緣（前）3.448dfc58.png",
     "static/media/杯緣（前）4.png": "/recycle-index/static/media/杯緣（前）4.c98dc56d.png",
     "static/media/枯枝落葉.png": "/recycle-index/static/media/枯枝落葉.cb0faee9.png",
+    "static/media/梳子.png": "/recycle-index/static/media/梳子.441c42e5.png",
     "static/media/棉花棒-塑膠軸.png": "/recycle-index/static/media/棉花棒-塑膠軸.81786be6.png",
     "static/media/棉花棒-棉花（上）.png": "/recycle-index/static/media/棉花棒-棉花（上）.d172a306.png",
     "static/media/棉花棒-棉花（下）.png": "/recycle-index/static/media/棉花棒-棉花（下）.f384c54a.png",
@@ -370,6 +370,6 @@
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
     "static/js/2.7de42957.chunk.js",
-    "static/js/main.5029f7ae.chunk.js"
+    "static/js/main.65361763.chunk.js"
   ]
 }
