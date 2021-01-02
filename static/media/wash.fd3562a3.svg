@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <g id="圖層_6" data-name="圖層 6">
+    <g>
+      <g>
+        <ellipse cx="120.03" cy="68.77" rx="9.25" ry="12.8" transform="matrix(1, -0.01, 0.01, 1, -0.38, 0.67)" stroke-width="2.2" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" fill="#b3b3b3"/>
+        <rect x="93.65" y="47.56" width="8.53" height="18.49" transform="translate(-0.32 0.55) rotate(-0.32)" stroke-width="2.22" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" fill="#f2f2f2"/>
+        <path d="M70.9,59.09A11.41,11.41,0,0,0,59.58,70.53l.11,19.92,22.76-.13-.06-11.38,31.29-.18c5.48,0,8.51-4.52,8.48-10s-3.11-9.94-8.59-9.91l-41.25.23Z" fill="#e6e6e6" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.22"/>
+        <rect x="56.86" y="87.54" width="28.45" height="8.53" rx="1.57" transform="translate(-0.51 0.4) rotate(-0.32)" stroke-width="2.22" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" fill="#b3b3b3"/>
+        <path d="M118.51,31.19l-6,0a15.5,15.5,0,0,0-28.84.16l-6.61,0a4.86,4.86,0,0,0-4.84,4.89V38a4.88,4.88,0,0,0,4.9,4.84l6.61,0a15.5,15.5,0,0,0,28.84-.16l6,0a4.86,4.86,0,0,0,4.84-4.89V36A4.87,4.87,0,0,0,118.51,31.19Z" fill="#e6e6e6" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+        <line x1="81.44" y1="31.4" x2="90.66" y2="31.35" fill="#f2f2f2" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+        <polyline points="83.72 42.77 90.72 42.73 112.55 42.61" fill="#f2f2f2" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+        <path d="M99.51,25.33s7.7,0,10.32,8.92" fill="#f2f2f2" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+        <path d="M90.74,45.74s1.5,3.19,7.13,3.57" fill="#f2f2f2" stroke="#f2f2f2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+        <path d="M63.85,74.3S62.51,62.75,76.62,62.67l16.69-.09" fill="none" stroke="#f2f2f2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.08"/>
+      </g>
+      <path d="M58,157V112.63A12.62,12.62,0,0,1,70.63,100h.74A12.62,12.62,0,0,1,84,112.63V157" fill="#84d7f4" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.58"/>
+      <line x1="65.7" y1="118" x2="65.7" y2="145.47" fill="#84d7f4" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.58"/>
+      <line x1="75" y1="125" x2="75" y2="150.66" fill="#84d7f4" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.58"/>
+    </g>
+  </g>
+</svg>
