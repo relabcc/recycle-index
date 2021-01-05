@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/recycle-index/static/js/main.cc1427b9.chunk.js",
-    "main.js.map": "/recycle-index/static/js/main.cc1427b9.chunk.js.map",
+    "main.js": "/recycle-index/static/js/main.15a7a846.chunk.js",
+    "main.js.map": "/recycle-index/static/js/main.15a7a846.chunk.js.map",
     "runtime-main.js": "/recycle-index/static/js/runtime-main.def3f64b.js",
     "runtime-main.js.map": "/recycle-index/static/js/runtime-main.def3f64b.js.map",
-    "static/js/2.6975a75e.chunk.js": "/recycle-index/static/js/2.6975a75e.chunk.js",
-    "static/js/2.6975a75e.chunk.js.map": "/recycle-index/static/js/2.6975a75e.chunk.js.map",
+    "static/js/2.3bfc89c7.chunk.js": "/recycle-index/static/js/2.3bfc89c7.chunk.js",
+    "static/js/2.3bfc89c7.chunk.js.map": "/recycle-index/static/js/2.3bfc89c7.chunk.js.map",
     "index.html": "/recycle-index/index.html",
-    "static/js/2.6975a75e.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.6975a75e.chunk.js.LICENSE.txt",
+    "static/js/2.3bfc89c7.chunk.js.LICENSE.txt": "/recycle-index/static/js/2.3bfc89c7.chunk.js.LICENSE.txt",
     "static/media/1.webp": "/recycle-index/static/media/1.7372f6d3.webp",
     "static/media/1.png": "/recycle-index/static/media/1.fc2f40db.png",
     "static/media/1內殼.png": "/recycle-index/static/media/1內殼.00d8d469.png",
@@ -693,7 +693,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.def3f64b.js",
-    "static/js/2.6975a75e.chunk.js",
-    "static/js/main.cc1427b9.chunk.js"
+    "static/js/2.3bfc89c7.chunk.js",
+    "static/js/main.15a7a846.chunk.js"
   ]
 }
