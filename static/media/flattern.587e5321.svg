@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g>
+    <polyline points="65.83 101.88 82.22 126 107.56 117.49 135.06 108.58 118.69 84.75" fill="#f1f1f1"/>
+    <polyline points="65.83 101.88 40.22 110 57.22 134 82.19 125.71" fill="#f1f1f1" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38"/>
+    <polyline points="118.69 84.75 143.22 77 160.22 101 135.06 108.58" fill="#f1f1f1" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38"/>
+    <polyline points="65.83 101.88 49.22 78 102.22 61 118.69 84.75" fill="#f1f1f1" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38"/>
+    <polyline points="82.19 125.71 98.22 149 151.22 132 135.06 108.58" fill="#f1f1f1" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38"/>
+    <line x1="68.22" y1="101" x2="116.22" y2="86" fill="#f1f1f1" stroke-dasharray="5.34" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38" stroke="#4d4d4d"/>
+    <line x1="84.22" y1="125" x2="132.22" y2="110" fill="#f1f1f1" stroke-dasharray="5.34" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38" stroke="#4d4d4d"/>
+    <line x1="69.06" y1="105.97" x2="82.15" y2="125.25" fill="#f1f1f1" stroke-dasharray="5.94" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38" stroke="#4d4d4d"/>
+    <line x1="122.06" y1="88.97" x2="135.15" y2="108.25" fill="#f1f1f1" stroke-dasharray="5.94" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.38" stroke="#4d4d4d"/>
+  </g>
+</svg>
