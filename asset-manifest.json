@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/static/js/main.347ca3f6.chunk.js",
-    "main.js.map": "/static/js/main.347ca3f6.chunk.js.map",
+    "main.js": "/static/js/main.1722c201.chunk.js",
+    "main.js.map": "/static/js/main.1722c201.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.e55553dc.js",
     "runtime-main.js.map": "/static/js/runtime-main.e55553dc.js.map",
     "static/js/2.59182911.chunk.js": "/static/js/2.59182911.chunk.js",
@@ -127,7 +127,8 @@
     "static/media/title-shape-desktop.de47abee.svg": "/static/media/title-shape-desktop.de47abee.svg",
     "static/media/title.17413ad8.svg": "/static/media/title.17413ad8.svg",
     "static/media/trash-bag.53e7746d.svg": "/static/media/trash-bag.53e7746d.svg",
-    "static/media/trash-mobile.f91ef722.png": "/static/media/trash-mobile.f91ef722.png",
+    "static/media/trash-mobile.56795aff.png": "/static/media/trash-mobile.56795aff.png",
+    "static/media/trash-mobile_2.3a5fa276.png": "/static/media/trash-mobile_2.3a5fa276.png",
     "static/media/trash.6b6e08df.svg": "/static/media/trash.6b6e08df.svg",
     "static/media/trash.c0cffbdc.svg": "/static/media/trash.c0cffbdc.svg",
     "static/media/trash_1.83f5ff12.svg": "/static/media/trash_1.83f5ff12.svg",
@@ -693,6 +694,6 @@
   "entrypoints": [
     "static/js/runtime-main.e55553dc.js",
     "static/js/2.59182911.chunk.js",
-    "static/js/main.347ca3f6.chunk.js"
+    "static/js/main.1722c201.chunk.js"
   ]
 }
