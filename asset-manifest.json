@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.ccd80d62.chunk.js",
-    "main.js.map": "/static/js/main.ccd80d62.chunk.js.map",
+    "main.js": "/static/js/main.347ca3f6.chunk.js",
+    "main.js.map": "/static/js/main.347ca3f6.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.e55553dc.js",
     "runtime-main.js.map": "/static/js/runtime-main.e55553dc.js.map",
-    "static/js/2.3bfc89c7.chunk.js": "/static/js/2.3bfc89c7.chunk.js",
-    "static/js/2.3bfc89c7.chunk.js.map": "/static/js/2.3bfc89c7.chunk.js.map",
+    "static/js/2.59182911.chunk.js": "/static/js/2.59182911.chunk.js",
+    "static/js/2.59182911.chunk.js.map": "/static/js/2.59182911.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.3bfc89c7.chunk.js.LICENSE.txt": "/static/js/2.3bfc89c7.chunk.js.LICENSE.txt",
+    "static/js/2.59182911.chunk.js.LICENSE.txt": "/static/js/2.59182911.chunk.js.LICENSE.txt",
     "static/media/1.webp": "/static/media/1.7372f6d3.webp",
     "static/media/1.png": "/static/media/1.fc2f40db.png",
     "static/media/1內殼.png": "/static/media/1內殼.00d8d469.png",
@@ -79,7 +79,6 @@
     "static/media/flattern.587e5321.svg": "/static/media/flattern.587e5321.svg",
     "static/media/foodpanda.c48405ce.svg": "/static/media/foodpanda.c48405ce.svg",
     "static/media/glow.a77b65af.svg": "/static/media/glow.a77b65af.svg",
-    "static/media/grid.73a1e798.tsv": "/static/media/grid.73a1e798.tsv",
     "static/media/hand.a515f464.svg": "/static/media/hand.a515f464.svg",
     "static/media/hashtag-shape.1eb16836.svg": "/static/media/hashtag-shape.1eb16836.svg",
     "static/media/how-1.460fb1c2.png": "/static/media/how-1.460fb1c2.png",
@@ -115,7 +114,7 @@
     "static/media/result-detail-shape.55c013af.svg": "/static/media/result-detail-shape.55c013af.svg",
     "static/media/result-shape.80bbeef0.svg": "/static/media/result-shape.80bbeef0.svg",
     "static/media/rethink.e6f11bb5.svg": "/static/media/rethink.e6f11bb5.svg",
-    "static/media/scale.bdad44cf.tsv": "/static/media/scale.bdad44cf.tsv",
+    "static/media/scale.5a4dfec3.tsv": "/static/media/scale.5a4dfec3.tsv",
     "static/media/seperate.03c2acf5.svg": "/static/media/seperate.03c2acf5.svg",
     "static/media/share-bg-mobile.ec04e308.svg": "/static/media/share-bg-mobile.ec04e308.svg",
     "static/media/share-bg.1527818e.svg": "/static/media/share-bg.1527818e.svg",
@@ -693,7 +692,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.e55553dc.js",
-    "static/js/2.3bfc89c7.chunk.js",
-    "static/js/main.ccd80d62.chunk.js"
+    "static/js/2.59182911.chunk.js",
+    "static/js/main.347ca3f6.chunk.js"
   ]
 }
