@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.9a3f26b1.chunk.js",
-    "main.js.map": "/static/js/main.9a3f26b1.chunk.js.map",
+    "main.js": "/static/js/main.2ae5ef24.chunk.js",
+    "main.js.map": "/static/js/main.2ae5ef24.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.e55553dc.js",
     "runtime-main.js.map": "/static/js/runtime-main.e55553dc.js.map",
-    "static/js/2.0d9b16f6.chunk.js": "/static/js/2.0d9b16f6.chunk.js",
-    "static/js/2.0d9b16f6.chunk.js.map": "/static/js/2.0d9b16f6.chunk.js.map",
+    "static/js/2.25ed487b.chunk.js": "/static/js/2.25ed487b.chunk.js",
+    "static/js/2.25ed487b.chunk.js.map": "/static/js/2.25ed487b.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.0d9b16f6.chunk.js.LICENSE.txt": "/static/js/2.0d9b16f6.chunk.js.LICENSE.txt",
+    "static/js/2.25ed487b.chunk.js.LICENSE.txt": "/static/js/2.25ed487b.chunk.js.LICENSE.txt",
     "static/media/1.webp": "/static/media/1.7372f6d3.webp",
     "static/media/1.png": "/static/media/1.fc2f40db.png",
     "static/media/1內殼.png": "/static/media/1內殼.00d8d469.png",
@@ -87,10 +87,9 @@
     "static/media/how-2.22045d85.png": "/static/media/how-2.22045d85.png",
     "static/media/how-3.495e3d00.webp": "/static/media/how-3.495e3d00.webp",
     "static/media/how-3.881dd8f8.png": "/static/media/how-3.881dd8f8.png",
-    "static/media/how-4.977c5e39.png": "/static/media/how-4.977c5e39.png",
-    "static/media/how-4.ae052d60.webp": "/static/media/how-4.ae052d60.webp",
     "static/media/how-5.368f7513.png": "/static/media/how-5.368f7513.png",
     "static/media/how-5.3ad235ec.webp": "/static/media/how-5.3ad235ec.webp",
+    "static/media/how_4.291cc718.png": "/static/media/how_4.291cc718.png",
     "static/media/line.171c19fe.svg": "/static/media/line.171c19fe.svg",
     "static/media/logo.9bc32188.svg": "/static/media/logo.9bc32188.svg",
     "static/media/mount-bottom.webp": "/static/media/mount-bottom.6f2d8b39.webp",
@@ -693,7 +692,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.e55553dc.js",
-    "static/js/2.0d9b16f6.chunk.js",
-    "static/js/main.9a3f26b1.chunk.js"
+    "static/js/2.25ed487b.chunk.js",
+    "static/js/main.2ae5ef24.chunk.js"
   ]
 }
