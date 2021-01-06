@@ -1,0 +1,111 @@
+import React from 'react'
+
+import Box from '../../components/Box'
+import Text from '../../components/Text'
+import Flex from '../../components/Flex'
+import Image from '../../components/Image'
+import { responsive } from '../../components/ThemeProvider/theme'
+import useRespoinsive from '../../contexts/mediaQuery/useResponsive'
+
+// import one from './one.png'
+// import two from './two.png'
+// import three from './three.png'
+// import four from './four.png'
+// import icon from './icon.png'
+
+const one = [require('./one.webp'), require('./one.png')]
+const two = [require('./two.webp'), require('./two.png')]
+const three = [require('./three.webp'), require('./three.png')]
+const four = [require('./four.webp'), require('./four.png')]
+const icons = [require('./icon.webp'), require('./icon.png')]
+
+const data = [
+  {
+    title: '廢棄物量',
+    example: '因為過去使用普及，有一定的廢棄物量',
+    desc: '指能收集到的廢棄物總量',
+    text: '量太少的話，可能沒有再利用的誘因跟影響力。嚴格來說，處理後的廢棄物量才能直接影響發生再利用的機會。',
+    number: one
+  },
+  {
+    title: '材質價格',
+    example: '材質是價格不高的PE或PP塑膠',
+    desc: '指回收物中的材質再生後的市場價格',
+    text: '如果價值夠高，即使難處理，還是可能會被大量回收再利用。例如電路板中的黃金。若再生料比新料的成本更低，也會驅動回收再利用發生，例如鋁罐中的鋁金屬。',
+    number: two
+  },
+  {
+    title: '收集成本',
+    example: '因為輕薄易飄散，收集成本極高',
+    desc: '指收集回收物的成本',
+    text: '例如回收物太輕、細小容易飛散、有髒汙或臭味、材積太大造成運費高，都是提高收集成本的因素。',
+    number: three
+  },
+  {
+    title: '處理成本',
+    example: '若已經收集好了（例如壓成吸管磚），則材質單純，其實是可以進行再利用的',
+    desc: '指收集後處理成再生材料的成本',
+    text: '很多材料在技術上都是可回收的，若真的要窮盡各種物化分離的方式，什麼都可以處理，但處理技術的價格可能非常高，使再利用不容易實際發生。因此這裡也包含了技術的可行性。',
+    number: four
+  },
+]
+
+const Factor = () => {
+  const { isMobile } = useRespoinsive()
+  return (
+    <Box pt="5em" px="10%">
+      <Text fontWeight="black" fontSize={responsive('3.75em', '2em')}>
+        什麼是「回收價值」?<br />主要由4個因素構成：
+      </Text>
+      <Flex py="5em" flexDirection={responsive('column', 'row')} flexWrap="wrap">
+        {data.map(({ title, desc, text, number }, i) => (
+          <Box
+            key={i}
+            width={responsive('100%', 1 / 2)}
+            position="relative"
+            borderRight={responsive('none', (i % 2) ? 'none' : '1px solid')}
+            borderLeft={responsive('none', (i % 2) ? '1px solid' : 'none')}
+            borderBottom={responsive('1px solid', (i < 2) ? '2px solid' : 'none')}
+            px={responsive(0, '5.625em')}
+            py={responsive('3em', '5.625em')}
+          >
+            <Box position="absolute" width={responsive('10em', 'auto')} top="2em" right="2em">
+              <Image src={number} />
+            </Box>
+            <Box position="relative">
+              <Box.Inline
+                pb="0.5rem"
+                fontWeight="bold"
+                borderBottom="1px solid"
+                fontSize={responsive('2.75em', '2em')}
+              >
+                {title}
+              </Box.Inline>
+              <Text.Bold mt="1em" fontSize={responsive('2.25em', '1em')}>{desc}</Text.Bold>
+              <Text fontSize={responsive('2.25em', '1em')}>{text}</Text>
+            </Box>
+          </Box>
+        ))}
+      </Flex>
+      <Box p="2em" bg="white" border="5px solid" borderRadius="2em">
+        <Flex alignItems="center" flexDirection={responsive('column', 'row')}>
+          {isMobile && <Text.Bold fontSize={responsive('3em', '1.5em')}>案例：塑膠吸管</Text.Bold>}
+          <Box pr={responsive(0, '2em')} py={responsive('1em', 0)} width={responsive('25%', '15%')}>
+            <Image src={icons} />
+          </Box>
+          <Box pt={responsive('2em', '0')}>
+            {!isMobile && <Text.Bold pb="0.5em" fontSize={responsive('3em', '1.5em')}>案例：塑膠吸管</Text.Bold>}
+            {data.map(({ title, example }, k) => (
+              <Text pb="0.5em" fontSize={responsive('2.5em', '1em')} key={k}>
+                <Text.Inline fontWeight="bold">0{k + 1}{title}：</Text.Inline>
+                {example}
+              </Text>
+            ))}
+          </Box>
+        </Flex>
+      </Box>
+    </Box>
+  )
+}
+
+export default Factor

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 623">
+  <g>
+    <path d="M435.05,328.52c-2.45.15-4.6-1.12-6.95-1.54a13.4,13.4,0,0,0-7,.44c-.66.24-1.31.54-2,.72-1.89.51-3.59,0-5.42-.47a19.47,19.47,0,0,0-5.16-.47c0,.1,0,.2,0,.3A7.5,7.5,0,0,0,416,335h19a7.48,7.48,0,0,0,7.48-7.15C440.29,327.28,436.37,328.43,435.05,328.52Z" fill="#68d7f0"/>
+    <path d="M386.52,300s-1-20,18-20c0,0,16,0,16,20,0,0,1,19.43-17,19.43C403.49,319.43,386.52,321,386.52,300Z" fill="#fff" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <ellipse cx="406.52" cy="297.5" rx="9" ry="11.5"/>
+    <line x1="390.52" y1="271" x2="415.52" y2="271" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path d="M463.48,300s1-20-18-20c0,0-16,0-16,20,0,0-1,19.43,17,19.43C446.51,319.43,463.48,321,463.48,300Z" fill="#fff" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <ellipse cx="443.48" cy="297.5" rx="9" ry="11.5"/>
+    <line x1="459.48" y1="271" x2="434.48" y2="271" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <rect x="408.52" y="320" width="34" height="15" rx="7.5" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <path d="M429.6,344.33a5.72,5.72,0,0,1-.92-2.82,13,13,0,0,1,1.57-6.7c.54-1.12,1.9-4.88,3.74-3.91a3.25,3.25,0,0,1,1.12,1.15,16.41,16.41,0,0,1,2.26,6.78c.28,1.89.37,4-.86,5.49C434.93,346.22,431.08,346.42,429.6,344.33Z" fill="#68d7f0"/>
+    <path d="M435,335.4s1.08,4.38,0,6.57" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.09" opacity="0.46"/>
+  </g>
+</svg>
