@@ -13,7 +13,7 @@ const Face = forwardRef(({ id, transform, className }, ref) => {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: `/face${id || (random(4) + 1)}.json`,
+      path: `/faces/face${id || (random(4) + 1)}.json`,
     });
     return () => {
       ani.destroy()

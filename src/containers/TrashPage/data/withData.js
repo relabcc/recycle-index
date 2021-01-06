@@ -1,12 +1,12 @@
+import React, { useMemo } from 'react';
 import { groupBy, reduce, size } from 'lodash'
-import { useMemo } from 'react';
 
 import useData from './useData';
 import images from './images'
 import imgSize from './imgSize'
 
 const withData = SubComp => props => {
-  const { match: { params: { id } } } = props
+  const { pageContext: { id } } = props
   const allData = useData()
   const data = useMemo(() => {
     if (!allData) return null
@@ -60,7 +60,7 @@ const withData = SubComp => props => {
       }),
     }
   }, [allData, id])
-  return data ? <SubComp key={id} {...props} data={data} allData={allData} /> : <div />
+  return data ? <SubComp key={id} {...props} trashData={data} allData={allData} /> : <div />
 }
 
 export default withData

@@ -21,14 +21,14 @@ import useResponsive from '../contexts/mediaQuery/useResponsive';
 import { MdMenu } from 'react-icons/md';
 
 const links = [
-  { name: '101件垃圾', to: '/catalogue/' },
-  { name: '丟垃圾大考驗', to: '/game/' },
-  { name: '必懂的回收知識', to: '/how/' },
-  { name: '關於我們', to: '/about/' },
+  { name: '101件垃圾', to: '/catalogue' },
+  { name: '丟垃圾大考驗', to: '/game' },
+  { name: '必懂的回收知識', to: '/how' },
+  { name: '關於我們', to: '/about' },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true },
 ]
 
-const Header = ({ siteTitle, ...props }) => {
+const Header = (props) => {
   const { isMobile } = useResponsive()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
@@ -44,7 +44,7 @@ const Header = ({ siteTitle, ...props }) => {
     >
       <Box px={responsive('2em', '1em')}>
         <Link to="/">
-          <Image width={responsive('20em', '12em', '7.5em')} src={logo} alt="回收大百科" />
+          <Image width={responsive('20em', '12em', '7.5em')} src={logo} />
         </Link>
       </Box>
       <Box flex="1" />

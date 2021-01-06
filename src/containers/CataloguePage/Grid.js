@@ -1,9 +1,6 @@
 import React, { useMemo } from 'react'
 import { useFormik } from 'formik'
 import { isArray } from 'lodash';
-// import {useTransition, animated} from 'react-spring'
-
-// import imgSize from '../TrashPage/data/imgSize';
 import useData from '../TrashPage/data/useData'
 
 import Box from '../../components/Box';

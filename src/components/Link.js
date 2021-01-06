@@ -4,9 +4,8 @@ import { Link as RouterLink } from 'gatsby'
 
 const ReLink = ({ to, ...props }) => (
   <Link
-    as={to ? RouterLink : 'a'}
-    to={to}
-    target={to ? '_self' : '_blank'}
+    as={to ? p => <RouterLink {...p} to={to} /> : 'a'}
+    target={to ? '' : '_blank'}
     {...props}
   />
 )

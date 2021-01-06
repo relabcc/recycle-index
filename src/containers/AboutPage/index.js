@@ -41,7 +41,7 @@ const About = () => {
   useShowHeader('colors.yellow')
 
   return (
-    <Box pt={responsive('10em', '3em')} bg="colors.yellow">
+    <Box pt={responsive('10em', '3.5em')} bg="colors.yellow">
       <Box
         bg="colors.yellow"
         pt={responsive('3em', "2em")}

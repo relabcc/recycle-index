@@ -92,7 +92,7 @@ const Action = (props) => (
   />
 )
 
-const Result = ({ answers, questions, onReset }) => {
+const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } }) => {
   const [recycleBin, trashBin, correctCount] = useMemo(() => answers.reduce((bins, a, i) => {
     const q = questions[i]
     const isCorrect = q.recyclable ? a.ans < 0 : a.ans > 0
@@ -104,12 +104,14 @@ const Result = ({ answers, questions, onReset }) => {
     return bins
   }, [[], [], 0]), [answers, questions])
   const { isMobile } = useResponsive()
-  const tier = useMemo(() => {
+  const tierId = useMemo(() => {
     const rate = correctCount / answers.length
-    if (rate > 0.8) return tierData[0]
-    if (rate > 0.6) return tierData[1]
-    return tierData[2]
+    if (rate > 0.8) return 0
+    if (rate > 0.6) return 1
+    return 2
   }, [correctCount, answers])
+  const tier = tierData[tierId]
+  const pageUrl = `${siteMetadata.url}/game`
   return (
     <>
       <Container position="relative">
@@ -208,7 +210,7 @@ const Result = ({ answers, questions, onReset }) => {
           />
         </Flex>
         <Flex position="relative" textAlign="center" mt={responsive('-3em', '-1em')} mr={responsive('0', '0')} justifyContent="center">
-          <Action>分享結果</Action>
+          <Action href={`${pageUrl}/share/${tierId + 1}`}>分享結果</Action>
           <Action onClick={onReset}>再玩一次</Action>
         </Flex>
         <Box.Relative textAlign="center">
@@ -273,8 +275,8 @@ const Result = ({ answers, questions, onReset }) => {
               rightIcon={<ArrowDown ml="0.25em" transform="rotate(90deg)" size="0.75em" />}
             >前往探索垃圾堆</Button.Orange>
             <Flex>
-              <FB fontSize={responsive('5em', '2em')} mx="0.25em" />
-              <Line fontSize={responsive('5em', '2em')} mx="0.25em" />
+              <FB fontSize={responsive('5em', '2em')} mx="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
+              <Line fontSize={responsive('5em', '2em')} mx="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
             </Flex>
           </Flex>
         </Container>

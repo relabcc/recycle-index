@@ -138,19 +138,22 @@ const HomePage = () => {
       <>
 
       </>,
-      <>
-        <Container textAlign="center" pt={responsive('62vh', '75vh', '66vh')} color="black">
-          <Heading
-            letterSpacing="0.125em"
-            fontWeight="900"
-            fontSize={responsive('5em', '2.5em')}
-            whiteSpace="pre-wrap"
-            lineHeight="1.75"
-          >「每個迷路的垃圾，{isMobile ? '\n' : ''}都有個丟錯的主人」
-          </Heading>
-          <Text lineHeight="2em" fontSize={responsive('3.5em', '1.625em')} letterSpacing="0.125em">以下是台灣人最常丟錯的101件垃圾</Text>
-        </Container>
-      </>,
+      <Container textAlign="center" color="black" height="100%">
+        <Box.Relative height="100%">
+          <Box.Absolute bottom={responsive('15em', '8em')} left="0" right="0">
+            <Heading
+              letterSpacing="0.125em"
+              fontWeight="900"
+              fontSize={responsive('5em', '2.5em')}
+              whiteSpace="pre-wrap"
+              lineHeight="1.75"
+            >「每個迷路的垃圾，{isMobile ? '\n' : ''}都有個丟錯的主人」
+            </Heading>
+            <Text lineHeight="2em" fontSize={responsive('3.5em', '1.625em')} letterSpacing="0.125em">以下是台灣人最常丟錯的101件垃圾</Text>
+          </Box.Absolute>
+        </Box.Relative>
+      </Container>
+      ,
       <>
 
       </>,
@@ -329,7 +332,7 @@ const HomePage = () => {
               <Box.Absolute
                 top="-28%"
                 left="48%"
-                width="64%"
+                width="67%"
                 opacity="0"
                 transform="scale(0)"
                 className="trash-bubble"
@@ -342,7 +345,7 @@ const HomePage = () => {
                   left="8%"
                   right="0"
                   fontWeight="900"
-                  fontSize="0.75em"
+                  fontSize="0.625em"
                   pointerEvents="all"
                 >
                   要被燒掉了嗚嗚

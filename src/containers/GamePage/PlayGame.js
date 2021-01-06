@@ -32,7 +32,7 @@ import Result from './Result';
 let ticker
 let ansTime
 const sec = 30 * 1000
-const GamePage = () => {
+const GamePage = ({ data }) => {
   useShowHeader('colors.yellow')
   const [run, setRun] = useState(0)
   const questions = useQuestions(run)
@@ -90,14 +90,11 @@ const GamePage = () => {
       ticker = interval(tick)
     }
   }, [tutorial, questions])
-  useEffect(() => {
-    console.log('mount')
-    return () => console.log('unmount')
-  }, [])
+
   return (
     <Fullpage bg="colors.yellow" overflowX="hidden" overflowY="auto" mt="0">
       {finish ? (
-        <Result answers={answers} questions={questions} onReset={onReset} />
+        <Result answers={answers} questions={questions} onReset={onReset} data={data} />
       ) : (
         <Container px="2em" height="100%">
           <Box.Relative height="100%">

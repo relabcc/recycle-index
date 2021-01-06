@@ -9,9 +9,14 @@ export default css`
     min-height: 100%;
   }
 
+  body style {
+    display: none!important;
+  }
+
   img {
     width: 100%;
   }
+
   ::-moz-selection {
     background: ${theme.colors.colors.yellow};
   }

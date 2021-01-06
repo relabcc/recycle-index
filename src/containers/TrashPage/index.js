@@ -5,8 +5,8 @@ import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
 import { SizeMe } from 'react-sizeme';
 import ReactFullpage from '@fullpage/react-fullpage'
-import 'fullpage.js/vendors/scrolloverflow'
 import { timer } from 'd3-timer';
+import { Helmet } from 'react-helmet';
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -40,6 +40,10 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
+
+if (typeof window !== 'undefined') {
+  require('fullpage.js/vendors/scrolloverflow')
+}
 
 let fpApi
 // const pageCount = 5
@@ -145,7 +149,7 @@ const gradeData = {
 
 let cfgPoses = {}
 
-const TrashPage = ({ data, allData }) => {
+const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } }) => {
   const [scrollProgress, setProgress] = useState()
   const windowSize = useWindowSize()
   const { isMobile } = useResponsive()
@@ -170,6 +174,7 @@ const TrashPage = ({ data, allData }) => {
   const endPos = [containerWidth * 1, containerWidth * 0.25]
   useShowHeader(colorScheme)
   useLoader(data.img)
+  const pageUrl = `${siteMetadata.url}/trash/${data.id}`
 
   const n = `#${String(data.id).padStart(3, '0')}`
   const parts = useMemo(() => {
@@ -329,8 +334,8 @@ const TrashPage = ({ data, allData }) => {
             </SizeMe>
           </BackgroundImage>
           <Flex fontSize={responsive('3em', '0.625em')} px="0.25em" justifyContent={responsive('', 'flex-end')} mt={responsive('-10%', '-4rem')} mr={responsive(0, '-2rem')}>
-            <FB border="1px solid black" mx="0.125em" rounded="0.25em" />
-            <Line border="1px solid black" mx="0.125em" rounded="0.25em" />
+            <FB border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
+            <Line border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
           </Flex>
         </Box>
       </Box>
@@ -650,6 +655,10 @@ const TrashPage = ({ data, allData }) => {
   // console.log(data)
   return (
     <div>
+      <Helmet>
+        <title>{`#${data.id} ${data.name}`}</title>
+        <meta name="og:image" content={`${siteMetadata.url}/share/${data.id}/share.jpg`} />
+      </Helmet>
       <ReactFullpage
         sectionsColor={['', bgColor, 'white', 'white', bgColor]}
         licenseKey={process.env.REACT_APP_FULLPAGE_JS_KEY}
