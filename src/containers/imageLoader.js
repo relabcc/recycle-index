@@ -23,7 +23,6 @@ const loadTask = (src) => new Promise((res) => {
   const container = getImageContainer();
   container.appendChild(img);
   img.src = isArray(src) ? getImage(src) : src;
-  console.log(img.src)
 });
 
 const loader = (images) => {

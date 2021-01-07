@@ -5,17 +5,15 @@ import Box from '../../components/Box';
 import useShowHeader from '../../contexts/header/useShowHeader';
 
 import Grid from './Grid';
-import Footer from '../Footer';
+import useData from '../TrashPage/data/useData';
 
 const Catalogue = () => {
   useShowHeader('colors.yellow')
+  const data = useData()
 
   return (
     <Fullpage mt="0">
-      <Box.Relative height="100%">
-        <Grid />
-        {/* <Footer /> */}
-      </Box.Relative>
+      <Grid data={data} />
     </Fullpage>
   )
 }

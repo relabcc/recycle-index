@@ -35,6 +35,7 @@ import PointingDown from '../../components/PointingDown'
 
 import ChevDown from '../TrashPage/ChevDown'
 import withLoading from '../withLoading'
+import useReloadOnOrentation from '../../utils/useReloadOnOrentation'
 
 const mountTop = [
   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
@@ -72,19 +73,19 @@ const Trash = ({ data, noFace }) => {
 }
 
 let fpApi
-
 const HomePage = () => {
   useShowHeader()
-  const { isMobile } = useResponsive()
+  const { isMobile, isTablet } = useResponsive()
   const heroTrashRef = useRef()
   const bubbleRef = useRef()
   const trashMountRef = useRef()
   const data = useData()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
+  useReloadOnOrentation()
   // const [currentPage, setCurrentPage] = useState(0)
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
-    const scaleRatio = Math.min(isMobile ? 4.25 : 1.375, 3000 / windowSize.width)
+    const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
     const titleClearance = containerWidth / titleRatio * (isMobile ? 1.7 : 1) + 60
     const mountTopHeight = containerWidth / mountRatio * scaleRatio * (220 / 1843)
     return [
@@ -118,7 +119,7 @@ const HomePage = () => {
                   <Text.H1 display="none">回收大百科</Text.H1>
                 </Box.FullAbs>
               </BackgroundImage>
-              <Box.Absolute left="5%" top="2%" width="30%" transform="translate3d(0, -15%, 0)">
+              <Box.Absolute left="5%" top="1%" width="30%" transform="translate3d(0, -15%, 0)">
                 {trash && (
                   <BackgroundImage src={trash.img} ratio={850 / 624} transform="rotate(7deg)">
                     <Face id={trash.transform.faceNo} transform={trash.transform.face} />
@@ -174,7 +175,7 @@ const HomePage = () => {
     })
     timeline.to(heroTrashRef.current, {
       width: trashWidth * 0.25,
-      right: trashWidth * (isMobile ? -0.08 : 0.22),
+      right: trashWidth * (isMobile ? -0.08 : (isTablet ? -0.02 : 0.22)),
       top: windowHeight * (isMobile ? 0.3 : 0.23),
       duration: 0.8 * scrollingDuration,
     }, 0.2 * scrollingDuration)
@@ -237,11 +238,11 @@ const HomePage = () => {
     timeline.to(trashMountRef.current, {
       scale: isMobile ? 1.25 : 1.75,
       x: isMobile ? `-=${trashWidth * 0.05}` : '+=0',
-      y: isMobile ? '-88%' : '-130%',
+      y: isMobile ? '-88%' : (isTablet ? '-110%' : '-130%'),
     }, scrollingDuration * 2)
 
     timeline.to(trashMountRef.current, {
-      y: isMobile ? '-150%' : '-180%',
+      y: isMobile ? '-150%' : (isTablet ? '-160%' : '-180%'),
     }, scrollingDuration * 3)
 
     timeline.to(document.querySelector('.home-bg'), {
@@ -264,7 +265,7 @@ const HomePage = () => {
   return (
     <Box className="home-bg" bg="colors.yellow">
       <ReactFullpage
-        licenseKey={process.env.REACT_APP_FULLPAGE_JS_KEY}
+        licenseKey={process.env.FULLPAGE_JS_KEY}
         scrollingSpeed={scrollingDuration * 1000}
         // afterRender={setHeight}
         // afterResize={setHeight}
@@ -307,26 +308,26 @@ const HomePage = () => {
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative>
             <BackgroundImage src={mountTop} ratio={mountRatio} className="trash-mount" progressive />
-            <Box.Absolute width="12%" left={responsive('32%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
+            <Box.Absolute width="12%" left={responsive('32%', '28%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
               <Box.Relative transform="rotate(30deg)">
                 <Trash data={data && data[trashes[1]]} />
               </Box.Relative>
               <Box.Absolute
                 top="17%"
-                left={responsive('-27%', '-52%')}
-                width={responsive('60%', '80%')}
+                left={responsive('-27%', '-27%', '-52%')}
+                width={responsive('60%', '60%', '80%')}
                 opacity="0"
                 transform="scale(0)"
                 className="trash-bubble"
                 transformOrigin="100% 75%"
               >
                 <Image src={bubble2} />
-                <Box.Absolute top="30%" left="10%" right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('2.5em', '1em')}>
+                <Box.Absolute top="30%" left="10%" right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('2.5em', '1.5em', '1em')}>
                   我也被丟錯！
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
-            <Box.Absolute width="9%" left="40%" top="40%">
+            <Box.Absolute width="9%" left={responsive('40%', '36%', '40%')} top="40%">
               <Box.Relative transform={responsive('rotate(-40deg)', 'rotate(0deg)')}>
                 <Trash data={data && data[trashes[2]]} noFace={isMobile} />
               </Box.Relative>
@@ -346,14 +347,14 @@ const HomePage = () => {
                   left="8%"
                   right="0"
                   fontWeight="900"
-                  fontSize="0.625em"
+                  fontSize={responsive("0.625em", "1.5em", "0.625em")}
                   pointerEvents="all"
                 >
                   要被燒掉了嗚嗚
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
-            <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
+            <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '38%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
               <Box.Relative transform="rotate(-10deg)">
                 <Trash data={data && data[trashes[3]]} />
               </Box.Relative>
@@ -369,7 +370,7 @@ const HomePage = () => {
                 <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
                   <Image src={bubble5} />
                 </Box>
-                <Box.Absolute top="18%" left={responsive('10%', '12%')} right="0" fontWeight="900" fontSize={responsive('2.75em', '1em')} pointerEvents="all">
+                <Box.Absolute top="18%" left={responsive('10%', '12%')} right="0" fontWeight="900" fontSize={responsive('2.75em', '2em', '1em')} pointerEvents="all">
                   走錯棚了啦！
                 </Box.Absolute>
               </Box.Absolute>
@@ -381,7 +382,7 @@ const HomePage = () => {
                 </Box.Relative>
               </Box.Absolute>
             )}
-            <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '33%')} top={responsive(isIos ? '58%' : '66%', '55%')}>
+            <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
               <Box.Relative transform="rotate(-10deg)">
                 <Trash data={data && data[trashes[4]]} />
               </Box.Relative>
@@ -395,7 +396,7 @@ const HomePage = () => {
                 transformOrigin="100% 25%"
               >
                 <Image src={bubble4} />
-                <Box.Absolute top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('2.25em', '1em')} pointerEvents="all">
+                <Box.Absolute top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('2.25em', '2em', '1em')} pointerEvents="all">
                   人家明明<br />
                   可以被回收！
                 </Box.Absolute>
@@ -414,14 +415,14 @@ const HomePage = () => {
             )}
           </BackgroundImage>
           <Box.Absolute
-            width={responsive('68%', '65%','90%')}
-            left={responsive('-20%', '-15%', '-50%')}
+            width={responsive('68%', '70%', '90%')}
+            left={responsive('-20%', '-20%', '-50%')}
             top={responsive('-23%', '-20%')}
             ref={bubbleRef}
             opacity="0"
           >
             <Image src={bubble1} />
-            <Box.Absolute top={responsive('22%', '24%')} left={responsive('9%', '12%')} right="7%" fontWeight="900" fontSize={responsive('5.5em', '3.5em', '2.25em')} pointerEvents="all">
+            <Box.Absolute top={responsive('22%', '24%')} left={responsive('9%', '12%')} right="7%" fontWeight="900" fontSize={responsive('5.5em', '3.25em', '2.25em')} pointerEvents="all">
               啊..我被丟錯了
             </Box.Absolute>
           </Box.Absolute>
@@ -437,7 +438,6 @@ const HomePage = () => {
         <Box.Absolute bottom="1em" left="0" right="0" pointerEvents="all">
           <ChevDown as={PointingDown} onClick={() => fpApi.moveSectionDown()} />
         </Box.Absolute>
-
       </FullpageHeight>
     </Box>
   )

@@ -57,6 +57,7 @@ const Header = (props) => {
             onClose={onClose}
             finalFocusRef={btnRef}
             size="lg"
+            blockScrollOnMount={false}
           >
             <DrawerOverlay>
               <DrawerContent>

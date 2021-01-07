@@ -15,7 +15,7 @@ const ResultList = ({ items, wrongTag, wrongProps, ...props }) => {
     <Flex flexWrap="wrap" {...props}>
       {items.map((item, i) => (
         <Box width={responsive('33.33%', 1 / 7)} key={i} textAlign="center">
-          <Link to={`/trash/${item.trash.id}`} target="_blank">
+          <Link href={`/trash/${item.trash.id}`} target="_blank">
             <Box.Relative p="10%">
               <AspectRatio ratio={1} border="0.125em solid black" borderWidth={responsive('0.5em', '0.125em')} rounded="15%" overflow="hidden">
                 <Trash layers={item.layers} />

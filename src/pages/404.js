@@ -1,13 +1,13 @@
+import { navigate } from "gatsby"
 import * as React from "react"
-import { Link } from "gatsby"
 
 // markup
 const NotFoundPage = () => {
+  React.useEffect(() => {
+    navigate('/')
+  }, [])
   return (
-    <main>
-      <title>Not found</title>
-      <Link to="/">Go home</Link>.
-    </main>
+    <div />
   )
 }
 

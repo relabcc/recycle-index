@@ -15,7 +15,7 @@ const Cell = ({ data, columnIndex, rowIndex, style }) => {
   const d = data[id]
   return (
     <div style={style}>
-      {d ? <Page1 match={{ params: { id: d.id } }} /> : null}
+      {d ? <Page1 pageContext={ { id: d.id } } /> : null}
     </div>
   )
 };
@@ -25,7 +25,7 @@ const ShareCell = ({ data, columnIndex, rowIndex, style }) => {
   const d = data[id]
   return (
     <div style={style}>
-      {d ? <PageShare match={{ params: { id: d.id } }} /> : null}
+      {d ? <PageShare pageContext={ { id: d.id } } /> : null}
     </div>
   )
 };
@@ -35,7 +35,7 @@ const ExplodedCell = ({ data, columnIndex, rowIndex, style }) => {
   const d = data[id]
   return d ? (
     <Box style={style} px="1%">
-      <PageExplode page={2} match={{ params: { id: d.id } }} windowSize={{ width: style.width * 0.98, height: style.height }} />
+      <PageExplode page={2} pageContext={ { id: d.id } } windowSize={{ width: style.width * 0.98, height: style.height }} />
     </Box>
   ) : null
 };
@@ -45,7 +45,7 @@ const BelongsCell = ({ data, columnIndex, rowIndex, style }) => {
   const d = data[id]
   return d ? (
     <Box style={style} px="1%">
-      <PageExplode page={3} match={{ params: { id: d.id } }} windowSize={{ width: style.width * 0.98, height: style.height }} />
+      <PageExplode page={3} pageContext={ { id: d.id } } windowSize={{ width: style.width * 0.98, height: style.height }} />
     </Box>
   ) : null
 };

@@ -15,6 +15,7 @@ import about from './about.svg'
 import picture from './picture.svg'
 import { responsive } from '../../components/ThemeProvider/theme';
 import Footer from '../Footer';
+import withLoading from '../withLoading'
 
 const data = [
   {
@@ -112,4 +113,7 @@ const About = () => {
   )
 }
 
-export default About
+export default withLoading([
+  about,
+  picture,
+])(About)

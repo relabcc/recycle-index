@@ -40,6 +40,7 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
+import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
 if (typeof window !== 'undefined') {
   require('fullpage.js/vendors/scrolloverflow')
@@ -161,6 +162,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const layerRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
+  useReloadOnOrentation()
 
   const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
   const trashWidth = (isMobile ? (isIos ? 135 : 160) : 75) * (data.transform.scale ? (isMobile && data.transform.mobileScale ? data.transform.mobileScale : data.transform.scale) / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
@@ -655,13 +657,9 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   // console.log(data)
   return (
     <div>
-      <Helmet>
-        <title>{`#${data.id} ${data.name}`}</title>
-        <meta name="og:image" content={`${siteMetadata.url}/share/${data.id}/share.jpg`} />
-      </Helmet>
       <ReactFullpage
         sectionsColor={['', bgColor, 'white', 'white', bgColor]}
-        licenseKey={process.env.REACT_APP_FULLPAGE_JS_KEY}
+        licenseKey={process.env.FULLPAGE_JS_KEY}
         scrollingSpeed={scrollingDuration * 1000}
         verticalCentered={false}
         onLeave={(origin, destination) => {

@@ -104,7 +104,15 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Flex py={responsive('1.5em', '0.5em')}>
-      {isMobile ? <Button leftIcon={<GrFilter />} fontSize="2.75em" height="auto" onClick={onOpen} mr="2em">篩選器</Button> : filterOptions.map(({ name, label, options }) => (
+      {isMobile ? (
+        <Button
+          leftIcon={<GrFilter />}
+          fontSize="2.75em"
+          height="auto"
+          onClick={onOpen}
+          mr="2em"
+        >篩選器</Button>
+      ) : filterOptions.map(({ name, label, options }) => (
         <Box key={name} width={responsive('20%', '15rem')} px={responsive('0.25em', '1em')} fontSize={responsive('2.5em', '0.75em')}>
           <Select
             options={options}

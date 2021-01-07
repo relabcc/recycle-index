@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { createElement, useMemo } from 'react'
 import { useFormik } from 'formik'
 import { isArray } from 'lodash';
-import useData from '../TrashPage/data/useData'
 
 import Box from '../../components/Box';
 import Flex from '../../components/Flex';
@@ -10,14 +9,14 @@ import FilterAndSearch from './FilterAndSearch';
 
 import PerTrash from './PerTrash';
 import Footer from '../Footer';
+import withLoading from '../withLoading';
 
-const Catalogue = () => {
+const Catalogue = ({ data }) => {
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       search: '',
     },
   })
-  const data = useData()
   // const gridRef = useRef()
   const okData = useMemo(() => {
     return data ? (data.filter(d => {
@@ -37,7 +36,6 @@ const Catalogue = () => {
     }, false)
     return !isDisabled
   }), [values, okData])
-
 
   return (
     <Box bg="gray.100">
@@ -60,4 +58,7 @@ const Catalogue = () => {
   )
 }
 
-export default Catalogue
+export default p => {
+  const toLoad = useMemo(() => p.data.slice(1, 37).map(d => d.img), [p.data])
+  return createElement(withLoading(toLoad)(Catalogue), p)
+}

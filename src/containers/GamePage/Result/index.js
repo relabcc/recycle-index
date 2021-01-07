@@ -210,7 +210,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
           />
         </Flex>
         <Flex position="relative" textAlign="center" mt={responsive('-3em', '-1em')} mr={responsive('0', '0')} justifyContent="center">
-          <Action href={`${pageUrl}/share/${tierId + 1}`}>分享結果</Action>
+          <Action href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}/share/${tierId + 1}`}>分享結果</Action>
           <Action onClick={onReset}>再玩一次</Action>
         </Flex>
         <Box.Relative textAlign="center">

@@ -29,7 +29,6 @@ const Layout = ({ children }) => {
             titleTemplate={`${data.site.siteMetadata.title}｜%s`}
           >
             <meta charSet="utf-8" />
-            <link rel="canonical" href={data.site.siteMetadata.url} />
             <meta
               name="description"
               content="寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。"

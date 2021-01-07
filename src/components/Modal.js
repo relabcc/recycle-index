@@ -38,6 +38,7 @@ const Modal = ({
           height="2em"
           rounded="full"
           fontSize="1em"
+          right="0.5rem"
           _hover={{
             bg: 'black',
             color: 'white',

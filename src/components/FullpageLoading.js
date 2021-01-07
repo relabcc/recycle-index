@@ -31,8 +31,8 @@ const FullpageLoading = () => (
         color="colors.yellow"
         size="xl"
       />
-      <Flex alignItems="center" color="black" my="2">
-        <Box width={responsive('5em', '2em')} mr="0.5em">
+      <Flex alignItems="center" color="black" my="2" fontSize="16px">
+        <Box width="2em" mr="0.5em">
           <Image src={trash} />
         </Box>
         <Text>Loading...</Text>

@@ -20,8 +20,9 @@ import how3 from './how-3.png';
 import how3Webp from './how-3.webp';
 import how4 from './how_4.png';
 // import how4Webp from './how-4.webp';
-import how5 from './how-5.png';
-import how5Webp from './how-5.webp';
+// import how5 from './how-5.png';
+// import how5Webp from './how-5.webp';
+import withLoading from '../withLoading'
 
 // const temp = [require('./temp.webp'), require('./temp.png')]
 
@@ -52,7 +53,6 @@ const backgorundImg = [
 ]
 
 const HowPage = () => {
-  const { isMobile } = useResponsive()
   useShowHeader('colors.yellow')
   return (
     <Box>
@@ -70,4 +70,6 @@ const HowPage = () => {
   )
 }
 
-export default HowPage
+const toLoad = backgorundImg.map(d => d.src).filter(Boolean)
+
+export default withLoading(toLoad)(HowPage)

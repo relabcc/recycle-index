@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createElement, useMemo } from 'react'
 
 import FullpageVerticalCenter from '../../components/FullpageVerticalCenter';
 import Container from '../../components/Container';
@@ -16,10 +16,10 @@ import trashmobile2 from './trash-mobile_2.png'
 
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useRespoinsive from '../../contexts/mediaQuery/useResponsive';
+import withLoading from '../withLoading';
 
-const GamePage = () => {
+const GamePage = ({ isMobile }) => {
   useShowHeader('colors.yellow')
-  const { isMobile } = useRespoinsive()
   return (
     <FullpageVerticalCenter bg="colors.yellow" mt="0" height="100vh" overflow="hidden">
       <Box widht="100%" mt="0">
@@ -40,4 +40,8 @@ const GamePage = () => {
   )
 }
 
-export default GamePage
+export default () => {
+  const { isMobile } = useRespoinsive()
+  const toLoad = useMemo(() => isMobile ? [trashmobile, trashmobile2] : [bannerSvg], isMobile)
+  return createElement(withLoading(toLoad)(GamePage), { isMobile })
+}

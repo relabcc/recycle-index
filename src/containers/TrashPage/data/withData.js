@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { createElement, useMemo } from 'react';
 import { groupBy, reduce, size } from 'lodash'
+import { Helmet } from 'react-helmet';
 
 import useData from './useData';
 import images from './images'
 import imgSize from './imgSize'
+import withLoading from '../../withLoading';
 
 const withData = SubComp => props => {
   const { pageContext: { id } } = props
@@ -60,7 +62,20 @@ const withData = SubComp => props => {
       }),
     }
   }, [allData, id])
-  return data ? <SubComp key={id} {...props} trashData={data} allData={allData} /> : <div />
+  return (
+    <>
+      <Helmet>
+        <title>{`#${data.id} ${data.name}`}</title>
+        <meta name="og:image" content={`${props.data.site.siteMetadata.url}/share/${data.id}.jpg`} />
+      </Helmet>
+      {createElement(withLoading(data.imgs.map(d => d.src))(SubComp), {
+        key: id,
+        ...props,
+        trashData: data,
+        allData,
+      })}
+    </>
+  )
 }
 
 export default withData

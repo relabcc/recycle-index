@@ -4,8 +4,6 @@ import { get, random, range, sampleSize } from 'lodash'
 import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
 import { SizeMe } from 'react-sizeme';
-import ReactFullpage from '@fullpage/react-fullpage'
-import 'fullpage.js/vendors/scrolloverflow'
 import { timer } from 'd3-timer';
 
 import FullpageHeight from '../../components/FullpageHeight'
@@ -36,6 +34,7 @@ import imgSize from './data/imgSize'
 import FB from '../../components/Icons/FB';
 import Line from '../../components/Icons/Line';
 import planb from './planb.svg'
+import planbBubble from './planb-bubble.svg'
 
 // const pageCount = 5
 const idealWidth = 200
@@ -46,11 +45,10 @@ const colorsCfg = {
   C: 'pink',
 }
 
-const TrashPage = ({ data }) => {
+const TrashPage = ({ trashData: data }) => {
   const { isMobile } = useResponsive()
   const { containerWidth } = useContext(containerWidthContext)
   // setup refs
-
   const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
   const trashWidth = (isMobile ? (isIos ? 140 : 160) : 75) * (data.transform.scale ? (isMobile && data.transform.mobileScale ? data.transform.mobileScale : data.transform.scale) / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
   const faceId = useMemo(() => data.transform.faceNo || (random(4) + 1), [data])
@@ -101,28 +99,40 @@ const TrashPage = ({ data }) => {
           position="relative"
         >
           <Container px="1.25em">
-            <Box pt="1em">
-              <Text fontWeight="700" color="white" fontSize={responsive('3.5em', '1.25em')} letterSpacing="0.1em">＃要給垃圾好一個歸宿，你該這麼做</Text>
-              <Handling steps={data.handling} />
-            </Box>
-            {data.alternative && (
-              <Flex
-                color="white"
-                mt={responsive('2.5em', '1.25em')}
-                pt={responsive('2.5em', "1.5em")}
-                borderTop="2px solid"
-                alignItems={responsive('flex-start', 'center')}
-                flexDirection={responsive('column', 'row')}
-              >
-                <Box.Relative width={responsive('50em', '25em')} mr={responsive('2em', '1em')}>
-                  <Image src={planb} />
-                  <Box.Absolute left="30%" top="25%">
-                    <Text fontWeight="700" fontSize={responsive('2.75em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
-                  </Box.Absolute>
-                </Box.Relative>
-                <Text ml={responsive('20%', 0)} fontSize={responsive('2.75em', '1em')} letterSpacing="0.1em" my={responsive('0.5em', '1em')}>{data.alternative}</Text>
-              </Flex>
-            )}
+            <Flex pt="1em" flexDirection={responsive('column', 'row')}>
+              <Box>
+                <Box pr={responsive(0, '1.5em')}>
+                  <Text fontWeight="700" color="white" fontSize={responsive('3.5em', '1.25em')} letterSpacing="0.1em">＃要給垃圾一個好歸宿，你該這麼做</Text>
+                </Box>
+                <Handling steps={data.handling} />
+              </Box>
+              {data.alternative && (
+                <Box
+                  flex="1"
+                  color="white"
+                  mt={responsive('2.5em', 0)}
+                  pt={responsive('2.5em', 0)}
+                  pl={responsive('0', '1.5em')}
+                  borderTop={responsive('2px solid', 'none')}
+                  borderLeft={responsive('none', '2px solid')}
+                  alignItems={responsive('flex-start', 'center')}
+                >
+                  <Text fontWeight="700" fontSize={responsive('3.5em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
+                  <Flex width={responsive('66em', '24em')} mr={responsive('2em', '1em')} alignItems="flex-end" my={responsive('2em', '0.5em')}>
+                    <Box width="22%" pb="5%">
+                      <Image src={planb} />
+                    </Box>
+                    <Box flex="1" pl="2%">
+                      <BackgroundImage src={planbBubble} ratio={486 / 176}>
+                        <Box.Absolute top="50%" left="16%" right="5%" transform="translateY(-50%)">
+                          <Text fontSize={responsive('2.75em', '1em')} letterSpacing="0.1em">{data.alternative}</Text>
+                        </Box.Absolute>
+                      </BackgroundImage>
+                    </Box>
+                  </Flex>
+                </Box>
+              )}
+            </Flex>
           </Container>
         </Box>
       </Box>
