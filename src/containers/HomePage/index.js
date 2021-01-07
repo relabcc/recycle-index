@@ -34,6 +34,7 @@ import isIos from '../../components/utils/isIos'
 import PointingDown from '../../components/PointingDown'
 
 import ChevDown from '../TrashPage/ChevDown'
+import withLoading from '../withLoading'
 
 const mountTop = [
   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
@@ -442,4 +443,8 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default withLoading([
+  mountTop[0],
+  title,
+  titleOverlay,
+])(HomePage)

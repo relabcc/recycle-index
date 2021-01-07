@@ -3,12 +3,14 @@ import { get, isArray } from 'lodash'
 
 import isIos from './isIos'
 
-const useWebpImage = (src) => {
+export const getImage = (src) => {
   const canUseWebp = typeof window === 'undefined' ? false : get(window, 'Modernizr.webp')
-  const pic = useMemo(() => {
-    if (!isArray(src)) return src
-    return canUseWebp && !isIos ? src[0] : src[1];
-  }, [canUseWebp, src])
+  if (!isArray(src)) return src
+  return canUseWebp && !isIos ? src[0] : src[1];
+}
+
+const useWebpImage = (src) => {
+  const pic = useMemo(() => getImage(src), [src])
 
   return pic
 }
