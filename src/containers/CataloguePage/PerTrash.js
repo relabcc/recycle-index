@@ -79,7 +79,7 @@ const PerTrash = ({ data }) => {
           <Text
             // color="white"
             fontWeight="700"
-            fontSize={responsive('2.5em', '2em', '1em')}
+            fontSize={responsive('1em', '2em', '1em')}
             letterSpacing="0.125em"
           >{data.name}</Text>
         </Box.Absolute>
@@ -88,7 +88,7 @@ const PerTrash = ({ data }) => {
   const [hoverable] = useHover(element);
   return (
     <AspectRatio ratio={1} ref={nodeRef}>
-      <Box p={responsive('2em', '1em')}>
+      <Box p={responsive('0.5em', '1em')}>
         {hoverable}
       </Box>
     </AspectRatio>

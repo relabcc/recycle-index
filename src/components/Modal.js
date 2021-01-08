@@ -22,14 +22,13 @@ const Modal = ({
       <ModalOverlay bg="rgba(255,255,255,0.5)" />
       <ModalContent
         border="3px solid"
-        fontSize={responsive('2.5em', '1em')}
         rounded={responsive('1em', '1.5em')}
         maxWidth={responsive('90vw', '50em')}
       >
         <ModalHeader
           pt="2em"
           fontWeight="900"
-          fontSize={responsive('1.5em', '1.25em')}
+          fontSize="1.25em"
         >{header}</ModalHeader>
         <ModalCloseButton
           bg="black"

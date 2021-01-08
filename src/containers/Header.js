@@ -42,29 +42,36 @@ const Header = (props) => {
       zIndex="docked"
       {...props}
     >
-      <Box px={responsive('2em', '1em')}>
+      <Box px="1em">
         <Link to="/">
-          <Image width={responsive('20em', '12em', '7.5em')} src={logo} />
+          <Image width={responsive('8em', '12em', '7.5em')} src={logo} />
         </Link>
       </Box>
       <Box flex="1" />
       {isMobile ? (
         <>
-          <IconButton mr="2em" color="white" variant="ghost" height="auto" ref={btnRef} onClick={onOpen} icon={<MdMenu size="6em" />} />
+          <IconButton
+            mr={responsive('1em', '2em')}
+            color="white"
+            variant="ghost"
+            height="auto"
+            ref={btnRef}
+            onClick={onOpen}
+            icon={<MdMenu size={isMobile ? '2em' : '6em'} />}
+          />
           <Drawer
             isOpen={isOpen}
             placement="right"
             onClose={onClose}
             finalFocusRef={btnRef}
-            size="lg"
             blockScrollOnMount={false}
           >
             <DrawerOverlay>
               <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerBody pt="10em" pl="3em">
+                <DrawerBody pt="3em" pl="2em">
                   {links.map(({ name, to, href, isSupport }, i) => (
-                    <Box key={i} py="1em" fontSize="3em" fontFamily={theme.fonts.number}>
+                    <Box key={i} py="1em" fontSize="1.25em" fontFamily={theme.fonts.number}>
                       <Link onClick={onClose} href={href} width="100%" to={to}>{name}</Link>
                     </Box>
                   ))}

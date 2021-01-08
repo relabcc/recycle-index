@@ -37,7 +37,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
           />
         </Container>
       )}
-      <Container py="1em" fontSize={responsive('2em', '0.625em')}>
+      <Container py="1em" fontSize={responsive('0.75em', '0.625em')}>
         <Box textAlign="center" fontSize={responsive('1em', '1.5em')}>
           <Stack isInline spacing={responsive('0.75em', '1.5em')} justifyContent="center">
             <Link href="https://www.facebook.com/rethink.tw">RE-THINK FB</Link>

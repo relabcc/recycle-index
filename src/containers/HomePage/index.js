@@ -107,7 +107,7 @@ const HomePage = () => {
                 letterSpacing="0.125em"
                 textAlign="right"
                 px="10.5%"
-                fontSize={responsive('3em', '1.75em')}
+                fontSize={responsive('1em', '1.75em')}
                 fontFamily={theme.fonts.number}
                 fontStyle="italic"
               >
@@ -146,12 +146,12 @@ const HomePage = () => {
             <Heading
               letterSpacing="0.125em"
               fontWeight="900"
-              fontSize={responsive('5em', '2.5em')}
+              fontSize={responsive('1.5em', '2.5em')}
               whiteSpace="pre-wrap"
               lineHeight="1.75"
             >「每個迷路的垃圾，{isMobile ? '\n' : ''}都有個丟錯的主人」
             </Heading>
-            <Text lineHeight="2em" fontSize={responsive('3.5em', '1.625em')} letterSpacing="0.125em">以下是台灣人最常丟錯的101件垃圾</Text>
+            <Text lineHeight="2em" fontSize={responsive('1em', '1.625em')} letterSpacing="0.125em">以下是台灣人最常丟錯的101件垃圾</Text>
           </Box.Absolute>
         </Box.Relative>
       </Container>
@@ -322,7 +322,7 @@ const HomePage = () => {
                 transformOrigin="100% 75%"
               >
                 <Image src={bubble2} />
-                <Box.Absolute top="30%" left="10%" right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('2.5em', '1.5em', '1em')}>
+                <Box.Absolute top="30%" left="10%" right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
                   我也被丟錯！
                 </Box.Absolute>
               </Box.Absolute>
@@ -347,7 +347,7 @@ const HomePage = () => {
                   left="8%"
                   right="0"
                   fontWeight="900"
-                  fontSize={responsive("0.625em", "1.5em", "0.625em")}
+                  fontSize={responsive("1em", "1.5em", "0.625em")}
                   pointerEvents="all"
                 >
                   要被燒掉了嗚嗚
@@ -370,7 +370,7 @@ const HomePage = () => {
                 <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
                   <Image src={bubble5} />
                 </Box>
-                <Box.Absolute top="18%" left={responsive('10%', '12%')} right="0" fontWeight="900" fontSize={responsive('2.75em', '2em', '1em')} pointerEvents="all">
+                <Box.Absolute top="18%" left={responsive('10%', '12%')} right="0" fontWeight="900" fontSize={responsive('0.875em', '2em', '1em')} pointerEvents="all">
                   走錯棚了啦！
                 </Box.Absolute>
               </Box.Absolute>
@@ -396,7 +396,7 @@ const HomePage = () => {
                 transformOrigin="100% 25%"
               >
                 <Image src={bubble4} />
-                <Box.Absolute top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('2.25em', '2em', '1em')} pointerEvents="all">
+                <Box.Absolute top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
                   人家明明<br />
                   可以被回收！
                 </Box.Absolute>
@@ -422,7 +422,7 @@ const HomePage = () => {
             opacity="0"
           >
             <Image src={bubble1} />
-            <Box.Absolute top={responsive('22%', '24%')} left={responsive('9%', '12%')} right="7%" fontWeight="900" fontSize={responsive('5.5em', '3.25em', '2.25em')} pointerEvents="all">
+            <Box.Absolute top={responsive('22%', '24%')} left={responsive('9%', '12%')} right="7%" fontWeight="900" fontSize={responsive('1.75em', '3.25em', '2.25em')} pointerEvents="all">
               啊..我被丟錯了
             </Box.Absolute>
           </Box.Absolute>

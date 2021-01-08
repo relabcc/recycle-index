@@ -74,7 +74,7 @@ function RadioCard(props) {
   const checkbox = getCheckboxProps()
 
   return (
-    <Box as="label">
+    <Box as="label" fontSize="0.75em">
       <input {...input} />
       <Box
         {...checkbox}
@@ -90,8 +90,8 @@ function RadioCard(props) {
         _focus={{
           boxShadow: "outline",
         }}
-        px={5}
-        py={3}
+        px="0.75em"
+        py="0.25em"
       >
         {props.children}
       </Box>
@@ -103,14 +103,14 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
   const { isMobile } = useResponsive()
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Flex py={responsive('1.5em', '0.5em')}>
+    <Flex py={responsive('0.5em', '0.5em')}>
       {isMobile ? (
         <Button
           leftIcon={<GrFilter />}
-          fontSize="2.75em"
+          fontSize="0.875em"
           height="auto"
           onClick={onOpen}
-          mr="2em"
+          mr="1em"
         >篩選器</Button>
       ) : filterOptions.map(({ name, label, options }) => (
         <Box key={name} width={responsive('20%', '15rem')} px={responsive('0.25em', '1em')} fontSize={responsive('2.5em', '0.75em')}>
@@ -163,7 +163,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
           />
         </Box>
       ))}
-      <InputGroup ml={responsive('0.25em', '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('16px', '0.75em')}>
+      <InputGroup ml={responsive(0, '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('1em', '0.75em')}>
         <Input
           lineHeight="2.25"
           fontSize="1em"
@@ -194,7 +194,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
           <Box px="1em">
             {filterOptions.map(({ name, label, options }) => (
               <Box key={name} my="1em">
-                <Text mb="0.5em" fontSize="1.25em">{label}</Text>
+                <Text mb="0.5em" fontSize="1em">{label}</Text>
                 <Flex flexWrap="wrap">
                   {options.map(opt => (
                     <RadioCard
@@ -212,7 +212,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
           </Box>
         )}
         footer={(
-          <Box fontSize="1.25em" pb="1em" px="1em">
+          <Box fontSize="1em" pb="1em" px="1em">
             <Button
               height="2em"
               fontSize="1em"
