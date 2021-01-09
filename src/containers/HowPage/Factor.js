@@ -53,11 +53,11 @@ const data = [
 const Factor = () => {
   const { isMobile } = useRespoinsive()
   return (
-    <Box pt="5em" px="10%">
-      <Text fontWeight="black" fontSize={responsive('3.75em', '2em')}>
+    <Box pt={responsive('1em', '5em')} px={responsive('5%', '10%')}>
+      <Text fontWeight="black" fontSize={responsive('1.5em', '2em')}>
         什麼是「回收價值」?<br />主要由4個因素構成：
       </Text>
-      <Flex py="5em" flexDirection={responsive('column', 'row')} flexWrap="wrap">
+      <Flex py={responsive('1em', '5em')} flexDirection={responsive('column', 'row')} flexWrap="wrap">
         {data.map(({ title, desc, text, number }, i) => (
           <Box
             key={i}
@@ -67,9 +67,9 @@ const Factor = () => {
             borderLeft={responsive('none', (i % 2) ? '1px solid' : 'none')}
             borderBottom={responsive('1px solid', (i < 2) ? '2px solid' : 'none')}
             px={responsive(0, '5.625em')}
-            py={responsive('3em', '5.625em')}
+            py={responsive('1.5em', '5.625em')}
           >
-            <Box position="absolute" width={responsive('10em', 'auto')} top="2em" right="2em">
+            <Box position="absolute" width={responsive('4em', 'auto')} top={responsive('1em', '2em')} right={responsive('1em', '2em')}>
               <Image src={number} />
             </Box>
             <Box position="relative">
@@ -77,26 +77,26 @@ const Factor = () => {
                 pb="0.5rem"
                 fontWeight="bold"
                 borderBottom="1px solid"
-                fontSize={responsive('2.75em', '2em')}
+                fontSize={responsive('1.25em', '2em')}
               >
                 {title}
               </Box.Inline>
-              <Text.Bold mt="1em" fontSize={responsive('2.25em', '1em')}>{desc}</Text.Bold>
-              <Text fontSize={responsive('2.25em', '1em')}>{text}</Text>
+              <Text.Bold mt="1em" fontSize="1em">{desc}</Text.Bold>
+              <Text fontSize="1em">{text}</Text>
             </Box>
           </Box>
         ))}
       </Flex>
       <Box p="2em" bg="white" border="5px solid" borderRadius="2em">
         <Flex alignItems="center" flexDirection={responsive('column', 'row')}>
-          {isMobile && <Text.Bold fontSize={responsive('3em', '1.5em')}>案例：塑膠吸管</Text.Bold>}
+          {isMobile && <Text.Bold fontSize="1.5em">案例：塑膠吸管</Text.Bold>}
           <Box pr={responsive(0, '2em')} py={responsive('1em', 0)} width={responsive('25%', '15%')}>
             <Image src={icons} />
           </Box>
           <Box pt={responsive('2em', '0')}>
-            {!isMobile && <Text.Bold pb="0.5em" fontSize={responsive('3em', '1.5em')}>案例：塑膠吸管</Text.Bold>}
+            {!isMobile && <Text.Bold pb="0.5em" fontSize="1.5em">案例：塑膠吸管</Text.Bold>}
             {data.map(({ title, example }, k) => (
-              <Text pb="0.5em" fontSize={responsive('2.5em', '1em')} key={k}>
+              <Text pb="0.5em" fontSize="1em" key={k}>
                 <Text.Inline fontWeight="bold">0{k + 1}{title}：</Text.Inline>
                 {example}
               </Text>

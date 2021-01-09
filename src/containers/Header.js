@@ -71,7 +71,7 @@ const Header = (props) => {
                 <DrawerCloseButton />
                 <DrawerBody pt="3em" pl="2em">
                   {links.map(({ name, to, href, isSupport }, i) => (
-                    <Box key={i} py="1em" fontSize="1.25em" fontFamily={theme.fonts.number}>
+                    <Box key={i} py="1em" fontSize="1.125em" fontFamily={theme.fonts.number}>
                       <Link onClick={onClose} href={href} width="100%" to={to}>{name}</Link>
                     </Box>
                   ))}

@@ -34,10 +34,10 @@ const icons = {
 
 const Handling = ({ steps, ...props }) => {
   return (
-    <Flex alignItems="center" my={responsive('3em', '0.625em')} {...props}>
+    <Flex alignItems="center" my={responsive('1em', '0.625em')} {...props}>
       {steps.reduce((all, step, i) => {
         const s = (
-          <Flex width={responsive('16em', '12em')} key={`icon-${i}`} alignItems="center" justifyContent="center" flexDirection={responsive('column', 'row')}>
+          <Flex width={responsive('6em', '12em')} key={`icon-${i}`} alignItems="center" justifyContent="center" flexDirection={responsive('column', 'row')}>
             <Box width={responsive('80%', '40%')}>
               <Circle width="100%" bg="white">
                 <Box px="5%">
@@ -45,12 +45,12 @@ const Handling = ({ steps, ...props }) => {
                 </Box>
               </Circle>
             </Box>
-            <Box color="white" px="0.625em" mt={responsive('1.5em', 0)}>
-              <Text fontSize={responsive('2.5em', '0.9375em')} fontWeight="500" letterSpacing="0.1em">{step}</Text>
+            <Box color="white" px="0.625em" mt={responsive('0.25em', 0)}>
+              <Text fontSize="1em" fontWeight="500" letterSpacing="0.1em">{step}</Text>
             </Box>
           </Flex>
         )
-        return [...all, i > 0 && <Box key={`step-${i}`} width={responsive('8em', '3em')}><Image src={next} /></Box>, s]
+        return [...all, i > 0 && <Box key={`step-${i}`} width={responsive('3em', '3em')}><Image src={next} /></Box>, s]
       }, [])}
     </Flex>
   )

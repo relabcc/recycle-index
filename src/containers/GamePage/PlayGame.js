@@ -116,7 +116,7 @@ const GamePage = ({ data }) => {
         <ModalOverlay />
         <ModalContent
           maxWidth={responsive('90vw', '30em')}
-          rounded={responsive('4em', '2em')}
+          rounded="2em"
           overflow="hidden"
           border="0.25em solid black"
           textAlign="center"
@@ -124,8 +124,8 @@ const GamePage = ({ data }) => {
           <ModalHeader
             bg="gray.200"
             textAlign="center"
-            lineHeight={responsive('3em', '2em')}
-            fontSize={responsive('4em', '1.75em')}
+            lineHeight="2"
+            fontSize={responsive('1.75em', '1.75em')}
             fontWeight="500"
             letterSpacing="0.125em"
           >遊戲操作教學</ModalHeader>
@@ -134,17 +134,17 @@ const GamePage = ({ data }) => {
               <Image src={hand} />
             </Box>
             <Text
-              lineHeight={responsive('4em', '2.5em')}
+              lineHeight="2"
               fontWeight="900"
-              fontSize={responsive('4em', '1.75em')}
+              fontSize={responsive('1.375em', '1.75em')}
               letterSpacing="0.125em"
             >左右滑動把垃圾丟對</Text>
           </ModalBody>
-          <ModalFooter display="block" p={responsive('3em', '1em')}>
-            <Flex justifyContent="center" fontSize={responsive('4em', '1.5em')}>
+          <ModalFooter display="block" p={responsive('2em', '1em')}>
+            <Flex justifyContent="center" fontSize={responsive('1.5em', '1.5em')}>
               <HighlightNumber numberProps={{ fontSize: '2em', color: 'colors.yellow' }} number={30}>秒快問快答</HighlightNumber>
             </Flex>
-            <Button.Pink fontSize={responsive('4em', '2em')} width="full" onClick={() => setTutorial(false)}>開始挑戰</Button.Pink>
+            <Button.Pink fontSize={responsive('1.75em', '2em')} width="full" onClick={() => setTutorial(false)}>開始挑戰</Button.Pink>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -30,11 +30,11 @@ const InTheBox = ({
     <AccordionItem textAlign="center" {...props}>
       {({ isExpanded }) => (
         <Box>
-          <Box pt="4em" color={color} bg={bg}>
-            <Text fontSize="6em" fontWeight="700">{title}</Text>
-            <Box width="40em" mx="auto">
+          <Box pt="1em" color={color} bg={bg}>
+            <Text fontSize="2.5em" fontWeight="700">{title}</Text>
+            <Box width="20em" mx="auto">
               <BackgroundImage src={resultDetailShape} ratio={246.651 / 118.804}>
-                <Text fontSize={responsive('3em', '2.5em')} py={responsive('1.5em', '2em')} color="black">
+                <Text fontSize="1.5em" py="1.5em" color="black">
                   有
                   <Text.Inline
                     verticalAlign="sub"
@@ -49,15 +49,15 @@ const InTheBox = ({
               </BackgroundImage>
             </Box>
           </Box>
-          <Box pb="4em" bg={isExpanded ? 'white' : bg}>
-            <AccordionPanel pt="2em" pb="4em">
+          <Box pb="2em" bg={isExpanded ? 'white' : bg}>
+            <AccordionPanel pt="2em" pb="2em">
               <ResultList items={items} wrongTag={wrongTag} wrongProps={{ bg, color }} />
             </AccordionPanel>
             <AccordionButton
               color={isExpanded ? 'black' : 'white'}
               display="inline-flex"
               width="auto"
-              fontSize="3em"
+              fontSize="1em"
               border="0.125em solid"
               rounded="full"
               px="1em"
@@ -65,7 +65,7 @@ const InTheBox = ({
               <Box mr="0.5em">
                 {isExpanded ? '收合' : '打開瞧瞧'}
               </Box>
-              <ArrowDown size="2rem" transform={`rotate(${isExpanded ? 0 : 180}deg)`} />
+              <ArrowDown size="1em" transform={`rotate(${isExpanded ? 0 : 180}deg)`} />
             </AccordionButton>
           </Box>
         </Box>

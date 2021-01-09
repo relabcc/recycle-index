@@ -74,14 +74,15 @@ function RadioCard(props) {
   const checkbox = getCheckboxProps()
 
   return (
-    <Box as="label" fontSize="0.75em">
+    <Box as="label" fontSize="0.875em">
       <input {...input} />
       <Box
         {...checkbox}
         cursor="pointer"
         borderWidth="1px"
         borderRadius="0.5em"
-        m="0.25em"
+        borderColor="gray.500"
+        m="0.5em"
         _checked={{
           bg: props.color || "colors.yellow",
           borderColor: props.color || "colors.yellow",
@@ -189,12 +190,12 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        header={<Text px="1rem">篩選器</Text>}
+        header="篩選器"
         body={(
-          <Box px="1em">
+          <Box>
             {filterOptions.map(({ name, label, options }) => (
               <Box key={name} my="1em">
-                <Text mb="0.5em" fontSize="1em">{label}</Text>
+                <Text mb="0.5em" fontSize="1.125em" fontWeight="500">{label}</Text>
                 <Flex flexWrap="wrap">
                   {options.map(opt => (
                     <RadioCard
@@ -212,7 +213,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
           </Box>
         )}
         footer={(
-          <Box fontSize="1em" pb="1em" px="1em">
+          <Box fontSize="1em" pb="1em">
             <Button
               height="2em"
               fontSize="1em"

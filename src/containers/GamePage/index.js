@@ -27,8 +27,8 @@ const GamePage = ({ isMobile }) => {
       </Box>
       <Container px="2em" mb={responsive('2em', '2em')}>
         <Flex mt={responsive('-20%', '-4em')} alignItems="center" justifyContent="center" flexDirection={responsive('column-reverse', 'row')}>
-          <Heading lineHeight="1.5" mr={responsive(0, '1em')} fontSize={responsive('3.75em', '1.75em')}>隨手丟垃圾很容易，但你真的懂丟嗎？<br />測看看30秒內，你可以丟對幾個垃圾！</Heading>
-          <Button.Pink border="0.125em solid black" my="1em" to="/game/play/" fontSize={responsive('4em', '1.75em')} height="2em" px="1em">開始遊戲</Button.Pink>
+          <Heading lineHeight="1.5" mr={responsive(0, '1em')} fontSize={responsive('1.25em', '1.75em')}>隨手丟垃圾很容易，但你真的懂丟嗎？<br />測看看30秒內，你可以丟對幾個垃圾！</Heading>
+          <Button.Pink border="0.125em solid black" my="1em" to="/game/play/" fontSize={responsive('1.75em', '1.75em')} height="2em" px="1em">開始遊戲</Button.Pink>
         </Flex>
         {isMobile && (
           <Box px="1em" pt="0.5em">

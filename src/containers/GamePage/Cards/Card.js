@@ -72,7 +72,7 @@ const Card = ({ disabled, onAnswer, answered, containerWidth, question }) => {
         <Flex
           position="relative"
           flexDirection="column"
-          borderRadius="4em"
+          borderRadius={responsive('2em', '4em')}
           border="0.125em solid"
           borderColor="gray.500"
           bg="white"
@@ -80,11 +80,11 @@ const Card = ({ disabled, onAnswer, answered, containerWidth, question }) => {
           height="100%"
           style={{ transform: `rotate(${xOffset / t * 15}deg)` }}
         >
-          <Trash borderRadius="4em 4em 0 0" position="relative" flex="1" layers={question.layers} opacity={disabled ? 0.5 : 1} />
+          <Trash borderRadius={responsive('2em 2em 0 0', '4em 4em 0 0')} position="relative" flex="1" layers={question.layers} opacity={disabled ? 0.5 : 1} />
           <Text
             opacity={disabled ? 0.5 : 1}
             textAlign="center"
-            fontSize={responsive('4em', '2em')}
+            fontSize={responsive('1.75em', '2em')}
             py="0.5em"
           >{question.partName && question.trash.name !== question.partName ? `${question.trash.name}的${question.partName}` : question.trash.name}</Text>
           <Box.Absolute
@@ -94,7 +94,7 @@ const Card = ({ disabled, onAnswer, answered, containerWidth, question }) => {
               opacity: Math.min(Math.abs(xOffset) / (containerWidth * thres), 1),
             }}
           >
-            <Box width={responsive('40em', '20em')}>
+            <Box width={responsive('12em', '20em')}>
               {xOffset < 0 ? <Image src={recycleTag} /> : <Image src={trashTag} />}
             </Box>
           </Box.Absolute>

@@ -42,12 +42,12 @@ const About = () => {
   useShowHeader('colors.yellow')
 
   return (
-    <Box pt={responsive('10em', '3.5em')} bg="colors.yellow">
+    <Box pt={responsive('3.5em', '3.5em')} bg="colors.yellow">
       <Box
         bg="colors.yellow"
-        pt={responsive('3em', "2em")}
+        pt="2em"
         pb="8.125em"
-        px={responsive('5em', '10em')}
+        px={responsive('1.5em', '10em')}
       >
         <Image src={about} />
         <Flex alignItems={responsive('auto', 'stretch')} flexDirection={responsive('column', 'row')}>
@@ -56,18 +56,18 @@ const About = () => {
           </Box>
           <Flex
             flex={1}
-            pt={responsive('3em', '1em')}
+            pt="1em"
             flexDirection="column"
             justifyContent="space-between"
           >
-            <Box fontSize={responsive('3em', '1em')} pb="0.625em" letterSpacing="0.125em">
+            <Box fontSize="1em" pb="0.625em" letterSpacing="0.125em">
               <Text textAlign="justify">台灣是個海島國家，在面對龐大的垃圾污染時，首當其衝的是我們的海洋。但比較少見的，是我們將垃圾丟入垃圾桶後，後頭看不見的焚化、掩埋、垃圾無處安放的問題。</Text>
               <Text textAlign="justify" mt="1em">在全台超過3萬民眾的調查中，我們發現了大家有不少關於垃圾的迷思和困惑：回收有用嗎？這算是資源回收嗎？PLA是什麼？寶特瓶怎麼丟？反正就丟回收就可能被回收嘛？塑膠袋到底可不可回收？</Text>
               <Text textAlign="justify" mt="1em">在台灣，回收體系極度複雜，不見得有永遠的標準答案。我們盡可能透過最專業的夥伴、彙整最可行資訊、找到最大的交集，逐步帶給大家最可靠的回收知識和規範。我們歡迎個人、教育單位、企業品牌，一起跟我們合作，為台灣的回收找到更好的解方。</Text>
             </Box>
-            <Flex pt={responsive('2em', 0)} justifyContent="flex-end" alignItems="flex-end">
-              <Text lineHeight="1" fontSize={responsive('3.5em', '0.9375em')}>RE-THINK創辦人</Text>
-              <Text.Inline lineHeight="1" pl="0.3125em" fontSize={responsive('4.5em', '1.75em')}>
+            <Flex pt={responsive('1em', 0)} justifyContent="flex-end" alignItems="flex-end">
+              <Text lineHeight="1" fontSize="1em">RE-THINK創辦人</Text>
+              <Text.Inline lineHeight="1" pl="0.3125em" fontSize="1.75em">
                 黃之揚
               </Text.Inline>
             </Flex>
@@ -75,13 +75,13 @@ const About = () => {
         </Flex>
       </Box>
       <Box bg="white" pt="5em">
-        <Text letterSpacing="0.125em" fontWeight="900" px={responsive('3rem', '4.6875rem')} fontSize={responsive('2.5em', '2em')} color="yellow.500">核心團隊</Text>
+        <Text letterSpacing="0.125em" fontWeight="900" px={responsive('1rem', '4.6875rem')} fontSize={responsive('1.5em', '2em')} color="yellow.500">核心團隊</Text>
         {data.map(({ team, name, intro, logo }, i) => (
           <Flex
             flexDirection={responsive('column', 'row')}
             position="relative"
-            py="4.6875em"
-            px={responsive('5em', '10em')}
+            py={responsive('1.5em', '4.6875em')}
+            px={responsive('2em', '10em')}
             alignItems="center"
             justifyContent="space-between"
             key={i}
@@ -89,14 +89,14 @@ const About = () => {
             <Box position="relative" width={responsive('35%', '9.375em')}>
               <Image src={logo} />
             </Box>
-            <Box position="relative" pl={responsive(0, '6.875em')} pt={responsive('5em', 0)} flex={1}>
-              <Text.Bold fontSize={responsive('3.5em', '1.25em')}>{team}</Text.Bold>
-              <Text.Bold whiteSpace="pre-wrap" my="0.15625em" fontSize={responsive('4em', '1.71875em')}>{name}</Text.Bold>
+            <Box position="relative" pl={responsive(0, '6.875em')} pt={responsive('1em', 0)} flex={1}>
+              <Text.Bold fontSize={responsive('1.25em', '1.25em')}>{team}</Text.Bold>
+              <Text.Bold whiteSpace="pre-wrap" my="0.15625em" fontSize={responsive('1.75em', '1.75em')}>{name}</Text.Bold>
               <Text
                 lineHeight="1.75"
                 whiteSpace="pre-wrap"
                 letterSpacing="0.125em"
-                fontSize={responsive('3em', '0.875em')}
+                fontSize={responsive('1em', '0.875em')}
                 textAlign="justify"
               >
                 <ReactMarkdown renderers={{ link: Link.MdLink }}>

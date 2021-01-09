@@ -45,18 +45,18 @@ import Footer from '../../Footer'
 const ResultNumber = ({ text, unit, number, ...props }) => (
   <Flex
     flexDirection={responsive('column', 'row')}
-    width={responsive('40%', 'auto')}
+    width={responsive('42%', 'auto')}
     // flex={responsive('auto', '1')}
     letterSpacing="0.135em"
     textAlign="center"
   {...props}>
-    <Text mr="0.375em" fontSize={responsive('3.5em', '1.625em')} fontWeight="700">{text}</Text>
+    <Text mr="0.375em" fontSize={responsive('1.375em', '1.625em')} fontWeight="700">{text}</Text>
     <HighlightNumber
       mt={responsive('-0.75em', '-1.5em')}
       justifyContent="center"
       number={number}
       fontWeight="700"
-      fontSize={responsive('3.5em', '1.625em')}
+      fontSize={responsive('1.375em', '1.625em')}
       numberProps={{ fontSize: '2.5em', color: 'colors.pink', fontWeight: '500' }}
     >
       {unit}
@@ -86,7 +86,7 @@ const Action = (props) => (
     rounded="full"
     px="1em"
     height="2em"
-    fontSize={responsive('3em', '1.75em')}
+    fontSize={responsive('1.5em', '1.75em')}
     mx="0.5em"
     {...props}
   />
@@ -115,7 +115,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
   return (
     <>
       <Container position="relative">
-        <Box.Relative mx={responsive('-8em', '8em')}>
+        <Box.Relative mx={responsive('-5em', '8em')}>
           {tier.glow && (
             <Box.Absolute
               top={responsive('33%', '65%')}
@@ -127,14 +127,14 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
             </Box.Absolute>
           )}
           {isMobile ? (
-            <BackgroundImage src={titleShape} ratio={464.023 / 223.735} mt="4em" overflow="visible">
+            <BackgroundImage src={titleShape} ratio={464.023 / 223.735} mt="2em" overflow="visible">
               <Box.Absolute left="18%" right="15%" top={responsive('22%', '25%', '22%')}>
-                <Text fontSize="3.75em">{tier.text}</Text>
-                <Text fontSize={responsive('9em', '4.5em', '9em')}color="colors.pink" textStroke="0.02em black" fontWeight="900" letterSpacing="0.075em">{tier.title}</Text>
+                <Text fontSize="1.5em">{tier.text}</Text>
+                <Text fontSize={responsive('3.5em', '4.5em', '9em')}color="colors.pink" textStroke="0.02em black" fontWeight="900" letterSpacing="0.075em">{tier.title}</Text>
               </Box.Absolute>
-              <Box.Absolute left="50%" top={responsive('-3%', '-17.5%', '-3%')} width="22em" transform="translateX(-50%)">
+              <Box.Absolute left="50%" top={responsive('-3%', '-17.5%', '-3%')} width="8em" transform="translateX(-50%)">
                 <BackgroundImage ratio={336 / 150} src={complete} textAlign="center">
-                  <Box fontSize="3.5em" color="white" fontWeight="700" lineHeight="3em" letterSpacing="0.075em">
+                  <Box fontSize="1.5em" color="white" fontWeight="700" lineHeight="3em" letterSpacing="0.075em">
                     任務完成
                   </Box>
                 </BackgroundImage>
@@ -171,7 +171,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
           )}
         </Box.Relative>
         {isMobile ? (
-          <Box px={responsive('20%', '22.5%', 'auto')} mt={responsive('-20em', '-12em', 'auto')} >
+          <Box px={responsive('20%', '22.5%', 'auto')} mt={responsive('-7em', '-12em', 'auto')} >
             <BackgroundImage ratio={642.67 / 807.96} src={tier.img} overflow="visible">
               {tier.star && (
                 <>
@@ -192,7 +192,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
         )}
         <Flex
           pos="relative"
-          mt={responsive('-2em', '3em')}
+          mt={responsive('-1em', '3em')}
           ml={responsive('auto', '15%')}
           mr={responsive('auto', '28%')}
           justifyContent="center"
@@ -209,12 +209,12 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
             unit="％"
           />
         </Flex>
-        <Flex position="relative" textAlign="center" mt={responsive('-3em', '-1em')} mr={responsive('0', '0')} justifyContent="center">
+        <Flex position="relative" textAlign="center" mt={responsive('0.5em', '-1em')} justifyContent="center">
           <Action href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}/share/${tierId + 1}`}>分享結果</Action>
           <Action onClick={onReset}>再玩一次</Action>
         </Flex>
         <Box.Relative textAlign="center">
-          <Text my="1.5em" fontSize={responsive('2em', '1.25em')} fontWeight="700" letterSpacing="0.075em">往下滑看你丟對了哪些垃圾<ArrowDown ml="0.5em" size="1em" /></Text>
+          <Text my="1.5em" fontSize={responsive('1.25em', '1.25em')} fontWeight="700" letterSpacing="0.075em">往下滑看你丟對了哪些垃圾<ArrowDown ml="0.5em" size="1em" /></Text>
         </Box.Relative>
       </Container>
       {isMobile ? (
@@ -264,19 +264,19 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
         </Tabs>
       )}
       <Box.Relative bg="colors.yellow">
-        <Container py={responsive('6em', '3em')} textAlign="center">
+        <Container py="3em" textAlign="center">
           <Flex flexDirection={responsive('column', 'row')} justifyContent="center" alignItems="center">
-            <Text fontSize={responsive('3.5em', '1.5em')} fontWeight="700" letterSpacing="0.125em">想更深入認識每個垃圾嗎？</Text>
+            <Text fontSize="1.5em" fontWeight="700" letterSpacing="0.125em">想更深入認識每個垃圾嗎？</Text>
             <Button.Orange
               to="/catalogue"
               my="1em"
-              fontSize={responsive('3.5em', '1.5em')}
+              fontSize="1.5em"
               mx="1em"
               rightIcon={<ArrowDown ml="0.25em" transform="rotate(90deg)" size="0.75em" />}
             >前往探索垃圾堆</Button.Orange>
             <Flex>
-              <FB fontSize={responsive('5em', '2em')} mx="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
-              <Line fontSize={responsive('5em', '2em')} mx="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
+              <FB fontSize={responsive('2.5em', '2em')} mx="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
+              <Line fontSize={responsive('2.5em', '2em')} mx="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
             </Flex>
           </Flex>
         </Container>

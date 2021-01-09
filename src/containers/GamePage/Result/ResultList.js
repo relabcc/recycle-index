@@ -17,7 +17,7 @@ const ResultList = ({ items, wrongTag, wrongProps, ...props }) => {
         <Box width={responsive('33.33%', 1 / 7)} key={i} textAlign="center">
           <Link href={`/trash/${item.trash.id}`} target="_blank">
             <Box.Relative p="10%">
-              <AspectRatio ratio={1} border="0.125em solid black" borderWidth={responsive('0.5em', '0.125em')} rounded="15%" overflow="hidden">
+              <AspectRatio ratio={1} border="0.125em solid black" rounded="15%" overflow="hidden">
                 <Trash layers={item.layers} />
               </AspectRatio>
               {!item.isCorrect && (
@@ -26,7 +26,7 @@ const ResultList = ({ items, wrongTag, wrongProps, ...props }) => {
                     border="0.125em solid black"
                     // borderWidth={responsive('0.5em', '0.125em')}
                     fontWeight="bold"
-                    fontSize={responsive('2.75em', '1em')}
+                    fontSize="1em"
                     {...wrongProps}
                   >
                     {wrongTag}
@@ -34,7 +34,7 @@ const ResultList = ({ items, wrongTag, wrongProps, ...props }) => {
                 </Box.Absolute>
               )}
             </Box.Relative>
-            <Box fontSize={responsive('2.75em', '1em')}>
+            <Box fontSize="1em">
               <Text>{item.trash.name}</Text>
               {item.partName && item.trash.name !== item.partName && (<Text>的{item.partName}</Text>)}
             </Box>

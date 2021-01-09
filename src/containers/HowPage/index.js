@@ -60,7 +60,7 @@ const HowPage = () => {
       {backgorundImg.map(({ src, bg, title, Comp }, i) => (
         <Box bg={bg} key={i}>
            <Container>
-             {title && <Text pl="10%" pt="5rem" fontWeight="black" fontSize={responsive('3.75em', '2em')}>{title}</Text>}
+             {title && <Text pl={responsive('5%', '10%')} pt={responsive('1em', '5rem')} fontWeight="black" fontSize={responsive('1.5em', '2em')}>{title}</Text>}
              {Comp ? <Comp /> : <Image src={src} />}
           </Container>
         </Box>

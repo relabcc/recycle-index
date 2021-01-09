@@ -29,10 +29,9 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             textColor="black"
             borderTop={!noSep && '1px solid'}
             px="0"
-            fontSize={responsive("2.5em", '1.375em')}
+            fontSize={responsive('0.75em', '1.375em')}
             logoProps={{
-              width: responsive('15em', '10em'),
-              mx: '1em',
+              width: responsive(1 / 3, '10em'),
             }}
           />
         </Container>

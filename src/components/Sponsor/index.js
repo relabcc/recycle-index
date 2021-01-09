@@ -16,7 +16,7 @@ const sponsor = [
 
 const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ...props }) => {
   return (
-    <Box position="relative" py="3.125em" bg={bg} {...props}>
+    <Box position="relative" py={responsive('1em', '3.125em')} bg={bg} {...props}>
       <Box
         position="absolute"
         top="0"
@@ -31,22 +31,21 @@ const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ..
         position="relative"
         justifyContent="center"
         alignItems={isFooter && 'center'}
-        mt={responsive('2em', '0')}
       >
         <Box
-          fontSize={fontSize || responsive("3em", '2em')}
+          fontSize={fontSize || '2em'}
           color={textColor || 'colors.yellow'}
-          px={px || responsive('4.5rem', '4.6875rem')}
+          px={px || responsive('0.5em', '4.6875rem')}
           fontWeight="900"
           letterSpacing="0.125em"
           borderRight={isFooter && '2px solid'}
-          pr={isFooter && '1em'}
+          pr={isFooter && responsive('0.5em', '1em')}
         >
           贊助單位
         </Box>
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" flex="1">
           {sponsor.map((logo, k) => (
-            <Box px="1.25em" key={k} width={responsive(1 / 4, 1 / 3)} {...logoProps}>
+            <Box px={responsive('1em', '1.25em')} key={k} width={1 / 3} {...logoProps}>
               <Image src={logo} />
             </Box>
           ))}

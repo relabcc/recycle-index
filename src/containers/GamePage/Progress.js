@@ -10,13 +10,13 @@ const f = format('.1f')
 
 const Progress = ({ value, total, ...props }) => {
   return (
-    <Flex alignItems="center" my={responsive('2em', '1em')} {...props}>
+    <Flex alignItems="center" my="1em" {...props}>
       <Box flex="1">
         <Box
           mr="-4em"
           borderWidth={responsive('1px', '0.175em')}
           border="1px solid black"
-          p={responsive('1em', '0.375em')}
+          p={responsive('0.375em', '0.375em')}
           bg="white"
           rounded="full"
         >
@@ -25,7 +25,7 @@ const Progress = ({ value, total, ...props }) => {
             borderWidth={responsive('1px', '0.175em')}
             border="1px solid black"
             bg="pink.300"
-            height={responsive('3em', '1.5em')}
+            height={responsive('1.5em', '1.5em')}
             borderRadius="2em"
           />
         </Box>
@@ -34,14 +34,14 @@ const Progress = ({ value, total, ...props }) => {
         position="relative"
         zIndex={1}
         rounded="full"
-        px="2em"
+        px={responsive('1em', '2em')}
         py="0.5em"
         borderWidth={responsive('1px', '0.175em')}
         border="1px solid black"
         bg="white"
         alignItems="flex-end"
       >
-        <Text fontWeight="900" fontSize={responsive('5em', '2em')} color="pink.300">{f(value / 1000)}</Text>
+        <Text fontWeight="900" fontSize="2em" color="pink.300">{f(value / 1000)}</Text>
         {/* <Text mb="0.5em" ml="0.5em" fontSize={responsive('2em', '1em')}>/{total}</Text> */}
       </Flex>
     </Flex>

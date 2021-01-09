@@ -58,30 +58,30 @@ let progressTimer
 
 const TrashName = ({ children, ...props }) => (
   <Box.Absolute
-    top={responsive('4.5em', '1.25em')}
-    left={responsive('2em', '1.5em')}
+    top={responsive('2em', '1.25em')}
+    left={responsive('1em', '1.5em')}
     color="white"
     {...props}
   >
-    <Text fontSize={responsive('4em', '1.5625em')} fontWeight="900" letterSpacing="0.1em">{children}</Text>
+    <Text fontSize={responsive('1.25em', '1.5625em')} fontWeight="900" letterSpacing="0.1em">{children}</Text>
   </Box.Absolute>
 )
 
 const SectionTitle = ({ children, ...props }) => (
-  <Box.Absolute left={responsive('2em', '1.5em')} top={responsive('10.5em', '3.4375em')} {...props}>
-    <Text fontSize={responsive('2em', '0.9375em')}>{children}</Text>
+  <Box.Absolute left={responsive('1em', '1.5em')} top={responsive('3.75em', '3.4375em')} {...props}>
+    <Text fontSize={responsive('0.875em', '0.9375em')}>{children}</Text>
   </Box.Absolute>
 )
 
 const TrashDescription = (props) => (
   <Box.Absolute bottom={responsive('9%', '10%')} right={responsive('10%', '6em')} width={responsive('80%', '30%')}>
-    <Text lineHeight="1.625" letterSpacing="0.075em" textAlign="justify" fontSize={responsive('2.5em', '1em')} {...props} />
+    <Text lineHeight="1.625" letterSpacing="0.075em" textAlign="justify" fontSize={responsive('0.875em', '1em')} {...props} />
   </Box.Absolute>
 )
 
 const TrashValue = (props) => (
   <Box.Absolute bottom={responsive('12%', '10%')} right={responsive('10%', '8em')} width={responsive('80%', '25%')}>
-    <Text lineHeight="1.75" letterSpacing="0.075em" textAlign="justify" fontSize={responsive('2.5em', '1em')} fontWeight="700" {...props} />
+    <Text lineHeight="1.75" letterSpacing="0.075em" textAlign="justify" fontSize={responsive('1em', '1em')} fontWeight="700" {...props} />
   </Box.Absolute>
 )
 
@@ -91,7 +91,7 @@ const TrashNote = ({ children, ...props }) => {
   }, [children])
   return children && (
     <Box.Absolute top={responsive('4em', 'auto')} bottom={responsive('auto', '1.25em')} right={responsive('6%', '4.75em')} width={responsive('50%', '20%')}>
-      <Text textAlign="right" fontSize={responsive('2.5em', '1em')} whiteSpace="pre-wrap" {...props}>
+      <Text textAlign="right" fontSize={responsive('0.875em', '1em')} whiteSpace="pre-wrap" {...props}>
         *{lined}
       </Text>
     </Box.Absolute>
@@ -102,11 +102,11 @@ const TrashNumber = ({ children, ...props }) => (
   <Box.Absolute
     bottom={responsive('auto', '1.25em')}
     top={responsive('0em', 'auto')}
-    left={responsive('2em', '1.5em')}
+    left={responsive('1em', '1.5em')}
     color="white"
     {...props}
   >
-    <Text.Number fontSize={responsive('3.5em', '1.09375em')}>{children}</Text.Number>
+    <Text.Number fontSize={responsive('1.5em', '1em')}>{children}</Text.Number>
   </Box.Absolute>
 )
 
@@ -225,20 +225,20 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               >
                 <Circle
                   bg={colorScheme}
-                  width={responsive('20em', '7.5em')}
+                  width={responsive('8em', '7.5em')}
                   textAlign="center"
                   className="circle-1"
                   whiteSpace="pre-wrap"
                   opacity={0}
                 >
-                  <Text color="black" fontSize={responsive('3em', '0.9375em')} fontWeight="900">{partName}</Text>
-                  <Text color="white" fontSize={responsive('2em', '0.78125em')}>{data.partsDetail[partName]}</Text>
+                  <Text color="black" fontSize={responsive('1.25em', '0.9375em')} fontWeight="900">{partName}</Text>
+                  <Text color="white" fontSize={responsive('0.625em', '0.78125em')}>{data.partsDetail[partName]}</Text>
                 </Circle>
                 <Box.FullAbs className="circle-2" transform="scale(0)">
                   <Circle border="2px solid" borderColor={colorScheme} bg="white" width="100%" textAlign="center" whiteSpace="pre-wrap">
-                    <Text color="black" fontSize={responsive('3em', '0.9375em')} fontWeight="900">{data.belongsTo[partName]}</Text>
+                    <Text color="black" fontSize={responsive('1.25em', '0.9375em')} fontWeight="900">{data.belongsTo[partName]}</Text>
                     {data.recycleRate[data.belongsTo[partName]] && (
-                      <Text color={colorScheme} fontSize={responsive('2em', '0.78125em')} fontWeight="900">回收率{data.recycleRate[data.belongsTo[partName]]}%</Text>
+                      <Text color={colorScheme} fontSize={responsive('0.625em', '0.78125em')} fontWeight="900">回收率{data.recycleRate[data.belongsTo[partName]]}%</Text>
                     )}
                   </Circle>
                 </Box.FullAbs>
@@ -262,7 +262,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             textStroke="0.15625rem"
             textStrokeColor={`colors.${colorScheme}`}
             color="white"
-            fontSize="6.25em"
+            fontSize={responsive('3em', '6.25em')}
           >{n}</Text.Number>
         </Box.Absolute>
         <Box.AbsCenter top={responsive('15%', '40%')} width="100%" textAlign="center" transform="rotate(-12deg)">
@@ -308,6 +308,8 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <TrashNote color={colorScheme}>
           {data.partsNote}
         </TrashNote>
+        <ChevDown onClick={() => fpApi.moveSectionDown()} />
+
       </Container>
     ),
     (
@@ -318,6 +320,8 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <TrashNote color={colorScheme}>
           {data.recycleNote}
         </TrashNote>
+        <ChevDown onClick={() => fpApi.moveSectionDown()} />
+
       </Container>
     ),
     <>
@@ -335,7 +339,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
                 )}
             </SizeMe>
           </BackgroundImage>
-          <Flex fontSize={responsive('3em', '0.625em')} px="0.25em" justifyContent={responsive('', 'flex-end')} mt={responsive('-10%', '-4rem')} mr={responsive(0, '-2rem')}>
+          <Flex fontSize={responsive('1em', '0.625em')} px="0.25em" justifyContent={responsive('', 'flex-end')} mt={responsive('-10%', '-4rem')} mr={responsive(0, '-2rem')}>
             <FB border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
             <Line border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
           </Flex>
@@ -344,14 +348,14 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       <Box
         bg={colorScheme}
         pb="1em"
-        pt={responsive('6em', '2em')}
+        pt="2em"
         position="relative"
       >
         <Container px="1.25em">
           <Flex pt="1em" flexDirection={responsive('column', 'row')}>
             <Box>
               <Box pr={responsive(0, '1.5em')}>
-                <Text fontWeight="700" color="white" fontSize={responsive('3.5em', '1.25em')} letterSpacing="0.1em">＃要給垃圾一個好歸宿，你該這麼做</Text>
+                <Text fontWeight="700" color="white" fontSize={responsive('1.25em', '1.25em')} letterSpacing="0.1em">＃要給垃圾一個好歸宿，你該這麼做</Text>
               </Box>
               <Handling steps={data.handling} />
             </Box>
@@ -359,22 +363,22 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               <Box
                 flex="1"
                 color="white"
-                mt={responsive('2.5em', 0)}
-                pt={responsive('2.5em', 0)}
+                mt={responsive('1em', 0)}
+                pt={responsive('1em', 0)}
                 pl={responsive('0', '1.5em')}
                 borderTop={responsive('2px solid', 'none')}
                 borderLeft={responsive('none', '2px solid')}
                 alignItems={responsive('flex-start', 'center')}
               >
-                <Text fontWeight="700" fontSize={responsive('3.5em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
-                <Flex width={responsive('66em', '24em')} mr={responsive('2em', '1em')} alignItems="flex-end" my={responsive('2em', '0.5em')}>
+                <Text fontWeight="700" fontSize={responsive('1.25em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
+                <Flex width={responsive('20em', '24em')} mr={responsive('0', '1em')} alignItems="flex-end" my={responsive('1em', '0.5em')}>
                   <Box width="22%" pb="5%">
                     <Image src={planb} />
                   </Box>
                   <Box flex="1" pl="2%">
                     <BackgroundImage src={planbBubble} ratio={486 / 176}>
                       <Box.Absolute top="50%" left="16%" right="5%" transform="translateY(-50%)">
-                        <Text fontSize={responsive('2.75em', '1em')} letterSpacing="0.1em">{data.alternative}</Text>
+                        <Text fontSize={responsive('1.125em', '1em')} letterSpacing="0.1em">{data.alternative}</Text>
                       </Box.Absolute>
                     </BackgroundImage>
                   </Box>
@@ -386,11 +390,11 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       </Box>
       <Box bg="white" py="1.25em" position="relative" zIndex={1}>
         <Container>
-          <Flex mt={responsive('2em', '0.25em')}>
-            <Box width={responsive('4em', '1.75em')} mr="0.5em">
+          <Flex mt={responsive('0.5em', '0.25em')}>
+            <Box width="1.75em" mr="0.5em">
               <Image src={trash} />
             </Box>
-            <Text fontSize={responsive('2.75em', '1.25em')} fontWeight="900" letterSpacing="0.125em">猜你也丟過這些...</Text>
+            <Text fontSize={responsive('1.25em', '1.25em')} fontWeight="900" letterSpacing="0.125em">猜你也丟過這些...</Text>
           </Flex>
         </Container>
         <Box overflow={responsive('scroll', 'hidden')} mr={responsive(0, '1.25em')} className="overflow-scroll" py="1em">
@@ -407,7 +411,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           </Box>
         </Box>
         <Container>
-          <Footer pt={responsive('4em', '2em')} pb="2em" />
+          <Footer pt="2em" pb="2em" />
         </Container>
       </Box>
       <Box.Absolute

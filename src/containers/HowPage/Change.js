@@ -59,7 +59,7 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
         p="1rem"
         fontWeight="black"
         letterSpacing="0.125em"
-        fontSize={responsive('3.5em', '1.75em')}
+        fontSize="1.75em"
         borderBottom="1px solid black"
       >
         {title}
@@ -67,8 +67,8 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
     }
     <Box py="2em" px={responsive('12.5%', '4.5em')}>
       {titles.map((title, k) => (
-        <Box key={k} pt={responsive('2.75em', '1em')}>
-          <Box fontSize={responsive('3em', '1.25em')} position="relative" pb={responsive('0.25em', '0.25rem')}>
+        <Box key={k} pt="1em">
+          <Box fontSize="1.25em" position="relative" pb={responsive('0.25em', '0.25rem')}>
             <Box position="absolute" color={color} top="-15%" right="100%" transform="translateX(-0.25em)">
               <Star />
             </Box>
@@ -78,7 +78,7 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
             {isArray(content[k]) ? (
               <Box>
                 {/* <Text fontSize={responsive('2.5em', '1em')}>Profile example</Text> */}
-                <Box pl="1.75em" fontSize={responsive('2.5em', '1em')} as="ol" listStyleType="decimal-leading-zero">
+                <Box pl="1.75em" fontSize="1em" as="ol" listStyleType="decimal-leading-zero">
                   {content[k].map((text, key) => (
                     <Box as="li" key={key}>
                       {profiles[key]}: <Text.Inline color={text.length > 4 && color}>{text}</Text.Inline>
@@ -87,7 +87,7 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
                 </Box>
               </Box>
             ) : (
-              <Box fontSize={responsive('2.5em', '1em')} whiteSpace="pre-wrap">
+              <Box fontSize="1em" whiteSpace="pre-wrap">
                 {content[k]}
               </Box>
             )}
@@ -101,11 +101,11 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
 const Change = () => {
   const { isMobile } = useRespoinsive()
   return (
-    <Box py="5rem" px={responsive('7.5%', '10%')}>
-      <Text fontWeight="black" fontSize={responsive('3.75em', '2em')}>
+    <Box py={responsive('1em', '5rem')} px={responsive('5%', '10%')}>
+      <Text fontWeight="black" fontSize={responsive('1.5em', '2em')}>
         你有機會改變的「回收物命運」
       </Text>
-      <Text fontSize={responsive('2.75em', '1.5em')}>
+      <Text fontSize={responsive('1em', '1.5em')}>
         你有發現回收大百科中101個垃圾，有不同的回收價值嗎？這些價值都是參考實際的回收市場而定。當我們碰到不同回收價值的東西時，該怎麼做呢？
       </Text>
       {/* <Flex pt="1em" alignItems="center">
@@ -123,7 +123,7 @@ const Change = () => {
             {data.map(({ title, color }, i) => (
               <Tab
                 letterSpacing="0.5rem"
-                fontSize="3em"
+                fontSize="1em"
                 borderColor="black"
                 _focus={{ outline: 'none' }}
                 _selected={{ bg: color, color: 'white', borderColor: 'black' }}
