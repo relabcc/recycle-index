@@ -410,7 +410,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             </Flex>
           </Box>
         </Box>
-        <Container>
+        <Container px={responsive('0', '2em')}>
           <Footer pt="2em" />
         </Container>
       </Box>

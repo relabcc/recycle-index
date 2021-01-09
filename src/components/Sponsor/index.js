@@ -43,7 +43,7 @@ const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ..
         >
           贊助單位
         </Box>
-        <Flex justifyContent="center" flex="1">
+        <Flex justifyContent="center" flex={responsive('1', 'none')}>
           {sponsor.map((logo, k) => (
             <Box px={responsive('1em', '1.25em')} key={k} width={1 / 3} {...logoProps}>
               <Image src={logo} />
