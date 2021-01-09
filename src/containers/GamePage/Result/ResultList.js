@@ -26,7 +26,7 @@ const ResultList = ({ items, wrongTag, wrongProps, ...props }) => {
                     border="0.125em solid black"
                     // borderWidth={responsive('0.5em', '0.125em')}
                     fontWeight="bold"
-                    fontSize="1em"
+                    fontSize={responsive('0.75em', '1em')}
                     {...wrongProps}
                   >
                     {wrongTag}

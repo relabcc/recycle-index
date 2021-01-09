@@ -84,7 +84,7 @@ const Card = ({ disabled, onAnswer, answered, containerWidth, question }) => {
           <Text
             opacity={disabled ? 0.5 : 1}
             textAlign="center"
-            fontSize={responsive('1.75em', '2em')}
+            fontSize={responsive('1.5em', '2em')}
             py="0.5em"
           >{question.partName && question.trash.name !== question.partName ? `${question.trash.name}的${question.partName}` : question.trash.name}</Text>
           <Box.Absolute

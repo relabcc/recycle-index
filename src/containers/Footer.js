@@ -38,7 +38,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
       )}
       <Container py="1em" fontSize={responsive('0.75em', '0.625em')}>
         <Box textAlign="center" fontSize={responsive('1em', '1.5em')}>
-          <Stack isInline spacing={responsive('0.75em', '1.5em')} justifyContent="center">
+          <Stack isInline spacing={responsive('0.5em', '1.5em')} justifyContent="center">
             <Link href="https://www.facebook.com/rethink.tw">RE-THINK FB</Link>
             <Box borderLeft="1px solid black" />
             <Link href="http://rethinktw.org/">RE-THINK 官網</Link>
@@ -48,8 +48,8 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             <Link href="http://relab.cc/">Re-lab 官網</Link>
           </Stack>
           <Flex justifyContent="center" py="1em">
-            <Box mr="1em" fontWeight="300">Copyright © {new Date().getFullYear()} 回收大百科團隊</Box>
-            <Box borderLeft="1px solid black" mr="0.75em" />
+            <Box fontWeight="300">Copyright © {new Date().getFullYear()} 回收大百科團隊</Box>
+            <Box borderLeft="1px solid black" mx={responsive('0.5em', '0.75em')} />
             <Link onClick={() => setTimeout(onOpen)} as="button">製作說明</Link>
           </Flex>
         </Box>

@@ -45,12 +45,12 @@ const Handling = ({ steps, ...props }) => {
                 </Box>
               </Circle>
             </Box>
-            <Box color="white" px="0.625em" mt={responsive('0.25em', 0)}>
-              <Text fontSize="1em" fontWeight="500" letterSpacing="0.1em">{step}</Text>
+            <Box color="white" px={responsive('0.25em', '0.625em')} mt={responsive('0.75em', 0)}>
+              <Text fontSize={responsive('0.875em', '1em')} fontWeight="500" letterSpacing="0.1em">{step}</Text>
             </Box>
           </Flex>
         )
-        return [...all, i > 0 && <Box key={`step-${i}`} width={responsive('3em', '3em')}><Image src={next} /></Box>, s]
+        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><Image src={next} /></Box>, s]
       }, [])}
     </Flex>
   )

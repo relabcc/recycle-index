@@ -31,7 +31,7 @@ const InTheBox = ({
       {({ isExpanded }) => (
         <Box>
           <Box pt="1em" color={color} bg={bg}>
-            <Text fontSize="2.5em" fontWeight="700">{title}</Text>
+            <Text fontSize="2.25em" fontWeight="700">{title}</Text>
             <Box width="20em" mx="auto">
               <BackgroundImage src={resultDetailShape} ratio={246.651 / 118.804}>
                 <Text fontSize="1.5em" py="1.5em" color="black">

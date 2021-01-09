@@ -47,16 +47,16 @@ const ResultNumber = ({ text, unit, number, ...props }) => (
     flexDirection={responsive('column', 'row')}
     width={responsive('42%', 'auto')}
     // flex={responsive('auto', '1')}
-    letterSpacing="0.135em"
+    letterSpacing="0.1em"
     textAlign="center"
   {...props}>
-    <Text mr="0.375em" fontSize={responsive('1.375em', '1.625em')} fontWeight="700">{text}</Text>
+    <Text mr="0.375em" fontSize={responsive('1.25em', '1.625em')} fontWeight="700">{text}</Text>
     <HighlightNumber
       mt={responsive('-0.75em', '-1.5em')}
       justifyContent="center"
       number={number}
       fontWeight="700"
-      fontSize={responsive('1.375em', '1.625em')}
+      fontSize={responsive('1.25em', '1.625em')}
       numberProps={{ fontSize: '2.5em', color: 'colors.pink', fontWeight: '500' }}
     >
       {unit}
@@ -129,8 +129,8 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
           {isMobile ? (
             <BackgroundImage src={titleShape} ratio={464.023 / 223.735} mt="2em" overflow="visible">
               <Box.Absolute left="18%" right="15%" top={responsive('22%', '25%', '22%')}>
-                <Text fontSize="1.5em">{tier.text}</Text>
-                <Text fontSize={responsive('3.5em', '4.5em', '9em')}color="colors.pink" textStroke="0.02em black" fontWeight="900" letterSpacing="0.075em">{tier.title}</Text>
+                <Text fontSize="1.375em">{tier.text}</Text>
+                <Text fontSize={responsive('3.25em', '4.5em', '9em')}color="colors.pink" textStroke="0.02em black" fontWeight="900" letterSpacing="0.075em">{tier.title}</Text>
               </Box.Absolute>
               <Box.Absolute left="50%" top={responsive('-3%', '-17.5%', '-3%')} width="8em" transform="translateX(-50%)">
                 <BackgroundImage ratio={336 / 150} src={complete} textAlign="center">
@@ -266,11 +266,11 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
       <Box.Relative bg="colors.yellow">
         <Container py="3em" textAlign="center">
           <Flex flexDirection={responsive('column', 'row')} justifyContent="center" alignItems="center">
-            <Text fontSize="1.5em" fontWeight="700" letterSpacing="0.125em">想更深入認識每個垃圾嗎？</Text>
+            <Text fontSize={responsive('1.25em', '1.5em')} fontWeight="700" letterSpacing="0.125em">想更深入認識每個垃圾嗎？</Text>
             <Button.Orange
               to="/catalogue"
               my="1em"
-              fontSize="1.5em"
+              fontSize={responsive('1.25em', '1.5em')}
               mx="1em"
               rightIcon={<ArrowDown ml="0.25em" transform="rotate(90deg)" size="0.75em" />}
             >前往探索垃圾堆</Button.Orange>

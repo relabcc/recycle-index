@@ -142,7 +142,7 @@ const HomePage = () => {
       </>,
       <Container textAlign="center" color="black" height="100%">
         <Box.Relative height="100%">
-          <Box.Absolute bottom={responsive('15em', '8em')} left="0" right="0">
+          <Box.Absolute bottom={responsive('5em', '8em')} left="0" right="0">
             <Heading
               letterSpacing="0.125em"
               fontWeight="900"

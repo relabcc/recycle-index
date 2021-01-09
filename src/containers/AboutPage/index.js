@@ -90,13 +90,13 @@ const About = () => {
               <Image src={logo} />
             </Box>
             <Box position="relative" pl={responsive(0, '6.875em')} pt={responsive('1em', 0)} flex={1}>
-              <Text.Bold fontSize={responsive('1.25em', '1.25em')}>{team}</Text.Bold>
-              <Text.Bold whiteSpace="pre-wrap" my="0.15625em" fontSize={responsive('1.75em', '1.75em')}>{name}</Text.Bold>
+              <Text.Bold fontSize={responsive('1em', '1.25em')}>{team}</Text.Bold>
+              <Text.Bold whiteSpace="pre-wrap" my="0.15625em" fontSize={responsive('1.5em', '1.75em')}>{name}</Text.Bold>
               <Text
                 lineHeight="1.75"
                 whiteSpace="pre-wrap"
                 letterSpacing="0.125em"
-                fontSize={responsive('1em', '0.875em')}
+                fontSize="0.875em"
                 textAlign="justify"
               >
                 <ReactMarkdown renderers={{ link: Link.MdLink }}>
