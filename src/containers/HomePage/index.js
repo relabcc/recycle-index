@@ -82,7 +82,7 @@ const HomePage = () => {
   const data = useData()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
-  useReloadOnOrentation()
+  // useReloadOnOrentation()
   // const [currentPage, setCurrentPage] = useState(0)
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
@@ -172,6 +172,33 @@ const HomePage = () => {
     const windowHeight =  innerHeight()
     gsap.set(heroTrashRef.current, {
       right: trashWidth * 0.50,
+      width: trashWidth * 0.3,
+      top: '-100%',
+      opacity: 1,
+    })
+    gsap.set(heroTrashRef.current.querySelector('.trash'), {
+      rotate: 7,
+    })
+    gsap.set(bubbleRef.current, {
+      opacity: 0,
+    })
+    gsap.set(trashMountRef.current, {
+      scale: 1,
+      x: 0,
+      y: 0,
+    })
+    gsap.set(trashMountRef.current.querySelector('.margin-adj'), {
+      marginTop: trashMt,
+    })
+    gsap.set(trashMountRef.current.querySelectorAll('.trash-bubble'), {
+      scale: 0,
+      opacity: 0,
+    })
+    gsap.set(trashMountRef.current.querySelector('.trash-mount'), {
+      opacity: 1,
+    })
+    gsap.set(document.querySelector('.home-bg'), {
+      backgroundColor: theme.colors.colors.yellow,
     })
     timeline.to(heroTrashRef.current, {
       width: trashWidth * 0.25,
@@ -289,6 +316,9 @@ const HomePage = () => {
         afterResize={() => {
           setTimeout(() => {
             document.body.style.height = `${windowSize.height}px`
+            fpApi.silentMoveTo(1)
+            // timeline.seek(0)
+            // timeline2.seek(0)
           })
         }}
         render={({ fullpageApi }) => {
@@ -347,7 +377,7 @@ const HomePage = () => {
                   left="8%"
                   right="0"
                   fontWeight="900"
-                  fontSize={responsive("1em", "1.5em", "0.625em")}
+                  fontSize={responsive("1em", "1.5em", "0.5em")}
                   pointerEvents="all"
                 >
                   要被燒掉了嗚嗚

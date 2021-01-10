@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo, createRef, useContext } from 'react'
 import { AspectRatio } from '@chakra-ui/react'
-import { get, random, range, sampleSize, size } from 'lodash'
+import { get, random, range, sampleSize } from 'lodash'
 import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
 import { SizeMe } from 'react-sizeme';
@@ -40,7 +40,7 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
-import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
+// import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
 if (typeof window !== 'undefined') {
   require('fullpage.js/vendors/scrolloverflow')
@@ -162,7 +162,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const layerRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
-  useReloadOnOrentation()
+  // useReloadOnOrentation()
 
   const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
   const trashWidth = (isMobile ? (isIos ? 135 : 160) : 75) * (data.transform.scale ? (isMobile && data.transform.mobileScale ? data.transform.mobileScale : data.transform.scale) / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
@@ -453,8 +453,15 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       left: `${(100 - trashWidth) / 2}%`,
       rotate: (isMobile && data.transform.mobileRotate ? data.transform.mobileRotate : data.transform.rotate) || 0,
       y: '-50%',
+      x: 0,
     }
     gsap.set(trashRef.current, defaultTrashCfg)
+    gsap.set(trashXRef.current, {
+      x: 0,
+      y: 0,
+      scale: 1,
+    })
+    gsap.set(faceRef.current, { opacity: 1 })
     const rateEles = []
 
     theTimeline = gsap.timeline({
@@ -495,8 +502,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       // y: isMobile ? '45%' : '50%',
       duration: scrollingDuration,
     }, scrollingDuration)
-    const [poses, posByPartName, posByOrder] = getPoses(data, newHeight, explosionGap)
-    // const heightByOrder = posByOrder.reduce((all, p, i) => [...all, i < posByOrder.length - 1 ? (p - posByOrder[i + 1]) : 0], [])
+    const [poses, posByPartName] = getPoses(data, newHeight, explosionGap)
     const combineParts = []
 
     data.imgs.forEach((cfg, i) => {
@@ -515,6 +521,15 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         })
       }
       if (cfg.partName) {
+        gsap.set(partsRefs[cfg.index].current.querySelector('.circle-container'), {
+          [cfg.side && !isMobile ? 'left' : 'right']: `${cfgPoses[cfg.partName].pos}%`,
+        })
+        gsap.set(partsRefs[cfg.index].current.querySelector('.line'), {
+          opacity: 0,
+        })
+        gsap.set(partsRefs[cfg.index].current.querySelector('.circle-1'), {
+          opacity: 0,
+        })
         theTimeline.to(partsRefs[cfg.index].current.querySelector('.circle-container'), {
           [cfg.side && !isMobile ? 'left' : 'right']: isMobile ? '92%' : '100%',
           duration: scrollingDuration,
@@ -592,6 +607,13 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         }
 
         if (cfg.partName) {
+
+          gsap.set(partsRefs[cfg.index].current.querySelector('.circle-2'), {
+            scale: 0,
+          })
+          gsap.set(partsRefs[cfg.index].current.querySelector('.circle-rate'), {
+            opacity: 0,
+          })
           theTimeline.to(partsRefs[cfg.index].current.querySelector('.circle-2'), {
             scale: 1,
             duration: scrollingDuration,
@@ -688,6 +710,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         afterResize={() => {
           setTimeout(() => {
             document.body.style.height = `${windowSize.height}px`
+            if (fpApi.getActiveSection().index < 4) fpApi.silentMoveTo(1)
           })
         }}
         render={({ fullpageApi }) => {
