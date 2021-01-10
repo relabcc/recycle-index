@@ -58,15 +58,14 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
         <ModalOverlay bg="rgba(255,255,255,0.5)" />
         <ModalContent
           border="3px solid"
-          fontSize={responsive('2.5em', '1em')}
+          fontSize="1em"
           rounded={responsive('1em', '1.5em')}
           maxWidth={responsive('90vw', '50em')}
-          p={responsive('1em', 0)}
         >
           <ModalHeader
             pt="2em"
             fontWeight="900"
-            fontSize="1.25em"
+            fontSize={responsive('1.125em', '1.25em')}
           >這是，最通用的回收指南。<br />也是，需要你一起共創完成的指標。</ModalHeader>
           <ModalCloseButton
             bg="black"
