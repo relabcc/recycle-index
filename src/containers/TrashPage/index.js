@@ -91,7 +91,7 @@ const TrashNote = ({ children, ...props }) => {
   }, [children])
   return children && (
     <Box.Absolute top={responsive('1em', 'auto')} bottom={responsive('auto', '1.25em')} right={responsive('6%', '4.75em')} width={responsive('50%', '20%')}>
-      <Text textAlign="right" fontSize={responsive('0.875em', '1em')} whiteSpace="pre-wrap" {...props}>
+      <Text fontSize={responsive('0.875em', '0.875em')} whiteSpace="pre-wrap" {...props}>
         *{lined}
       </Text>
     </Box.Absolute>
