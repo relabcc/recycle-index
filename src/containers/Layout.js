@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
               name="description"
               content="寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。"
             />
-            <meta name="og:image" content={`${data.site.siteMetadata.url}/og.jpg`} />
+            <meta name="og:image" content={`${data.site.siteMetadata.url}/og-0113.jpg`} />
           </Helmet>
           {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} />}
           {children}

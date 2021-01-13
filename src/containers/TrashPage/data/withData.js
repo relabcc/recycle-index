@@ -62,7 +62,7 @@ const withData = SubComp => props => {
       }),
     }
   }, [allData, id])
-  console.log(data)
+  // console.log(data)
   return (
     <>
       <Helmet>
