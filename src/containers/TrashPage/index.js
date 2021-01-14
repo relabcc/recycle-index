@@ -6,7 +6,6 @@ import { useWindowSize } from 'react-use';
 import { SizeMe } from 'react-sizeme';
 import ReactFullpage from '@fullpage/react-fullpage'
 import { timer } from 'd3-timer';
-import { Helmet } from 'react-helmet';
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'

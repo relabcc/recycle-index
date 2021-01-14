@@ -7,7 +7,7 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import Footer from '../Footer';
 import useShowHeader from '../../contexts/header/useShowHeader';
 import Container from '../../components/Container';
-import useResponsive from '../../contexts/mediaQuery/useResponsive'
+// import useResponsive from '../../contexts/mediaQuery/useResponsive'
 
 import Factor from './Factor';
 import Change from './Change';

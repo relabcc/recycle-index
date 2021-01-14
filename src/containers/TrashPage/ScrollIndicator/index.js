@@ -1,15 +1,13 @@
 import React from 'react'
-import { MdArrowDropDown, MdClose } from 'react-icons/md'
+import { MdArrowDropDown } from 'react-icons/md'
 import styled from '@emotion/styled'
 
 import Flex from '../../../components/Flex'
 import Box from '../../../components/Box'
-import Button from '../../../components/Button'
 import Image from '../../../components/Image'
 
 import bin from './bin.svg'
 import trash from './trash.svg'
-import { responsive } from '../../../components/ThemeProvider/theme'
 
 const RightDash = styled(Box)`
   background: linear-gradient(black 50%, rgba(255, 255, 255, 0) 0%);

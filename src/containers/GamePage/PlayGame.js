@@ -85,6 +85,23 @@ const GamePage = ({ data }) => {
     })
   }, [])
   useEffect(() => {
+    if (finish) {
+      const correctCount = answers.reduce((count, a, i) => {
+        const q = questions[i]
+        const isCorrect = q.recyclable ? a.ans < 0 : a.ans > 0
+
+        if (isCorrect) count += 1
+        return count
+      }, 0)
+      // console.log(answers.length, correctCount, Math.round(correctCount / answers.length * 100))
+      if (typeof window !== 'undefined' && window.ga) {
+        window.ga('send', 'event', '小遊戲', '完成遊戲', '丟棄垃圾量', answers.length);
+        window.ga('send', 'event', '小遊戲', '完成遊戲', '正確回收量', correctCount);
+        window.ga('send', 'event', '小遊戲', '完成遊戲', '正確回收率', Math.round(correctCount / answers.length * 100));
+      }
+    }
+  }, [finish])
+  useEffect(() => {
     if (!tutorial && questions.length) {
       ansTime = new Date()
       ticker = interval(tick)
