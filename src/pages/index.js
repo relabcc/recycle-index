@@ -7,7 +7,7 @@ const Render = () => {
   return (
     <>
       <Helmet>
-        <title>101個台灣人必懂的垃圾</title>
+        <title>秒懂101個台灣人必知的垃圾</title>
       </Helmet>
       <Page />
     </>

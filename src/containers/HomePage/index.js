@@ -111,7 +111,7 @@ const HomePage = () => {
                 fontFamily={theme.fonts.number}
                 fontStyle="italic"
               >
-                101個台灣人必懂的垃圾
+                秒懂101個台灣人必知的垃圾
               </Heading.H2>
               <BackgroundImage src={title} ratio={titleRatio}>
                 <Box.FullAbs zIndex={2}>
