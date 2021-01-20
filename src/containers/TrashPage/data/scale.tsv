@@ -51,7 +51,7 @@ name	scale	x	y	shareScale	rotate	mobileScale	mobileX	mobileY	mobileShareScale	fi
 薄塑膠盒	85	-17	10	70			-4	-2	80			80	150					5	 translate(3%,-22%) skew(-52deg,31deg) rotate(-11deg) scale(0.7)
 罐裝洋芋片	80	-3		75		65	0	-20	80			75	150		10			2	 translate(1%,-55%) skew(0deg,0deg) rotate(0deg) scale(1.5)
 袋裝洋芋片	75	-10		75		70		-15	75				150		10			3	 translate(1%,-33%) skew(0deg,0deg) rotate(0deg) scale(1.1)
-化妝品瓶罐	90	-5	8	75				3					150		-5			1	 translate(-4%,-33%) skew(-18deg,5deg) rotate(4deg) scale(0.8)
+保養品瓶罐	90	-5	8	75				3					150		-5			1	 translate(-4%,-33%) skew(-18deg,5deg) rotate(4deg) scale(0.8)
 電子發票	70	-10		75			2	-18	85				150		5	-5		3	 translate(0%,-42%) skew(0deg,0deg) rotate(0deg) scale(1.4)
 廢棄藥品	75	-10	-8	75	-15		8	-6					150					2	 translate(8%,-25%) skew(-28deg,17deg) rotate(0deg) scale(1.6)
 膠囊咖啡	90	-10	10	75				3			200	85	200	-3	-10		8	2	 translate(0%,23%) skew(0deg,0deg) rotate(0deg) scale(1.4)

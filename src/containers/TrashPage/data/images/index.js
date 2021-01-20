@@ -41,7 +41,7 @@ export default {
 '透明塑膠袋': require('./62 透明塑膠袋').default,
 '罐裝洋芋片': require('./64 罐裝洋芋片').default,
 '袋裝洋芋片': require('./65 袋裝洋芋片').default,
-'化妝品瓶罐': require('./66 化妝品瓶罐').default,
+'保養品瓶罐': require('./66 保養品瓶罐').default,
 '電子發票': require('./67 電子發票').default,
 '廢棄藥品': require('./69 廢棄藥品').default,
 '隱形眼鏡': require('./71 隱形眼鏡').default,

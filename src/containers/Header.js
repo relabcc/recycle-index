@@ -25,6 +25,7 @@ const links = [
   { name: '丟垃圾大考驗', to: '/game' },
   { name: '必懂的回收知識', to: '/how' },
   { name: '關於我們', to: '/about' },
+  { name: '課程申請', href: 'https://docs.google.com/forms/d/e/1FAIpQLSePuqu6i9Q0e2IoOih6RNOsBFwRrxo3lwrXI7MGikkdKsFYZg/viewform' },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true },
 ]
 

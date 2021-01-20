@@ -236,13 +236,13 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
                 <Box.FullAbs className="circle-2" transform="scale(0)">
                   <Circle border="2px solid" borderColor={colorScheme} bg="white" width="100%" textAlign="center" whiteSpace="pre-wrap">
                     <Text color="black" fontSize={responsive('1.125em', '0.9375em')} fontWeight="900">{data.belongsTo[partName]}</Text>
-                    {data.recycleRate[data.belongsTo[partName]] && (
+                    {get(data.recycleRate, [data.belongsTo[partName]]) && (
                       <Text color={colorScheme} fontSize={responsive('0.625em', '0.78125em')} fontWeight="900">回收率{data.recycleRate[data.belongsTo[partName]]}%</Text>
                     )}
                   </Circle>
                 </Box.FullAbs>
                 <Box.Absolute className="circle-rate" opacity="0" left="-8%" right="-8%" top="-8%" bottom="-8%" pointerEvents="none">
-                  {data.recycleRate[data.belongsTo[partName]] && (
+                  {get(data.recycleRate, [data.belongsTo[partName]]) && (
                     <RateCircle className="circle-rate-progress" value={data.recycleRate[data.belongsTo[partName]]} color={colorScheme} />
                   )}
                 </Box.Absolute>
@@ -304,9 +304,11 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <TrashName color={colorScheme}>{data.name}</TrashName>
         <SectionTitle>組成的材質是什麼？</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
-        <TrashNote color={colorScheme}>
-          {data.partsNote}
-        </TrashNote>
+        {data.partsNote && (
+          <TrashNote color={colorScheme}>
+            {data.partsNote}
+          </TrashNote>
+        )}
         <ChevDown onClick={() => fpApi.moveSectionDown()} />
 
       </Container>
@@ -316,11 +318,12 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <TrashName color={colorScheme}>{data.name}</TrashName>
         <SectionTitle>用完應該丟在哪裡？</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
-        <TrashNote color={colorScheme}>
-          {data.recycleNote}
-        </TrashNote>
+        {data.recycleNote && (
+          <TrashNote color={colorScheme}>
+            {data.recycleNote}
+          </TrashNote>
+        )}
         <ChevDown onClick={() => fpApi.moveSectionDown()} />
-
       </Container>
     ),
     <>

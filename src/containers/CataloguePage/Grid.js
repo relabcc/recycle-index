@@ -30,7 +30,7 @@ const Catalogue = ({ data }) => {
       if (!values[key]) return res
       if (key === 'search') {
         const re = new RegExp(values[key], 'gi')
-        return res || !(re.test(d.name) || d.synonym.some(s => re.test(s)))
+        return res || !(re.test(d.name) || (d.synonym && d.synonym.some(s => re.test(s))))
       }
       return res || (!d[key] || !(isArray(d[key]) ? d[key].includes(String(values[key])) : d[key] === values[key]))
     }, false)
