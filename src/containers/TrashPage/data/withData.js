@@ -68,6 +68,7 @@ const withData = SubComp => props => {
       <Helmet>
         <title>{`#${data.id} ${data.name}`}</title>
         <meta name="og:image" content={`${props.data.site.siteMetadata.url}/share/${data.id}.jpg`} />
+        <meta name="description" content={data.description} />
       </Helmet>
       {createElement(withLoading(data.imgs.map(d => d.src))(SubComp), {
         key: id,
