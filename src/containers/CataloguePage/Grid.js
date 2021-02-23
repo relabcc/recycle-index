@@ -1,4 +1,4 @@
-import React, { createElement, useMemo } from 'react'
+import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import { useFormik } from 'formik'
 import { isArray } from 'lodash';
 
@@ -10,13 +10,38 @@ import FilterAndSearch from './FilterAndSearch';
 import PerTrash from './PerTrash';
 import Footer from '../Footer';
 import withLoading from '../withLoading';
+import diff from './diff'
 
+let searched
+let filterApplied
 const Catalogue = ({ data }) => {
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       search: '',
     },
   })
+  const prevValues = useRef()
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.ga) {
+      if (!searched) {
+        window.ga('send', 'event', '篩選器', '輸入關鍵字');
+        searched = true
+      }
+      if (!filterApplied) {
+        window.ga('send', 'event', '篩選器', '使用篩選器');
+        filterApplied = true
+      }
+      if (prevValues.current) {
+        const lastest = Object.entries(diff(prevValues.current, values))
+        lastest.forEach(([key, value]) => {
+          if (value && key !== 'search') {
+            window.ga('send', 'event', '篩選器', key, value)
+          }
+        })
+      }
+    }
+    prevValues.current = values
+  }, [values])
   // const gridRef = useRef()
   const okData = useMemo(() => {
     return data ? (data.filter(d => {

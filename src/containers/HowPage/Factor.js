@@ -61,7 +61,7 @@ const Factor = () => {
         {data.map(({ title, desc, text, number }, i) => (
           <Box
             key={i}
-            width={responsive('100%', 1 / 2)}
+            width={responsive('100%', '50%')}
             position="relative"
             borderRight={responsive('none', (i % 2) ? 'none' : '1px solid')}
             borderLeft={responsive('none', (i % 2) ? '1px solid' : 'none')}

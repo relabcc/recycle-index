@@ -51,7 +51,7 @@ const About = () => {
       >
         <Image src={about} />
         <Flex alignItems={responsive('auto', 'stretch')} flexDirection={responsive('column', 'row')}>
-          <Box mr={responsive(0, '-1.25em')} width={responsive('50%', 1 / 2)}>
+          <Box mr={responsive(0, '-1.25em')} width="50%">
             <Image src={picture} />
           </Box>
           <Flex
