@@ -41,11 +41,11 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
           <Stack isInline spacing={responsive('0.5em', '1.5em')} justifyContent="center">
             <Link href="https://www.facebook.com/rethink.tw">RE-THINK FB</Link>
             <Box borderLeft="1px solid black" />
-            <Link href="http://rethinktw.org/">RE-THINK 官網</Link>
+            <Link href="https://rethinktw.org/">RE-THINK 官網</Link>
             <Box borderLeft="1px solid black" />
-            <Link href="http://renato-lab.com/">REnato lab 官網</Link>
+            <Link href="https://renato-lab.com/">REnato lab 官網</Link>
             <Box borderLeft="1px solid black" />
-            <Link href="http://relab.cc/">Re-lab 官網</Link>
+            <Link href="https://relab.cc/">Re-lab 官網</Link>
           </Stack>
           <Flex justifyContent="center" py="1em">
             <Box fontWeight="300">Copyright © {new Date().getFullYear()} 回收大百科團隊</Box>
