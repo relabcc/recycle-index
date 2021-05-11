@@ -36,6 +36,7 @@ import PointingDown from '../../components/PointingDown'
 import ChevDown from '../TrashPage/ChevDown'
 import withLoading from '../withLoading'
 import useReloadOnOrentation from '../../utils/useReloadOnOrentation'
+import useIsEn from '../useIsEn'
 
 const mountTop = [
   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
@@ -75,6 +76,7 @@ const Trash = ({ data, noFace }) => {
 let fpApi
 const HomePage = () => {
   useShowHeader()
+  const isEn = useIsEn()
   const { isMobile, isTablet } = useResponsive()
   const heroTrashRef = useRef()
   const bubbleRef = useRef()
@@ -160,7 +162,7 @@ const HomePage = () => {
 
       </>,
     ]
-  }, [data])
+  }, [data, isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   useEffect(() => {
     if (timeline) {
@@ -452,8 +454,15 @@ const HomePage = () => {
             opacity="0"
           >
             <Image src={bubble1} />
-            <Box.Absolute top={responsive('22%', '24%')} left={responsive('9%', '12%')} right="7%" fontWeight="900" fontSize={responsive('1.75em', '3.25em', '2.25em')} pointerEvents="all">
-              啊..我被丟錯了
+            <Box.Absolute
+              top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
+              left={responsive('9%', '12%')}
+              right="7%"
+              fontWeight="900"
+              fontSize={responsive('1.75em', '3.25em', '2.25em')}
+              pointerEvents="all"
+            >
+              {isEn ? 'Emm...I don\'t belong here' : '啊..我被丟錯了'}
             </Box.Absolute>
           </Box.Absolute>
         </Box.Absolute>

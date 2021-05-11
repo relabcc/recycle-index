@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo, createContext } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
@@ -8,7 +8,15 @@ import headerContext from '../contexts/header/context'
 
 import Header from './Header'
 
-const Layout = ({ children }) => {
+export const EnContext = createContext()
+
+const description = [
+  '寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。',
+  '寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。',
+]
+
+const Layout = ({ children, path }) => {
+  const isEn = useMemo(() => /^\/en/.test(path), [path])
   const { hideHeader, headerBg } = useContext(headerContext)
   return (
     <StaticQuery
@@ -17,6 +25,7 @@ const Layout = ({ children }) => {
           site {
             siteMetadata {
               title
+              titleEn
               url
             }
           }
@@ -25,18 +34,20 @@ const Layout = ({ children }) => {
       render={data => (
         <>
           <Helmet
-            defaultTitle={data.site.siteMetadata.title}
-            titleTemplate={`${data.site.siteMetadata.title}｜%s`}
+            defaultTitle={data.site.siteMetadata[`title${isEn ? 'En' : ''}`]}
+            titleTemplate={`${data.site.siteMetadata[`title${isEn ? 'En' : ''}`]}｜%s`}
           >
             <meta charSet="utf-8" />
             <meta
               name="description"
-              content="寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。"
+              content={description[isEn ? 1 : 0]}
             />
             <meta name="og:image" content={`${data.site.siteMetadata.url}/og-0113.jpg`} />
           </Helmet>
-          {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} />}
-          {children}
+          <EnContext.Provider value={isEn}>
+            {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} />}
+            {children}
+          </EnContext.Provider>
         </>
       )}
     />

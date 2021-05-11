@@ -5,7 +5,6 @@ import MediaProvider from './src/contexts/mediaQuery/MediaProvider'
 import HeaderProvider from './src/contexts/header/Provider'
 import ContainerWidthProvider from './src/contexts/containerWidth/Provider'
 import FontSizeProvider from './src/contexts/fontSize/Provider'
-import Layout from './src/containers/Layout'
 
 export default ({ element }) =>
   <ThemeProvider>
@@ -13,9 +12,7 @@ export default ({ element }) =>
       <FontSizeProvider>
         <ContainerWidthProvider>
           <HeaderProvider>
-            <Layout>
-              {element}
-            </Layout>
+            {element}
           </HeaderProvider>
         </ContainerWidthProvider>
       </FontSizeProvider>

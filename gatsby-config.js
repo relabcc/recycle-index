@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     url: 'https://recycle.rethinktw.org',
     title: "回收大百科",
+    titleEn: "Recycle Index",
   },
   plugins: [
     "gatsby-plugin-emotion",
