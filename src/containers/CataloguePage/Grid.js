@@ -14,7 +14,9 @@ import diff from './diff'
 
 let searched
 let filterApplied
+
 const Catalogue = ({ data }) => {
+
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       search: '',

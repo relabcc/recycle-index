@@ -148,12 +148,13 @@ const HomePage = () => {
             <Heading
               letterSpacing="0.125em"
               fontWeight="900"
-              fontSize={responsive('1.5em', '2.5em')}
+              fontSize={isEn ? responsive('1em', '2em') : responsive('1.5em', '2.5em')}
               whiteSpace="pre-wrap"
               lineHeight="1.75"
-            >「每個迷路的垃圾，{isMobile ? '\n' : ''}都有個丟錯的主人」
+            >
+              {isEn ? `"Where there\'s a lost trash, ${isMobile ? '\n' : ''}there\'s a mis-thrown guy"` : `「每個迷路的垃圾，${isMobile ? '\n' : ''}都有個丟錯的主人」`}
             </Heading>
-            <Text lineHeight="2em" fontSize={responsive('1em', '1.625em')} letterSpacing="0.125em">以下是台灣人最常丟錯的101件垃圾</Text>
+            <Text lineHeight="2em" fontSize={isEn ? responsive('0.875em', '1.375em') : responsive('1em', '1.625em')} letterSpacing="0.125em">{isEn ? 'Introducing 101 most commonly mis-thrown trashes in Taiwan' : '以下是台灣人最常丟錯的101件垃圾'}</Text>
           </Box.Absolute>
         </Box.Relative>
       </Container>
@@ -354,8 +355,8 @@ const HomePage = () => {
                 transformOrigin="100% 75%"
               >
                 <Image src={bubble2} />
-                <Box.Absolute top="30%" left="10%" right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
-                  我也被丟錯！
+                <Box.Absolute top={isEn ? '8.5%' : "30%"} left={isEn ? responsive('5%', '10%') : "10%"} right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
+                  {isEn ? 'I don\'t belong here as well!' : '我也被丟錯！'}
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
@@ -364,9 +365,9 @@ const HomePage = () => {
                 <Trash data={data && data[trashes[2]]} noFace={isMobile} />
               </Box.Relative>
               <Box.Absolute
-                top="-28%"
-                left="48%"
-                width="67%"
+                top={isEn ? '-42.5%' : "-28%"}
+                left={isEn ? '27.5%' : "48%"}
+                width={isEn ? responsive('67%', '105%') : "67%"}
                 opacity="0"
                 transform="scale(0)"
                 className="trash-bubble"
@@ -375,14 +376,14 @@ const HomePage = () => {
               >
                 <Image src={bubble3} />
                 <Box.Absolute
-                  top="15%"
-                  left="8%"
+                  top={isEn ? '8%' : "15%"}
+                  left={isEn ? '5%' : "8%"}
                   right="0"
                   fontWeight="900"
-                  fontSize={responsive("1em", "1.5em", "0.5em")}
+                  fontSize={responsive("1em", "1.5em", isEn ? '0.75em' : "0.5em")}
                   pointerEvents="all"
                 >
-                  要被燒掉了嗚嗚
+                  {isEn ? 'Please...don\'t...let...me end up in fire' : '要被燒掉了嗚嗚'}
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
@@ -402,8 +403,8 @@ const HomePage = () => {
                 <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
                   <Image src={bubble5} />
                 </Box>
-                <Box.Absolute top="18%" left={responsive('10%', '12%')} right="0" fontWeight="900" fontSize={responsive('0.875em', '2em', '1em')} pointerEvents="all">
-                  走錯棚了啦！
+                <Box.Absolute whiteSpace="pre-wrap" top={isEn ? '10%' : "18%"} left={isEn ? responsive('6.25%', '7.5%') : responsive('10%', '12%')} right="0" fontWeight="900" fontSize={isEn ? responsive('0.625em', '1.5em', '0.75em') : responsive('0.875em', '2em', '1em')} pointerEvents="all">
+                  {isEn ? 'I should have been in the recycle bin!' : '走錯棚了啦！'}
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
@@ -428,9 +429,8 @@ const HomePage = () => {
                 transformOrigin="100% 25%"
               >
                 <Image src={bubble4} />
-                <Box.Absolute top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
-                  人家明明<br />
-                  可以被回收！
+                <Box.Absolute whiteSpace="pre-wrap" top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
+                  {isEn ? 'Why am\nI here?' : '人家明明\n可以被回收！'}
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>

@@ -39,6 +39,8 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
+import useIsEn from '../useIsEn'
+
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
 if (typeof window !== 'undefined') {
@@ -141,15 +143,18 @@ const colorsCfg = {
   C: 'pink',
 }
 
-const gradeData = {
-  A: '因為材質單純、處理成本相對低，此類垃圾回收價值高。只要你不分錯，它們就有很高的機會被再利用。',
-  B: '這類的垃圾有回收價值，但因為某些原因造成結果浮動，像是垃圾的量不夠、怎麼回收或製造。我們可以試著好好回收，創造它的回收價值喔！',
-  C: '因為回收價格低、太難處理或太髒等，造成它沒有回收價值。我們可以選擇重複使用，或者少用點。',
+const gradeData = (isEn) => {
+  return {
+    A: isEn ? 'This kind of trash has a plain composition that can be easily processed. If it is placed in the right trash bin, it has a high chance to recycle and be reused!' : '因為材質單純、處理成本相對低，此類垃圾回收價值高。只要你不分錯，它們就有很高的機會被再利用。',
+    B: isEn ? 'This kind of trash has certain recycle value. However, reasons including low in quantity, or no enough processors make it a bit difficult to recycle the trash.' : '這類的垃圾有回收價值，但因為某些原因造成結果浮動，像是垃圾的量不夠、怎麼回收或製造。我們可以試著好好回收，創造它的回收價值喔！',
+    C: isEn ? 'This kind of trash is either difficult to process (because of its composition or usage), or lowly-priced. We can choose to reuse or reduce the use of this kind of trash.' : '因為回收價格低、太難處理或太髒等，造成它沒有回收價值。我們可以選擇重複使用，或者少用點。',
+  }
 }
 
 let cfgPoses = {}
 
 const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } }) => {
+  const isEn = useIsEn()
   const [scrollProgress, setProgress] = useState()
   const windowSize = useWindowSize()
   const { isMobile } = useResponsive()
@@ -293,7 +298,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           <Hashtag color={colorScheme}>{data.recycleValue}</Hashtag>
         </Box.Absolute>
         <TrashValue color="white">
-          {gradeData[data.recycleValue]}
+          {gradeData(isEn)[data.recycleValue]}
         </TrashValue>
         <TrashNumber>{n}</TrashNumber>
         <ChevDown onClick={() => fpApi.moveSectionDown()} />
@@ -302,7 +307,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     (
       <Container height="100%">
         <TrashName color={colorScheme}>{data.name}</TrashName>
-        <SectionTitle>組成的材質是什麼？</SectionTitle>
+        <SectionTitle>{isEn ? 'What is the composition?' : '組成的材質是什麼？'}</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
         {data.partsNote && (
           <TrashNote color={colorScheme}>
@@ -316,7 +321,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     (
       <Container height="100%">
         <TrashName color={colorScheme}>{data.name}</TrashName>
-        <SectionTitle>用完應該丟在哪裡？</SectionTitle>
+        <SectionTitle>{isEn ? 'Which category should it be thrown?' : '用完應該丟在哪裡？'}</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
         {data.recycleNote && (
           <TrashNote color={colorScheme}>
