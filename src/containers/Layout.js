@@ -12,7 +12,7 @@ export const EnContext = createContext()
 
 const description = [
   '寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。',
-  '寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科讓你懂分、懂丟、懂垃圾。',
+  'Do you separate the lid when recycling plastic bottle? What is PLA? Recycle Index - 101 Must-Know Trashes in Taiwan gives you instruction on how to better recycle.',
 ]
 
 const Layout = ({ children, path }) => {
