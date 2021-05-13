@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[28],{injy:function(n,t,e){"use strict";e.r(t);var u=e("q1tI"),l=e.n(u),a=e("qhky"),c=e("t9jJ"),s=e("AeFk");t.default=function(){return Object(s.d)(l.a.Fragment,null,Object(s.d)(a.a,null,Object(s.d)("title",null,"101 Must-Know Trashes")),Object(s.d)(c.a,null))}}}]);
+//# sourceMappingURL=component---src-pages-en-catalogue-js-e84a582cf8b2c944d01f.js.map

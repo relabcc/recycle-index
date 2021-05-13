@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[24],{B9Db:function(n,e,t){"use strict";t.r(e);t("q1tI");var a=t("A2ne"),c=t("AeFk");e.default=function(){return Object(c.d)(a.a,{share:!0})}}}]);
+//# sourceMappingURL=component---src-pages-all-trashes-share-js-47262502cdf4577be290.js.map

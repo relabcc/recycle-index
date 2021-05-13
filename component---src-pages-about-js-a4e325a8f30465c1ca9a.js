@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[23],{"3XHS":function(n,t,e){"use strict";e.r(t);var l=e("q1tI"),u=e.n(l),c=e("qhky"),a=e("pgU5"),d=e("AeFk");t.default=function(){return Object(d.d)(u.a.Fragment,null,Object(d.d)(c.a,null,Object(d.d)("title",null,"關於我們")),Object(d.d)(a.a,null))}}}]);
+//# sourceMappingURL=component---src-pages-about-js-a4e325a8f30465c1ca9a.js.map

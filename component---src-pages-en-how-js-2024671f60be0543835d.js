@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[31],{am3M:function(n,e,t){"use strict";t.r(e);var a=t("q1tI"),c=t.n(a),l=t("qhky"),u=t("ZQC9"),d=t("AeFk");e.default=function(){return Object(d.d)(c.a.Fragment,null,Object(d.d)(l.a,null,Object(d.d)("title",null,"What Happened After Recycling")),Object(d.d)(u.a,null))}}}]);
+//# sourceMappingURL=component---src-pages-en-how-js-2024671f60be0543835d.js.map

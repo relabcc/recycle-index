@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[30],{"gM/T":function(e,t,a){"use strict";a.r(t);var n=a("q1tI"),c=a.n(n),l=a("qhky"),d=a("oZ9N"),o=a("AeFk");t.default=function(e){var t=e.data;return Object(o.d)(c.a.Fragment,null,Object(o.d)(l.a,null,Object(o.d)("title",null,"Recycle Challenge"),Object(o.d)("meta",{name:"og:image",content:t.site.siteMetadata.url+"/game/og.jpg"})),Object(o.d)(d.a,{data:t}))}}}]);
+//# sourceMappingURL=component---src-pages-en-game-play-js-646ff83f8da83f4fc637.js.map

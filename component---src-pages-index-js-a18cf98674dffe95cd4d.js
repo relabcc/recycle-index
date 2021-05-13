@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[39],{RXBc:function(n,t,e){"use strict";e.r(t);var c=e("q1tI"),l=e.n(c),u=e("qhky"),a=e("HbMg"),b=e("AeFk");t.default=function(){return Object(b.d)(l.a.Fragment,null,Object(b.d)(u.a,null,Object(b.d)("title",null,"秒懂101個台灣人必知的垃圾")),Object(b.d)(a.a,null))}}}]);
+//# sourceMappingURL=component---src-pages-index-js-a18cf98674dffe95cd4d.js.map

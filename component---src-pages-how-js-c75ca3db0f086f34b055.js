@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[38],{"+4z9":function(n,t,e){"use strict";e.r(t);var l=e("q1tI"),u=e.n(l),c=e("qhky"),a=e("ZQC9"),d=e("AeFk");t.default=function(){return Object(d.d)(u.a.Fragment,null,Object(d.d)(c.a,null,Object(d.d)("title",null,"必懂的回收知識")),Object(d.d)(a.a,null))}}}]);
+//# sourceMappingURL=component---src-pages-how-js-c75ca3db0f086f34b055.js.map

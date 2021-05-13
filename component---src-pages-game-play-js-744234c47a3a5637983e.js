@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[34],{"z+1P":function(t,e,a){"use strict";a.r(e);var n=a("q1tI"),c=a.n(n),d=a("qhky"),o=a("oZ9N"),u=a("AeFk");e.default=function(t){var e=t.data;return Object(u.d)(c.a.Fragment,null,Object(u.d)(d.a,null,Object(u.d)("title",null,"丟垃圾大考驗"),Object(u.d)("meta",{name:"og:image",content:e.site.siteMetadata.url+"/game/og.jpg"})),Object(u.d)(o.a,{data:e}))}}}]);
+//# sourceMappingURL=component---src-pages-game-play-js-744234c47a3a5637983e.js.map
