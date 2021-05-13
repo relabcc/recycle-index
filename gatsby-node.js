@@ -29,5 +29,16 @@ exports.createPages = async ({ actions }) => {
         id: d['最終序號'],
       },
     })
+    createPage({
+      // will be the url for the page
+      path: `en/trash/${d['最終序號']}`,
+      // specify the component template of your choice
+      component,
+      // In the ^template's GraphQL query, 'id' will be available
+      // as a GraphQL variable to query for this posts's data.
+      context: {
+        id: d['最終序號'],
+      },
+    })
   })
 }

@@ -149,7 +149,7 @@ const PerTrash = ({ data }) => {
   }, [isVisible])
   const scale = (data.transform.homeScale || 100) * 0.85 / 100
   const element = (hovered) =>
-    <Link to={`/trash/${data.id}`} height="100%" width="100%">
+    <Link to={`${isEn ? '/en' : ''}/trash/${data.id}`} height="100%" width="100%">
       <Box
         width="100%"
         bg="white"
