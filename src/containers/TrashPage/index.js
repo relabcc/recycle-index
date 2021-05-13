@@ -40,6 +40,7 @@ import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
 import useIsEn from '../useIsEn'
+import trashEn from '../trashEn'
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
@@ -293,7 +294,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     ),
     (
       <Container height="100%">
-        <TrashName>{data.name}</TrashName>
+        <TrashName>{isEn ? trashEn[data.name] : data.name}</TrashName>
         <Box.Absolute top={responsive('5%', '10%')} width={responsive('86%', '50%')} left={responsive('7%', 0)}>
           <Hashtag color={colorScheme}>{data.recycleValue}</Hashtag>
         </Box.Absolute>
@@ -306,7 +307,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     ),
     (
       <Container height="100%">
-        <TrashName color={colorScheme}>{data.name}</TrashName>
+        <TrashName color={colorScheme}>{isEn ? trashEn[data.name] : data.name}</TrashName>
         <SectionTitle>{isEn ? 'What is the composition?' : '組成的材質是什麼？'}</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
         {data.partsNote && (
@@ -320,7 +321,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     ),
     (
       <Container height="100%">
-        <TrashName color={colorScheme}>{data.name}</TrashName>
+        <TrashName color={colorScheme}>{isEn ? trashEn[data.name] : data.name}</TrashName>
         <SectionTitle>{isEn ? 'Which category should it be thrown?' : '用完應該丟在哪裡？'}</SectionTitle>
         <TrashNumber color={colorScheme}>{n}</TrashNumber>
         {data.recycleNote && (

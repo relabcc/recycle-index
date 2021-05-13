@@ -302,7 +302,7 @@ const HomePage = () => {
         verticalCentered={false}
         onLeave={(origin, destination) => {
           if (destination.isLast) {
-            setTimeout(() => navigate('/catalogue'), scrollingDuration * 500)
+            setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
           }
           timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
           if (destination.index === 2) {
