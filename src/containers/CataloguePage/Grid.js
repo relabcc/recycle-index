@@ -11,12 +11,14 @@ import PerTrash from './PerTrash';
 import Footer from '../Footer';
 import withLoading from '../withLoading';
 import diff from './diff'
+import useIsEn from '../useIsEn';
+import trashEn from '../trashEn'
 
 let searched
 let filterApplied
 
 const Catalogue = ({ data }) => {
-
+  const isEn = useIsEn()
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       search: '',
@@ -57,12 +59,12 @@ const Catalogue = ({ data }) => {
       if (!values[key]) return res
       if (key === 'search') {
         const re = new RegExp(values[key], 'gi')
-        return res || !(re.test(d.name) || (d.synonym && d.synonym.some(s => re.test(s))))
+        return res || !(re.test(isEn ? trashEn[d.name] : d.name) || (d.synonym && d.synonym.some(s => re.test(s))))
       }
       return res || (!d[key] || !(isArray(d[key]) ? d[key].includes(String(values[key])) : d[key] === values[key]))
     }, false)
     return !isDisabled
-  }), [values, okData])
+  }), [values, okData, isEn])
 
   return (
     <Box bg="gray.100">
