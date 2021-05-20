@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{Pia8:function(e,t,a){"use strict";a.r(t);var n=a("Wbzz"),c=a("q1tI"),l=a.n(c),r=a("qhky");t.default=function(e){var t=e.data;return Object(c.useEffect)((function(){Object(n.d)("/game")}),[]),l.a.createElement(l.a.Fragment,null,l.a.createElement(r.a,null,l.a.createElement("title",null,"丟垃圾大考驗"),l.a.createElement("meta",{name:"og:image",content:t.site.siteMetadata.url+"/game/1.jpg"})))}}}]);
-//# sourceMappingURL=component---src-pages-game-share-1-js-2a5d650d1c22b6e83436.js.map
