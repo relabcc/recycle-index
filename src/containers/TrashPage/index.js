@@ -71,7 +71,7 @@ const TrashName = ({ children, ...props }) => (
 
 const SectionTitle = ({ children, ...props }) => (
   <Box.Absolute left={responsive('1em', '1.5em')} top={responsive('3.25em', '3.4375em')} {...props}>
-    <Text fontSize={responsive('0.875em', '0.9375em')}>{children}</Text>
+    <Text as="h2" fontSize={responsive('0.875em', '0.9375em')}>{children}</Text>
   </Box.Absolute>
 )
 
@@ -274,7 +274,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           <SizeMe>
             {({ size }) => (
               <Text
-                as="h2"
+                as="h1"
                 color={colorScheme}
                 fontSize={size.width ? `${Math.min(Math.floor(size.width / (data.name.length + 1)), size.width / 4.5)}px` : 0}
                 fontWeight="900"
@@ -381,7 +381,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
                 <Text fontWeight="700" fontSize={responsive('1.125em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
                 <Flex width={responsive('20em', '24em')} mr={responsive('0', '1em')} alignItems="flex-end" my={responsive('1em', '0.5em')}>
                   <Box width="22%" pb="5%">
-                    <Image src={planb} />
+                    <Image alt="替代方案" src={planb} />
                   </Box>
                   <Box flex="1" pl="2%">
                     <BackgroundImage src={planbBubble} ratio={486 / 176}>
@@ -400,7 +400,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <Container>
           <Flex mt={responsive('0.5em', '0.25em')}>
             <Box width="1.75em" mr="0.5em">
-              <Image src={trash} />
+              <Image alt="垃圾袋" src={trash} />
             </Box>
             <Text fontSize={responsive('1.25em', '1.25em')} fontWeight="900" letterSpacing="0.125em">猜你也丟過這些...</Text>
           </Flex>
@@ -439,7 +439,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               transform={`translate3d(${isMobile ? '10%' : 0}, -50%, 0) ${data.transform.rotate ? `rotate(${isMobile && data.transform.mobileRotate ? data.transform.mobileRotate : data.transform.rotate}deg)` : ''}`}
             >
               <Box transform={`translate(${endTransition[isMobile ? 0 : 1].map(d => `${d}%`).join(',')}) ${data.transform.shareScale ? `scale(${(isMobile && data.transform.mobileShareScale ? data.transform.mobileShareScale : data.transform.shareScale) / 100})` : ''}`}>
-                <Image src={data.img} />
+                <Image alt={data.name} src={data.img} />
                 <Face transform={data.transform.face} id={faceId} />
               </Box>
             </Box.Absolute>

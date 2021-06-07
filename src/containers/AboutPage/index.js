@@ -52,10 +52,10 @@ const About = () => {
         pb="8.125em"
         px={responsive('1.5em', '10em')}
       >
-        <Image src={about} />
+        <Image src={about} alt="About" />
         <Flex alignItems={responsive('auto', 'stretch')} flexDirection={responsive('column', 'row')}>
           <Box mr={responsive(0, '-1.25em')} width="50%">
-            <Image src={picture} />
+            <Image src={picture} alt="Us" />
           </Box>
           <Flex
             flex={1}
@@ -91,7 +91,7 @@ const About = () => {
           >
             <Box position="relative" width={responsive('35%', '9.375em')}>
               <Link href={url}>
-                <Image src={logo} />
+                <Image src={logo} alt={name} />
               </Link>
             </Box>
             <Box position="relative" pl={responsive(0, '6.875em')} pt={responsive('1em', 0)} flex={1}>

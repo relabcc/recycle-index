@@ -41,7 +41,7 @@ const Handling = ({ steps, ...props }) => {
             <Box width={responsive('80%', '40%')}>
               <Circle width="100%" bg="white">
                 <Box px="5%">
-                  <Image src={icons[step]} />
+                  <Image alt={step} src={icons[step]} />
                 </Box>
               </Circle>
             </Box>
@@ -50,7 +50,7 @@ const Handling = ({ steps, ...props }) => {
             </Box>
           </Flex>
         )
-        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><Image src={next} /></Box>, s]
+        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><Image src={next} alt="向左箭頭" /></Box>, s]
       }, [])}
     </Flex>
   )

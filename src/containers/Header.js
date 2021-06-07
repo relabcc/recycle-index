@@ -45,7 +45,7 @@ const Header = ({ isEn, ...props }) => {
     >
       <Box px="1em">
         <Link to="/">
-          <Image width={responsive('8em', '12em', '7.5em')} src={logo} />
+          <Image width={responsive('8em', '12em', '7.5em')} src={logo} alt="回收大百科" />
         </Link>
       </Box>
       <Box flex="1" />

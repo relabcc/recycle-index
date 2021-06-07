@@ -39,12 +39,12 @@ const ScrollIndicator = ({ progress, isMobile, onClick }) => {
               </Box.Absolute>
               <RightDash position="absolute" top="10%" bottom="0" width="1px" right="50%" />
               <Box.Absolute width="100%" style={{ top: `${progress * 100}%` }} transform="translateY(-50%)">
-                <Image src={trash} />
+                <Image alt="紙屑" src={trash} />
               </Box.Absolute>
             </Box.Relative>
           </Box>
           <Box.Relative width="100%" onClick={onClick}>
-            <Image src={bin} />
+            <Image alt="垃圾桶" src={bin} />
           </Box.Relative>
         </>
       )}

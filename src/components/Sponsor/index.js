@@ -9,9 +9,9 @@ import Image from '../Image'
 import { responsive } from '../ThemeProvider/theme'
 
 const sponsor = [
-  rc,
-  foodpanda,
-  citi,
+  ['RC文化基金會', rc],
+  ['Foodpanda', foodpanda],
+  ['花旗銀行', citi],
 ]
 
 const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ...props }) => {
@@ -44,9 +44,9 @@ const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ..
           贊助單位
         </Box>
         <Flex justifyContent="center" flex={responsive('1', 'none')}>
-          {sponsor.map((logo, k) => (
+          {sponsor.map(([name, logo], k) => (
             <Box px={responsive('1em', '1.25em')} key={k} width={1 / 3} {...logoProps}>
-              <Image src={logo} />
+              <Image alt={name} src={logo} />
             </Box>
           ))}
         </Flex>

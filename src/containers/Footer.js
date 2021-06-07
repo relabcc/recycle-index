@@ -9,7 +9,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Divider,
 } from '@chakra-ui/react';
 
 import Box from '../components/Box';

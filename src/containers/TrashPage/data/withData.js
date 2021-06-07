@@ -66,9 +66,9 @@ const withData = SubComp => props => {
   return (
     <>
       <Helmet>
-        <title>{`#${data.id} ${data.name}`}</title>
+        <title>{`${data.name}回收：${data.name}回收要怎麼做？`}</title>
         <meta name="og:image" content={`${props.data.site.siteMetadata.url}/share/${data.id}.jpg`} />
-        <meta name="description" content={data.description} />
+        <meta name="description" content={`${data.name}回收該怎麼做好呢？回收大百科教你如何處理${data.name}的回收跟垃圾分類，或與你分享如何再次利用${data.name}的方法。讓我們一起幫每個垃圾找到回家的路！`} />
       </Helmet>
       {createElement(withLoading(data.imgs.map(d => d.src))(SubComp), {
         key: id,

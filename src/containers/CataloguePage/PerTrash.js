@@ -74,7 +74,7 @@ const PerTrash = ({ data }) => {
           width="100%"
           transform={`scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`}
         >
-          <Image src={data.img} />
+          <Image src={data.img} alt={data.name} />
           {(showFace || hovered) && (
             <Face id={data.transform.faceNo} transform={data.transform.face} />
           )}

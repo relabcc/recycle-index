@@ -35,7 +35,7 @@ const Layout = ({ children, path }) => {
         <>
           <Helmet
             defaultTitle={data.site.siteMetadata[`title${isEn ? 'En' : ''}`]}
-            titleTemplate={`${data.site.siteMetadata[`title${isEn ? 'En' : ''}`]}｜%s`}
+            titleTemplate={`%s｜${data.site.siteMetadata[`title${isEn ? 'En' : ''}`]}`}
           >
             <meta charSet="utf-8" />
             <meta
