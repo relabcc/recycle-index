@@ -24,7 +24,8 @@ const ReImage = forwardRef(({ src, alt, progressive, ...props }, ref) => {
   const pic = useMemo(() => {
     if (!isArray(src) || progressive) return null
 
-    const sources = src.map((srcSet) => {
+    const sources = src.map((srcModule) => {
+      const srcSet = srcModule?.default || srcModule
       const mime = base64Mime.exec(srcSet)
       const type = mime ? mime[1] : mimeTypes[last(srcSet.split('.'))]
       return {

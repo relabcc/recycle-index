@@ -760,10 +760,10 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             >
               <div ref={trashXRef}>
                 <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible">
-                  <Box overflow="visible">
+                  <div style={{ overflow: 'visible' }}>
                     {parts}
                     <Face transform={data.transform.face} ref={faceRef} id={faceId} />
-                  </Box>
+                  </div>
                 </AspectRatio>
               </div>
             </Box.Absolute>

@@ -22,7 +22,7 @@ const loadTask = (src) => new Promise((res) => {
   img.onload = () => setTimeout(res);
   const container = getImageContainer();
   container.appendChild(img);
-  img.src = isArray(src) ? getImage(src) : src;
+  img.src = isArray(src) ? getImage(src) : (src?.default || src);
 });
 
 const loader = (images) => {

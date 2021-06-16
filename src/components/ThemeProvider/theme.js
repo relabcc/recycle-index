@@ -1,17 +1,19 @@
 import { theme, extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools"
-import { get, mapValues } from "lodash";
+import { get, mapValues, map } from "lodash";
 
 import memorize from '../../utils/memorize'
 
 const emToPX = em => `${em * 16}px`
 
-export const breakpoints = createBreakpoints(mapValues({
+const chakraBp = createBreakpoints(mapValues({
   sm: 30,
   md: 48,
   lg: 62,
   xl: 80,
 }, emToPX))
+
+export const breakpoints = map(chakraBp)
 
 export const containerWidth = [26, 44, 58, 76, 116].map(emToPX);
 export const responsiveIndex = [
@@ -127,7 +129,7 @@ const overrides = {
     danger: get(colors, `${danger}.400`),
     text: get(colors, 'black'),
   },
-  breakpoints,
+  breakpoints: chakraBp,
   containerWidth,
   headerHeight: '60px',
 }

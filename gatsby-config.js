@@ -18,5 +18,13 @@ module.exports = {
         includeInDevelopment: false,
       },
     },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Concert One', 'Nunito Sans:600,700,900', 'Noto Sans TC:500,700,900']
+        }
+      }
+    }
   ],
 };

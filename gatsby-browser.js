@@ -7,9 +7,12 @@
 // You can delete this file if you're not using it
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'focus-visible'
+
 import './webp'
 import wrapWithProvider from './with-provider';
 import Layout from './src/containers/Layout'
+
 
 export const wrapRootElement = wrapWithProvider;
 export const wrapPageElement = ({ element, props }) => {

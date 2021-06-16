@@ -5,8 +5,9 @@ import isIos from './isIos'
 
 export const getImage = (src) => {
   const canUseWebp = typeof window === 'undefined' ? false : get(window, 'Modernizr.webp')
-  if (!isArray(src)) return src
-  return canUseWebp && !isIos ? src[0] : src[1];
+  if (!isArray(src)) return src?.default || src
+  const img = canUseWebp && !isIos ? src[0] : src[1]
+  return img?.default || img;
 }
 
 const useWebpImage = (src) => {
