@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Button, IconButton } from "@chakra-ui/react";
 
 import Link from './Link'
 
-const ReButton = ({ href, to, ...props }) => {
-  if (href || to) return <Button as={p => <Link {...p} href={href} to={to} />} {...props} />
-  return <Button {...props} />
-}
+const ReButton = forwardRef(({ href, to, ...props }, ref) => {
+  if (href || to) return <Button ref={ref} as={p => <Link {...p} href={href} to={to} ref={ref} />} {...props} />
+  return <Button ref={ref} {...props} />
+})
 
 ReButton.defaultProps = {
   colorScheme: 'yellow',
@@ -21,7 +21,7 @@ ReButton.Secondary = props => (
   <ReButton colorScheme="pink" {...props} />
 )
 
-ReButton.Pink = props => (
+ReButton.Pink = forwardRef((props, ref) => (
   <ReButton
     colorScheme="pink"
     bg="colors.pink"
@@ -29,11 +29,12 @@ ReButton.Pink = props => (
     _hover={{
       bg: 'pink.400',
     }}
+    ref={ref}
     {...props}
   />
-)
+))
 
-ReButton.Yellow = props => (
+ReButton.Yellow = forwardRef((props, ref) => (
   <ReButton
     colorScheme="yellow"
     bg="colors.yellow"
@@ -41,11 +42,12 @@ ReButton.Yellow = props => (
     _hover={{
       bg: 'yellow.400',
     }}
+    ref={ref}
     {...props}
   />
-)
+))
 
-ReButton.Orange = props => (
+ReButton.Orange = forwardRef((props, ref) => (
   <ReButton
     colorScheme="orange"
     bg="colors.orange"
@@ -56,17 +58,18 @@ ReButton.Orange = props => (
     _active={{
       bg: 'orange.400',
     }}
+    ref={ref}
     {...props}
   />
-)
+))
 
 ReButton.Danger = props => (
   <ReButton colorScheme="red" {...props} />
 )
 
-ReButton.Icon = ({ href, to, ...props }) => {
-  if (href || to) return <IconButton as={p => <Link {...p} href={href} to={to} />} {...props} />
-  return <IconButton {...props} />
-}
+ReButton.Icon = forwardRef(({ href, to, ...props }, ref) => {
+  if (href || to) return <IconButton ref={ref} as={p => <Link {...p} href={href} to={to} ref={ref} />} {...props} />
+  return <IconButton ref={ref} {...props} />
+})
 
 export default ReButton

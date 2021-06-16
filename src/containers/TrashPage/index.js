@@ -273,16 +273,18 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <Box.AbsCenter top={responsive('17%', '40%')} width="100%" textAlign="center" transform="rotate(-12deg)">
           <SizeMe>
             {({ size }) => (
-              <Text
-                as="h1"
-                color={colorScheme}
-                fontSize={size.width ? `${Math.min(Math.floor(size.width / (data.name.length + 1)), size.width / 4.5)}px` : 0}
-                fontWeight="900"
-                letterSpacing={data.name.length < 3 && '0.5em'}
-                ml={data.name.length < 3 && '0.25em'}
-              >
-                {data.name}
-              </Text>
+              <div>
+                <Text
+                  as="h1"
+                  color={colorScheme}
+                  fontSize={size.width ? `${Math.min(Math.floor(size.width / (data.name.length + 1)), size.width / 4.5)}px` : 0}
+                  fontWeight="900"
+                  letterSpacing={data.name.length < 3 && '0.5em'}
+                  ml={data.name.length < 3 && '0.25em'}
+                >
+                  {data.name}
+                </Text>
+              </div>
             )}
           </SizeMe>
         </Box.AbsCenter>

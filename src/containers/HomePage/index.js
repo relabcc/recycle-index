@@ -11,7 +11,6 @@ import Box from '../../components/Box'
 import Heading from '../../components/Heading'
 import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
-import Button from '../../components/Button'
 import Image from '../../components/Image'
 import BackgroundImage from '../../components/BackgroundImage'
 import theme, { responsive } from '../../components/ThemeProvider/theme';
@@ -35,7 +34,6 @@ import PointingDown from '../../components/PointingDown'
 
 import ChevDown from '../TrashPage/ChevDown'
 import withLoading from '../withLoading'
-import useReloadOnOrentation from '../../utils/useReloadOnOrentation'
 import useIsEn from '../useIsEn'
 
 const mountTop = [
