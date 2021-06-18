@@ -1,6 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
+// import './style.css'
+
 const WordpressStyles = ({ children }) => {
   return (
     <Helmet>
@@ -11,13 +13,13 @@ const WordpressStyles = ({ children }) => {
         type="text/css"
         media="all"
       />
-      <link
+      {/* <link
         rel="stylesheet"
         id="genericons-css"
         href="/revelar/genericons/genericons.css"
         type="text/css"
         media="all"
-      />
+      /> */}
       <link
         rel="stylesheet"
         id="revelar-styles-css"

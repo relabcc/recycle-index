@@ -40,7 +40,6 @@ const Post = ({ data: { post } }) => {
           <main id="main" className="site-main" role="main">
             <article className="post type-post status-publish format-standard has-post-thumbnail hentry">
               <header className="entry-header">
-                <span className="entry-format" />
                 <h2 className="entry-title">
                   <Link to={`/article/${post.databaseId}`}>{post.title}</Link>
                 </h2>
