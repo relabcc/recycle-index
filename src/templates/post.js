@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo } from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import PropTypes from "prop-types"
 import { format } from "date-fns"
-import { unescape } from "lodash"
+import he from 'he'
 
 import useShowHeader from "../contexts/header/useShowHeader"
 import WordpressStyles from "../containers/WordpressStyles"
 
-const Post = ({ data: { post, site: { siteMetadata: { url } } } }) => {
-  const pageUrl = `${url}/article/${post.databaseId}`
+const Post = ({ data: { post } }) => {
   useShowHeader('colors.yellow')
   useEffect(() => {
     document.querySelectorAll('#main a[href^="#"]').forEach(anchor => {
@@ -27,7 +26,7 @@ const Post = ({ data: { post, site: { siteMetadata: { url } } } }) => {
   }, [post])
   const excerpt = useMemo(() => {
     const res = /<p>([^<]+)<\/p>/.exec(post.excerpt)
-    return res ? unescape(res[1]) : ''
+    return res ? he.decode(res[1]) : ''
   }, [post.excerpt])
   return (
     <>
@@ -41,17 +40,17 @@ const Post = ({ data: { post, site: { siteMetadata: { url } } } }) => {
           <main id="main" className="site-main" role="main">
             <article className="post type-post status-publish format-standard has-post-thumbnail hentry">
               <header className="entry-header">
-                <span className="entry-format"></span>
+                <span className="entry-format" />
                 <h2 className="entry-title">
-                  <a href={pageUrl} rel="bookmark">{post.title}</a>
+                  <Link to={`/article/${post.databaseId}`}>{post.title}</Link>
                 </h2>
                 <div className="entry-meta">
                   <span className="posted-on">
-                    <a href={pageUrl} rel="bookmark">
+                    <Link to={`/article/${post.databaseId}`}>
                       <time className="entry-date published" dateTime={post.date}>
                         {format(new Date(post.date), 'yyyy-MM-dd')}
                       </time>
-                    </a>
+                    </Link>
                   </span>
                 </div>
               </header>
@@ -101,13 +100,6 @@ export const pageQuery = graphql`
     next: wpPost(id: { eq: $nextPostId }) {
       uri
       title
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        url
-      }
     }
   }
 `

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { graphql, Link } from "gatsby"
 import { AspectRatio, Text, Box } from '@chakra-ui/react'
-import { unescape } from 'lodash'
+import he from 'he'
 
 import useShowHeader from '../contexts/header/useShowHeader'
 import WordpressStyles from '../containers/WordpressStyles'
@@ -11,9 +11,8 @@ import theme from '../components/ThemeProvider/theme'
 const Article = ({ post, isSticky }) => {
   const excerpt = useMemo(() => {
     const res = /<p>([^<]+)<\/p>/.exec(post.excerpt)
-    return res ? unescape(res[1]) : ''
+    return res ? he.decode(res[1]) : ''
   }, [post.excerpt])
-
   return (
     <article className={`post type-post status-publish format-standard hentry ${isSticky ? 'sticky' : ''}`}>
       <div className="entry-thumbnail">

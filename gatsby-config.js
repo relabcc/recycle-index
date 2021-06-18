@@ -8,6 +8,9 @@ module.exports = {
     title: "回收大百科",
     titleEn: "Recycle Index",
   },
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+  },
   plugins: [
     "gatsby-plugin-emotion",
     "gatsby-plugin-react-helmet",

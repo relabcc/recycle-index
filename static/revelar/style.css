@@ -1518,7 +1518,7 @@ section.not-found {
 }
 
 .entry-meta {
-	color: #bdc3c8;
+	color: #929aa0;
 	font-size: 14px;
 	font-size: 1.4rem;
 	font-style: italic;
@@ -1526,7 +1526,7 @@ section.not-found {
 
 .entry-meta a {
 	border-bottom: none;
-	color: #bdc3c8;
+	color: #929aa0;
 
 	font-style: normal;
 	font-weight: 600;
@@ -1544,7 +1544,7 @@ section.not-found {
 }
 
 .entry-meta span:after {
-	color: #bdc3c8;
+	color: #929aa0;
 	content: '\f428';
 	display: inline-block;
 	font-family: "Genericons";
@@ -1631,7 +1631,7 @@ section.not-found {
 
 .blog .hentry .entry-thumbnail {
 	display: block;
-	background: #bdc3c8;
+	background: #929aa0;
 	margin: 0;
 	max-width: 100%;
 }
@@ -1839,7 +1839,7 @@ span.says {
 
 .comment-metadata,
 .reply {
-	color: #bdc3c8;
+	color: #929aa0;
 	font-family: "Open Sans";
 	font-size: 12px;
 	font-size: 1.2rem;
@@ -1880,8 +1880,8 @@ span.says {
 }
 
 .comment-reply-link {
-	border-bottom: 1px solid #bdc3c8;
-	color: #bdc3c8;
+	border-bottom: 1px solid #929aa0;
+	color: #929aa0;
 	display: inline-block;
 	margin-top: 1.96875em;
 }
@@ -2004,7 +2004,7 @@ object {
 }
 
 .wp-caption-text {
-	color: #bdc3c8;
+	color: #929aa0;
 	font-size: 15px;
 	font-size: 1.5rem;
 }
