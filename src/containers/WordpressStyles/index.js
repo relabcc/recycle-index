@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 // import './style.css'
 
+const injectCSS = (cssLink, id) => {
+  let tag = document.getElementById(id)
+  if (!tag) {
+    tag = document.createElement('link')
+    tag.setAttribute('id', id)
+  }
+  tag.href = cssLink
+  tag.rel = 'stylesheet'
+  document.head.appendChild(tag)
+  return () => {
+    tag.remove()
+  }
+}
+
 const WordpressStyles = ({ children }) => {
+  useEffect(() => {
+    return injectCSS('/revelar/style.css', 'revelar-styles-css')
+  }, [])
   return (
     <Helmet>
       <link
@@ -20,13 +37,6 @@ const WordpressStyles = ({ children }) => {
         type="text/css"
         media="all"
       /> */}
-      <link
-        rel="stylesheet"
-        id="revelar-styles-css"
-        href="/revelar/style.css"
-        type="text/css"
-        media="all"
-      />
       {/* <link
         rel="stylesheet"
         id="revelar-styles-css"
