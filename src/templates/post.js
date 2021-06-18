@@ -1,39 +1,41 @@
-import React from "react"
+import React, { useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 import PropTypes from "prop-types"
 import { format } from "date-fns"
-import { Helmet } from 'react-helmet'
+import { unescape } from "lodash"
 
-import Layout from "../containers/Layout"
+import useShowHeader from "../contexts/header/useShowHeader"
+import WordpressStyles from "../containers/WordpressStyles"
 
-const Post = ({ data: { wpPost, site: { siteMetadata: { url } } } }) => {
-  const pageUrl = `${url}/article${wpPost.uri}`
-  console.log(wpPost)
+const Post = ({ data: { post, site: { siteMetadata: { url } } } }) => {
+  const pageUrl = `${url}/article/${post.databaseId}`
+  useShowHeader('colors.yellow')
+  useEffect(() => {
+    document.querySelectorAll('#main a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        try {
+          document.getElementById(anchor.getAttribute('href').slice(1)).scrollIntoView({
+            behavior: 'smooth'
+          });
+        } catch (e) {
+          console.error(e)
+        }
+      });
+    });
+  }, [post])
+  const excerpt = useMemo(() => {
+    const res = /<p>([^<]+)<\/p>/.exec(post.excerpt)
+    return res ? unescape(res[1]) : ''
+  }, [post.excerpt])
   return (
-    <Layout>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          id="wp-block-library-css"
-          href={`${process.env.GATSBY_WORDPRESS_URL}/wp-includes/css/dist/block-library/style.min.css?ver=5.7.2`}
-          type="text/css"
-          media="all"
-        />
-        <link
-          rel="stylesheet"
-          id="genericons-css"
-          href={`${process.env.GATSBY_WORDPRESS_URL}/wp-content/themes/revelar/genericons/genericons.css?ver=3.3`}
-          type="text/css"
-          media="all"
-        />
-        <link
-          rel="stylesheet"
-          id="revelar-styles-css"
-          href={`${process.env.GATSBY_WORDPRESS_URL}/wp-content/themes/revelar/style.css?ver=5.7.2`}
-          type="text/css"
-          media="all"
-        />
-     </Helmet>
+    <>
+      <WordpressStyles>
+        <title>{post.title}</title>
+        <meta name="description" content={excerpt} />
+        {post.featuredImage && <meta name="og:image" content={post.featuredImage.node.sourceUrl} />}
+      </WordpressStyles>
       <div id="content" className="site-content">
         <div id="primary" className="content-area">
           <main id="main" className="site-main" role="main">
@@ -41,36 +43,24 @@ const Post = ({ data: { wpPost, site: { siteMetadata: { url } } } }) => {
               <header className="entry-header">
                 <span className="entry-format"></span>
                 <h2 className="entry-title">
-                  <a href={pageUrl} rel="bookmark">{wpPost.title}</a>
+                  <a href={pageUrl} rel="bookmark">{post.title}</a>
                 </h2>
                 <div className="entry-meta">
                   <span className="posted-on">
                     <a href={pageUrl} rel="bookmark">
-                      <time className="entry-date published" dateTime={wpPost.date}>
-                        {format(new Date(wpPost.date), 'yyyy-MM-dd')}
+                      <time className="entry-date published" dateTime={post.date}>
+                        {format(new Date(post.date), 'yyyy-MM-dd')}
                       </time>
                     </a>
                   </span>
                 </div>
               </header>
-
-              <div className="entry-thumbnail">
-                <img
-                  width="1200"
-                  height="800"
-                  className="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-                  alt=""
-                  loading="lazy"
-                  srcSet={wpPost.featuredImage?.node.srcSet}
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                />
-              </div>
-              <div className="entry-content" dangerouslySetInnerHTML={{ __html: wpPost.content }} />
+              <div className="entry-content" dangerouslySetInnerHTML={{ __html: post.content }} />
             </article>
           </main>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 
@@ -80,18 +70,37 @@ Post.propTypes = {
 
 export default Post
 
-export const postQuery = graphql`
-  query($id: String!) {
-    wpPost(id: { eq: $id }) {
-      title
+export const pageQuery = graphql`
+  query BlogPostById(
+    # these variables are passed in via createPage.pageContext in gatsby-node.js
+    $id: String!
+    $previousPostId: String
+    $nextPostId: String
+  ) {
+    # selecting the current post by id
+    post: wpPost(id: { eq: $id }) {
+      id
+      databaseId
+      excerpt
       content
+      title
       date
-      uri
       featuredImage {
         node {
-          srcSet
+          sourceUrl
+          altText
         }
       }
+    }
+    # this gets us the previous post by id (if it exists)
+    previous: wpPost(id: { eq: $previousPostId }) {
+      uri
+      title
+    }
+    # this gets us the next post by id (if it exists)
+    next: wpPost(id: { eq: $nextPostId }) {
+      uri
+      title
     }
     site {
       siteMetadata {

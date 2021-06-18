@@ -8,6 +8,7 @@ import {
   useDisclosure,
   IconButton,
 } from "@chakra-ui/react"
+import { MdMenu } from 'react-icons/md';
 
 import Box from '../components/Box';
 import Button from '../components/Button';
@@ -18,13 +19,14 @@ import theme, { responsive } from '../components/ThemeProvider/theme';
 
 import logo from './logo.svg'
 import useResponsive from '../contexts/mediaQuery/useResponsive';
-import { MdMenu } from 'react-icons/md';
+import BackgroundImage from '../components/BackgroundImage';
 
 const links = [
   { name: '101件垃圾', en: '101 Must-Know Trashes', to: '/catalogue' },
   { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game' },
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how' },
   { name: '關於我們', en: 'About Us', to: '/about' },
+  { name: '文章專區', en: 'Articles', to: '/blog' },
   { name: '課程申請', href: 'https://docs.google.com/forms/d/e/1FAIpQLSePuqu6i9Q0e2IoOih6RNOsBFwRrxo3lwrXI7MGikkdKsFYZg/viewform', hideEn: true },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true, hideEn: true },
 ]
@@ -35,17 +37,19 @@ const Header = ({ isEn, ...props }) => {
   const btnRef = useRef()
   return (
     <Flex
+      as="header"
       position="fixed"
       top={0}
       left={0}
       right={0}
       alignItems="center"
       zIndex="docked"
+      fontSize={responsive(null, '16px', '18px')}
       {...props}
     >
       <Box px="1em">
         <Link to="/">
-          <Image width={responsive('8em', '12em', '7.5em')} src={logo} alt="回收大百科" />
+          <BackgroundImage width={responsive('8em', '12em', '7.5em')} ratio={300 / 50} src={logo} alt="回收大百科" />
         </Link>
       </Box>
       <Box flex="1" />

@@ -39,6 +39,9 @@ module.exports = {
         schema: {
           //Prefixes all WP Types with "Wp" so "Post and allPost" become "WpPost and allWpPost".
           typePrefix: `Wp`,
+          perPage: 20,
+          requestConcurrency: 5,
+          previewRequestConcurrency: 2,
         },
         develop: {
           //caches media files outside of Gatsby's default cache an thus allows them to persist through a cache reset.
@@ -53,8 +56,12 @@ module.exports = {
                 : // and we don't actually need more than 5000 in production for this particular site
                   5000,
           },
+
         },
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-image`,
   ],
 };
