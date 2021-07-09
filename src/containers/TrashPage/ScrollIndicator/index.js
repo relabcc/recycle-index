@@ -1,10 +1,10 @@
 import React from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import styled from '@emotion/styled'
+import { StaticImage } from 'gatsby-plugin-image'
 
 import Flex from '../../../components/Flex'
 import Box from '../../../components/Box'
-import Image from '../../../components/Image'
 
 import bin from './bin.svg'
 import trash from './trash.svg'
@@ -39,12 +39,12 @@ const ScrollIndicator = ({ progress, isMobile, onClick }) => {
               </Box.Absolute>
               <RightDash position="absolute" top="10%" bottom="0" width="1px" right="50%" />
               <Box.Absolute width="100%" style={{ top: `${progress * 100}%` }} transform="translateY(-50%)">
-                <Image alt="紙屑" src={trash} />
+                <StaticImage alt="紙屑" src="trash.svg" placeholder="blurred" />
               </Box.Absolute>
             </Box.Relative>
           </Box>
           <Box.Relative width="100%" onClick={onClick}>
-            <Image alt="垃圾桶" src={bin} />
+            <StaticImage alt="垃圾桶" src="bin.svg" placeholder="blurred" />
           </Box.Relative>
         </>
       )}

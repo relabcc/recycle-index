@@ -111,7 +111,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
     return 2
   }, [correctCount, answers])
   const tier = tierData[tierId]
-  const pageUrl = `${siteMetadata.url}/game`
+  const pageUrl = `${siteMetadata.siteUrl}/game`
   return (
     <>
       <Container position="relative">

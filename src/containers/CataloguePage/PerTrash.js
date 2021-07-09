@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AspectRatio } from '@chakra-ui/react';
-import { interval } from 'd3-timer'
 import { useHover } from 'react-use';
 import { useIsVisible } from "react-is-visible"
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { useHarmonicIntervalFn } from 'react-use'
 
 import Box from '../../components/Box';
 import Link from '../../components/Link';
 import Text from '../../components/Text';
-import Flex from '../../components/Flex';
-import Image from '../../components/Image';
 
 import Face from '../Face'
 import useIsEn from '../useIsEn';
@@ -24,28 +23,28 @@ const colorsCfg = {
 }
 
 const rate = 0.2
+
+const TheFace = ({ isVisible, hovered, data }) => {
+  const [showFace, setShowFace] = useState(() => isVisible && Math.random() < rate)
+  // const timer = useRef()
+  const tick = useCallback(() => {
+    setShowFace(isVisible && Math.random() < rate)
+  }, [isVisible])
+  useHarmonicIntervalFn(tick, 5000)
+  return (showFace || hovered) && (
+    <Face id={data.transform.faceNo} transform={data.transform.face} />
+  )
+}
+
 const PerTrash = ({ data }) => {
   const isEn = useIsEn()
   const { isMobile } = useRespoinsive()
   const nodeRef = useRef()
   const isVisible = useIsVisible(nodeRef)
-
-  const [showFace, setShowFace] = useState(() => Math.random() < rate)
-  const timer = useRef()
-  const tick = useCallback(() => {
-    setShowFace(Math.random() < rate)
-  }, [])
-  useEffect(() => {
-    if (isVisible) {
-      timer.current = interval(tick, 5000)
-    }
-    return () => {
-      if (timer.current) {
-        timer.current.stop()
-      }
-    }
-  }, [isVisible])
-  const scale = (data.transform.homeScale || 100) * 0.85 / 100
+  const transform = useMemo(() => {
+    const scale = (data.transform.homeScale || 100) * 0.85 / 100
+    return `scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`
+  }, [data])
   const element = (hovered) =>
     <Link to={`${isEn ? '/en' : ''}/trash/${data.id}`} height="100%" width="100%">
       <Box
@@ -72,12 +71,10 @@ const PerTrash = ({ data }) => {
           left="50%"
           bottom="0"
           width="100%"
-          transform={`scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`}
+          transform={transform}
         >
-          <Image src={data.img} alt={data.name} />
-          {(showFace || hovered) && (
-            <Face id={data.transform.faceNo} transform={data.transform.face} />
-          )}
+          <GatsbyImage image={data.gatsbyImg} alt={data.name} placeholder="blurred" />
+          <TheFace isVisible={isVisible} data={data} hovered={hovered} />
         </Box.Absolute>
         <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">
           <Text

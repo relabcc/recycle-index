@@ -9,7 +9,7 @@ const Game = ({ data }) => {
     <>
       <Helmet>
         <title>Recycle Challenge</title>
-        <meta name="og:image" content={`${data.site.siteMetadata.url}/game/og.jpg`} />
+        <meta name="og:image" content={`${data.site.siteMetadata.siteUrl}/game/og.jpg`} />
       </Helmet>
       <Page data={data} />
     </>
@@ -22,7 +22,7 @@ export const pageQuery = graphql`
   query PlayPageEnQuery {
     site {
       siteMetadata {
-        url
+        siteUrl
       }
     }
   }

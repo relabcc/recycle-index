@@ -1,5 +1,4 @@
 const path = require('path')
-const { slash } = require(`gatsby-core-utils`)
 const { chunk } = require('lodash')
 
 const trashes = require('./src/containers/TrashPage/data/data.json')

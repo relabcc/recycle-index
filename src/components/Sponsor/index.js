@@ -1,17 +1,14 @@
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 
-import rc from './rc.svg'
-import citi from './citi.svg'
-import foodpanda from './foodpanda.svg'
 import Box from '../Box'
 import Flex from '../Flex'
-import Image from '../Image'
 import { responsive } from '../ThemeProvider/theme'
 
 const sponsor = [
-  ['RC文化基金會', rc],
-  ['Foodpanda', foodpanda],
-  ['花旗銀行', citi],
+  <StaticImage src="rc.svg" alt="RC文化基金會" placeholder="blurred" />,
+  <StaticImage src="foodpanda.svg" alt="Foodpanda" placeholder="blurred" />,
+  <StaticImage src="citi.svg" alt="花旗銀行" placeholder="blurred" />,
 ]
 
 const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ...props }) => {
@@ -44,9 +41,9 @@ const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ..
           贊助單位
         </Box>
         <Flex justifyContent="center" flex={responsive('1', 'none')}>
-          {sponsor.map(([name, logo], k) => (
+          {sponsor.map((logo, k) => (
             <Box px={responsive('1em', '1.25em')} key={k} width={1 / 3} {...logoProps}>
-              <Image alt={name} src={logo} />
+              {logo}
             </Box>
           ))}
         </Flex>

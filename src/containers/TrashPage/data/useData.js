@@ -1,11 +1,12 @@
-import { fromPairs, get, groupBy, mapKeys, mapValues } from 'lodash'
+import { fromPairs, get, groupBy, mapKeys, mapValues, reduce } from 'lodash'
+import { useMemo } from 'react'
 
+import useGatsbyImage from './useGatsbyImage'
 import cfg from './cfg.json'
 import dd from './data.json'
 import scale from './scale.json'
 
 import images from './images'
-import { useMemo } from 'react'
 
 // https://docs.google.com/spreadsheets/d/1TlGNBNi3JHkuuyql7ruVbFI6bfIxyvHC3AWZ0HrMWhE/edit#gid=0
 const cfgKeys = {
@@ -88,6 +89,8 @@ const remapKeys = (data, keyMap) => data.map((dd) => mapValues(mapKeys(dd, (v, k
 const useData = () => {
   // const [data, setData] = useState()
   // window._RECYCLE_JSON = scale
+  const gatsbyImages = useGatsbyImage()
+
   const grouped = groupBy(remapKeys(cfg, cfgKeys), 'name')
   const scales = scale.reduce((all, d) => {
     all[d.name] = d
@@ -102,6 +105,7 @@ const useData = () => {
     // size: gridTransformed[d.name],
     parts: grouped[d.name],
     img: get(images, [d.name, d.name]),
+    gatsbyImg: get(gatsbyImages, [d.name, d.name]),
     transform: mapValues(scales[d.name], d => isNaN(d) ? d : d * 1),
   }))
   return useMemo(() => [{}, ...transformed], [])

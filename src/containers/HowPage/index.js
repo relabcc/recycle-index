@@ -8,6 +8,7 @@ import Footer from '../Footer';
 import useShowHeader from '../../contexts/header/useShowHeader';
 import Container from '../../components/Container';
 // import useResponsive from '../../contexts/mediaQuery/useResponsive'
+import { StaticImage } from 'gatsby-plugin-image';
 
 import Factor from './Factor';
 import Change from './Change';
@@ -28,22 +29,22 @@ import withLoading from '../withLoading'
 
 const backgorundImg = [
   {
-    src: [how1Webp, how1],
+    img: <StaticImage src="how-1.png" placeholder="blurred" alt="垃圾分類之後發生的事" />,
     bg: 'colors.yellow',
   },
   {
     title: '丟「可回收」之後發生的事',
-    src: [how2Webp, how2],
+    img: <StaticImage src="how-2.png" placeholder="blurred" alt="回收處理流程" />,
   },
   {
-    src: [how3Webp, how3],
+    img: <StaticImage src="how-3.png" placeholder="blurred" alt="具有「回收價值」，才是再利用可以真實發生的關鍵" />,
   },
   {
     Comp: Factor,
     bg: 'colors.yellow',
   },
   {
-    src: [how4, how4],
+    img: <StaticImage src="how_4.png" placeholder="blurred" alt="回收價值定義" />,
     bg: 'colors.yellow'
   },
   {
@@ -57,11 +58,11 @@ const HowPage = () => {
   return (
     <Box>
       <Box pt={responsive(theme.headerHeight, 0)} bg="colors.yellow" />
-      {backgorundImg.map(({ src, bg, title, Comp }, i) => (
+      {backgorundImg.map(({ img, bg, title, Comp }, i) => (
         <Box bg={bg} key={i}>
            <Container>
              {title && <Text pl={responsive('5%', '10%')} pt={responsive('1em', '5rem')} fontWeight="black" fontSize={responsive('1.5em', '2em')}>{title}</Text>}
-             {Comp ? <Comp /> : <Image src={src} />}
+             {Comp ? <Comp /> : img}
           </Container>
         </Box>
       ))}
@@ -70,6 +71,4 @@ const HowPage = () => {
   )
 }
 
-const toLoad = backgorundImg.map(d => d.src).filter(Boolean)
-
-export default withLoading(toLoad)(HowPage)
+export default (HowPage)

@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    url: 'https://recycle.rethinktw.org',
+    siteUrl: 'https://recycle.rethinktw.org',
     title: "回收大百科",
     titleEn: "Recycle Index",
   },
@@ -14,6 +14,14 @@ module.exports = {
   plugins: [
     "gatsby-plugin-emotion",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sitemap",
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
@@ -64,7 +72,15 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          placeholder: `blurred`,
+          quality: 90,
+        },
+      },
+    },
     `gatsby-plugin-image`,
   ],
 };

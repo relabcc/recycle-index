@@ -6,11 +6,11 @@ import { useWindowSize } from 'react-use';
 import { SizeMe } from 'react-sizeme';
 import ReactFullpage from '@fullpage/react-fullpage'
 import { timer } from 'd3-timer';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
 import Flex from '../../components/Flex'
-import Image from '../../components/Image'
 import Circle from '../../components/Circle'
 import Container from '../../components/Container'
 import FB from '../../components/Icons/FB'
@@ -27,8 +27,8 @@ import isIos from '../../components/utils/isIos'
 
 import trash from './trash-bag.svg'
 import shareBg from './share-bg.svg'
-import planb from './planb.svg'
-import planbBubble from './planb-bubble.svg'
+// import planb from './planb.svg'
+// import planbBubble from './planb-bubble.svg'
 import shareBgMobile from './share-bg-mobile.svg'
 import Handling from './Handling';
 import ScrollIndicator from './ScrollIndicator';
@@ -180,13 +180,13 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   ]
   const endPos = [containerWidth * 1, containerWidth * 0.25]
   useShowHeader(colorScheme)
-  useLoader(data.img)
-  const pageUrl = `${siteMetadata.url}/trash/${data.id}`
+  // useLoader(data.img)
+  const pageUrl = `${siteMetadata.siteUrl}/trash/${data.id}`
 
   const n = `#${String(data.id).padStart(3, '0')}`
   const parts = useMemo(() => {
     if (!data) return null
-    return data.imgs.map(({ src, centeroid, x, width, partName, side }, i) => {
+    return data.imgs.map(({ src, gatsbySrc, centeroid, x, width, partName, side }, i) => {
       let pos
       let linePos
       const theSide = isMobile ? 0 : side
@@ -210,7 +210,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       const top = `${centeroid[1] / imgSize[1] * 100}%`
       return (
         <Box.FullAbs ref={layerRefs[i]} key={i}>
-          <BackgroundImage ref={animaRefs[i]} ratio={imgSize[0] / imgSize[1]} src={src} />
+          <GatsbyImage ref={animaRefs[i]} image={gatsbySrc} alt={partName} />
           {partName && (
             <Box ref={partsRefs[i]}>
               <Box.Absolute
@@ -383,14 +383,15 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
                 <Text fontWeight="700" fontSize={responsive('1.125em', '1.25em')} letterSpacing="0.1em">＃或者，你有替代方案：</Text>
                 <Flex width={responsive('20em', '24em')} mr={responsive('0', '1em')} alignItems="flex-end" my={responsive('1em', '0.5em')}>
                   <Box width="22%" pb="5%">
-                    <Image alt="替代方案" src={planb} />
+                    <StaticImage alt="替代方案" src="planb.svg" />
                   </Box>
                   <Box flex="1" pl="2%">
-                    <BackgroundImage src={planbBubble} ratio={486 / 176}>
+                    <Box.Relative>
+                      <StaticImage alt="替代方案內容" src="planb-bubble.svg" />
                       <Box.Absolute top="50%" left="16%" right="5%" transform="translateY(-50%)">
                         <Text fontSize={responsive('1.125em', '1em')} letterSpacing="0.1em">{data.alternative}</Text>
                       </Box.Absolute>
-                    </BackgroundImage>
+                    </Box.Relative>
                   </Box>
                 </Flex>
               </Box>
@@ -402,7 +403,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <Container>
           <Flex mt={responsive('0.5em', '0.25em')}>
             <Box width="1.75em" mr="0.5em">
-              <Image alt="垃圾袋" src={trash} />
+              <StaticImage alt="垃圾袋" src="trash-bag.svg" />
             </Box>
             <Text fontSize={responsive('1.25em', '1.25em')} fontWeight="900" letterSpacing="0.125em">猜你也丟過這些...</Text>
           </Flex>
@@ -441,7 +442,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               transform={`translate3d(${isMobile ? '10%' : 0}, -50%, 0) ${data.transform.rotate ? `rotate(${isMobile && data.transform.mobileRotate ? data.transform.mobileRotate : data.transform.rotate}deg)` : ''}`}
             >
               <Box transform={`translate(${endTransition[isMobile ? 0 : 1].map(d => `${d}%`).join(',')}) ${data.transform.shareScale ? `scale(${(isMobile && data.transform.mobileShareScale ? data.transform.mobileShareScale : data.transform.shareScale) / 100})` : ''}`}>
-                <Image alt={data.name} src={data.img} />
+                <GatsbyImage alt={data.name} image={data.gatsbyImg} />
                 <Face transform={data.transform.face} id={faceId} />
               </Box>
             </Box.Absolute>

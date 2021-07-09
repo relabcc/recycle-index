@@ -7,7 +7,7 @@ export const pageQuery = graphql`
   query TrashPageQuery {
     site {
       siteMetadata {
-        url
+        siteUrl
       }
     }
   }

@@ -13,7 +13,6 @@ import { MdMenu } from 'react-icons/md';
 import Box from '../components/Box';
 import Button from '../components/Button';
 import Flex from '../components/Flex';
-import Image from '../components/Image';
 import Link from '../components/Link';
 import theme, { responsive } from '../components/ThemeProvider/theme';
 

@@ -1,11 +1,11 @@
 import React, { createElement, useMemo } from 'react'
+import { StaticImage } from 'gatsby-plugin-image';
 
 import FullpageVerticalCenter from '../../components/FullpageVerticalCenter';
 import Container from '../../components/Container';
 import Box from '../../components/Box';
 import Flex from '../../components/Flex';
 import Heading from '../../components/Heading';
-import Image from '../../components/Image';
 import Button from '../../components/Button';
 
 import useShowHeader from '../../contexts/header/useShowHeader';
@@ -18,12 +18,14 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useRespoinsive from '../../contexts/mediaQuery/useResponsive';
 import withLoading from '../withLoading';
 
-const GamePage = ({ isMobile }) => {
+const GamePage = () => {
+  const { isMobile } = useRespoinsive()
+
   useShowHeader('colors.yellow')
   return (
     <FullpageVerticalCenter bg="colors.yellow" mt="0" height="100vh" overflow="hidden">
       <Box widht="100%" mt="0">
-        <Image src={isMobile ? trashmobile : bannerSvg} />
+        {isMobile ? <StaticImage placeholder="blurred" alt="丟垃圾大考驗" src="trash-mobile.png" /> : <StaticImage placeholder="blurred" alt="丟垃圾大考驗" src="banner.svg" />}
       </Box>
       <Container px={responsive('1em', '2em')} mb={responsive('2em', '2em')}>
         <Flex mt={responsive('-20%', '-4em')} alignItems="center" justifyContent="center" flexDirection={responsive('column-reverse', 'row')}>
@@ -32,7 +34,7 @@ const GamePage = ({ isMobile }) => {
         </Flex>
         {isMobile && (
           <Box px="0.25em" pt="0.5em">
-            <Image src={trashmobile2} />
+            <StaticImage placeholder="blurred" alt="更多垃圾" src="trash-mobile_2.png" />
           </Box>
         )}
       </Container>
@@ -40,8 +42,4 @@ const GamePage = ({ isMobile }) => {
   )
 }
 
-export default () => {
-  const { isMobile } = useRespoinsive()
-  const toLoad = useMemo(() => isMobile ? [trashmobile, trashmobile2] : [bannerSvg], isMobile)
-  return createElement(withLoading(toLoad)(GamePage), { isMobile })
-}
+export default GamePage

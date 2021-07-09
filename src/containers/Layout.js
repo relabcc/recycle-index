@@ -26,7 +26,7 @@ const Layout = ({ children, path }) => {
             siteMetadata {
               title
               titleEn
-              url
+              siteUrl
             }
           }
         }
@@ -42,7 +42,7 @@ const Layout = ({ children, path }) => {
               name="description"
               content={description[isEn ? 1 : 0]}
             />
-            <meta name="og:image" content={`${data.site.siteMetadata.url}/og-0113.jpg`} />
+            <meta name="og:image" content={`${data.site.siteMetadata.siteUrl}/og-0113.jpg`} />
           </Helmet>
           <EnContext.Provider value={isEn}>
             {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} />}

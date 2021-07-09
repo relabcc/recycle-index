@@ -9,7 +9,6 @@ import FilterAndSearch from './FilterAndSearch';
 
 import PerTrash from './PerTrash';
 import Footer from '../Footer';
-import withLoading from '../withLoading';
 import diff from './diff'
 import useIsEn from '../useIsEn';
 import trashEn from '../trashEn'
@@ -87,7 +86,4 @@ const Catalogue = ({ data }) => {
   )
 }
 
-export default p => {
-  const toLoad = useMemo(() => p.data.slice(1, 37).map(d => d.img), [p.data])
-  return createElement(withLoading(toLoad)(Catalogue), p)
-}
+export default Catalogue
