@@ -5,6 +5,7 @@ import { SizeMe } from 'react-sizeme';
 import { useHistory } from 'react-router-dom';
 import ReactSelect from 'react-select'
 import { useFormik } from 'formik';
+import { MdRefresh } from 'react-icons/md';
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -14,12 +15,10 @@ import Container from '../../components/Container'
 import BackgroundImage from '../../components/BackgroundImage'
 import Face from '../Face';
 
-import useResponsive from '../../contexts/mediaQuery/useResponsive';
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import useLoader from '../../utils/useLoader';
 import withData from '../TrashPage/data/withData';
 import imgSize from '../TrashPage/data/imgSize';
-import { MdRefresh } from 'react-icons/md';
 
 const idealWidth = 200
 
@@ -51,7 +50,6 @@ const SliderWithReset = ({ onReset, ...props }) => (
 
 const FaceEditor = ({ data, allData }) => {
   const history = useHistory()
-  const { isMobile } = useResponsive()
   const lastConfig = useMemo(() => {
     if (!data.transform.face) return {}
     const pttn = /(\w+)\(([^)]+)\)/g
@@ -84,7 +82,7 @@ const FaceEditor = ({ data, allData }) => {
   })
   const transformString = useMemo(() => fields.reduce((str, f) => `${str} ${f.name}(${f.children ? ['x', 'y'].map(d => `${values[f.name][d]}${f.unit}`).join() : `${values[f.name]}${f.unit}`})`, ''), [values])
   const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
-  const trashWidth = (isMobile ? 150 : 75) * (data.transform.scale ? data.transform.scale / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
+  const trashWidth = 75 * (data.transform.scale ? data.transform.scale / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
   const { hasCopied, onCopy } = useClipboard(transformString)
 
   useLoader(data.img)
@@ -172,8 +170,8 @@ const FaceEditor = ({ data, allData }) => {
           <Container position="relative" height="100%">
             <Box.Absolute
               id="trash-container"
-              width={`${trashWidth}%`}
-              left={`${(100 - trashWidth) / 2}%`}
+              width={responsive(`${trashWidth * 2}%`, `${trashWidth}%`)}
+              left={responsive(`${(100 - trashWidth * 2) / 2}%`, `${(100 - trashWidth) / 2}%`)}
               top={responsive('45%', '50%')}
               transform="translate3d(0, -50%, 0)"
             >

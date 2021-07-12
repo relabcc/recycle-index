@@ -3,12 +3,10 @@ import React, { useContext } from 'react';
 import Box from './Box'
 import theme from './ThemeProvider/theme'
 import headerContext from '../contexts/header/context'
-import useResponsive from '../contexts/mediaQuery/useResponsive'
 
 const Fullpage = ({ children, ...props }) => {
   const { hideHeader } = useContext(headerContext)
-  const { getCurrentValue } = useResponsive()
-  const headerHeight = getCurrentValue(theme.headerHeight)
+  const headerHeight = theme.headerHeight
 
   return (
     <Box

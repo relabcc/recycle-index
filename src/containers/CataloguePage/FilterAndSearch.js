@@ -16,8 +16,7 @@ import Box from '../../components/Box';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import theme, { responsive } from '../../components/ThemeProvider/theme';
-import useResponsive from '../../contexts/mediaQuery/useResponsive';
+import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 
 import useIsEn from '../useIsEn'
 
@@ -104,136 +103,146 @@ function RadioCard(props) {
 
 const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
   const isEn = useIsEn()
-  const { isMobile } = useResponsive()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  return (
-    <Flex py={responsive('0.5em', '0.5em')}>
-      {isMobile ? (
-        <Button
-          leftIcon={<GrFilter />}
-          fontSize="0.875em"
-          height="auto"
-          onClick={onOpen}
-          mr="1em"
-        >篩選器</Button>
-      ) : filterOptions(isEn).map(({ name, label, options }) => (
-        <Box key={name} width={responsive('20%', '15rem')} px={responsive('0.25em', '1em')} fontSize={responsive('2.5em', '0.75em')}>
-          <Select
-            options={options}
-            placeholder={label}
-            value={valueToOption(isEn)[name][values[name]]}
-            onChange={selected => setFieldValue(name, selected && selected.value)}
-            name={name}
-            isClearable
-            styles={{
-              valueContainer: provided => ({
-                ...provided,
-                padding: '0.5em 0.5em',
-              }),
-              placeholder: provided => ({
-                ...provided,
-                marginLeft: '0.125em',
-                marginRight: '0.125em',
-              }),
-              indicatorSeparator: () => ({
-                display: 'none',
-              }),
-              dropdownIndicator: provided => ({
-                ...provided,
-                padding: '0.25em',
-              }),
-              control: provided => ({
-                ...provided,
-                minHeight: '3em',
-                borderRadius: 0,
-                border: 'none',
-                borderBottom: '2px solid black',
-              }),
-              option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-                return {
-                  ...styles,
-                  color: 'black',
-                  backgroundColor: isDisabled
-                    ? null
-                    : isSelected
-                    ? data.color
-                    : isFocused
-                    ? data.color
-                    : null,
-                  cursor: isDisabled ? 'not-allowed' : 'default',
-                };
-              },
-            }}
-          />
-        </Box>
-      ))}
-      <InputGroup ml={responsive(0, '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('1em', '0.75em')}>
-        <Input
-          lineHeight="2.25"
-          fontSize="1em"
-          placeholder={isEn ? `Insert Keyword${isMobile ? '' : ', e.g. Helmet'}` : `輸入垃圾關鍵字${isMobile ? '' : '，例如：水果網套'}`}
-          value={values.search}
-          name="search"
-          onChange={onChange}
-          borderRadius="0"
-          border="none"
-          borderBottom="2px solid black"
-          _hover={{
-            borderBottomColor: "black"
-          }}
-          _focus={{
-            borderBottomColor: "black"
-          }}
-          _active={{
-            borderBottomColor: "black"
-          }}
-        />
-        <InputRightElement width="2.5em" height="2.5em" fontSize="1em" px="0" children={<MdSearch size="1.5em" />} />
-      </InputGroup>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        header="篩選器"
-        body={(
-          <Box>
-            {filterOptions(isEn).map(({ name, label, options }) => (
-              <Box key={name} my="1em">
-                <Text mb="0.5em" fontSize="1.125em" fontWeight="500">{label}</Text>
-                <Flex flexWrap="wrap">
-                  {options.map(opt => (
-                    <RadioCard
-                      name={name}
-                      onChange={onChange}
-                      key={opt.value}
-                      value={opt.value}
-                      color={opt.color}
-                      isChecked={opt.value == values[name]}
-                    >{opt.label}</RadioCard>
-                  ))}
-                </Flex>
-              </Box>
-            ))}
-          </Box>
-        )}
-        footer={(
-          <Box fontSize="1em" pb="1em">
-            <Button
-              height="2em"
-              fontSize="1em"
-              mr="1em"
-              onClick={() => {
-                filterOptions(isEn).forEach(({ name }) => setFieldValue(name, ''))
-              }}
-            >清除</Button>
-            <Button
-              height="2em"
-              fontSize="1em"
-              onClick={onClose}
-            >確定</Button>
-          </Box>
-        )}
+  const FilterInput = ({ isMobile }) => (
+    <InputGroup ml={responsive(0, '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('1em', '0.75em')}>
+      <Input
+        lineHeight="2.25"
+        fontSize="1em"
+        placeholder={isEn ? `Insert Keyword${isMobile ? '' : ', e.g. Helmet'}` : `輸入垃圾關鍵字${isMobile ? '' : '，例如：水果網套'}`}
+        value={values.search}
+        name="search"
+        onChange={onChange}
+        borderRadius="0"
+        border="none"
+        borderBottom="2px solid black"
+        _hover={{
+          borderBottomColor: "black"
+        }}
+        _focus={{
+          borderBottomColor: "black"
+        }}
+        _active={{
+          borderBottomColor: "black"
+        }}
       />
-    </Flex>
+      <InputRightElement width="2.5em" height="2.5em" fontSize="1em" px="0" children={<MdSearch size="1.5em" />} />
+    </InputGroup>
+  )
+  return (
+    <>
+      <Media at="mobile">
+        <Flex py="0.5em">
+          <Button
+            leftIcon={<GrFilter />}
+            fontSize="0.875em"
+            height="auto"
+            onClick={onOpen}
+            mr="1em"
+          >篩選器</Button>
+          <FilterInput isMobile />
+        </Flex>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          header="篩選器"
+          body={(
+            <Box>
+              {filterOptions(isEn).map(({ name, label, options }) => (
+                <Box key={name} my="1em">
+                  <Text mb="0.5em" fontSize="1.125em" fontWeight="500">{label}</Text>
+                  <Flex flexWrap="wrap">
+                    {options.map(opt => (
+                      <RadioCard
+                        name={name}
+                        onChange={onChange}
+                        key={opt.value}
+                        value={opt.value}
+                        color={opt.color}
+                        isChecked={opt.value == values[name]}
+                      >{opt.label}</RadioCard>
+                    ))}
+                  </Flex>
+                </Box>
+              ))}
+            </Box>
+          )}
+          footer={(
+            <Box fontSize="1em" pb="1em">
+              <Button
+                height="2em"
+                fontSize="1em"
+                mr="1em"
+                onClick={() => {
+                  filterOptions(isEn).forEach(({ name }) => setFieldValue(name, ''))
+                }}
+              >清除</Button>
+              <Button
+                height="2em"
+                fontSize="1em"
+                onClick={onClose}
+              >確定</Button>
+            </Box>
+          )}
+        />
+      </Media>
+      <Media greaterThan="mobile">
+        <Flex py="0.5em">
+          {filterOptions(isEn).map(({ name, label, options }) => (
+            <Box key={name} width={responsive('20%', '15rem')} px={responsive('0.25em', '1em')} fontSize={responsive('2.5em', '0.75em')}>
+              <Select
+                options={options}
+                placeholder={label}
+                value={valueToOption(isEn)[name][values[name]]}
+                onChange={selected => setFieldValue(name, selected && selected.value)}
+                name={name}
+                isClearable
+                styles={{
+                  valueContainer: provided => ({
+                    ...provided,
+                    padding: '0.5em 0.5em',
+                  }),
+                  placeholder: provided => ({
+                    ...provided,
+                    marginLeft: '0.125em',
+                    marginRight: '0.125em',
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none',
+                  }),
+                  dropdownIndicator: provided => ({
+                    ...provided,
+                    padding: '0.25em',
+                  }),
+                  control: provided => ({
+                    ...provided,
+                    minHeight: '3em',
+                    borderRadius: 0,
+                    border: 'none',
+                    borderBottom: '2px solid black',
+                  }),
+                  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+                    return {
+                      ...styles,
+                      color: 'black',
+                      backgroundColor: isDisabled
+                        ? null
+                        : isSelected
+                        ? data.color
+                        : isFocused
+                        ? data.color
+                        : null,
+                      cursor: isDisabled ? 'not-allowed' : 'default',
+                    };
+                  },
+                }}
+              />
+            </Box>
+          ))}
+          <FilterInput />
+        </Flex>
+      </Media>
+    </>
   )
 }
 

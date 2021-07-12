@@ -4,12 +4,10 @@ import { useWindowSize } from 'react-use';
 import Box from './Box'
 import theme from './ThemeProvider/theme'
 import headerContext from '../contexts/header/context'
-import useResponsive from '../contexts/mediaQuery/useResponsive'
 
 const Fullpage = forwardRef(({ children, ...props }, ref) => {
   const { hideHeader } = useContext(headerContext)
-  const { getCurrentValue } = useResponsive()
-  const headerHeight = getCurrentValue(theme.headerHeight)
+  const headerHeight = theme.headerHeight
   const windowSize = useWindowSize()
   return (
     <Box

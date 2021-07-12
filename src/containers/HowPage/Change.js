@@ -1,14 +1,13 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
+import { isArray, range } from 'lodash'
 
 import Box from '../../components/Box'
 import Flex from '../../components/Flex'
 import Text from '../../components/Text'
-import { responsive } from '../../components/ThemeProvider/theme'
+import { Media, responsive } from '../../components/ThemeProvider/theme'
 
 import Star from './Star'
-import { isArray, range } from 'lodash'
-import useRespoinsive from '../../contexts/mediaQuery/useResponsive'
 
 const data = [
   {
@@ -50,7 +49,14 @@ const profiles = ['廢棄物量', '材質價格', '收集成本', '處理成本'
 const titles = ['回收價值', '說明', '我們可以怎麼做', '案例']
 
 const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}, i) => (
-  <Flex flexDirection="column" borderLeft={i && '2px solid black'} border={responsive('2px solid', 'auto')} flex={1} width={responsive('100%', 1 / 3)} key={i}>
+  <Flex
+    flexDirection="column"
+    borderLeft={i && '2px solid black'}
+    border={responsive('2px solid', 'auto')}
+    flex={1}
+    width={responsive('100%', 1 / 3)}
+    key={i}
+  >
    {!isMobile &&
       <Box
         color="white"
@@ -99,7 +105,6 @@ const Module = ({ data, isMobile }) => data.map(({ color, title, value, content}
 ))
 
 const Change = () => {
-  const { isMobile } = useRespoinsive()
   return (
     <Box py={responsive('1em', '5rem')} px={responsive('5%', '10%')}>
       <Text fontWeight="black" fontSize={responsive('1.5em', '2em')}>
@@ -108,16 +113,7 @@ const Change = () => {
       <Text fontSize={responsive('1em', '1.5em')}>
         你有發現回收大百科中101個垃圾，有不同的回收價值嗎？這些價值都是參考實際的回收市場而定。當我們碰到不同回收價值的東西時，該怎麼做呢？
       </Text>
-      {/* <Flex pt="1em" alignItems="center">
-        <Text.Bold fontSize={responsive('2.5em', '1em')}>回收價值高</Text.Bold>
-        <Box flex={1} mx="2em" position="relative">
-          <Box height={responsive('2px', "3px")} bg="black" />
-          <Box fontWeight="bold" fontSize={responsive('2.75em', '1em')} position="absolute" top="50%" right="100%" transform="translate(0.75em, -45%)">＜</Box>
-          <Box fontWeight="bold" fontSize={responsive('2.75em', '1em')} position="absolute" top="50%" left="100%" transform="translate(-0.75em, -45%)">＞</Box>
-        </Box>
-        <Text.Bold fontSize={responsive('2.5em', '1em')}>回收價值低</Text.Bold>
-      </Flex> */}
-      {isMobile ? (
+      <Media at="mobile">
         <Tabs mt="2em" isFitted variant="enclosed">
           <TabList>
             {data.map(({ title, color }, i) => (
@@ -127,24 +123,26 @@ const Change = () => {
                 borderColor="black"
                 _focus={{ outline: 'none' }}
                 _selected={{ bg: color, color: 'white', borderColor: 'black' }}
-                key={i}>
+                key={i}
+              >
                 {title}
               </Tab>
             ))}
           </TabList>
           <TabPanels>
             {range(data.length).map((key) => (
-              <TabPanel p="0">
-                <Module isMobile={isMobile} data={data.slice(key, key + 1)} />
+              <TabPanel p="0" key={key}>
+                <Module isMobile data={data.slice(key, key + 1)} />
               </TabPanel>
             ))}
           </TabPanels>
         </Tabs>
-      ) : (
+      </Media>
+      <Media greaterThan="mobile">
         <Flex mt="1em" border="2px solid" alignItems="stretch">
           <Module data={data} />
         </Flex>
-      )}
+      </Media>
     </Box>
   )
 }

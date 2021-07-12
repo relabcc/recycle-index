@@ -23,11 +23,10 @@ import FB from '../../../components/Icons/FB'
 import titleShape from './result-shape.svg'
 import glow from './glow.svg'
 import star from './star.svg'
-import { responsive } from '../../../components/ThemeProvider/theme'
+import { Media, responsive } from '../../../components/ThemeProvider/theme'
 import InTheBox from './InTheBox'
 import complete from './complete.svg'
 import titleShapeDesktop from './title-shape-desktop.svg'
-import useResponsive from '../../../contexts/mediaQuery/useResponsive'
 import TabBin from './TabBin'
 
 import tierData from './tier'
@@ -103,7 +102,6 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
     if (isCorrect) bins[2] += 1
     return bins
   }, [[], [], 0]), [answers, questions])
-  const { isMobile } = useResponsive()
   const tierId = useMemo(() => {
     const rate = correctCount / answers.length
     if (rate > 0.8) return 0
@@ -126,7 +124,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
               <Image src={glow} />
             </Box.Absolute>
           )}
-          {isMobile ? (
+          <Media at="mobile">
             <BackgroundImage src={titleShape} ratio={464.023 / 223.735} mt="2em" overflow="visible">
               <Box.Absolute left="18%" right="15%" top={responsive('22%', '25%', '22%')}>
                 <Text fontSize="1.375em">{tier.text}</Text>
@@ -140,7 +138,8 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
                 </BackgroundImage>
               </Box.Absolute>
             </BackgroundImage>
-          ) : (
+          </Media>
+          <Media greaterThan="moblie">
             <Box mr="15%" mt="5em">
               <SizeMe>
                 {({ size }) => (
@@ -168,9 +167,9 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
                 )}
               </SizeMe>
             </Box>
-          )}
+          </Media>
         </Box.Relative>
-        {isMobile ? (
+        <Media at="mobile">
           <Box px={responsive('20%', '22.5%', 'auto')} mt={responsive('-7em', '-12em', 'auto')} >
             <BackgroundImage ratio={642.67 / 807.96} src={tier.img} overflow="visible">
               {tier.star && (
@@ -182,14 +181,15 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
               )}
             </BackgroundImage>
           </Box>
-        ) : (
+        </Media>
+        <Media greaterThan="mobile">
           <Box.Absolute width="25%" top="-4em" right="10%" transform="rotate(7deg)">
             <BackgroundImage ratio={642.67 / 807.96} src={tier.img} />
             {tier.star && (
               <Box.Absolute right="13%" top="30%" width="20%" transform="rotate(-10deg)"><Image src={star} /></Box.Absolute>
             )}
           </Box.Absolute>
-        )}
+        </Media>
         <Flex
           pos="relative"
           mt={responsive('-1em', '3em')}
@@ -217,7 +217,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
           <Text my="1.5em" fontSize={responsive('1.25em', '1.25em')} fontWeight="700" letterSpacing="0.075em">往下滑看你丟對了哪些垃圾<ArrowDown ml="0.5em" size="1em" /></Text>
         </Box.Relative>
       </Container>
-      {isMobile ? (
+      <Media at="mobile">
         <Box.Relative>
           <Accordion allowToggle>
             <InTheBox
@@ -235,10 +235,10 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
               items={recycleBin}
               wrongTag="一般"
             />
-
           </Accordion>
         </Box.Relative>
-      ) : (
+      </Media>
+      <Media greaterThan="mobile">
         <Tabs pos="relative" isFitted variant="enclosed-colored">
           <TabList>
             <StyledTab>一般垃圾桶裡...</StyledTab>
@@ -262,7 +262,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
             />
           </TabPanels>
         </Tabs>
-      )}
+      </Media>
       <Box.Relative bg="colors.yellow">
         <Container py="3em" textAlign="center">
           <Flex flexDirection={responsive('column', 'row')} justifyContent="center" alignItems="center">

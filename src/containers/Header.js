@@ -14,10 +14,9 @@ import Box from '../components/Box';
 import Button from '../components/Button';
 import Flex from '../components/Flex';
 import Link from '../components/Link';
-import theme, { responsive } from '../components/ThemeProvider/theme';
+import theme, { Media, responsive } from '../components/ThemeProvider/theme';
 
 import logo from './logo.svg'
-import useResponsive from '../contexts/mediaQuery/useResponsive';
 import BackgroundImage from '../components/BackgroundImage';
 
 const links = [
@@ -25,13 +24,12 @@ const links = [
   { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game' },
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how' },
   { name: '關於我們', en: 'About Us', to: '/about' },
-  { name: '文章專區', en: 'Articles', to: '/blog' },
+  { name: '文章專區', en: 'Articles', href: '/blog' },
   { name: '課程申請', href: 'https://docs.google.com/forms/d/e/1FAIpQLSePuqu6i9Q0e2IoOih6RNOsBFwRrxo3lwrXI7MGikkdKsFYZg/viewform', hideEn: true },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true, hideEn: true },
 ]
 
 const Header = ({ isEn, ...props }) => {
-  const { isMobile } = useResponsive()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   return (
@@ -52,7 +50,25 @@ const Header = ({ isEn, ...props }) => {
         </Link>
       </Box>
       <Box flex="1" />
-      {isMobile ? (
+      <Media greaterThan="mobile">
+        {links.map(({ name, en, to, href, isSupport, hideEn }, i) => (!isEn || !hideEn) && (
+          <Button
+            variant="outline"
+            colorScheme="black"
+            bg={isSupport ? 'colors.pink' : 'white'}
+            href={href}
+            to={to && `${isEn ? '/en' : ''}${to}`}
+            mx="0.5em"
+            borderWidth="0.15em"
+            fontSize="0.75em"
+            key={i}
+            fontFamily={theme.fonts.number}
+          >
+            {isEn ? en : name}
+          </Button>
+        ))}
+      </Media>
+      <Media at="mobile">
         <>
           <IconButton
             mr={responsive('1em', '2em')}
@@ -61,7 +77,7 @@ const Header = ({ isEn, ...props }) => {
             height="auto"
             ref={btnRef}
             onClick={onOpen}
-            icon={<MdMenu size={isMobile ? '2em' : '6em'} />}
+            icon={<MdMenu size="2em" />}
           />
           <Drawer
             isOpen={isOpen}
@@ -84,22 +100,7 @@ const Header = ({ isEn, ...props }) => {
             </DrawerOverlay>
           </Drawer>
         </>
-      ) : links.map(({ name, en, to, href, isSupport, hideEn }, i) => (!isEn || !hideEn) && (
-        <Button
-          variant="outline"
-          colorScheme="black"
-          bg={isSupport ? 'colors.pink' : 'white'}
-          href={href}
-          to={to && `${isEn ? '/en' : ''}${to}`}
-          mx="0.5em"
-          borderWidth="0.15em"
-          fontSize="0.75em"
-          key={i}
-          fontFamily={theme.fonts.number}
-        >
-          {isEn ? en : name}
-        </Button>
-      ))}
+      </Media>
       {/* <Box.Absolute bottom="0" left="2em" right="2em" height="0.125em" bg="black" /> */}
     </Flex>
   )

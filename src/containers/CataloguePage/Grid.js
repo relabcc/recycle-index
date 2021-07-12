@@ -12,6 +12,7 @@ import Footer from '../Footer';
 import diff from './diff'
 import useIsEn from '../useIsEn';
 import trashEn from '../trashEn'
+import withLoading from '../withLoading';
 
 let searched
 let filterApplied
@@ -86,4 +87,9 @@ const Catalogue = ({ data }) => {
   )
 }
 
-export default Catalogue
+const CatalogueWithLoading =  p => {
+  const toLoad = useMemo(() => p.data.slice(1, 37).map(d => d.img), [p.data])
+  return createElement(withLoading(toLoad)(Catalogue), p)
+}
+
+export default CatalogueWithLoading

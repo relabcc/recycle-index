@@ -1,33 +1,43 @@
 import { theme, extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools"
-import { get, mapValues, map } from "lodash";
-
-import memorize from '../../utils/memorize'
+import { get } from "lodash";
+import { createMedia } from "@artsy/fresnel"
+import memoizeOne from 'memoize-one';
 
 const emToPX = em => `${em * 16}px`
+export const breakpoints = [0, 48, 62, 80, 120, 160].map(em => em * 16);
 
-const chakraBp = createBreakpoints(mapValues({
-  sm: 30,
-  md: 48,
-  lg: 62,
-  xl: 80,
-}, emToPX))
+const chakraBpNames = ['sm', 'md', 'lg', 'xl', '2xl']
+const chakraBps = chakraBpNames.reduce((bps, name, i) => {
+  bps[name] = `${breakpoints[i + 1]}px`
+  return bps
+}, {})
 
-export const breakpoints = map(chakraBp)
+// export const breakpoints = map(chakraBp)
 
-export const containerWidth = [26, 44, 58, 76, 116].map(emToPX);
+export const containerWidth = [44, 58, 76, 116].map(emToPX);
 export const responsiveIndex = [
-  [2, 'mobile'],
-  [3, 'tablet'],
-  [4, 'laptop'],
+  [1, 'mobile'],
+  [2, 'tablet'],
+  [3, 'laptop'],
+  [4, 'desktop'],
 ]
+
+export const mediaBreak = responsiveIndex.reduce((obj, [i, name], j) => {
+  obj[name] = j ? breakpoints[i - 1] : 0
+  return obj
+}, {})
 
 const responsiveMap = breakpoints.map((_, i) => {
   const id = responsiveIndex.findIndex(([ri]) => ri > i)
   return id >= 0 ? id : responsiveIndex.length
 })
 
-export const responsive = memorize((...args) => {
+const AppMedia = createMedia({ breakpoints: mediaBreak })
+export const mediaStyle = AppMedia.createMediaStyle()
+export const { Media, MediaContextProvider } = AppMedia
+
+export const responsive = memoizeOne((...args) => {
   const argsLen = args.length
   if (argsLen <= 1) return args[0]
   return breakpoints.map((_, i) => get(args, [responsiveMap[i]], null))
@@ -129,7 +139,7 @@ const overrides = {
     danger: get(colors, `${danger}.400`),
     text: get(colors, 'black'),
   },
-  breakpoints: chakraBp,
+  breakpoints: createBreakpoints(chakraBps),
   containerWidth,
   headerHeight: '60px',
 }

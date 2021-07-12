@@ -4,15 +4,17 @@ import { ChakraProvider } from "@chakra-ui/react"
 
 import globalStyles from './global-styles';
 
-import theme from './theme';
+import theme, { MediaContextProvider } from './theme';
 
-const ReThemeProvider = ({ children }) => (
-  <ChakraProvider theme={theme}>
-    <>
-      <Global styles={globalStyles} />
-      {children}
-    </>
+const ThemeProvider = ({ children }) => (
+  <ChakraProvider theme={theme} resetCSS>
+    <MediaContextProvider>
+      <>
+        <Global styles={globalStyles} />
+        {children}
+      </>
+    </MediaContextProvider>
   </ChakraProvider>
 );
 
-export default ReThemeProvider
+export default ThemeProvider

@@ -2,17 +2,16 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AspectRatio } from '@chakra-ui/react';
 import { useHover } from 'react-use';
 import { useIsVisible } from "react-is-visible"
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { useHarmonicIntervalFn } from 'react-use'
 
 import Box from '../../components/Box';
 import Link from '../../components/Link';
 import Text from '../../components/Text';
+import Image from '../../components/Image';
 
 import Face from '../Face'
 import useIsEn from '../useIsEn';
 import { responsive } from '../../components/ThemeProvider/theme';
-import useRespoinsive from '../../contexts/mediaQuery/useResponsive';
 
 import trashEn from '../trashEn'
 
@@ -38,7 +37,6 @@ const TheFace = ({ isVisible, hovered, data }) => {
 
 const PerTrash = ({ data }) => {
   const isEn = useIsEn()
-  const { isMobile } = useRespoinsive()
   const nodeRef = useRef()
   const isVisible = useIsVisible(nodeRef)
   const transform = useMemo(() => {
@@ -56,8 +54,8 @@ const PerTrash = ({ data }) => {
         flexDirection="column"
         transition="all 0.25s"
         _hover={{
-          boxShadow: !isMobile && '4px 4px 0px rgba(0,0,0,0.2)',
-          transform: !isMobile && 'translate(-4px, -4px)',
+          boxShadow: responsive('none', '4px 4px 0px rgba(0,0,0,0.2)'),
+          transform: responsive('none', 'translate(-4px, -4px)'),
           // borderWidth: '3px',
           borderColor: `colors.${colorsCfg[data.recycleValue]}`,
         }}
@@ -73,7 +71,7 @@ const PerTrash = ({ data }) => {
           width="100%"
           transform={transform}
         >
-          <GatsbyImage image={data.gatsbyImg} alt={data.name} placeholder="blurred" />
+          <Image src={data.img} alt={data.name} />
           <TheFace isVisible={isVisible} data={data} hovered={hovered} />
         </Box.Absolute>
         <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">

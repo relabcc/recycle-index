@@ -4,8 +4,7 @@ import Box from '../../components/Box'
 import Text from '../../components/Text'
 import Flex from '../../components/Flex'
 import Image from '../../components/Image'
-import { responsive } from '../../components/ThemeProvider/theme'
-import useRespoinsive from '../../contexts/mediaQuery/useResponsive'
+import { Media, responsive } from '../../components/ThemeProvider/theme'
 
 // import one from './one.png'
 // import two from './two.png'
@@ -51,9 +50,8 @@ const data = [
 ]
 
 const Factor = () => {
-  const { isMobile } = useRespoinsive()
   return (
-    <Box pt={responsive('1em', '5em')} px={responsive('5%', '10%')}>
+    <Box pt={['1em', '5em']} px={responsive('5%', '10%')}>
       <Text fontWeight="black" fontSize={responsive('1.5em', '2em')}>
         什麼是「回收價值」?<br />主要由4個因素構成：
       </Text>
@@ -89,12 +87,16 @@ const Factor = () => {
       </Flex>
       <Box p="2em" bg="white" border="5px solid" borderRadius="2em">
         <Flex alignItems="center" flexDirection={responsive('column', 'row')}>
-          {isMobile && <Text.Bold fontSize="1.5em">案例：塑膠吸管</Text.Bold>}
+          <Media at="mobile">
+            <Text.Bold fontSize="1.5em">案例：塑膠吸管</Text.Bold>
+          </Media>
           <Box pr={responsive(0, '2em')} py={responsive('1em', 0)} width={responsive('25%', '15%')}>
             <Image src={icons} />
           </Box>
           <Box pt={responsive('2em', '0')}>
-            {!isMobile && <Text.Bold pb="0.5em" fontSize="1.5em">案例：塑膠吸管</Text.Bold>}
+            <Media greaterThan="mobile">
+              <Text.Bold pb="0.5em" fontSize="1.5em">案例：塑膠吸管</Text.Bold>
+            </Media>
             {data.map(({ title, example }, k) => (
               <Text pb="0.5em" fontSize="1em" key={k}>
                 <Text.Inline fontWeight="bold">0{k + 1}{title}：</Text.Inline>

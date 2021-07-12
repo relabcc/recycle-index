@@ -6,7 +6,7 @@ import HeaderProvider from './src/contexts/header/Provider'
 import ContainerWidthProvider from './src/contexts/containerWidth/Provider'
 import FontSizeProvider from './src/contexts/fontSize/Provider'
 
-export default ({ element }) =>
+const Providers = ({ element }) =>
   <ThemeProvider>
     <MediaProvider>
       <FontSizeProvider>
@@ -18,3 +18,5 @@ export default ({ element }) =>
       </FontSizeProvider>
     </MediaProvider>
   </ThemeProvider>
+
+export default Providers

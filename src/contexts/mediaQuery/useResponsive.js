@@ -1,28 +1,19 @@
-import { useContext, useCallback } from 'react'
-import isArray from 'lodash/isArray'
+import { useContext } from 'react'
+import last from 'lodash/last'
 
 import MediaContext from './mediaContext'
 
 import getResponsiveHelper from './getResponsiveHelper'
-import { responsive } from '../../components/ThemeProvider/theme';
 
-const useRespoinsive = () => {
+const useResponsive = () => {
   const q = useContext(MediaContext)
   return {
     ...getResponsiveHelper(q),
-    responsive,
-    getCurrentValue: useCallback((resArr) => {
-      if (!isArray(resArr)) {
-        return resArr
-      }
-      let ff = q.findIndex(v => !v) - 1
-      if (ff === -2) ff = resArr.length - 1
-      while (!resArr[ff] && ff >= 0) {
-        ff -= 1
-      }
-      return resArr[ff]
-    }, [q]),
+    getCurrentValue: (resArr) => {
+      const ff = q.findIndex(v => !v)
+      return ff === -1 ? last(resArr) : resArr[ff]
+    },
   }
 }
 
-export default useRespoinsive
+export default useResponsive

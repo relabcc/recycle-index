@@ -14,7 +14,7 @@ import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
 // import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
-import theme, { responsive } from '../../components/ThemeProvider/theme';
+import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
 
@@ -412,13 +412,13 @@ const HomePage = () => {
                 </Box.Absolute>
               </Box.Absolute>
             </Box.Absolute>
-            {isMobile && (
+            <Media at="mobile">
               <Box.Absolute width="10%" left="42%" top="54%">
                 <Box.Relative transform="rotate(-10deg)">
                   <Trash data={data[18]} noFace />
                 </Box.Relative>
               </Box.Absolute>
-            )}
+            </Media>
             <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
               <Box.Relative transform="rotate(-10deg)">
                 <Trash data={data[trashes[4]]} />

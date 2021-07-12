@@ -17,7 +17,7 @@ const FullpageLoading = () => (
     left="0"
     right="0"
     bottom="0"
-    bg="rgba(255, 255, 255, 0.8)"
+    bg="rgba(255, 255, 255, 0.95)"
     zIndex="overlay"
     textAlign="center"
   >
