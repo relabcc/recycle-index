@@ -12,7 +12,7 @@ import Box from '../../components/Box'
 import Heading from '../../components/Heading'
 import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
-// import Image from '../../components/Image'
+import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
 import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 
@@ -44,7 +44,7 @@ import useIsEn from '../useIsEn'
 //   // [require('./mount-top@2x.webp'), require('./mount-top@2x.png')],
 // ]
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
-// const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
+const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // const TriangleDown = props => <IoTriangle style={{ transform: 'rotate(180deg)' }} {...props} />
 
@@ -166,6 +166,7 @@ const HomePage = () => {
   }, [data, isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   useEffect(() => {
+    if (!inited) return
     if (timeline) {
       timeline.kill()
       timeline2.kill()
@@ -290,7 +291,7 @@ const HomePage = () => {
     timeline.pause()
     timeline2.pause()
 
-  }, [windowSize, containerWidth])
+  }, [windowSize, containerWidth, inited])
 
   return (
     <Box className="home-bg" bg="colors.yellow">
@@ -346,145 +347,158 @@ const HomePage = () => {
               placeholder="blurred"
               className="trash-mount"
               quality={90}
+              breakpoints={[1366, 1920, 2560]}
+              outputPixelDensities={[1, 2, 3]}
+              layout="fullWidth"
+              alt="垃圾山"
             />
-            <Box.Absolute width="12%" left={responsive('32%', '28%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
-              <Box.Relative transform="rotate(30deg)">
-                <Trash data={data[trashes[1]]} />
-              </Box.Relative>
-              <Box.Absolute
-                top="17%"
-                left={responsive('-27%', '-27%', '-52%')}
-                width={responsive('60%', '60%', '80%')}
-                opacity="0"
-                transform="scale(0)"
-                className="trash-bubble"
-                transformOrigin="100% 75%"
-              >
-                <StaticImage alt="對話框" src="bubble-2.svg" placeholder="blurred" />
-                <Box.Absolute top={isEn ? '8.5%' : "30%"} left={isEn ? responsive('5%', '10%') : "10%"} right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
-                  {isEn ? 'I don\'t belong here as well!' : '我也被丟錯！'}
+            {inited && (
+              <>
+                <Box.Absolute width="12%" left={responsive('32%', '28%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
+                  <Box.Relative transform="rotate(30deg)">
+                    <Trash data={data[trashes[1]]} />
+                  </Box.Relative>
+                  <Box.Absolute
+                    top="17%"
+                    left={responsive('-27%', '-27%', '-52%')}
+                    width={responsive('60%', '60%', '80%')}
+                    opacity="0"
+                    transform="scale(0)"
+                    className="trash-bubble"
+                    transformOrigin="100% 75%"
+                  >
+                    <StaticImage alt="對話框" src="bubble-2.svg" placeholder="blurred" />
+                    <Box.Absolute top={isEn ? '8.5%' : "30%"} left={isEn ? responsive('5%', '10%') : "10%"} right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
+                      {isEn ? 'I don\'t belong here as well!' : '我也被丟錯！'}
+                    </Box.Absolute>
+                  </Box.Absolute>
                 </Box.Absolute>
-              </Box.Absolute>
-            </Box.Absolute>
-            <Box.Absolute width="9%" left={responsive('40%', '36%', '40%')} top="40%">
-              <Box.Relative transform={responsive('rotate(-40deg)', 'rotate(0deg)')}>
-                <Trash data={data[trashes[2]]} noFace={isMobile} />
-              </Box.Relative>
-              <Box.Absolute
-                top={isEn ? '-42.5%' : "-28%"}
-                left={isEn ? '27.5%' : "48%"}
-                width={isEn ? responsive('67%', '105%') : "67%"}
-                opacity="0"
-                transform="scale(0)"
-                className="trash-bubble"
-                transformOrigin="0% 100%"
-                display={responsive('none', 'block')}
-              >
-                <StaticImage alt="對話框" src="bubble-3.svg" placeholder="blurred" />
-                <Box.Absolute
-                  top={isEn ? '8%' : "15%"}
-                  left={isEn ? '5%' : "8%"}
-                  right="0"
-                  fontWeight="900"
-                  fontSize={responsive("1em", "1.5em", isEn ? '0.75em' : "0.5em")}
-                  pointerEvents="all"
-                >
-                  {isEn ? 'Please...don\'t...let...me end up in fire' : '要被燒掉了嗚嗚'}
+                <Box.Absolute width="9%" left={responsive('40%', '36%', '40%')} top="40%">
+                  <Box.Relative transform={responsive('rotate(-40deg)', 'rotate(0deg)')}>
+                    <Trash data={data[trashes[2]]} noFace={isMobile} />
+                  </Box.Relative>
+                  <Box.Absolute
+                    top={isEn ? '-42.5%' : "-28%"}
+                    left={isEn ? '27.5%' : "48%"}
+                    width={isEn ? responsive('67%', '105%') : "67%"}
+                    opacity="0"
+                    transform="scale(0)"
+                    className="trash-bubble"
+                    transformOrigin="0% 100%"
+                    display={responsive('none', 'block')}
+                  >
+                    <StaticImage alt="對話框" src="bubble-3.svg" placeholder="blurred" />
+                    <Box.Absolute
+                      top={isEn ? '8%' : "15%"}
+                      left={isEn ? '5%' : "8%"}
+                      right="0"
+                      fontWeight="900"
+                      fontSize={responsive("1em", "1.5em", isEn ? '0.75em' : "0.5em")}
+                      pointerEvents="all"
+                    >
+                      {isEn ? 'Please...don\'t...let...me end up in fire' : '要被燒掉了嗚嗚'}
+                    </Box.Absolute>
+                  </Box.Absolute>
                 </Box.Absolute>
-              </Box.Absolute>
-            </Box.Absolute>
-            <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '38%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
-              <Box.Relative transform="rotate(-10deg)">
-                <Trash data={data[trashes[3]]} />
-              </Box.Relative>
-              <Box.Absolute
-                left={responsive('75%', '-30%')}
-                top="-22%"
-                width={responsive('78%', '70%')}
-                opacity="0"
-                transform="scale(0)"
-                className="trash-bubble"
-                transformOrigin={responsive('10% 100%', '90% 100%')}
-              >
-                <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
-                <StaticImage alt="對話框" src="bubble-5.svg" placeholder="blurred" />
-                </Box>
-                <Box.Absolute whiteSpace="pre-wrap" top={isEn ? '10%' : "18%"} left={isEn ? responsive('6.25%', '7.5%') : responsive('10%', '12%')} right="0" fontWeight="900" fontSize={isEn ? responsive('0.625em', '1.5em', '0.75em') : responsive('0.875em', '2em', '1em')} pointerEvents="all">
-                  {isEn ? 'I should have been in the recycle bin!' : '走錯棚了啦！'}
+                <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '38%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
+                  <Box.Relative transform="rotate(-10deg)">
+                    <Trash data={data[trashes[3]]} />
+                  </Box.Relative>
+                  <Box.Absolute
+                    left={responsive('75%', '-30%')}
+                    top="-22%"
+                    width={responsive('78%', '70%')}
+                    opacity="0"
+                    transform="scale(0)"
+                    className="trash-bubble"
+                    transformOrigin={responsive('10% 100%', '90% 100%')}
+                  >
+                    <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
+                    <StaticImage alt="對話框" src="bubble-5.svg" placeholder="blurred" />
+                    </Box>
+                    <Box.Absolute whiteSpace="pre-wrap" top={isEn ? '10%' : "18%"} left={isEn ? responsive('6.25%', '7.5%') : responsive('10%', '12%')} right="0" fontWeight="900" fontSize={isEn ? responsive('0.625em', '1.5em', '0.75em') : responsive('0.875em', '2em', '1em')} pointerEvents="all">
+                      {isEn ? 'I should have been in the recycle bin!' : '走錯棚了啦！'}
+                    </Box.Absolute>
+                  </Box.Absolute>
                 </Box.Absolute>
-              </Box.Absolute>
-            </Box.Absolute>
-            <Media at="mobile">
-              <Box.Absolute width="10%" left="42%" top="54%">
-                <Box.Relative transform="rotate(-10deg)">
-                  <Trash data={data[18]} noFace />
-                </Box.Relative>
-              </Box.Absolute>
-            </Media>
-            <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
-              <Box.Relative transform="rotate(-10deg)">
-                <Trash data={data[trashes[4]]} />
-              </Box.Relative>
-              <Box.Absolute
-                top={responsive('10%', '0')}
-                left="-70%"
-                width="100%"
-                opacity="0"
-                transform="scale(0)"
-                className="trash-bubble"
-                transformOrigin="100% 25%"
-              >
-                <StaticImage alt="對話框" src="bubble-4.svg" placeholder="blurred" />
-                <Box.Absolute whiteSpace="pre-wrap" top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
-                  {isEn ? 'Why am\nI here?' : '人家明明\n可以被回收！'}
+                <Media at="mobile">
+                  <Box.Absolute width="10%" left="42%" top="54%">
+                    <Box.Relative transform="rotate(-10deg)">
+                      <Trash data={data[18]} noFace />
+                    </Box.Relative>
+                  </Box.Absolute>
+                </Media>
+                <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
+                  <Box.Relative transform="rotate(-10deg)">
+                    <Trash data={data[trashes[4]]} />
+                  </Box.Relative>
+                  <Box.Absolute
+                    top={responsive('10%', '0')}
+                    left="-70%"
+                    width="100%"
+                    opacity="0"
+                    transform="scale(0)"
+                    className="trash-bubble"
+                    transformOrigin="100% 25%"
+                  >
+                    <StaticImage alt="對話框" src="bubble-4.svg" placeholder="blurred" />
+                    <Box.Absolute whiteSpace="pre-wrap" top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
+                      {isEn ? 'Why am\nI here?' : '人家明明\n可以被回收！'}
+                    </Box.Absolute>
+                  </Box.Absolute>
                 </Box.Absolute>
-              </Box.Absolute>
-            </Box.Absolute>
+              </>
+            )}
           </Box.Relative>
           <Box mt={`${trashWidth * -0.05}px`}>
             <StaticImage
               src="./mount-middle.png"
               placeholder="blurred"
               quality={90}
+              breakpoints={[1366, 1920]}
+              layout="fullWidth"
+              alt="垃圾山"
             />
           </Box>
           <Box mt={`${trashWidth * -0.07}px`}>
-            <StaticImage
-              src="./mount-bottom.png"
-              placeholder="blurred"
-              quality={90}
+            <Image
+              src={mountBottom}
+              alt="垃圾山"
             />
           </Box>
         </Box>
       </Box.Fixed>
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none">
-        <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
-          <Box.Relative transform="rotate(7deg)" className="trash">
-            <GatsbyImage image={get(data, [trashes[0], 'gatsbyImg'])} />
-            <Box.FullAbs>
-              <Face className="face" id={get(data, [trashes[0], 'transform', 'faceNo'])} transform={get(data, [trashes[0], 'transform', 'face'])} />
-            </Box.FullAbs>
-          </Box.Relative>
-          <Box.Absolute
-            width={responsive('68%', '70%', '90%')}
-            left={responsive('-20%', '-20%', '-50%')}
-            top={responsive('-23%', '-20%')}
-            ref={bubbleRef}
-            opacity="0"
-          >
-            <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />
+        {inited && (
+          <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
+            <Box.Relative transform="rotate(7deg)" className="trash">
+              <GatsbyImage image={get(data, [trashes[0], 'gatsbyImg'])} />
+              <Box.FullAbs>
+                <Face className="face" id={get(data, [trashes[0], 'transform', 'faceNo'])} transform={get(data, [trashes[0], 'transform', 'face'])} />
+              </Box.FullAbs>
+            </Box.Relative>
             <Box.Absolute
-              top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
-              left={responsive('9%', '12%')}
-              right="7%"
-              fontWeight="900"
-              fontSize={responsive('1.75em', '3.25em', '2.25em')}
-              pointerEvents="all"
+              width={responsive('68%', '70%', '90%')}
+              left={responsive('-20%', '-20%', '-50%')}
+              top={responsive('-23%', '-20%')}
+              ref={bubbleRef}
+              opacity="0"
             >
-              {isEn ? 'Emm...I don\'t belong here' : '啊..我被丟錯了'}
+              <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />
+              <Box.Absolute
+                top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
+                left={responsive('9%', '12%')}
+                right="7%"
+                fontWeight="900"
+                fontSize={responsive('1.75em', '3.25em', '2.25em')}
+                pointerEvents="all"
+              >
+                {isEn ? 'Emm...I don\'t belong here' : '啊..我被丟錯了'}
+              </Box.Absolute>
             </Box.Absolute>
           </Box.Absolute>
-        </Box.Absolute>
+        )}
+
         {/* <Box.Relative>
           <Box.Absolute top="2em" left="0" right="0">
             <BackgroundImage src={titleOverlay} ratio={titleRatio} />

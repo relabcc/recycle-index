@@ -36,12 +36,12 @@ import containerWidthContext from '../../contexts/containerWidth/context'
 import useResponsive from '../../contexts/mediaQuery/useResponsive';
 import useShowHeader from '../../contexts/header/useShowHeader';
 import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
+import FullpageLoading from '../../components/FullpageLoading';
 // import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
-import FullpageLoading from '../../components/FullpageLoading';
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
@@ -457,6 +457,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const pagesRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   // const pageRevealRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   useEffect(() => {
+    if (!inited) return
     if (theTimeline) {
       theTimeline.kill()
     }
@@ -691,7 +692,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
 
     endTimeline.pause()
     theTimeline.pause()
-  }, [data, windowSize.height, containerWidth, isMobile])
+  }, [data, windowSize.height, containerWidth, isMobile, inited])
   const bgColor = get(theme, `colors.${colorScheme}`)
   // console.log(data)
   return (
@@ -731,12 +732,12 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           fpApi = fullpageApi
           return (
             <ReactFullpage.Wrapper>
-              {pages.map((page, i) => (
+              {pages.slice(0, inited ? undefined : 1).map((page, i) => (
                 <div className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
                   <Box height="100%" pt={theme.headerHeight}>
                     {/* {createElement(i ? PageReveal : 'div', { ref: pageRevealRefs[i] }, page)} */}
                     <Box.Relative height="100%">
-                      {(inited || i === 0) && page}
+                      {page}
                     </Box.Relative>
                   </Box>
                 </div>

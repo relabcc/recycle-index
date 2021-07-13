@@ -90,7 +90,7 @@ const About = () => {
             key={i}
           >
             <Box position="relative" width={responsive('35%', '9.375em')}>
-              <Link href={url}>
+              <Link href={url} isExternal aria-label={name}>
                 {logo}
               </Link>
             </Box>
@@ -101,7 +101,7 @@ const About = () => {
                 my="0.15625em"
                 fontSize={responsive('1.5em', '1.75em')}
               >
-                <Link href={url}>
+                <Link href={url} isExternal>
                   {name}
                 </Link>
               </Text.Bold>
