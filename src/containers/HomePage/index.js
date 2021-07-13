@@ -12,7 +12,7 @@ import Box from '../../components/Box'
 import Heading from '../../components/Heading'
 import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
-import Image from '../../components/Image'
+// import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
 import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 
@@ -32,7 +32,7 @@ import Face from '../Face'
 // import bubble5 from './bubble-5.svg'
 import isIos from '../../components/utils/isIos'
 import PointingDown from '../../components/PointingDown'
-import FullpageLoading from '../../components/FullpageLoading'
+// import FullpageLoading from '../../components/FullpageLoading'
 
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'

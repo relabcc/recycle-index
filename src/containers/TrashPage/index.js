@@ -36,7 +36,7 @@ import containerWidthContext from '../../contexts/containerWidth/context'
 import useResponsive from '../../contexts/mediaQuery/useResponsive';
 import useShowHeader from '../../contexts/header/useShowHeader';
 import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
-import FullpageLoading from '../../components/FullpageLoading';
+// import FullpageLoading from '../../components/FullpageLoading';
 // import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';

@@ -1,4 +1,4 @@
-import { fromPairs, get, groupBy, mapKeys, mapValues, reduce } from 'lodash'
+import { fromPairs, get, groupBy, mapKeys, mapValues } from 'lodash'
 import { useMemo } from 'react'
 
 import useGatsbyImage from './useGatsbyImage'

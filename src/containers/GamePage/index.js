@@ -1,4 +1,4 @@
-import React, { createElement, useMemo } from 'react'
+import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image';
 
 import FullpageVerticalCenter from '../../components/FullpageVerticalCenter';
@@ -14,7 +14,7 @@ import useShowHeader from '../../contexts/header/useShowHeader';
 // import trashmobile from './trash-mobile.png'
 // import trashmobile2 from './trash-mobile_2.png'
 
-import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
+import { Media, responsive } from '../../components/ThemeProvider/theme';
 // import withLoading from '../withLoading';
 
 const GamePage = () => {

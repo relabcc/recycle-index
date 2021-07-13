@@ -1,9 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, forwardRef } from 'react'
 import lottie from 'lottie-web'
-import { random } from 'lodash'
 
 import Box from '../components/Box'
-import { forwardRef } from '@chakra-ui/react'
 
 const Face = forwardRef(({ id, transform, className }, ref) => {
   const faceRef = useRef()
@@ -13,12 +11,12 @@ const Face = forwardRef(({ id, transform, className }, ref) => {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: `/faces/face${id || (random(4) + 1)}.json`,
+      path: `/faces/face${id || 1}.json`,
     });
     return () => {
       ani.destroy()
     }
-  }, [])
+  }, [id])
   return (
     <Box.AbsCenter ref={ref || faceRef} transform={transform} className={className} />
   )

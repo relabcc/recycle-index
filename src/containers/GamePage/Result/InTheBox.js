@@ -5,12 +5,10 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react"
 
-import Container from '../../../components/Container'
 import Box from '../../../components/Box'
 import Text from '../../../components/Text'
 import ArrowDown from '../../../components/ArrowDown'
 import BackgroundImage from '../../../components/BackgroundImage'
-import { responsive } from '../../../components/ThemeProvider/theme'
 
 import resultDetailShape from './result-detail-shape.svg'
 import ResultList from './ResultList'

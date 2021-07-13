@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { TabPanel, Tag } from "@chakra-ui/react"
 
-
 import Box from '../../../components/Box'
 import Text from '../../../components/Text'
 import ResultList from './ResultList'

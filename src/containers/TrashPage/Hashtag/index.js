@@ -1,11 +1,11 @@
 import React from 'react'
+import { SizeMe } from 'react-sizeme'
 
 import BackgroundImage from '../../../components/BackgroundImage'
 import Text from '../../../components/Text'
 import Box from '../../../components/Box'
 
 import bg from './hashtag-shape.svg'
-import { SizeMe } from 'react-sizeme'
 
 const label = {
   A: '高',

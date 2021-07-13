@@ -3,17 +3,17 @@ import ReactMarkdown from 'react-markdown'
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Box from '../../components/Box';
-import Image from '../../components/Image';
+// import Image from '../../components/Image';
 import Flex from '../../components/Flex';
 import Text from '../../components/Text';
 import Link from '../../components/Link';
 import useShowHeader from '../../contexts/header/useShowHeader';
 
-import rethink from './rethink.svg'
-import relab from './relab.svg'
-import renato from './renato.svg'
-import about from './about.svg'
-import picture from './picture.svg'
+// import rethink from './rethink.svg'
+// import relab from './relab.svg'
+// import renato from './renato.svg'
+// import about from './about.svg'
+// import picture from './picture.svg'
 import { responsive } from '../../components/ThemeProvider/theme';
 import Footer from '../Footer';
 

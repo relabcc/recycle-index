@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useFormik } from 'formik'
 import { isArray } from 'lodash';
 
@@ -12,7 +12,7 @@ import Footer from '../Footer';
 import diff from './diff'
 import useIsEn from '../useIsEn';
 import trashEn from '../trashEn'
-import withLoading from '../withLoading';
+// import withLoading from '../withLoading';
 
 let searched
 let filterApplied
