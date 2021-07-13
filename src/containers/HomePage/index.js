@@ -37,6 +37,7 @@ import FullpageLoading from '../../components/FullpageLoading'
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
+import BackgroundImage from '../../components/BackgroundImage'
 
 // const mountTop = [
 //   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
@@ -463,9 +464,9 @@ const HomePage = () => {
                 />
               </Box>
               <Box mt={`${trashWidth * -0.07}px`}>
-                <Image
+                <BackgroundImage
                   src={mountBottom}
-                  alt="垃圾山"
+                  ratio={3424 / 1286}
                 />
               </Box>
             </>
@@ -515,7 +516,7 @@ const HomePage = () => {
           <ChevDown as={PointingDown} onClick={() => fpApi.moveSectionDown()} />
         </Box.Absolute>
       </FullpageHeight>
-      {!inited && <FullpageLoading />}
+      {/* {!inited && <FullpageLoading />} */}
     </Box>
   )
 }

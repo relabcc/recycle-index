@@ -788,7 +788,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           <ScrollIndicator onClick={() => fpApi.moveTo(5)} progress={scrollProgress} />
         </Box.Fixed>
       </Media>
-      {!inited && <FullpageLoading />}
+      {/* {!inited && <FullpageLoading />} */}
     </div>
   )
 }
