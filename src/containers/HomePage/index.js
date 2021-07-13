@@ -450,22 +450,26 @@ const HomePage = () => {
               </>
             )}
           </Box.Relative>
-          <Box mt={`${trashWidth * -0.05}px`}>
-            <StaticImage
-              src="./mount-middle.png"
-              placeholder="blurred"
-              quality={90}
-              breakpoints={[1366, 1920]}
-              layout="fullWidth"
-              alt="垃圾山"
-            />
-          </Box>
-          <Box mt={`${trashWidth * -0.07}px`}>
-            <Image
-              src={mountBottom}
-              alt="垃圾山"
-            />
-          </Box>
+          {inited && (
+            <>
+              <Box mt={`${trashWidth * -0.05}px`}>
+                <StaticImage
+                  src="./mount-middle.png"
+                  placeholder="blurred"
+                  quality={90}
+                  breakpoints={[1366, 1920]}
+                  layout="fullWidth"
+                  alt="垃圾山"
+                />
+              </Box>
+              <Box mt={`${trashWidth * -0.07}px`}>
+                <Image
+                  src={mountBottom}
+                  alt="垃圾山"
+                />
+              </Box>
+            </>
+          )}
         </Box>
       </Box.Fixed>
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none">

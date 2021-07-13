@@ -750,8 +750,11 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         top="0"
         left="0"
         right="0"
+        height="100vh"
         display={scrollProgress >= 1 ? 'none' : 'block'}
-        height={`${windowSize.height}px`}
+        style={{
+          height: inited && windowSize.height,
+        }}
         zIndex="docked"
         pointerEvents="none"
         pt={theme.headerHeight}
