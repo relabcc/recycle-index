@@ -25,7 +25,7 @@ import Face from '../Face';
 import Footer from '../Footer';
 import isIos from '../../components/utils/isIos'
 
-import trash from './trash-bag.svg'
+// import trash from './trash-bag.svg'
 import shareBg from './share-bg.svg'
 // import planb from './planb.svg'
 // import planbBubble from './planb-bubble.svg'
@@ -35,12 +35,13 @@ import ScrollIndicator from './ScrollIndicator';
 import containerWidthContext from '../../contexts/containerWidth/context'
 import useResponsive from '../../contexts/mediaQuery/useResponsive';
 import useShowHeader from '../../contexts/header/useShowHeader';
-import theme, { responsive } from '../../components/ThemeProvider/theme';
-import useLoader from '../../utils/useLoader';
+import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
+// import useLoader from '../../utils/useLoader';
 import imgSize from './data/imgSize'
 import PerTrash from '../CataloguePage/PerTrash';
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
+import FullpageLoading from '../../components/FullpageLoading';
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
@@ -167,6 +168,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const layerRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
+  const [inited, setInited] = useState()
   // useReloadOnOrentation()
 
   const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
@@ -714,6 +716,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         scrollOverflow
         normalScrollElements={isMobile ? '.overflow-scroll, .footer-nav' : '.footer-nav'}
         afterRender={() => {
+          setInited(true)
           setTimeout(() => {
             document.body.style.height = `${windowSize.height}px`
           })
@@ -773,11 +776,12 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           </Box.Relative>
         </Container>
       </Box.Fixed>
-      {!isMobile && (
-        <Box.Fixed top={responsive('2em', '5%')} bottom="5%" right="1.25em" width={responsive('9em', '1.875em')} zIndex="docked" pt={theme.headerHeight}>
-          <ScrollIndicator onClick={() => fpApi.moveTo(5)} isMobile={isMobile} progress={scrollProgress} />
+      <Media greaterThan="mobile">
+        <Box.Fixed top="5%" bottom="5%" right="1.25em" width="1.875em" zIndex="docked" pt={theme.headerHeight}>
+          <ScrollIndicator onClick={() => fpApi.moveTo(5)} progress={scrollProgress} />
         </Box.Fixed>
-      )}
+      </Media>
+      {!inited && <FullpageLoading />}
     </div>
   )
 }

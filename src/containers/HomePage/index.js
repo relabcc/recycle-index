@@ -1,4 +1,4 @@
-import React, { createRef, useContext, useEffect, useMemo, useRef } from 'react'
+import React, { createRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { get } from 'lodash'
 import gsap from 'gsap'
@@ -32,6 +32,7 @@ import Face from '../Face'
 // import bubble5 from './bubble-5.svg'
 import isIos from '../../components/utils/isIos'
 import PointingDown from '../../components/PointingDown'
+import FullpageLoading from '../../components/FullpageLoading'
 
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
@@ -83,7 +84,7 @@ const HomePage = () => {
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
   // useReloadOnOrentation()
-  // const [currentPage, setCurrentPage] = useState(0)
+  const [inited, setInited] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
     const titleClearance = containerWidth / titleRatio * (isMobile ? 1.7 : 1) + 60
@@ -311,6 +312,7 @@ const HomePage = () => {
           }
         }}
         afterRender={() => {
+          setInited(true)
           setTimeout(() => {
             document.body.style.height = `${windowSize.height}px`
           })
@@ -495,8 +497,9 @@ const HomePage = () => {
           <ChevDown as={PointingDown} onClick={() => fpApi.moveSectionDown()} />
         </Box.Absolute>
       </FullpageHeight>
+      {!inited && <FullpageLoading />}
     </Box>
   )
 }
 
-export default (HomePage)
+export default HomePage

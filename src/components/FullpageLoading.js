@@ -1,14 +1,10 @@
 import React from 'react';
 import { Spinner } from '@chakra-ui/react'
+import { StaticImage } from 'gatsby-plugin-image';
 
 import Box from './Box';
 import Flex from './Flex';
 import Text from './Text';
-import Image from './Image';
-
-import { responsive } from './ThemeProvider/theme';
-
-import trash from '../containers/TrashPage/planb.svg'
 
 const FullpageLoading = () => (
   <Box
@@ -33,7 +29,7 @@ const FullpageLoading = () => (
       />
       <Flex alignItems="center" color="black" my="2" fontSize="16px">
         <Box width="2em" mr="0.5em">
-          <Image src={trash} />
+          <StaticImage src="../containers/TrashPage/planb.svg" alt="小垃圾" />
         </Box>
         <Text>Loading...</Text>
       </Flex>
