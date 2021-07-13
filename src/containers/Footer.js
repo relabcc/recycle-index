@@ -85,7 +85,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             }}
           />
           <ModalBody lineHeight="1.75" pb="2em" textAlign="justify">
-            因為台灣的回收規範，會與時俱進，也因為地區不同、後端處理設施不同，而尚未有全國統一的標準答案。所以你在《回收大百科》所看到的資訊，已經是彙整了政府公告資訊、回收顧問專業、實際處理狀況等最大的交集。雖然你還是在少數狀況，會碰到規範有差異之處（例如在社區、辦公大樓等），或者清潔隊員不收等狀況，歡迎你<Link.MdLink href="https://us5.list-manage.com/survey?u=94c41fce0f1790fb0d3d22a25&id=6eff87936c"　target="_blank">回報給回收大百科團隊</Link.MdLink>，讓我們可以持續更新內容、與政府及產業溝通和改變。<br />
+            因為台灣的回收規範，會與時俱進，也因為地區不同、後端處理設施不同，而尚未有全國統一的標準答案。所以你在《回收大百科》所看到的資訊，已經是彙整了政府公告資訊、回收顧問專業、實際處理狀況等最大的交集。雖然你還是在少數狀況，會碰到規範有差異之處（例如在社區、辦公大樓等），或者清潔隊員不收等狀況，歡迎你<Link.MdLink href="https://us5.list-manage.com/survey?u=94c41fce0f1790fb0d3d22a25&id=6eff87936c" isExternal>回報給回收大百科團隊</Link.MdLink>，讓我們可以持續更新內容、與政府及產業溝通和改變。<br />
             邀請你參與，一起為台灣創造最完整的《回收大百科》！
           </ModalBody>
         </ModalContent>

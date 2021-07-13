@@ -45,10 +45,6 @@ import trashEn from '../trashEn'
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
-if (typeof window !== 'undefined') {
-  require('fullpage.js/vendors/scrolloverflow')
-}
-
 let fpApi
 // const pageCount = 5
 const trashSidePos = 20
@@ -165,6 +161,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const faceRef = useRef()
   const trashRef = useRef()
   const trashXRef = useRef()
+  const endTrashRef = useRef()
   const layerRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
@@ -188,7 +185,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const n = `#${String(data.id).padStart(3, '0')}`
   const parts = useMemo(() => {
     if (!data) return null
-    return data.imgs.map(({ src, gatsbySrc, centeroid, x, width, partName, side }, i) => {
+    return data.imgs.map(({ gatsbySrc, centeroid, x, width, partName, side }, i) => {
       let pos
       let linePos
       const theSide = isMobile ? 0 : side
@@ -212,55 +209,61 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       const top = `${centeroid[1] / imgSize[1] * 100}%`
       return (
         <Box.FullAbs ref={layerRefs[i]} key={i}>
-          <GatsbyImage ref={animaRefs[i]} image={gatsbySrc} alt={partName} />
+          <div ref={animaRefs[i]}>
+            {inited && <GatsbyImage image={gatsbySrc} alt={partName} />}
+          </div>
           {partName && (
             <Box ref={partsRefs[i]}>
-              <Box.Absolute
-                top={top}
-                style={linePos}
-                height="2px"
-                bg={colorScheme}
-                className="line"
-              />
-              <Box.Absolute
-                top={top}
-                style={{ [theSide ? 'left' : 'right'] : `${pos}%` }}
-                transform="translateY(-50%)"
-                whiteSpace="nowrap"
-                className="circle-container"
-                pointerEvents="all"
-              >
-                <Circle
-                  bg={colorScheme}
-                  width={responsive('7em', '7.5em')}
-                  textAlign="center"
-                  className="circle-1"
-                  whiteSpace="pre-wrap"
-                  opacity={0}
-                >
-                  <Text color="black" fontSize={responsive('1.125em', '0.9375em')} fontWeight="900">{partName}</Text>
-                  <Text color="white" fontSize={responsive('0.625em', '0.78125em')}>{data.partsDetail[partName]}</Text>
-                </Circle>
-                <Box.FullAbs className="circle-2" transform="scale(0)">
-                  <Circle border="2px solid" borderColor={colorScheme} bg="white" width="100%" textAlign="center" whiteSpace="pre-wrap">
-                    <Text color="black" fontSize={responsive('1.125em', '0.9375em')} fontWeight="900">{data.belongsTo[partName]}</Text>
-                    {get(data.recycleRate, [data.belongsTo[partName]]) && (
-                      <Text color={colorScheme} fontSize={responsive('0.625em', '0.78125em')} fontWeight="900">回收率{data.recycleRate[data.belongsTo[partName]]}%</Text>
-                    )}
-                  </Circle>
-                </Box.FullAbs>
-                <Box.Absolute className="circle-rate" opacity="0" left="-8%" right="-8%" top="-8%" bottom="-8%" pointerEvents="none">
-                  {get(data.recycleRate, [data.belongsTo[partName]]) && (
-                    <RateCircle className="circle-rate-progress" value={data.recycleRate[data.belongsTo[partName]]} color={colorScheme} />
-                  )}
-                </Box.Absolute>
-              </Box.Absolute>
+              {inited && (
+                <>
+                  <Box.Absolute
+                    top={top}
+                    style={linePos}
+                    height="2px"
+                    bg={colorScheme}
+                    className="line"
+                  />
+                  <Box.Absolute
+                    top={top}
+                    style={{ [theSide ? 'left' : 'right'] : `${pos}%` }}
+                    transform="translateY(-50%)"
+                    whiteSpace="nowrap"
+                    className="circle-container"
+                    pointerEvents="all"
+                  >
+                    <Circle
+                      bg={colorScheme}
+                      width={responsive('7em', '7.5em')}
+                      textAlign="center"
+                      className="circle-1"
+                      whiteSpace="pre-wrap"
+                      opacity={0}
+                    >
+                      <Text color="black" fontSize={responsive('1.125em', '0.9375em')} fontWeight="900">{partName}</Text>
+                      <Text color="white" fontSize={responsive('0.625em', '0.78125em')}>{data.partsDetail[partName]}</Text>
+                    </Circle>
+                    <Box.FullAbs className="circle-2" transform="scale(0)">
+                      <Circle border="2px solid" borderColor={colorScheme} bg="white" width="100%" textAlign="center" whiteSpace="pre-wrap">
+                        <Text color="black" fontSize={responsive('1.125em', '0.9375em')} fontWeight="900">{data.belongsTo[partName]}</Text>
+                        {get(data.recycleRate, [data.belongsTo[partName]]) && (
+                          <Text color={colorScheme} fontSize={responsive('0.625em', '0.78125em')} fontWeight="900">回收率{data.recycleRate[data.belongsTo[partName]]}%</Text>
+                        )}
+                      </Circle>
+                    </Box.FullAbs>
+                    <Box.Absolute className="circle-rate" opacity="0" left="-8%" right="-8%" top="-8%" bottom="-8%" pointerEvents="none">
+                      {get(data.recycleRate, [data.belongsTo[partName]]) && (
+                        <RateCircle className="circle-rate-progress" value={data.recycleRate[data.belongsTo[partName]]} color={colorScheme} />
+                      )}
+                    </Box.Absolute>
+                  </Box.Absolute>
+                </>
+              )}
             </Box>
           )}
         </Box.FullAbs>
       )
     })
-  }, [data, isMobile])
+  }, [data, inited, isMobile])
   const pages = [
     (
       <Container height="100%">
@@ -431,9 +434,9 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         left="0"
         right="0"
         top="0"
-        height={`${windowSize.height - theme.headerHeight}px)`}
+        style={{ height: `calc(${windowSize.height}px - ${theme.headerHeight})` }}
         pointerEvents="none"
-        opacity={(scrollProgress >= 1) * 1}
+        ref={endTrashRef}
       >
         <Container height="100%">
           <Box.Relative height="100%">
@@ -693,59 +696,60 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
     endTimeline.pause()
     theTimeline.pause()
   }, [data, windowSize.height, containerWidth, isMobile, inited])
-  const bgColor = get(theme, `colors.${colorScheme}`)
+  const bgColor = useMemo(() => get(theme, `colors.${colorScheme}`), [colorScheme])
   // console.log(data)
   return (
     <div>
-      <ReactFullpage
-        sectionsColor={['', bgColor, 'white', 'white', bgColor]}
-        licenseKey={process.env.FULLPAGE_JS_KEY}
-        scrollingSpeed={scrollingDuration * 1000}
-        verticalCentered={false}
-        onLeave={(origin, destination) => {
-          theTimeline.tweenTo(destination.index * scrollingDuration, { duration: scrollingDuration })
-          endTimeline.tweenTo(Math.max(destination.index - 3, 0) * scrollingDuration)
-          if (progressTimer) {
-            progressTimer.stop()
-          }
-          const incre = destination.index - origin.index
-          progressTimer = timer((elapsed) => {
-            setProgress((origin.index + incre * Math.min(elapsed / (scrollingDuration * 1000), 1)) / (pageCount - 1))
-            if (elapsed > scrollingDuration * 1000) progressTimer.stop();
-          });
-        }}
-        scrollOverflow
-        normalScrollElements={isMobile ? '.overflow-scroll, .footer-nav' : '.footer-nav'}
-        afterRender={() => {
-          setInited(true)
-          setTimeout(() => {
-            document.body.style.height = `${windowSize.height}px`
-          })
-        }}
-        afterResize={() => {
-          setTimeout(() => {
-            document.body.style.height = `${windowSize.height}px`
-            if (fpApi.getActiveSection().index < 4) fpApi.silentMoveTo(1)
-          })
-        }}
-        render={({ fullpageApi }) => {
-          fpApi = fullpageApi
-          return (
-            <ReactFullpage.Wrapper>
-              {pages.slice(0, inited ? undefined : 1).map((page, i) => (
-                <div className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
-                  <Box height="100%" pt={theme.headerHeight}>
-                    {/* {createElement(i ? PageReveal : 'div', { ref: pageRevealRefs[i] }, page)} */}
+      {useMemo(() => (
+        <ReactFullpage
+          sectionsColor={['', bgColor, 'white', 'white', bgColor]}
+          licenseKey={process.env.FULLPAGE_JS_KEY}
+          scrollingSpeed={scrollingDuration * 1000}
+          verticalCentered={false}
+          onLeave={(origin, destination) => {
+            theTimeline.tweenTo(destination.index * scrollingDuration, { duration: scrollingDuration })
+            endTimeline.tweenTo(Math.max(destination.index - 3, 0) * scrollingDuration)
+            if (progressTimer) {
+              progressTimer.stop()
+            }
+            const incre = destination.index - origin.index
+            progressTimer = timer((elapsed) => {
+              const p = (origin.index + incre * Math.min(elapsed / (scrollingDuration * 1000), 1)) / (pageCount - 1)
+              setProgress(p)
+              endTrashRef.current.style.opacity = +(p >= 1)
+              if (elapsed > scrollingDuration * 1000) progressTimer.stop();
+            });
+          }}
+          scrollOverflow
+          normalScrollElements={isMobile ? '.overflow-scroll, .footer-nav' : '.footer-nav'}
+          afterRender={() => {
+            setInited(true)
+            setTimeout(() => {
+              document.body.style.height = `${windowSize.height}px`
+            })
+          }}
+          afterResize={() => {
+            setTimeout(() => {
+              document.body.style.height = `${windowSize.height}px`
+              if (fpApi.getActiveSection().index < 4) fpApi.silentMoveTo(1)
+            })
+          }}
+          render={({ fullpageApi }) => {
+            fpApi = fullpageApi
+            return (
+              <ReactFullpage.Wrapper>
+                {pages.slice(0, inited ? undefined : 1).map((page, i) => (
+                  <Box height="100%" pt={theme.headerHeight} className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
                     <Box.Relative height="100%">
                       {page}
                     </Box.Relative>
                   </Box>
-                </div>
-              ))}
-            </ReactFullpage.Wrapper>
-          )
-        }}
-      />
+                ))}
+              </ReactFullpage.Wrapper>
+            )
+          }}
+        />
+      ), [bgColor, inited, isMobile])}
       <Box.Fixed
         top="0"
         left="0"
@@ -768,14 +772,13 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               width={`${trashWidth}%`}
               left={`${(100 - trashWidth) / 2}%`}
             >
-              <div ref={trashXRef}>
-                <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible">
-                  <div style={{ overflow: 'visible' }}>
-                    {parts}
-                    <Face transform={data.transform.face} ref={faceRef} id={faceId} />
-                  </div>
-                </AspectRatio>
-              </div>
+              <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible" ref={trashXRef}>
+                <div style={{ overflow: 'visible' }}>
+                  {!inited && <GatsbyImage image={data.gatsbySrc} alt={data.name} />}
+                  {parts}
+                  <Face transform={data.transform.face} ref={faceRef} id={faceId} />
+                </div>
+              </AspectRatio>
             </Box.Absolute>
           </Box.Relative>
         </Container>

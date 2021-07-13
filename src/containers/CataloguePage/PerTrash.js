@@ -7,7 +7,8 @@ import { useHarmonicIntervalFn } from 'react-use'
 import Box from '../../components/Box';
 import Link from '../../components/Link';
 import Text from '../../components/Text';
-import Image from '../../components/Image';
+// import Image from '../../components/Image';
+import BackgroundImage from '../../components/BackgroundImage';
 
 import Face from '../Face'
 import useIsEn from '../useIsEn';
@@ -71,7 +72,7 @@ const PerTrash = ({ data }) => {
           width="100%"
           transform={transform}
         >
-          <Image src={data.img} alt={data.name} />
+          <BackgroundImage ratio={1} src={data.img} />
           <TheFace isVisible={isVisible} data={data} hovered={hovered} />
         </Box.Absolute>
         <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">

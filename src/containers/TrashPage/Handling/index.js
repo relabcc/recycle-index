@@ -1,12 +1,13 @@
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 
 import Flex from '../../../components/Flex'
 import Circle from '../../../components/Circle'
 import Text from '../../../components/Text'
-import Image from '../../../components/Image'
+import BackgroundImage from '../../../components/BackgroundImage'
 import Box from '../../../components/Box'
 
-import next from './next.svg'
+// import next from './next.svg'
 import crush from './crush.svg'
 import peal from './peal.svg'
 import seperate from './seperate.svg'
@@ -41,7 +42,7 @@ const Handling = ({ steps, ...props }) => {
             <Box width={responsive('80%', '40%')}>
               <Circle width="100%" bg="white">
                 <Box px="5%">
-                  <Image alt={step} src={icons[step]} />
+                  <BackgroundImage ratio={1} src={icons[step]} />
                 </Box>
               </Circle>
             </Box>
@@ -50,7 +51,7 @@ const Handling = ({ steps, ...props }) => {
             </Box>
           </Flex>
         )
-        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><Image src={next} alt="向左箭頭" /></Box>, s]
+        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><StaticImage src="next.svg" alt="向左箭頭" /></Box>, s]
       }, [])}
     </Flex>
   )
