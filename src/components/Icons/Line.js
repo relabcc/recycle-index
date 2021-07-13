@@ -1,12 +1,11 @@
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 
-import line from './line.svg'
 import IcoButton from './IcoButton'
-import Image from '../Image'
 
 const Line = (props) => {
   return (
-    <IcoButton icon={<Image src={line} />} {...props} />
+    <IcoButton icon={<StaticImage src="line.svg" alt="Line" />} {...props} />
   )
 }
 

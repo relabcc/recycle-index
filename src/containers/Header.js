@@ -9,6 +9,7 @@ import {
   IconButton,
 } from "@chakra-ui/react"
 import { MdMenu } from 'react-icons/md';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import Box from '../components/Box';
 import Button from '../components/Button';
@@ -16,15 +17,12 @@ import Flex from '../components/Flex';
 import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
 
-import logo from './logo.svg'
-import BackgroundImage from '../components/BackgroundImage';
-
 const links = [
   { name: '101件垃圾', en: '101 Must-Know Trashes', to: '/catalogue' },
   { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game' },
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how' },
   { name: '關於我們', en: 'About Us', to: '/about' },
-  { name: '文章專區', en: 'Articles', href: '/blog' },
+  { name: '文章專區', en: 'Articles', href: 'https://relab.cc/recycle-index/' },
   { name: '課程申請', href: 'https://docs.google.com/forms/d/e/1FAIpQLSePuqu6i9Q0e2IoOih6RNOsBFwRrxo3lwrXI7MGikkdKsFYZg/viewform', hideEn: true },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true, hideEn: true },
 ]
@@ -45,8 +43,10 @@ const Header = ({ isEn, ...props }) => {
       {...props}
     >
       <Box px="1em">
-        <Link to="/">
-          <BackgroundImage width={responsive('8em', '12em', '7.5em')} ratio={300 / 50} src={logo} alt="回收大百科" />
+        <Link to="/" aria-label="回首頁">
+          <Box width={responsive('8em', '12em', '7.5em')}>
+            <StaticImage src="./logo.svg" alt="回收大百科" />
+          </Box>
         </Link>
       </Box>
       <Box flex="1" />
@@ -77,6 +77,7 @@ const Header = ({ isEn, ...props }) => {
             height="auto"
             ref={btnRef}
             onClick={onOpen}
+            aria-label="選單"
             icon={<MdMenu size="2em" />}
           />
           <Drawer

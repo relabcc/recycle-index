@@ -88,7 +88,7 @@ const Catalogue = ({ data }) => {
 }
 
 const CatalogueWithLoading =  p => {
-  const toLoad = useMemo(() => p.data.slice(1, 37).map(d => d.img), [p.data])
+  const toLoad = useMemo(() => p.data.slice(1, 12).map(d => d.img), [p.data])
   return createElement(withLoading(toLoad)(Catalogue), p)
 }
 

@@ -1,12 +1,11 @@
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 
-import fb from './fb.svg'
 import IcoButton from './IcoButton'
-import Image from '../Image'
 
 const FB = (props) => {
   return (
-    <IcoButton icon={<Image src={fb} />} {...props} />
+    <IcoButton icon={<StaticImage src="fb.svg" alt="Facebook" />} {...props} />
   )
 }
 

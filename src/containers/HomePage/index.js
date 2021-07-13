@@ -331,7 +331,7 @@ const HomePage = () => {
             <ReactFullpage.Wrapper>
               {pages.map((page, i) => (
                 <div className="section" key={i} ref={pageRefs[i]}>
-                  {page}
+                  {(inited || i === 0) && page}
                 </div>
               ))}
             </ReactFullpage.Wrapper>

@@ -352,8 +352,8 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             </SizeMe>
           </BackgroundImage>
           <Flex fontSize={responsive('1em', '0.625em')} px="0.25em" justifyContent={responsive('', 'flex-end')} mt={responsive('-10%', '-4rem')} mr={responsive(0, '-2rem')}>
-            <FB border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
-            <Line border="1px solid black" mx="0.125em" rounded="0.25em" href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
+            <FB aria-label="分享到FB" border="1px solid black" mx="0.125em" rounded="0.25em" isExternal href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} />
+            <Line aria-label="分享到Line" border="1px solid black" mx="0.125em" rounded="0.25em" isExternal href={`https://line.naver.jp/R/msg/text/?${pageUrl}`} />
           </Flex>
         </Box>
       </Box>
@@ -736,7 +736,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
                   <Box height="100%" pt={theme.headerHeight}>
                     {/* {createElement(i ? PageReveal : 'div', { ref: pageRevealRefs[i] }, page)} */}
                     <Box.Relative height="100%">
-                      {page}
+                      {(inited || i === 0) && page}
                     </Box.Relative>
                   </Box>
                 </div>
