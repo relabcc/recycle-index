@@ -1,11 +1,12 @@
 import React, { createRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import { get } from 'lodash'
 import gsap from 'gsap'
 import ReactFullpage from '@fullpage/react-fullpage'
 import innerHeight from 'ios-inner-height'
 import { navigate } from 'gatsby'
 import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
+import loadable from '@loadable/component'
+import styled from '@emotion/styled'
 
 import Container from '../../components/Container'
 import Box from '../../components/Box'
@@ -14,11 +15,10 @@ import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
 // import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
-import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
-
-import useResponsive from '../../contexts/mediaQuery/useResponsive'
+import theme, { responsive } from '../../components/ThemeProvider/theme';
 
 import useData from '../TrashPage/data/useData'
+import useResponsive from '../../contexts/mediaQuery/useResponsive'
 import useShowHeader from '../../contexts/header/useShowHeader';
 import containerWidthContext from '../../contexts/containerWidth/context';
 
@@ -33,11 +33,13 @@ import Face from '../Face'
 import isIos from '../../components/utils/isIos'
 import PointingDown from '../../components/PointingDown'
 // import FullpageLoading from '../../components/FullpageLoading'
+import BackgroundImage from '../../components/BackgroundImage'
 
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
-import BackgroundImage from '../../components/BackgroundImage'
+const LastPage = loadable(() => import('./LastPage'))
+const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
 // const mountTop = [
 //   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
@@ -47,7 +49,14 @@ import BackgroundImage from '../../components/BackgroundImage'
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
 const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
-// const TriangleDown = props => <IoTriangle style={{ transform: 'rotate(180deg)' }} {...props} />
+const Wrapper = styled(Box)`
+#fullpage {
+  height: 100vh;
+}
+.section {
+  height: 100%;
+}
+`
 
 const trashes = [
   4,
@@ -63,16 +72,6 @@ const scrollingDuration = 1
 
 let timeline
 let timeline2
-
-const Trash = ({ data, noFace }) => {
-  return (
-    <>
-      <GatsbyImage image={data.gatsbyImg} alt={data.name} />
-      {!noFace && <Face id={data.transform.faceNo} transform={data.transform.face} />}
-    </>
-  )
-}
-
 let fpApi
 const HomePage = () => {
   useShowHeader()
@@ -86,6 +85,7 @@ const HomePage = () => {
   const windowSize = useWindowSize()
   // useReloadOnOrentation()
   const [inited, setInited] = useState()
+  const [loaded, setLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
     const titleClearance = containerWidth / titleRatio * (isMobile ? 1.7 : 1) + 60
@@ -98,7 +98,7 @@ const HomePage = () => {
   }, [windowSize, isMobile, containerWidth])
 
   const pages = useMemo(() => {
-    const trash = get(data, trashes[0])
+    const trash = data[trashes[0]]
     return [
       <Box pt={theme.headerHeight} height="100%">
         <Container pt={responsive('10%', '4%')} textAlign="center" height="100%" position="relative" px="0">
@@ -143,22 +143,7 @@ const HomePage = () => {
       <>
 
       </>,
-      <Container textAlign="center" color="black" height="100%">
-        <Box.Relative height="100%">
-          <Box.Absolute bottom={responsive('5em', '8em')} left="0" right="0">
-            <Heading
-              letterSpacing="0.125em"
-              fontWeight="900"
-              fontSize={isEn ? responsive('1em', '2em') : responsive('1.5em', '2.5em')}
-              whiteSpace="pre-wrap"
-              lineHeight="1.75"
-            >
-              {isEn ? `"Where there's a lost trash, ${isMobile ? '\n' : ''}there's a mis-thrown guy"` : `「每個迷路的垃圾，${isMobile ? '\n' : ''}都有個丟錯的主人」`}
-            </Heading>
-            <Text lineHeight="2em" fontSize={isEn ? responsive('0.875em', '1.375em') : responsive('1em', '1.625em')} letterSpacing="0.125em">{isEn ? 'Introducing 101 most commonly mis-thrown trashes in Taiwan' : '以下是台灣人最常丟錯的101件垃圾'}</Text>
-          </Box.Absolute>
-        </Box.Relative>
-      </Container>
+      <LastPage isEn={isEn} isMobile={isMobile} />
       ,
       <>
 
@@ -174,7 +159,7 @@ const HomePage = () => {
     }
     timeline = gsap.timeline({ defaults: { duration: scrollingDuration } })
     timeline2 = gsap.timeline()
-    const windowHeight =  innerHeight()
+    const windowHeight = innerHeight()
     gsap.set(heroTrashRef.current, {
       right: trashWidth * 0.50,
       width: trashWidth * 0.3,
@@ -292,10 +277,10 @@ const HomePage = () => {
     timeline.pause()
     timeline2.pause()
 
-  }, [windowSize, containerWidth, inited])
+  }, [windowSize, containerWidth, inited, loaded])
 
   return (
-    <Box className="home-bg" bg="colors.yellow">
+    <Wrapper className="home-bg" bg="colors.yellow">
       <ReactFullpage
         licenseKey={process.env.FULLPAGE_JS_KEY}
         scrollingSpeed={scrollingDuration * 1000}
@@ -354,101 +339,13 @@ const HomePage = () => {
               alt="垃圾山"
             />
             {inited && (
-              <>
-                <Box.Absolute width="12%" left={responsive('32%', '28%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
-                  <Box.Relative transform="rotate(30deg)">
-                    <Trash data={data[trashes[1]]} />
-                  </Box.Relative>
-                  <Box.Absolute
-                    top="17%"
-                    left={responsive('-27%', '-27%', '-52%')}
-                    width={responsive('60%', '60%', '80%')}
-                    opacity="0"
-                    transform="scale(0)"
-                    className="trash-bubble"
-                    transformOrigin="100% 75%"
-                  >
-                    <StaticImage alt="對話框" src="bubble-2.svg" placeholder="blurred" />
-                    <Box.Absolute top={isEn ? '8.5%' : "30%"} left={isEn ? responsive('5%', '10%') : "10%"} right="10%" fontWeight="900" pointerEvents="all" fontSize={responsive('0.75em', '1.5em', '1em')}>
-                      {isEn ? 'I don\'t belong here as well!' : '我也被丟錯！'}
-                    </Box.Absolute>
-                  </Box.Absolute>
-                </Box.Absolute>
-                <Box.Absolute width="9%" left={responsive('40%', '36%', '40%')} top="40%">
-                  <Box.Relative transform={responsive('rotate(-40deg)', 'rotate(0deg)')}>
-                    <Trash data={data[trashes[2]]} noFace={isMobile} />
-                  </Box.Relative>
-                  <Box.Absolute
-                    top={isEn ? '-42.5%' : "-28%"}
-                    left={isEn ? '27.5%' : "48%"}
-                    width={isEn ? responsive('67%', '105%') : "67%"}
-                    opacity="0"
-                    transform="scale(0)"
-                    className="trash-bubble"
-                    transformOrigin="0% 100%"
-                    display={responsive('none', 'block')}
-                  >
-                    <StaticImage alt="對話框" src="bubble-3.svg" placeholder="blurred" />
-                    <Box.Absolute
-                      top={isEn ? '8%' : "15%"}
-                      left={isEn ? '5%' : "8%"}
-                      right="0"
-                      fontWeight="900"
-                      fontSize={responsive("1em", "1.5em", isEn ? '0.75em' : "0.5em")}
-                      pointerEvents="all"
-                    >
-                      {isEn ? 'Please...don\'t...let...me end up in fire' : '要被燒掉了嗚嗚'}
-                    </Box.Absolute>
-                  </Box.Absolute>
-                </Box.Absolute>
-                <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '38%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
-                  <Box.Relative transform="rotate(-10deg)">
-                    <Trash data={data[trashes[3]]} />
-                  </Box.Relative>
-                  <Box.Absolute
-                    left={responsive('75%', '-30%')}
-                    top="-22%"
-                    width={responsive('78%', '70%')}
-                    opacity="0"
-                    transform="scale(0)"
-                    className="trash-bubble"
-                    transformOrigin={responsive('10% 100%', '90% 100%')}
-                  >
-                    <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
-                    <StaticImage alt="對話框" src="bubble-5.svg" placeholder="blurred" />
-                    </Box>
-                    <Box.Absolute whiteSpace="pre-wrap" top={isEn ? '10%' : "18%"} left={isEn ? responsive('6.25%', '7.5%') : responsive('10%', '12%')} right="0" fontWeight="900" fontSize={isEn ? responsive('0.625em', '1.5em', '0.75em') : responsive('0.875em', '2em', '1em')} pointerEvents="all">
-                      {isEn ? 'I should have been in the recycle bin!' : '走錯棚了啦！'}
-                    </Box.Absolute>
-                  </Box.Absolute>
-                </Box.Absolute>
-                <Media at="mobile">
-                  <Box.Absolute width="10%" left="42%" top="54%">
-                    <Box.Relative transform="rotate(-10deg)">
-                      <Trash data={data[18]} noFace />
-                    </Box.Relative>
-                  </Box.Absolute>
-                </Media>
-                <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
-                  <Box.Relative transform="rotate(-10deg)">
-                    <Trash data={data[trashes[4]]} />
-                  </Box.Relative>
-                  <Box.Absolute
-                    top={responsive('10%', '0')}
-                    left="-70%"
-                    width="100%"
-                    opacity="0"
-                    transform="scale(0)"
-                    className="trash-bubble"
-                    transformOrigin="100% 25%"
-                  >
-                    <StaticImage alt="對話框" src="bubble-4.svg" placeholder="blurred" />
-                    <Box.Absolute whiteSpace="pre-wrap" top="16%" left="7%" right="12%" fontWeight="900" fontSize={responsive('0.75em', '2em', '1em')} pointerEvents="all">
-                      {isEn ? 'Why am\nI here?' : '人家明明\n可以被回收！'}
-                    </Box.Absolute>
-                  </Box.Absolute>
-                </Box.Absolute>
-              </>
+              <OtherTrashes
+                isEn={isEn}
+                isMobile={isMobile}
+                data={data}
+                trashes={trashes}
+                onLoad={() => setLoaded(true)}
+              />
             )}
           </Box.Relative>
           {inited && (
@@ -477,9 +374,9 @@ const HomePage = () => {
         {inited && (
           <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
             <Box.Relative transform="rotate(7deg)" className="trash">
-              <GatsbyImage image={get(data, [trashes[0], 'gatsbyImg'])} />
+              <GatsbyImage image={data[trashes[0]].gatsbyImg} />
               <Box.FullAbs>
-                <Face className="face" id={get(data, [trashes[0], 'transform', 'faceNo'])} transform={get(data, [trashes[0], 'transform', 'face'])} />
+                <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
               </Box.FullAbs>
             </Box.Relative>
             <Box.Absolute
@@ -517,7 +414,7 @@ const HomePage = () => {
         </Box.Absolute>
       </FullpageHeight>
       {/* {!inited && <FullpageLoading />} */}
-    </Box>
+    </Wrapper>
   )
 }
 
