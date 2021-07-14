@@ -15,11 +15,3 @@ export const wrapPageElement = ({ element, props }) => {
   // including location, data, etc - you don't need to pass it
   return <Layout {...props}>{element}</Layout>
 }
-
-export const onRenderBody = ( { setHeadComponents }) => {
-  const fonts = ['Concert One', 'Nunito Sans:600,700,900', 'Noto Sans TC:500,700,900'].join('|')
-  const params = new URLSearchParams()
-  params.append('family', fonts)
-  params.append('display', 'swap')
-  setHeadComponents(<link key={`google-font`} href={`https://fonts.googleapis.com/css?${params}`} rel="stylesheet" />)
-}
