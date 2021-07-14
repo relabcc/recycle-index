@@ -92,9 +92,15 @@ const Header = ({ isEn, ...props }) => {
               <DrawerContent>
                 <DrawerCloseButton />
                 <DrawerBody pt="3em" pl="2em">
-                  {links.map(({ name, en, hideEn, to, href }, i) => (!isEn || !hideEn) && (
+                  {links.map(({ name, en, hideEn, to, href, isExternal }, i) => (!isEn || !hideEn) && (
                     <Box key={i} py="1em" fontSize="1.125em" fontFamily={theme.fonts.number}>
-                      <Link onClick={onClose} to={to && `${isEn ? '/en' : ''}${to}`} width="100%" href={href}>{isEn ? en : name}</Link>
+                      <Link
+                        onClick={onClose}
+                        to={to && `${isEn ? '/en' : ''}${to}`}
+                        width="100%"
+                        href={href}
+                        isExternal={isExternal}
+                      >{isEn ? en : name}</Link>
                     </Box>
                   ))}
                 </DrawerBody>

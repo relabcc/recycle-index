@@ -41,11 +41,7 @@ import useIsEn from '../useIsEn'
 const LastPage = loadable(() => import('./LastPage'))
 const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
-// const mountTop = [
-//   [require('./mount-top@0.5x.webp'), require('./mount-top@0.5x.png')],
-//   [require('./mount-top.webp'), require('./mount-top.png')],
-//   // [require('./mount-top@2x.webp'), require('./mount-top@2x.png')],
-// ]
+const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
 const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
@@ -67,7 +63,7 @@ const trashes = [
   28,
 ]
 
-const mountRatio = 3424 / 1843
+const mountRatio = 3424 / 1844
 const titleRatio = 1920 / 430
 const scrollingDuration = 1
 
@@ -329,15 +325,9 @@ const HomePage = () => {
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative>
-            <StaticImage
-              src="./mount-top.png"
-              placeholder="blurred"
-              className="trash-mount"
-              quality={90}
-              breakpoints={[1366, 1920, 2560]}
-              outputPixelDensities={[1, 2, 3]}
-              layout="fullWidth"
-              alt="垃圾山"
+            <BackgroundImage
+              src={mountTop}
+              ratio={mountRatio}
               style={{ opacity: +inited }}
             />
             {inited && (
@@ -355,9 +345,6 @@ const HomePage = () => {
               <Box mt={`${trashWidth * -0.05}px`}>
                 <StaticImage
                   src="./mount-middle.png"
-                  placeholder="blurred"
-                  quality={90}
-                  breakpoints={[1366, 1920]}
                   layout="fullWidth"
                   alt="垃圾山"
                 />

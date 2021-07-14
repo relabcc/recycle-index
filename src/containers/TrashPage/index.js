@@ -3,7 +3,6 @@ import { AspectRatio } from '@chakra-ui/react'
 import { get, random, range } from 'lodash'
 import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
-import { SizeMe } from 'react-sizeme';
 import ReactFullpage from '@fullpage/react-fullpage'
 import { timer } from 'd3-timer';
 import { GatsbyImage } from 'gatsby-plugin-image';
