@@ -52,6 +52,7 @@ const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png
 const Wrapper = styled(Box)`
 #fullpage {
   height: 100vh;
+  overflow: hidden;
 }
 .section {
   height: 100%;
@@ -84,7 +85,7 @@ const HomePage = () => {
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
   // useReloadOnOrentation()
-  const [inited, setInited] = useState()
+  const [inited, setInited] = useState(false)
   const [loaded, setLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
@@ -337,6 +338,7 @@ const HomePage = () => {
               outputPixelDensities={[1, 2, 3]}
               layout="fullWidth"
               alt="垃圾山"
+              style={{ opacity: +inited }}
             />
             {inited && (
               <OtherTrashes

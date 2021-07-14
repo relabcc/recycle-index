@@ -9,8 +9,8 @@ import Image from '../../../components/Image'
 
 import recycleTag from './recycle_1.svg'
 import trashTag from './trash_1.svg'
-import { responsive } from '../../../components/ThemeProvider/theme';
 import Trash from './Trash'
+import { responsive } from '../../../components/ThemeProvider/theme';
 
 let animation
 let answredAnimation

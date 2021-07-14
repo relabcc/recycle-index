@@ -50,7 +50,7 @@ const Catalogue = ({ data }) => {
   const okData = useMemo(() => {
     return data ? (data.filter(d => {
       // if (!images[d.name]) console.log(d.name)
-      return d.img
+      return d.gatsbyImg
     })) : []
   }, [data])
 

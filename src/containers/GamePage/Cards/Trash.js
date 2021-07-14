@@ -1,8 +1,9 @@
 import { forwardRef } from '@chakra-ui/react'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useMemo } from 'react'
 
 import Box from '../../../components/Box'
-import Image from '../../../components/Image'
+// import Image from '../../../components/Image'
 
 import imgSize from '../../TrashPage/data/imgSize'
 
@@ -34,8 +35,8 @@ const Trash = forwardRef(({ layers, ...props }, ref) => {
     <Box overflow="hidden" bg="white" {...props} ref={ref}>
       {layers.map((layer, i) => (
         <Box.AbsCenter width="100%" key={i}>
-          <Box {...transofrm}>
-            <Image src={layer.src} pointerEvents="none" />
+          <Box pointerEvents="none" {...transofrm}>
+            <GatsbyImage image={layer.gatsbyImg} alt={layer.name} />
           </Box>
         </Box.AbsCenter>
       ))}

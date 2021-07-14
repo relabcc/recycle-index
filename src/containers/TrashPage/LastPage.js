@@ -32,7 +32,7 @@ const FinalTrash = ({
   faceId,
   allData,
 }) => {
-  const readeMore = useMemo(() => sampleSize(allData.filter(d => d.img && d.id !== data.id), 5), [data, allData])
+  const readeMore = useMemo(() => sampleSize(allData.filter(d => d.gatsbyImg && d.id !== data.id), 5), [data, allData])
   return (
     <>
       <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>

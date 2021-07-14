@@ -2,10 +2,13 @@ import { filter, get, groupBy, shuffle } from "lodash"
 import { useMemo } from "react"
 
 import useData from "./useData"
-import images from './images'
+// import images from './images'
+import useGatsbyImage from "./useGatsbyImage"
 
 const useQuestions = (run = 0) => {
   const data = useData()
+  const gatsbyImages = useGatsbyImage()
+
   const questions = useMemo(() => {
     if (!data) return []
     const trashes = data.reduce((all, d) => {
@@ -27,12 +30,12 @@ const useQuestions = (run = 0) => {
         recyclable: get(trash.belongsTo, partName || trash.name) !== '一般垃圾',
         layers: layers.map(o => ({
           ...o,
-          src: get(images, [trash.name, o.layerName || o.name]),
+          gatsbyImg: get(gatsbyImages, [trash.name, o.layerName || o.name]),
         })),
       }
     }).filter(d => d && d.trash)
     return formatted
-  }, [data])
+  }, [data, gatsbyImages])
 
   return useMemo(() => shuffle(questions), [questions, run])
 }

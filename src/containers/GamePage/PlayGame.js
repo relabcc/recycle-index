@@ -8,6 +8,7 @@ import {
   ModalFooter,
   ModalBody,
 } from '@chakra-ui/react';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import Fullpage from '../../components/FullpageHeight';
 import Container from '../../components/Container';
@@ -15,7 +16,7 @@ import Box from '../../components/Box';
 import Flex from '../../components/Flex';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
-import Image from '../../components/Image';
+// import Image from '../../components/Image';
 import HighlightNumber from '../../components/HighlightNumber';
 
 import useShowHeader from '../../contexts/header/useShowHeader';
@@ -24,7 +25,7 @@ import Progress from './Progress';
 import Cards from './Cards';
 import Controls from './Controls';
 
-import hand from './hand.svg'
+// import hand from './hand.svg'
 import { responsive } from '../../components/ThemeProvider/theme';
 import useQuestions from '../TrashPage/data/useQuestions';
 import Result from './Result';
@@ -148,7 +149,7 @@ const GamePage = ({ data }) => {
           >遊戲操作教學</ModalHeader>
           <ModalBody bg="gray.200" px="4em">
             <Box px="25%">
-              <Image src={hand} />
+              <StaticImage alt="手指" src="hand.svg" />
             </Box>
             <Text
               lineHeight="2"

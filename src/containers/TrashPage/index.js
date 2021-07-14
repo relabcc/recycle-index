@@ -36,6 +36,7 @@ import imgSize from './data/imgSize'
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
+import TrashTitle from './TrashTitle';
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
 const ChevDown = loadable(() => import('./ChevDown'))
@@ -55,9 +56,7 @@ let progressTimer
 const Wrapper = styled.div`
 #fullpage {
   height: 100vh;
-}
-.section {
-  height: 100%;
+  overflow: hidden;
 }
 `
 
@@ -280,22 +279,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           >{n}</Text.Number>
         </Box.Absolute>
         <Box.AbsCenter top={responsive('17%', '40%')} width="100%" textAlign="center" transform="rotate(-12deg)">
-          <SizeMe>
-            {({ size }) => (
-              <div>
-                <Text
-                  as="h1"
-                  color={colorScheme}
-                  fontSize={size.width ? `${Math.min(Math.floor(size.width / (data.name.length + 1)), size.width / 4.5)}px` : 0}
-                  fontWeight="900"
-                  letterSpacing={data.name.length < 3 && '0.5em'}
-                  ml={data.name.length < 3 && '0.25em'}
-                >
-                  {data.name}
-                </Text>
-              </div>
-            )}
-          </SizeMe>
+          <TrashTitle color={colorScheme} data={data} />
         </Box.AbsCenter>
         <TrashDescription color={colorScheme}>
           {data.description}

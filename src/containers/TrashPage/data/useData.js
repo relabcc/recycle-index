@@ -6,7 +6,7 @@ import cfg from './cfg.json'
 import dd from './data.json'
 import scale from './scale.json'
 
-import images from './images'
+// import images from './images'
 
 // https://docs.google.com/spreadsheets/d/1TlGNBNi3JHkuuyql7ruVbFI6bfIxyvHC3AWZ0HrMWhE/edit#gid=0
 const cfgKeys = {
@@ -104,7 +104,7 @@ const useData = () => {
     ...d,
     // size: gridTransformed[d.name],
     parts: grouped[d.name],
-    img: get(images, [d.name, d.name]),
+    // img: get(images, [d.name, d.name]),
     gatsbyImg: get(gatsbyImages, [d.name, d.name]),
     transform: mapValues(scales[d.name], d => isNaN(d) ? d : d * 1),
   }))

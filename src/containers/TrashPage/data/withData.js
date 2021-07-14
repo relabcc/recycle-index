@@ -3,7 +3,7 @@ import { groupBy, reduce, size } from 'lodash'
 import { Helmet } from 'react-helmet';
 
 import useData from './useData';
-import images from './images'
+// import images from './images'
 import imgSize from './imgSize'
 import useGatsbyImage from './useGatsbyImage';
 
@@ -58,7 +58,7 @@ const withData = SubComp => props => {
         return {
           ...o,
           partName: partsCount === 1 ? allData[index].name : o.partName,
-          src: images[allData[index].name][o.layerName || o.name],
+          // src: images[allData[index].name][o.layerName || o.name],
           gatsbySrc: gatsbyImages[allData[index].name][o.layerName || o.name],
         }
       }),
