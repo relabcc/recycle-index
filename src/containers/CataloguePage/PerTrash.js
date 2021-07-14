@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AspectRatio } from '@chakra-ui/react';
 // import { useHover } from 'react-use';
 // import { useIsVisible } from "react-is-visible"
-import { useHarmonicIntervalFn, useHover, useHoverDirty } from 'react-use'
+import { useHarmonicIntervalFn, useHover } from 'react-use'
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Box from '../../components/Box';
@@ -89,7 +89,7 @@ const PerTrash = ({ data }) => {
               <Text
                 // color="white"
                 fontWeight="700"
-                fontSize={isEn ? responsive('0.875em', '1.5em', '0.75em') : responsive('1em', '2em', '1em')}
+                fontSize={isEn ? responsive('0.875em', '1.5em', '0.75em') : responsive('1em', '1.5em', '1em')}
                 letterSpacing="0.125em"
               >{isEn ? trashEn[data.name] : data.name}</Text>
             </Box.Absolute>

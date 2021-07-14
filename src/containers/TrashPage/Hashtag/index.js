@@ -25,7 +25,6 @@ const Hashtag = ({ children, color }) => {
             </Text>
           )}
         </SizeMe>
-
       </Box.Absolute>
     </BackgroundImage>
   )

@@ -16,8 +16,8 @@ import Circle from '../../components/Circle'
 import Container from '../../components/Container'
 import withData from './data/withData';
 import animations from './data/animations'
-import ChevDown from './ChevDown';
-import Hashtag from './Hashtag';
+// import ChevDown from './ChevDown';
+// import Hashtag from './Hashtag';
 import RateCircle from './RateCircle';
 import Face from '../Face';
 import isIos from '../../components/utils/isIos'
@@ -25,7 +25,7 @@ import isIos from '../../components/utils/isIos'
 // import trash from './trash-bag.svg'
 // import planb from './planb.svg'
 // import planbBubble from './planb-bubble.svg'
-import ScrollIndicator from './ScrollIndicator';
+// import ScrollIndicator from './ScrollIndicator';
 import containerWidthContext from '../../contexts/containerWidth/context'
 import useResponsive from '../../contexts/mediaQuery/useResponsive';
 import useShowHeader from '../../contexts/header/useShowHeader';
@@ -35,7 +35,10 @@ import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 import imgSize from './data/imgSize'
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
-const LastPage = loadable(() => import('./LastPage'))
+import LastPage from './LastPage';
+const Hashtag = loadable(() => import('./Hashtag'))
+const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
+const ChevDown = loadable(() => import('./ChevDown'))
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 

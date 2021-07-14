@@ -15,8 +15,8 @@ import Footer from '../Footer';
 
 import shareBg from './share-bg.svg'
 import shareBgMobile from './share-bg-mobile.svg'
-import Handling from './Handling';
 import theme, { responsive } from '../../components/ThemeProvider/theme';
+import Handling from './Handling';
 import PerTrash from '../CataloguePage/PerTrash';
 
 const FinalTrash = ({

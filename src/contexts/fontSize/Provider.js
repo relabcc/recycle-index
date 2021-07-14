@@ -1,19 +1,37 @@
-import React, { useMemo } from 'react';
-import { useWindowSize } from 'react-use';
+import React from 'react';
 import { Global, css } from '@emotion/react'
 
-import Context from './context'
-import { mediaBreak } from '../../components/ThemeProvider/theme';
-
 const Provider = ({ children }) => {
-  const windowSize = useWindowSize()
-  const fontSize = useMemo(() => (windowSize.width < mediaBreak.tablet ? 16 : Math.round(Math.min(windowSize.width, 1920) / 80)) + 'px', [windowSize.width])
   return (
     <>
-      <Context.Provider value={{ fontSize }}>
-        {children}
-      </Context.Provider>
-      <Global styles={css`html, body { font-size: ${fontSize}; }`} />
+      {children}
+      <Global styles={css`
+      html, body { font-size: 16px; }
+      @media (min-width: 768px) {
+        html, body { font-size: 10px; }
+      }
+      @media (min-width: 922px) {
+        html, body { font-size: 12px; }
+      }
+      @media (min-width: 1080px) {
+        html, body { font-size: 14px; }
+      }
+      @media (min-width: 1240px) {
+        html, body { font-size: 16px; }
+      }
+      @media (min-width: 1400px) {
+        html, body { font-size: 18px; }
+      }
+      @media (min-width: 1560px) {
+        html, body { font-size: 20px; }
+      }
+      @media (min-width: 1720px) {
+        html, body { font-size: 22px; }
+      }
+      @media (min-width: 1880px) {
+        html, body { font-size: 24px; }
+      }
+      `} />
     </>
   )
 }
