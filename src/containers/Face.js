@@ -3,6 +3,14 @@ import lottie from 'lottie-web'
 
 import Box from '../components/Box'
 
+const faces = [
+  require('./faces/face1.json'),
+  require('./faces/face2.json'),
+  require('./faces/face3.json'),
+  require('./faces/face4.json'),
+  require('./faces/face5.json'),
+]
+
 const Face = forwardRef(({ id, transform, className }, ref) => {
   const faceRef = useRef()
   useEffect(() => {
@@ -13,16 +21,14 @@ const Face = forwardRef(({ id, transform, className }, ref) => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: `/faces/face${id || 1}.json`,
+        animationData: Object.assign({}, faces[id - 1]),
       });
     })
     return () => {
       if (ani) ani.destroy()
     }
   }, [id])
-  return (
-    <Box.AbsCenter ref={ref || faceRef} transform={transform} className={className} />
-  )
+  return <Box.AbsCenter ref={ref || faceRef} transform={transform} className={className} />
 })
 
 export default Face
