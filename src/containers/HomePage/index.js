@@ -15,7 +15,7 @@ import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
 // import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
-import theme, { responsive } from '../../components/ThemeProvider/theme';
+import theme, { Media, responsive, breakpoints } from '../../components/ThemeProvider/theme';
 
 import useData from '../TrashPage/data/useData'
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
@@ -41,9 +41,18 @@ import useIsEn from '../useIsEn'
 const LastPage = loadable(() => import('./LastPage'))
 const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
-const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
+// const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
 const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
+
+// (min-width: 3400px) 3400px, 100vw
+const mountBreakpoins = [2560, 2560, 3400, 5200]
+const mountWidth = breakpoints
+  .filter(d => d > 0)
+  .map((d, i) => mountBreakpoins[i] && `(min-width: ${d}px) ${mountBreakpoins[i]}px`)
+  .filter(Boolean).join(',') + ',100vw'
+
+// console.log(mountWidth)
 
 const Wrapper = styled(Box)`
 #fullpage {
@@ -325,11 +334,21 @@ const HomePage = () => {
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative>
+            <StaticImage
+              src="./mount-top@2x.png"
+              layout="constrained"
+              width={3400}
+              ratio={mountRatio}
+              breakpoints={mountBreakpoins}
+              sizes={mountWidth}
+              alt="垃圾山"
+            />
+            {/*
             <BackgroundImage
               src={mountTop}
               ratio={mountRatio}
               style={{ opacity: +inited }}
-            />
+            /> */}
             {inited && (
               <OtherTrashes
                 isEn={isEn}

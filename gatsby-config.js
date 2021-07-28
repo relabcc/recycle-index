@@ -77,5 +77,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-image`,
+    "gatsby-plugin-loadable-components-ssr",
   ],
 };
