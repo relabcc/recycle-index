@@ -33,7 +33,7 @@ import Face from '../Face'
 import isIos from '../../components/utils/isIos'
 import PointingDown from '../../components/PointingDown'
 // import FullpageLoading from '../../components/FullpageLoading'
-import BackgroundImage from '../../components/BackgroundImage'
+// import BackgroundImage from '../../components/BackgroundImage'
 
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
@@ -43,20 +43,20 @@ const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
 // const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
-const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
+// const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // (min-width: 3400px) 3400px, 100vw
 const mountBreakpoins = [2560, 2560, 3400, 5200]
-const mountWidth = breakpoints
-  .filter(d => d > 0)
-  .map((d, i) => mountBreakpoins[i] && `(min-width: ${d}px) ${mountBreakpoins[i]}px`)
-  .filter(Boolean).join(',') + ',100vw'
+// const mountWidth = breakpoints
+//   .filter(d => d > 0)
+//   .map((d, i) => mountBreakpoins[i] && `(min-width: ${d}px) ${mountBreakpoins[i]}px`)
+//   .filter(Boolean).join(',') + ',100vw'
 
 // console.log(mountWidth)
 
 const Wrapper = styled(Box)`
 #fullpage {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 .section {
@@ -101,7 +101,7 @@ const HomePage = () => {
       Math.max(titleClearance - mountTopHeight, 0),
       scaleRatio * windowSize.width,
     ]
-  }, [windowSize, isMobile, containerWidth])
+  }, [windowSize, isMobile, isTablet, containerWidth])
 
   const pages = useMemo(() => {
     const trash = data[trashes[0]]
@@ -149,7 +149,7 @@ const HomePage = () => {
       <>
 
       </>,
-      <LastPage isEn={isEn} isMobile={isMobile} />
+      <LastPage isEn={isEn} />
       ,
       <>
 
@@ -286,7 +286,7 @@ const HomePage = () => {
   }, [windowSize, containerWidth, inited, loaded])
 
   return (
-    <Wrapper className="home-bg" bg="colors.yellow">
+    <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       <ReactFullpage
         licenseKey={process.env.FULLPAGE_JS_KEY}
         scrollingSpeed={scrollingDuration * 1000}
@@ -324,7 +324,7 @@ const HomePage = () => {
             <ReactFullpage.Wrapper>
               {pages.map((page, i) => (
                 <div className="section" key={i} ref={pageRefs[i]}>
-                  {(inited || i === 0) && page}
+                  {page}
                 </div>
               ))}
             </ReactFullpage.Wrapper>
@@ -340,7 +340,6 @@ const HomePage = () => {
               width={3400}
               ratio={mountRatio}
               breakpoints={mountBreakpoins}
-              sizes={mountWidth}
               alt="垃圾山"
             />
             {/*
@@ -349,15 +348,13 @@ const HomePage = () => {
               ratio={mountRatio}
               style={{ opacity: +inited }}
             /> */}
-            {inited && (
-              <OtherTrashes
-                isEn={isEn}
-                isMobile={isMobile}
-                data={data}
-                trashes={trashes}
-                onLoad={() => setLoaded(true)}
-              />
-            )}
+            <OtherTrashes
+              isEn={isEn}
+              isMobile={isMobile}
+              data={data}
+              trashes={trashes}
+              onLoad={() => setLoaded(true)}
+            />
           </Box.Relative>
           {inited && (
             <>
@@ -369,9 +366,13 @@ const HomePage = () => {
                 />
               </Box>
               <Box mt={`${trashWidth * -0.07}px`}>
-                <BackgroundImage
-                  src={mountBottom}
+                <StaticImage
+                  src="./mount-bottom.png"
+                  layout="constrained"
+                  width={3400}
                   ratio={3424 / 1286}
+                  breakpoints={mountBreakpoins}
+                  alt="垃圾山"
                 />
               </Box>
             </>
@@ -379,35 +380,33 @@ const HomePage = () => {
         </Box>
       </Box.Fixed>
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none">
-        {inited && (
-          <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
-            <Box.Relative transform="rotate(7deg)" className="trash">
-              <GatsbyImage image={data[trashes[0]].gatsbyImg} />
-              <Box.FullAbs>
-                <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
-              </Box.FullAbs>
-            </Box.Relative>
+        <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
+          <Box.Relative transform="rotate(7deg)" className="trash">
+            <GatsbyImage image={data[trashes[0]].gatsbyImg} />
+            <Box.FullAbs>
+              <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
+            </Box.FullAbs>
+          </Box.Relative>
+          <Box.Absolute
+            width={responsive('68%', '70%', '90%')}
+            left={responsive('-20%', '-20%', '-50%')}
+            top={responsive('-23%', '-20%')}
+            ref={bubbleRef}
+            opacity="0"
+          >
+            <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />
             <Box.Absolute
-              width={responsive('68%', '70%', '90%')}
-              left={responsive('-20%', '-20%', '-50%')}
-              top={responsive('-23%', '-20%')}
-              ref={bubbleRef}
-              opacity="0"
+              top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
+              left={responsive('9%', '12%')}
+              right="7%"
+              fontWeight="900"
+              fontSize={responsive('1.75em', '3.25em', '2.25em')}
+              pointerEvents="all"
             >
-              <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />
-              <Box.Absolute
-                top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
-                left={responsive('9%', '12%')}
-                right="7%"
-                fontWeight="900"
-                fontSize={responsive('1.75em', '3.25em', '2.25em')}
-                pointerEvents="all"
-              >
-                {isEn ? 'Emm...I don\'t belong here' : '啊..我被丟錯了'}
-              </Box.Absolute>
+              {isEn ? 'Emm...I don\'t belong here' : '啊..我被丟錯了'}
             </Box.Absolute>
           </Box.Absolute>
-        )}
+        </Box.Absolute>
 
         {/* <Box.Relative>
           <Box.Absolute top="2em" left="0" right="0">

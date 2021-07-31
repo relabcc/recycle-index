@@ -34,11 +34,12 @@ import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 import imgSize from './data/imgSize'
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
-import LastPage from './LastPage';
+// import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
 const ChevDown = loadable(() => import('./ChevDown'))
+const LastPage = loadable(() => import('./LastPage'))
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
@@ -212,7 +213,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       return (
         <Box.FullAbs ref={layerRefs[i]} key={i}>
           <div ref={animaRefs[i]}>
-            {inited && <GatsbyImage image={gatsbySrc} alt={partName} />}
+            <GatsbyImage image={gatsbySrc} alt={partName} />
           </div>
           {partName && (
             <Box ref={partsRefs[i]}>
@@ -624,7 +625,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             fpApi = fullpageApi
             return (
               <ReactFullpage.Wrapper>
-                {pages.slice(0, inited ? undefined : 1).map((page, i) => (
+                {pages.map((page, i) => (
                   <Box height="100%" pt={theme.headerHeight} className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
                     <Box.Relative height="100%">
                       {page}

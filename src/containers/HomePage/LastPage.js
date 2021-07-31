@@ -5,8 +5,10 @@ import Box from '../../components/Box'
 import Heading from '../../components/Heading'
 import Text from '../../components/Text'
 import { responsive } from '../../components/ThemeProvider/theme';
+import useResponsive from '../../contexts/mediaQuery/useResponsive'
 
-const LastPage = ({ isEn, isMobile }) => {
+const LastPage = ({ isEn }) => {
+  const { isMobile } = useResponsive()
   return (
     <Container textAlign="center" color="black" height="100%">
       <Box.Relative height="100%">

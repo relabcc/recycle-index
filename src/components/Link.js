@@ -9,6 +9,6 @@ const ReLink = ({ to, ...props }) => (
   />
 )
 
-ReLink.MdLink = props => <Link fontWeight="700" color="yellow.500" {...props} />
+ReLink.MdLink = ({ node, ...props }) => <Link fontWeight="700" color="yellow.500" isExternal {...props} />
 
 export default ReLink

@@ -3,9 +3,13 @@ import { css } from '@emotion/react'
 import theme from './theme'
 
 export default css`
+  html,
+  body {
+    height: 100%;
+  }
   body {
     min-width: 100%;
-    min-height: 100%;
+    height: 100%;
   }
 
   body style {
@@ -14,6 +18,11 @@ export default css`
 
   img {
     width: 100%;
+  }
+
+  #___gatsby,
+  #gatsby-focus-wrapper {
+    height: 100%;
   }
 
   ::-moz-selection {

@@ -112,7 +112,7 @@ const About = () => {
                 fontSize="0.875em"
                 textAlign="justify"
               >
-                <ReactMarkdown renderers={{ link: Link.MdLink }}>
+                <ReactMarkdown components={{ a: Link.MdLink }}>
                   {intro}
                 </ReactMarkdown>
               </Text>
