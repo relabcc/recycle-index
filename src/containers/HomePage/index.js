@@ -323,7 +323,7 @@ const HomePage = () => {
           fpApi = fullpageApi
           return (
             <ReactFullpage.Wrapper>
-              {pages.map((page, i) => (
+              {pages.map((page, i) => (inited || i === 0) && (
                 <div className="section" key={i} ref={pageRefs[i]}>
                   {page}
                 </div>

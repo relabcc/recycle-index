@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { useFormik } from 'formik'
 import { isArray } from 'lodash';
+import loadable from '@loadable/component';
 
 import Box from '../../components/Box';
 import Flex from '../../components/Flex';
 import theme, { responsive } from '../../components/ThemeProvider/theme';
-import FilterAndSearch from './FilterAndSearch';
+// import FilterAndSearch from './FilterAndSearch';
 
 import PerTrash from './PerTrash';
 import Footer from '../Footer';
@@ -13,6 +14,8 @@ import diff from './diff'
 import useIsEn from '../useIsEn';
 import trashEn from '../trashEn'
 // import withLoading from '../withLoading';
+
+const FilterAndSearch = loadable(() => import('./FilterAndSearch'))
 
 let searched
 let filterApplied
