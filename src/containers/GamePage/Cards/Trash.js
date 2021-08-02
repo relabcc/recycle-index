@@ -36,7 +36,7 @@ const Trash = forwardRef(({ layers, ...props }, ref) => {
       {layers.map((layer, i) => (
         <Box.AbsCenter width="100%" key={i}>
           <Box pointerEvents="none" {...transofrm}>
-            <GatsbyImage image={layer.gatsbyImg} alt={layer.name} />
+            <GatsbyImage image={layer.gatsbyImg.regular} alt={layer.name} />
           </Box>
         </Box.AbsCenter>
       ))}

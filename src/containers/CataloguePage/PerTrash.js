@@ -84,7 +84,7 @@ const PerTrash = ({ data }) => {
             width="100%"
             transform={transform}
           >
-            <GatsbyImage image={data.gatsbyImg} alt={data.name} />
+            <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
             <TheFace data={data} />
           </Box.Absolute>
           <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">

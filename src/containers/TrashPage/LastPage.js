@@ -143,7 +143,7 @@ const FinalTrash = ({
               transform={`translate3d(${isMobile ? '10%' : 0}, -50%, 0) ${data.transform.rotate ? `rotate(${isMobile && data.transform.mobileRotate ? data.transform.mobileRotate : data.transform.rotate}deg)` : ''}`}
             >
               <Box transform={`translate(${endTransition[isMobile ? 0 : 1].map(d => `${d}%`).join(',')}) ${data.transform.shareScale ? `scale(${(isMobile && data.transform.mobileShareScale ? data.transform.mobileShareScale : data.transform.shareScale) / 100})` : ''}`}>
-                <GatsbyImage alt={data.name} image={data.gatsbyImg} />
+                <GatsbyImage alt={data.name} image={data.gatsbyImg.large} />
                 <Face transform={data.transform.face} id={faceId} />
               </Box>
             </Box.Absolute>

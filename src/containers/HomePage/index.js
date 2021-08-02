@@ -15,7 +15,7 @@ import FullpageHeight from '../../components/FullpageHeight'
 import Text from '../../components/Text'
 // import Image from '../../components/Image'
 // import BackgroundImage from '../../components/BackgroundImage'
-import theme, { Media, responsive, breakpoints } from '../../components/ThemeProvider/theme';
+import theme, { responsive } from '../../components/ThemeProvider/theme';
 
 import useData from '../TrashPage/data/useData'
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
@@ -46,8 +46,7 @@ const OtherTrashes = loadable(() => import('./OtherTrashes'))
 // const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // (min-width: 3400px) 3400px, 100vw
-const mountBreakpoins = [1920, 2560, 3400, 5200]
-const trashBreakpoins = [256, 320, 512]
+const mountBreakpoins = [1920, 2560, 3400]
 // const mountWidth = breakpoints
 //   .filter(d => d > 0)
 //   .map((d, i) => mountBreakpoins[i] && `(min-width: ${d}px) ${mountBreakpoins[i]}px`)
@@ -86,9 +85,9 @@ const HomePage = () => {
   const heroTrashRef = useRef()
   const bubbleRef = useRef()
   const trashMountRef = useRef()
-  const data = useData()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
+  const data = useData()
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
   const [loaded, setLoaded] = useState()
@@ -104,7 +103,7 @@ const HomePage = () => {
   }, [windowSize, isMobile, isTablet, containerWidth])
 
   const pages = useMemo(() => {
-    const trash = data[trashes[0]]
+    const trash = data?.[trashes[0]]
     return [
       <Box pt={theme.headerHeight} height="100%">
         <Container pt={responsive('10%', '4%')} textAlign="center" height="100%" position="relative" px="0">
@@ -128,14 +127,16 @@ const HomePage = () => {
                   <Text.H1 display="none">回收大百科</Text.H1>
                 </Box.FullAbs>
               </Box.Relative>
-              <Box.Absolute left="5%" top="1%" width="30%" transform="translate3d(0, -15%, 0)">
-                <Box.Relative transform="rotate(7deg)">
-                  <GatsbyImage image={trash.gatsbyImg} breakpoints={trashBreakpoins} />
-                  <Box.FullAbs>
-                    <Face id={trash.transform.faceNo} transform={trash.transform.face} />
-                  </Box.FullAbs>
-                </Box.Relative>
-              </Box.Absolute>
+              {trash && (
+                <Box.Absolute left="5%" top="1%" width="30%" transform="translate3d(0, -15%, 0)">
+                  <Box.Relative transform="rotate(7deg)">
+                    <GatsbyImage image={trash.gatsbyImg.regular} />
+                    <Box.FullAbs>
+                      <Face id={trash.transform.faceNo} transform={trash.transform.face} />
+                    </Box.FullAbs>
+                  </Box.Relative>
+                </Box.Absolute>
+              )}
               {/* <Box.Absolute bottom="4em" left="0" right="0" textAlign="center">
                 <ScrollButton onClick={() => fpApi.moveSectionDown()}>往下滑走進垃圾堆 聽聽垃圾的心聲</ScrollButton>
               </Box.Absolute> */}
@@ -348,13 +349,15 @@ const HomePage = () => {
               ratio={mountRatio}
               style={{ opacity: +inited }}
             /> */}
-            <OtherTrashes
-              isEn={isEn}
-              isMobile={isMobile}
-              data={data}
-              trashes={trashes}
-              onLoad={() => setLoaded(true)}
-            />
+            {data && (
+              <OtherTrashes
+                isEn={isEn}
+                isMobile={isMobile}
+                data={data}
+                trashes={trashes}
+                onLoad={() => setLoaded(true)}
+              />
+            )}
           </Box.Relative>
           {inited && (
             <>
@@ -379,14 +382,17 @@ const HomePage = () => {
           )}
         </Box>
       </Box.Fixed>
-      <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none">
+      <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none" style={{ opacity: +inited }}>
         <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
-          <Box.Relative transform="rotate(7deg)" className="trash">
-            <GatsbyImage image={data[trashes[0]].gatsbyImg} breakpoints={trashBreakpoins} />
-            <Box.FullAbs>
-              <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
-            </Box.FullAbs>
-          </Box.Relative>
+          {data && (
+            <Box.Relative transform="rotate(7deg)" className="trash">
+              <GatsbyImage image={data[trashes[0]].gatsbyImg.regular} />
+              <Box.FullAbs>
+                <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
+              </Box.FullAbs>
+            </Box.Relative>
+          )}
+
           <Box.Absolute
             width={responsive('68%', '70%', '90%')}
             left={responsive('-20%', '-20%', '-50%')}

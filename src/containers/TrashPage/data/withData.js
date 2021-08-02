@@ -6,9 +6,10 @@ import useData from './useData';
 // import images from './images'
 import imgSize from './imgSize'
 import useGatsbyImage from './useGatsbyImage';
+import FullpageLoading from '../../../components/FullpageLoading'
 
 const withData = SubComp => props => {
-  const { pageContext: { id } } = props
+  const { pageContext: { id, name } } = props
   const allData = useData()
   const gatsbyImages = useGatsbyImage()
   const data = useMemo(() => {
@@ -59,7 +60,7 @@ const withData = SubComp => props => {
           ...o,
           partName: partsCount === 1 ? allData[index].name : o.partName,
           // src: images[allData[index].name][o.layerName || o.name],
-          gatsbySrc: gatsbyImages[allData[index].name][o.layerName || o.name],
+          gatsbySrc: gatsbyImages[allData[index].name][o.layerName || o.name].large,
         }
       }),
     }
@@ -68,16 +69,16 @@ const withData = SubComp => props => {
   return (
     <>
       <Helmet>
-        <title>{`${data.name}回收：${data.name}回收要怎麼做？`}</title>
+        <title>{`${name}回收：${name}回收要怎麼做？`}</title>
         <meta name="og:image" content={`${props.data.site.siteMetadata.siteUrl}/share/${data.id}.jpg`} />
-        <meta name="description" content={`${data.name}回收該怎麼做好呢？回收大百科教你如何處理${data.name}的回收跟垃圾分類，或與你分享如何再次利用${data.name}的方法。讓我們一起幫每個垃圾找到回家的路！`} />
+        <meta name="description" content={`${name}回收該怎麼做好呢？回收大百科教你如何處理${name}的回收跟垃圾分類，或與你分享如何再次利用${name}的方法。讓我們一起幫每個垃圾找到回家的路！`} />
       </Helmet>
-      {createElement(SubComp, {
+      {data ? createElement(SubComp, {
         key: id,
         ...props,
         trashData: data,
         allData,
-      })}
+      }) : <FullpageLoading />}
     </>
   )
 }

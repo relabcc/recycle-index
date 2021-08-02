@@ -10,7 +10,7 @@ import Face from '../Face'
 const Trash = ({ data, noFace }) => {
   return (
     <>
-      <GatsbyImage image={data.gatsbyImg} alt={data.name} />
+      <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
       {!noFace && <Face id={data.transform.faceNo} transform={data.transform.face} />}
     </>
   )

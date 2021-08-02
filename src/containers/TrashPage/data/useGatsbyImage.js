@@ -2,6 +2,8 @@ import { groupBy, reduce } from "lodash"
 import { useMemo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
+// const trashBreakpoins = [256, 320, 512]
+
 const useGatsbyImage = () => {
   const { allFile } = useStaticQuery(graphql`
     query FilesQuery {
@@ -10,9 +12,17 @@ const useGatsbyImage = () => {
           node {
             name
             childImageSharp {
-              gatsbyImageData(
+              large: gatsbyImageData(
                 placeholder: BLURRED
                 quality: 90
+                layout: FULL_WIDTH
+                breakpoints: [512, 1024, 1920]
+              )
+              regular: gatsbyImageData(
+                placeholder: BLURRED
+                quality: 90
+                layout: FULL_WIDTH
+                breakpoints: [256, 512]
               )
             }
             relativeDirectory
@@ -30,11 +40,11 @@ const useGatsbyImage = () => {
         f[name] = {}
         files.forEach(({ node }) => {
           const [pn, partName] = node.name.split('-')
-          f[name][partName || pn] = node.childImageSharp?.gatsbyImageData
+          f[name][partName || pn] = node.childImageSharp
         })
       } else {
         files.forEach(({ node }) => {
-          f[node.name] = { [node.name]: node.childImageSharp?.gatsbyImageData }
+          f[node.name] = { [node.name]: node.childImageSharp }
         })
       }
       return f
