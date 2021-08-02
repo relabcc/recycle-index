@@ -59,6 +59,9 @@ const Wrapper = styled.div`
   height: 100%;
   overflow: hidden;
 }
+.section {
+  height: 100%;
+}
 `
 
 const TrashName = ({ children, ...props }) => (
@@ -348,8 +351,11 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   // const pageRevealRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   const init = () => {
     if (!inited) return
-    if (!gsapRef.current) return setTimeout(init, 500)
-    const gsap = gsapRef.current.default
+    if (!gsapRef.current && !window.gsap) return setTimeout(init, 500)
+    if (gsapRef.current?.default) {
+      window.gsap = gsapRef.current.default
+    }
+    const gsap = window.gsap || gsapRef.current.default
     if (theTimeline) {
       theTimeline.kill()
     }
@@ -647,7 +653,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         top="0"
         left="0"
         right="0"
-        height="100vh"
+        height="100%"
         display={scrollProgress >= 1 ? 'none' : 'block'}
         style={{
           height: inited && windowSize.height,

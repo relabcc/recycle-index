@@ -7,6 +7,7 @@ import { navigate } from 'gatsby'
 import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
 import loadable from '@loadable/component'
 import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
 import Container from '../../components/Container'
 import Box from '../../components/Box'
@@ -23,6 +24,7 @@ import useShowHeader from '../../contexts/header/useShowHeader';
 import containerWidthContext from '../../contexts/containerWidth/context';
 
 import Face from '../Face'
+import OtherTrashes from './OtherTrashes'
 // import title from './title.svg'
 // import titleOverlay from './title-overlay.svg'
 // import bubble1 from './bubble-1.svg'
@@ -41,13 +43,14 @@ import useIsEn from '../useIsEn'
 const GSAP = loadable.lib(() => import('gsap'))
 // const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
 const LastPage = loadable(() => import('./LastPage'))
-const OtherTrashes = loadable(() => import('./OtherTrashes'))
+// const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
 // const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
 // const mountMiddle = [require('./mount-middle.webp'), require('./mount-middle.png')]
 // const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // (min-width: 3400px) 3400px, 100vw
+const mountBreakpoinsSmall = [1024, 1920, 2560]
 const mountBreakpoins = [1920, 2560, 3400]
 // const mountWidth = breakpoints
 //   .filter(d => d > 0)
@@ -80,6 +83,76 @@ const scrollingDuration = 1
 let timeline
 let timeline2
 let fpApi
+
+const MountTop = () => {
+  const [loaded, setLoaded] = useState()
+  const [hiResloaded, setHiresLoaded] = useState()
+  return (
+    <Box.Relative>
+      <StaticImage
+        src="./mount-top@2x.png"
+        layout="constrained"
+        width={2560}
+        ratio={mountRatio}
+        breakpoints={mountBreakpoinsSmall}
+        alt="垃圾山"
+        onLoad={() => setLoaded(true)}
+        css={css`
+          opacity: ${+hiResloaded};
+        `}
+      />
+      {loaded && (
+        <Box.FullAbs>
+          <StaticImage
+            src="./mount-top@2x.png"
+            layout="constrained"
+            width={3400}
+            ratio={mountRatio}
+            breakpoints={mountBreakpoins}
+            alt="垃圾山"
+            placeholder="none"
+            onLoad={() => setHiresLoaded(true)}
+          />
+        </Box.FullAbs>
+      )}
+    </Box.Relative>
+  )
+}
+
+const MountBottom = () => {
+  const [loaded, setLoaded] = useState()
+  const [hiResloaded, setHiresLoaded] = useState()
+  return (
+    <Box.Relative>
+      <StaticImage
+        src="./mount-bottom.png"
+        layout="constrained"
+        width={2560}
+        ratio={3424 / 1286}
+        breakpoints={mountBreakpoinsSmall}
+        alt="垃圾山"
+        onLoad={() => setLoaded(true)}
+        css={css`
+          opacity: ${+hiResloaded};
+        `}
+      />
+      {loaded && (
+        <Box.FullAbs>
+          <StaticImage
+            src="./mount-bottom.png"
+            layout="constrained"
+            width={3400}
+            ratio={3424 / 1286}
+            breakpoints={mountBreakpoins}
+            alt="垃圾山"
+            placeholder="none"
+            onLoad={() => setHiresLoaded(true)}
+          />
+        </Box.FullAbs>
+      )}
+    </Box.Relative>
+  )
+}
 
 const HomePage = () => {
   useShowHeader()
@@ -163,11 +236,11 @@ const HomePage = () => {
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   const init = () => {
     if (!inited) return
-    if (!gsapRef.current) {
-      return setTimeout(init, 500)
+    if (!gsapRef.current && !window.gsap) return setTimeout(init, 500)
+    if (gsapRef.current?.default) {
+      window.gsap = gsapRef.current.default
     }
-    const gsap = gsapRef.current.default
-    console.log(gsapRef.current.default)
+    const gsap = window.gsap || gsapRef.current.default
     if (timeline) {
       timeline.kill()
       timeline2.kill()
@@ -282,7 +355,7 @@ const HomePage = () => {
     }, scrollingDuration * 3)
 
     pages.forEach((p, i) => {
-      if (i) {
+      if (i && pageRefs[i - 1].current) {
         timeline.to(pageRefs[i - 1].current.querySelector('.scroll-btn'), {
           opacity: 0,
           duration: 0.25 * scrollingDuration,
@@ -350,14 +423,7 @@ const HomePage = () => {
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative style={{ opacity: +inited }}>
-            <StaticImage
-              src="./mount-top@2x.png"
-              layout="constrained"
-              width={3400}
-              ratio={mountRatio}
-              breakpoints={mountBreakpoins}
-              alt="垃圾山"
-            />
+            <MountTop />
             {/*
             <BackgroundImage
               src={mountTop}
@@ -383,14 +449,7 @@ const HomePage = () => {
                 />
               </Box>
               <Box mt={`${trashWidth * -0.07}px`}>
-                <StaticImage
-                  src="./mount-bottom.png"
-                  layout="constrained"
-                  width={3400}
-                  ratio={3424 / 1286}
-                  breakpoints={mountBreakpoins}
-                  alt="垃圾山"
-                />
+                <MountBottom />
               </Box>
             </>
           )}
