@@ -34,12 +34,12 @@ import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 import imgSize from './data/imgSize'
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
-// import LastPage from './LastPage';
+import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
 const ChevDown = loadable(() => import('./ChevDown'))
-const LastPage = loadable(() => import('./LastPage'))
+// const LastPage = loadable(() => import('./LastPage'))
 
 // import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
@@ -55,7 +55,7 @@ let progressTimer
 
 const Wrapper = styled.div`
 #fullpage {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 `
@@ -327,21 +327,19 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         <ChevDown onClick={() => fpApi.moveSectionDown()} />
       </Container>
     ),
-    inited && (
-      createElement(LastPage, {
-        windowSize,
-        trashWidth,
-        data,
-        isMobile,
-        colorScheme,
-        pageUrl,
-        endTrashRef,
-        endPos,
-        endTransition,
-        faceId,
-        allData,
-      })
-    ),
+    createElement(LastPage, {
+      windowSize,
+      trashWidth,
+      data,
+      isMobile,
+      colorScheme,
+      pageUrl,
+      endTrashRef,
+      endPos,
+      endTransition,
+      faceId,
+      allData,
+    })
   ]
   const pageCount = pages.length
   const pagesRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
@@ -586,7 +584,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const bgColor = useMemo(() => get(theme, `colors.${colorScheme}`), [colorScheme])
   // console.log(data)
   return (
-    <Wrapper>
+    <Wrapper height="100%">
       {useMemo(() => (
         <ReactFullpage
           sectionsColor={['', bgColor, 'white', 'white', bgColor]}
@@ -610,8 +608,8 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           scrollOverflow
           normalScrollElements={isMobile ? '.overflow-scroll, .footer-nav' : '.footer-nav'}
           afterRender={() => {
-            setInited(true)
             setTimeout(() => {
+              setInited(true)
               document.body.style.height = `${windowSize.height}px`
             })
           }}
@@ -625,7 +623,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
             fpApi = fullpageApi
             return (
               <ReactFullpage.Wrapper>
-                {pages.map((page, i) => (
+                {pages.slice(0, inited ? undefined : 1).map((page, i) => (
                   <Box height="100%" pt={theme.headerHeight} className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
                     <Box.Relative height="100%">
                       {page}

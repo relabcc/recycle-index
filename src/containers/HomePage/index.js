@@ -306,8 +306,8 @@ const HomePage = () => {
           }
         }}
         afterRender={() => {
-          setInited(true)
           setTimeout(() => {
+            setInited(true)
             document.body.style.height = `${windowSize.height}px`
           })
         }}
