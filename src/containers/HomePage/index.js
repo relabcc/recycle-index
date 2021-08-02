@@ -46,7 +46,8 @@ const OtherTrashes = loadable(() => import('./OtherTrashes'))
 // const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // (min-width: 3400px) 3400px, 100vw
-const mountBreakpoins = [2560, 2560, 3400, 5200]
+const mountBreakpoins = [1920, 2560, 3400, 5200]
+const trashBreakpoins = [256, 320, 512]
 // const mountWidth = breakpoints
 //   .filter(d => d > 0)
 //   .map((d, i) => mountBreakpoins[i] && `(min-width: ${d}px) ${mountBreakpoins[i]}px`)
@@ -57,7 +58,6 @@ const mountBreakpoins = [2560, 2560, 3400, 5200]
 const Wrapper = styled(Box)`
 #fullpage {
   height: 100%;
-  overflow: hidden;
 }
 .section {
   height: 100%;
@@ -130,7 +130,7 @@ const HomePage = () => {
               </Box.Relative>
               <Box.Absolute left="5%" top="1%" width="30%" transform="translate3d(0, -15%, 0)">
                 <Box.Relative transform="rotate(7deg)">
-                  <GatsbyImage image={trash.gatsbyImg} aspectRatio={850 / 624} />
+                  <GatsbyImage image={trash.gatsbyImg} breakpoints={trashBreakpoins} />
                   <Box.FullAbs>
                     <Face id={trash.transform.faceNo} transform={trash.transform.face} />
                   </Box.FullAbs>
@@ -333,7 +333,7 @@ const HomePage = () => {
       />
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
-          <Box.Relative>
+          <Box.Relative style={{ opacity: +inited }}>
             <StaticImage
               src="./mount-top@2x.png"
               layout="constrained"
@@ -382,7 +382,7 @@ const HomePage = () => {
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none">
         <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
           <Box.Relative transform="rotate(7deg)" className="trash">
-            <GatsbyImage image={data[trashes[0]].gatsbyImg} />
+            <GatsbyImage image={data[trashes[0]].gatsbyImg} breakpoints={trashBreakpoins} />
             <Box.FullAbs>
               <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
             </Box.FullAbs>
