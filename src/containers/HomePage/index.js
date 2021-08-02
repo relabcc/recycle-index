@@ -88,13 +88,10 @@ const MountTop = () => {
   const [loaded, setLoaded] = useState()
   const [hiResloaded, setHiresLoaded] = useState()
   return (
-    <Box.Relative>
+    <Box.Relative width="100%">
       <StaticImage
         src="./mount-top@2x.png"
-        layout="constrained"
-        width={2560}
-        ratio={mountRatio}
-        breakpoints={mountBreakpoinsSmall}
+        layout="fullWidth"
         alt="垃圾山"
         onLoad={() => setLoaded(true)}
         css={css`
@@ -123,13 +120,10 @@ const MountBottom = () => {
   const [loaded, setLoaded] = useState()
   const [hiResloaded, setHiresLoaded] = useState()
   return (
-    <Box.Relative>
+    <Box.Relative width="100%">
       <StaticImage
         src="./mount-bottom.png"
-        layout="constrained"
-        width={2560}
-        ratio={3424 / 1286}
-        breakpoints={mountBreakpoinsSmall}
+        layout="fullWidth"
         alt="垃圾山"
         onLoad={() => setLoaded(true)}
         css={css`
