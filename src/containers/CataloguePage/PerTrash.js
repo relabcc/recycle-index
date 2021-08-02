@@ -1,8 +1,7 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AspectRatio } from '@chakra-ui/react';
 // import { useHover } from 'react-use';
-// import { useIsVisible } from "react-is-visible"
-import { useHarmonicIntervalFn, useHover } from 'react-use'
+import { useHarmonicIntervalFn, useHover, useIntersection } from 'react-use'
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { navigate } from 'gatsby';
 
@@ -46,8 +45,15 @@ const TheFace = ({ data }) => {
 const PerTrash = ({ data }) => {
   const isEn = useIsEn()
   const nodeRef = useRef()
-
-  // const isVisible = useIsVisible(nodeRef)
+  const intersection = useIntersection(nodeRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  })
+  const [loaded, setLoaded] = useState()
+  useEffect(() => {
+    setLoaded(l => l || intersection?.isIntersecting)
+  }, [intersection])
   const transform = useMemo(() => {
     const scale = (data.transform.homeScale || 100) * 0.85 / 100
     return `scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`
@@ -78,15 +84,17 @@ const PerTrash = ({ data }) => {
           position="relative"
           overflow="hidden"
         >
-          <Box.Absolute
-            left="50%"
-            bottom="0"
-            width="100%"
-            transform={transform}
-          >
-            <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
-            <TheFace data={data} />
-          </Box.Absolute>
+          {loaded && (
+            <Box.Absolute
+              left="50%"
+              bottom="0"
+              width="100%"
+              transform={transform}
+            >
+              <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
+              <TheFace data={data} />
+            </Box.Absolute>
+          )}
           <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">
             <Text
               // color="white"

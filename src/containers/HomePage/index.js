@@ -1,6 +1,6 @@
 import React, { createRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import gsap from 'gsap'
+// import gsap from 'gsap'
 import ReactFullpage from '@fullpage/react-fullpage'
 import innerHeight from 'ios-inner-height'
 import { navigate } from 'gatsby'
@@ -38,6 +38,8 @@ import PointingDown from '../../components/PointingDown'
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
+const GSAP = loadable.lib(() => import('gsap'))
+// const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
 const LastPage = loadable(() => import('./LastPage'))
 const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
@@ -78,6 +80,7 @@ const scrollingDuration = 1
 let timeline
 let timeline2
 let fpApi
+
 const HomePage = () => {
   useShowHeader()
   const isEn = useIsEn()
@@ -85,12 +88,12 @@ const HomePage = () => {
   const heroTrashRef = useRef()
   const bubbleRef = useRef()
   const trashMountRef = useRef()
+  const gsapRef = useRef()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
   const data = useData()
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
-  const [loaded, setLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
     const titleClearance = containerWidth / titleRatio * (isMobile ? 1.7 : 1) + 60
@@ -158,8 +161,13 @@ const HomePage = () => {
     ]
   }, [data, isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
-  useEffect(() => {
+  const init = () => {
     if (!inited) return
+    if (!gsapRef.current) {
+      return setTimeout(init, 500)
+    }
+    const gsap = gsapRef.current.default
+    console.log(gsapRef.current.default)
     if (timeline) {
       timeline.kill()
       timeline2.kill()
@@ -283,11 +291,14 @@ const HomePage = () => {
     })
     timeline.pause()
     timeline2.pause()
-
-  }, [windowSize, containerWidth, inited, loaded])
+  }
+  useEffect(() => {
+    init()
+  }, [windowSize, containerWidth, inited])
 
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
+      <GSAP ref={gsapRef} />
       <ReactFullpage
         licenseKey={process.env.FULLPAGE_JS_KEY}
         scrollingSpeed={scrollingDuration * 1000}
@@ -298,11 +309,15 @@ const HomePage = () => {
           if (destination.isLast) {
             setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
           }
-          timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
-          if (destination.index === 2) {
-            timeline2.play()
-          } else {
-            timeline2.reverse()
+          if (timeline) {
+            timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
+          }
+          if (timeline2) {
+            if (destination.index === 2) {
+              timeline2.play()
+            } else {
+              timeline2.reverse()
+            }
           }
         }}
         afterRender={() => {
@@ -323,7 +338,7 @@ const HomePage = () => {
           fpApi = fullpageApi
           return (
             <ReactFullpage.Wrapper>
-              {pages.map((page, i) => (inited || i === 0) && (
+              {pages.map((page, i) => (
                 <div className="section" key={i} ref={pageRefs[i]}>
                   {page}
                 </div>
@@ -355,7 +370,6 @@ const HomePage = () => {
                 isMobile={isMobile}
                 data={data}
                 trashes={trashes}
-                onLoad={() => setLoaded(true)}
               />
             )}
           </Box.Relative>

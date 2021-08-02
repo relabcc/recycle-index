@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo, createRef, useContext, createElement } from 'react'
 import { AspectRatio } from '@chakra-ui/react'
 import { get, random, range } from 'lodash'
-import gsap from 'gsap'
+// import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
 import ReactFullpage from '@fullpage/react-fullpage'
 import { timer } from 'd3-timer';
@@ -36,6 +36,7 @@ import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
+const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
 const ChevDown = loadable(() => import('./ChevDown'))
@@ -155,6 +156,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const { isMobile } = useResponsive()
   const { containerWidth } = useContext(containerWidthContext)
   // setup refs
+  const gsapRef = useRef()
   const faceRef = useRef()
   const trashRef = useRef()
   const trashXRef = useRef()
@@ -344,8 +346,10 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const pageCount = pages.length
   const pagesRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   // const pageRevealRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
-  useEffect(() => {
+  const init = () => {
     if (!inited) return
+    if (!gsapRef.current) return setTimeout(init, 500)
+    const gsap = gsapRef.current.default
     if (theTimeline) {
       theTimeline.kill()
     }
@@ -580,11 +584,15 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
 
     endTimeline.pause()
     theTimeline.pause()
+  }
+  useEffect(() => {
+    init()
   }, [data, windowSize.height, containerWidth, isMobile, inited])
   const bgColor = useMemo(() => get(theme, `colors.${colorScheme}`), [colorScheme])
   // console.log(data)
   return (
     <Wrapper height="100%">
+      <GSAP ref={gsapRef} />
       {useMemo(() => (
         <ReactFullpage
           sectionsColor={['', bgColor, 'white', 'white', bgColor]}
