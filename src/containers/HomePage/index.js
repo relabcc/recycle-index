@@ -210,7 +210,7 @@ const HomePage = () => {
   }, [data, isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   const init = () => {
-    if (!inited) return
+    if (!inited || !mountTopLoaded) return
     if (!gsapRef.current && !window.gsap) return setTimeout(init, 500)
     if (gsapRef.current?.default) {
       window.gsap = gsapRef.current.default
@@ -342,61 +342,59 @@ const HomePage = () => {
   }
   useEffect(() => {
     init()
-  }, [windowSize, containerWidth, inited])
+  }, [windowSize, containerWidth, inited, mountTopLoaded])
 
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       <GSAP ref={gsapRef} />
-      {mountTopLoaded ? (
-        <ReactFullpage
-          licenseKey={process.env.FULLPAGE_JS_KEY}
-          scrollingSpeed={scrollingDuration * 1000}
-          // afterRender={setHeight}
-          // afterResize={setHeight}
-          verticalCentered={false}
-          onLeave={(origin, destination) => {
-            if (destination.isLast) {
-              setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
+      <ReactFullpage
+        licenseKey={process.env.FULLPAGE_JS_KEY}
+        scrollingSpeed={scrollingDuration * 1000}
+        // afterRender={setHeight}
+        // afterResize={setHeight}
+        verticalCentered={false}
+        onLeave={(origin, destination) => {
+          if (destination.isLast) {
+            setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
+          }
+          if (timeline) {
+            timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
+          }
+          if (timeline2) {
+            if (destination.index === 2) {
+              timeline2.play()
+            } else {
+              timeline2.reverse()
             }
-            if (timeline) {
-              timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
-            }
-            if (timeline2) {
-              if (destination.index === 2) {
-                timeline2.play()
-              } else {
-                timeline2.reverse()
-              }
-            }
-          }}
-          afterRender={() => {
-            setTimeout(() => {
-              setInited(true)
-              document.body.style.height = `${windowSize.height}px`
-            })
-          }}
-          afterResize={() => {
-            setTimeout(() => {
-              document.body.style.height = `${windowSize.height}px`
-              fpApi.silentMoveTo(1)
-              // timeline.seek(0)
-              // timeline2.seek(0)
-            })
-          }}
-          render={({ fullpageApi }) => {
-            fpApi = fullpageApi
-            return (
-              <ReactFullpage.Wrapper>
-                {pages.map((page, i) => (
-                  <div className="section" key={i} ref={pageRefs[i]}>
-                    {page}
-                  </div>
-                ))}
-              </ReactFullpage.Wrapper>
-            )
-          }}
-        />
-      ) : <Box height="100%">{pages[0]}</Box>}
+          }
+        }}
+        afterRender={() => {
+          setTimeout(() => {
+            setInited(true)
+            document.body.style.height = `${windowSize.height}px`
+          })
+        }}
+        afterResize={() => {
+          setTimeout(() => {
+            document.body.style.height = `${windowSize.height}px`
+            fpApi.silentMoveTo(1)
+            // timeline.seek(0)
+            // timeline2.seek(0)
+          })
+        }}
+        render={({ fullpageApi }) => {
+          fpApi = fullpageApi
+          return (
+            <ReactFullpage.Wrapper>
+              {pages.slice(0, mountTopLoaded ? undefined : 1).map((page, i) => (
+                <div className="section" key={i} ref={pageRefs[i]}>
+                  {page}
+                </div>
+              ))}
+            </ReactFullpage.Wrapper>
+          )
+        }}
+      />
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative style={{ opacity: +inited }}>
