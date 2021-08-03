@@ -25,6 +25,7 @@ import containerWidthContext from '../../contexts/containerWidth/context';
 
 import Face from '../Face'
 import OtherTrashes from './OtherTrashes'
+import LastPage from './LastPage'
 // import title from './title.svg'
 // import titleOverlay from './title-overlay.svg'
 // import bubble1 from './bubble-1.svg'
@@ -42,7 +43,7 @@ import ChevDown from '../TrashPage/ChevDown'
 import useIsEn from '../useIsEn'
 const GSAP = loadable.lib(() => import('gsap'))
 // const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
-const LastPage = loadable(() => import('./LastPage'))
+// const LastPage = loadable(() => import('./LastPage'))
 // const OtherTrashes = loadable(() => import('./OtherTrashes'))
 
 // const mountTop = [require('./mount-top.webp'), require('./mount-top.png')]
@@ -50,7 +51,7 @@ const LastPage = loadable(() => import('./LastPage'))
 // const mountBottom = [require('./mount-bottom.webp'), require('./mount-bottom.png')]
 
 // (min-width: 3400px) 3400px, 100vw
-const mountBreakpoinsSmall = [1024, 1920, 2560]
+// const mountBreakpoinsSmall = [1024, 1920, 2560]
 const mountBreakpoins = [1920, 2560, 3400]
 // const mountWidth = breakpoints
 //   .filter(d => d > 0)
@@ -84,37 +85,15 @@ let timeline
 let timeline2
 let fpApi
 
-const MountTop = () => {
-  const [loaded, setLoaded] = useState()
-  const [hiResloaded, setHiresLoaded] = useState()
-  return (
-    <Box.Relative width="100%">
-      <StaticImage
-        src="./mount-top@2x.png"
-        layout="fullWidth"
-        alt="垃圾山"
-        onLoad={() => setLoaded(true)}
-        css={css`
-          opacity: ${+hiResloaded};
-        `}
-      />
-      {loaded && (
-        <Box.FullAbs>
-          <StaticImage
-            src="./mount-top@2x.png"
-            layout="constrained"
-            width={3400}
-            ratio={mountRatio}
-            breakpoints={mountBreakpoins}
-            alt="垃圾山"
-            placeholder="none"
-            onLoad={() => setHiresLoaded(true)}
-          />
-        </Box.FullAbs>
-      )}
-    </Box.Relative>
-  )
-}
+// const MountTop = () => {
+//   const [mountTopLoaded, setMountTopLoaded] = useState()
+//   const [hiResloaded, setHiresLoaded] = useState()
+//   return (
+//     <Box.Relative width="100%">
+
+//     </Box.Relative>
+//   )
+// }
 
 const MountBottom = () => {
   const [loaded, setLoaded] = useState()
@@ -125,7 +104,7 @@ const MountBottom = () => {
         src="./mount-bottom.png"
         layout="fullWidth"
         alt="垃圾山"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => setTimeout(() => setLoaded(true), 3000)}
         css={css`
           opacity: ${+hiResloaded};
         `}
@@ -161,6 +140,8 @@ const HomePage = () => {
   const data = useData()
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
+  const [mountTopLoaded, setMountTopLoaded] = useState()
+  const [hiResloaded, setHiresLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
     const titleClearance = containerWidth / titleRatio * (isMobile ? 1.7 : 1) + 60
@@ -366,58 +347,82 @@ const HomePage = () => {
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       <GSAP ref={gsapRef} />
-      <ReactFullpage
-        licenseKey={process.env.FULLPAGE_JS_KEY}
-        scrollingSpeed={scrollingDuration * 1000}
-        // afterRender={setHeight}
-        // afterResize={setHeight}
-        verticalCentered={false}
-        onLeave={(origin, destination) => {
-          if (destination.isLast) {
-            setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
-          }
-          if (timeline) {
-            timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
-          }
-          if (timeline2) {
-            if (destination.index === 2) {
-              timeline2.play()
-            } else {
-              timeline2.reverse()
+      {mountTopLoaded ? (
+        <ReactFullpage
+          licenseKey={process.env.FULLPAGE_JS_KEY}
+          scrollingSpeed={scrollingDuration * 1000}
+          // afterRender={setHeight}
+          // afterResize={setHeight}
+          verticalCentered={false}
+          onLeave={(origin, destination) => {
+            if (destination.isLast) {
+              setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
             }
-          }
-        }}
-        afterRender={() => {
-          setTimeout(() => {
-            setInited(true)
-            document.body.style.height = `${windowSize.height}px`
-          })
-        }}
-        afterResize={() => {
-          setTimeout(() => {
-            document.body.style.height = `${windowSize.height}px`
-            fpApi.silentMoveTo(1)
-            // timeline.seek(0)
-            // timeline2.seek(0)
-          })
-        }}
-        render={({ fullpageApi }) => {
-          fpApi = fullpageApi
-          return (
-            <ReactFullpage.Wrapper>
-              {pages.map((page, i) => (
-                <div className="section" key={i} ref={pageRefs[i]}>
-                  {page}
-                </div>
-              ))}
-            </ReactFullpage.Wrapper>
-          )
-        }}
-      />
+            if (timeline) {
+              timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
+            }
+            if (timeline2) {
+              if (destination.index === 2) {
+                timeline2.play()
+              } else {
+                timeline2.reverse()
+              }
+            }
+          }}
+          afterRender={() => {
+            setTimeout(() => {
+              setInited(true)
+              document.body.style.height = `${windowSize.height}px`
+            })
+          }}
+          afterResize={() => {
+            setTimeout(() => {
+              document.body.style.height = `${windowSize.height}px`
+              fpApi.silentMoveTo(1)
+              // timeline.seek(0)
+              // timeline2.seek(0)
+            })
+          }}
+          render={({ fullpageApi }) => {
+            fpApi = fullpageApi
+            return (
+              <ReactFullpage.Wrapper>
+                {pages.map((page, i) => (
+                  <div className="section" key={i} ref={pageRefs[i]}>
+                    {page}
+                  </div>
+                ))}
+              </ReactFullpage.Wrapper>
+            )
+          }}
+        />
+      ) : <Box height="100%">{pages[0]}</Box>}
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative style={{ opacity: +inited }}>
-            <MountTop />
+            <StaticImage
+              src="./mount-top@2x.png"
+              layout="fullWidth"
+              alt="垃圾山"
+              onLoad={() => setTimeout(() => setMountTopLoaded(true))}
+              css={css`
+                opacity: ${+hiResloaded};
+              `}
+            />
+            {mountTopLoaded && (
+              <Box.FullAbs>
+                <StaticImage
+                  src="./mount-top@2x.png"
+                  layout="constrained"
+                  width={3400}
+                  ratio={mountRatio}
+                  breakpoints={mountBreakpoins}
+                  alt="垃圾山"
+                  placeholder="none"
+                  onLoad={() => setHiresLoaded(true)}
+                />
+              </Box.FullAbs>
+            )}
             {/*
             <BackgroundImage
               src={mountTop}
