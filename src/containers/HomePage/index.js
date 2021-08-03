@@ -106,30 +106,18 @@ const MountBottom = ({
     mountBottomLg,
   },
 }) => {
-  const [loaded, setLoaded] = useState()
-  const mountBottomXsImage = getImage(mountBottomXs);
-  const mountBottomSmImage = getImage(mountBottomSm);
+
   const mountBottomMdImage = getImage(mountBottomMd);
   const mountBottomLgImage = getImage(mountBottomLg);
   return (
     <AspectRatio ratio={3424 / 1286}>
       <div>
-        <Media as={Box.FullAbs} at="mobile">
-          <BgImage image={mountBottomXsImage} style={{ width: '100%', height: '100%', opacity: 1 - loaded }} onLoad={() => setLoaded(true)} />
-          {loaded && (
-            <Box.FullAbs>
-              <BgImage image={mountBottomMdImage} style={{ width: '100%', height: '100%' }} />
-            </Box.FullAbs>
-          )}
-        </Media>
-        <Media as={Box.FullAbs} greaterThan="mobile">
-          <BgImage image={mountBottomSmImage} style={{ width: '100%', height: '100%', opacity: 1 - loaded }} onLoad={() => setLoaded(true)} />
-          {loaded && (
-            <Box.FullAbs>
-              <BgImage image={mountBottomLgImage} style={{ width: '100%', height: '100%' }} />
-            </Box.FullAbs>
-          )}
-        </Media>
+        <Box.FullAbs as={Media} at="mobile">
+          <BgImage image={mountBottomMdImage} style={{ width: '100%', height: '100%' }} />
+        </Box.FullAbs>
+        <Box.FullAbs as={Media} greaterThan="mobile">
+          <BgImage image={mountBottomLgImage} style={{ width: '100%', height: '100%' }} />
+        </Box.FullAbs>
       </div>
     </AspectRatio>
   )
@@ -238,6 +226,7 @@ const HomePage = () => {
   const data = useData()
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
+  const [pageLoaded, setPageLoaded] = useState(0)
   const [mountTopLoaded, setMountTopLoaded] = useState()
   // const [hiResloaded, setHiresLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
@@ -441,61 +430,63 @@ const HomePage = () => {
   useEffect(() => {
     init()
   }, [windowSize, containerWidth, inited, mountTopLoaded])
-
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       <GSAP ref={gsapRef} />
-      <ReactFullpage
-        licenseKey={process.env.FULLPAGE_JS_KEY}
-        scrollingSpeed={scrollingDuration * 1000}
-        // afterRender={setHeight}
-        // afterResize={setHeight}
-        verticalCentered={false}
-        onLeave={(origin, destination) => {
-          if (destination.isLast) {
-            setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
-          }
-          if (timeline) {
-            timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
-          }
-          if (timeline2) {
-            if (destination.index === 2) {
-              timeline2.play()
-            } else {
-              timeline2.reverse()
+      {useMemo(() => (
+        <ReactFullpage
+          licenseKey={process.env.FULLPAGE_JS_KEY}
+          scrollingSpeed={scrollingDuration * 1000}
+          // afterRender={setHeight}
+          // afterResize={setHeight}
+          verticalCentered={false}
+          onLeave={(origin, destination) => {
+            setPageLoaded((p) => Math.max(p, destination.index))
+            if (destination.isLast) {
+              setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
             }
-          }
-        }}
-        afterRender={() => {
-          setTimeout(() => {
-            setInited(true)
-            document.body.style.height = `${windowSize.height}px`
-          })
-        }}
-        afterResize={() => {
-          setTimeout(() => {
-            document.body.style.height = `${windowSize.height}px`
-            fpApi.silentMoveTo(1)
-            // timeline.seek(0)
-            // timeline2.seek(0)
-          })
-        }}
-        render={({ fullpageApi }) => {
-          fpApi = fullpageApi
-          return (
-            <ReactFullpage.Wrapper>
-              {pages.map((page, i) => (
-                <div className="section" key={i} ref={pageRefs[i]}>
-                  {page}
-                </div>
-              ))}
-            </ReactFullpage.Wrapper>
-          )
-        }}
-      />
+            if (timeline) {
+              timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
+            }
+            if (timeline2) {
+              if (destination.index === 2) {
+                timeline2.play()
+              } else {
+                timeline2.reverse()
+              }
+            }
+          }}
+          afterRender={() => {
+            setTimeout(() => {
+              setInited(true)
+              document.body.style.height = `${windowSize.height}px`
+            })
+          }}
+          afterResize={() => {
+            setTimeout(() => {
+              document.body.style.height = `${windowSize.height}px`
+              fpApi.silentMoveTo(1)
+              // timeline.seek(0)
+              // timeline2.seek(0)
+            })
+          }}
+          render={({ fullpageApi }) => {
+            fpApi = fullpageApi
+            return (
+              <ReactFullpage.Wrapper>
+                {pages.map((page, i) => (
+                  <div className="section" key={i} ref={pageRefs[i]}>
+                    {page}
+                  </div>
+                ))}
+              </ReactFullpage.Wrapper>
+            )
+          }}
+        />
+      ), [isEn, pageRefs, pages, windowSize.height])}
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
-          <Box.Relative style={{ opacity: +inited }}>
+          <Box.Relative>
             {/* <StaticImage
               src="./mount-top@2x.png"
               layout="fullWidth"
@@ -509,7 +500,7 @@ const HomePage = () => {
               <div>
                 <Box.FullAbs as={Media} at="mobile">
                   <BgImage image={mountTopXsImage} style={{ width: '100%', height: '100%' }} onLoad={() => setMountTopLoaded(true)} />
-                  {mountTopLoaded && (
+                  {pageLoaded > 0 && (
                     <Box.FullAbs>
                       <BgImage image={mountTopMdImage} style={{ width: '100%', height: '100%' }} />
                     </Box.FullAbs>
@@ -517,7 +508,7 @@ const HomePage = () => {
                 </Box.FullAbs>
                 <Box.FullAbs as={Media} greaterThan="mobile">
                   <BgImage image={mountTopSmImage} style={{ width: '100%', height: '100%' }} onLoad={() => setMountTopLoaded(true)} />
-                  {mountTopLoaded && (
+                  {pageLoaded > 0 && (
                     <Box.FullAbs>
                       <BgImage image={mountTopLgImage} style={{ width: '100%', height: '100%' }} />
                     </Box.FullAbs>
@@ -540,26 +531,26 @@ const HomePage = () => {
               />
             )}
           </Box.Relative>
-          {mountTopLoaded && (
-            <>
-              <Box mt={`${trashWidth * -0.05}px`}>
-                <StaticImage
-                  src="./mount-middle.png"
-                  layout="fullWidth"
-                  alt="垃圾山"
-                />
-              </Box>
-              <Box mt={`${trashWidth * -0.07}px`}>
-                <MountBottom
-                  images={{
-                    mountBottomXs,
-                    mountBottomSm,
-                    mountBottomMd,
-                    mountBottomLg,
-                  }}
-                />
-              </Box>
-            </>
+          {pageLoaded > 1 && (
+            <Box mt={`${trashWidth * -0.05}px`}>
+              <StaticImage
+                src="./mount-middle.png"
+                layout="fullWidth"
+                alt="垃圾山"
+              />
+            </Box>
+          )}
+          {pageLoaded > 1 && (
+            <Box mt={`${trashWidth * -0.07}px`}>
+              <MountBottom
+                images={{
+                  mountBottomXs,
+                  mountBottomSm,
+                  mountBottomMd,
+                  mountBottomLg,
+                }}
+              />
+            </Box>
           )}
         </Box>
       </Box.Fixed>
