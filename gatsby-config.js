@@ -23,6 +23,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `homepage`,
+        path: `${__dirname}/src/containers/HomePage`,
+      },
+    },
+    {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
         id: "GTM-TBZHKQZ",
