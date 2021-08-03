@@ -1,11 +1,11 @@
 import React, { createRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useWindowSize } from 'react-use'
-// import gsap from 'gsap'
+import gsap from 'gsap'
 import ReactFullpage from '@fullpage/react-fullpage'
 import innerHeight from 'ios-inner-height'
 import { navigate } from 'gatsby'
 import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
-import loadable from '@loadable/component'
+// import loadable from '@loadable/component'
 import styled from '@emotion/styled'
 // import { css } from '@emotion/react'
 import { graphql, useStaticQuery } from 'gatsby';
@@ -44,7 +44,7 @@ import PointingDown from '../../components/PointingDown'
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
-const GSAP = loadable.lib(() => import('gsap'))
+// const GSAP = loadable.lib(() => import('gsap'))
 // const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
 // const LastPage = loadable(() => import('./LastPage'))
 // const OtherTrashes = loadable(() => import('./OtherTrashes'))
@@ -220,7 +220,7 @@ const HomePage = () => {
   const heroTrashRef = useRef()
   const bubbleRef = useRef()
   const trashMountRef = useRef()
-  const gsapRef = useRef()
+  // const gsapRef = useRef()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
   const data = useData()
@@ -298,11 +298,6 @@ const HomePage = () => {
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   const init = () => {
     if (!inited || !mountTopLoaded) return
-    if (!gsapRef.current && !window.gsap) return setTimeout(init, 500)
-    if (gsapRef.current?.default) {
-      window.gsap = gsapRef.current.default
-    }
-    const gsap = window.gsap || gsapRef.current.default
     if (timeline) {
       timeline.kill()
       timeline2.kill()
@@ -432,7 +427,6 @@ const HomePage = () => {
   }, [windowSize, containerWidth, inited, mountTopLoaded])
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
-      <GSAP ref={gsapRef} />
       {useMemo(() => (
         <ReactFullpage
           licenseKey={process.env.FULLPAGE_JS_KEY}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo, createRef, useContext, createElement } from 'react'
 import { AspectRatio } from '@chakra-ui/react'
 import { get, random, range } from 'lodash'
-// import gsap from 'gsap'
+import gsap from 'gsap'
 import { useWindowSize } from 'react-use';
 import ReactFullpage from '@fullpage/react-fullpage'
 import { timer } from 'd3-timer';
@@ -36,7 +36,7 @@ import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
-const GSAP = loadable.lib(() => import('gsap'))
+// const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
 const ChevDown = loadable(() => import('./ChevDown'))
@@ -159,7 +159,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const { isMobile } = useResponsive()
   const { containerWidth } = useContext(containerWidthContext)
   // setup refs
-  const gsapRef = useRef()
+  // const gsapRef = useRef()
   const faceRef = useRef()
   const trashRef = useRef()
   const trashXRef = useRef()
@@ -351,11 +351,6 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   // const pageRevealRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   const init = () => {
     if (!inited) return
-    if (!gsapRef.current && !window.gsap) return setTimeout(init, 500)
-    if (gsapRef.current?.default) {
-      window.gsap = gsapRef.current.default
-    }
-    const gsap = window.gsap || gsapRef.current.default
     if (theTimeline) {
       theTimeline.kill()
     }
@@ -598,7 +593,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   // console.log(data)
   return (
     <Wrapper height="100%">
-      <GSAP ref={gsapRef} />
+      {/* <GSAP ref={gsapRef} /> */}
       {useMemo(() => (
         <ReactFullpage
           sectionsColor={['', bgColor, 'white', 'white', bgColor]}
