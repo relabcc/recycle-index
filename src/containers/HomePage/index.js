@@ -44,6 +44,7 @@ import PointingDown from '../../components/PointingDown'
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
+import { LazyMotion } from 'framer-motion'
 // const GSAP = loadable.lib(() => import('gsap'))
 // const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
 // const LastPage = loadable(() => import('./LastPage'))

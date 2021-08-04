@@ -6,13 +6,14 @@ import { Media, responsive } from '../../components/ThemeProvider/theme';
 import isIos from '../../components/utils/isIos'
 
 import Face from '../Face'
+import LazyLoad from '../../components/LazyLoad';
 
 const Trash = ({ data, noFace }) => {
   return (
-    <>
+    <LazyLoad>
       <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
       {!noFace && <Face id={data.transform.faceNo} transform={data.transform.face} />}
-    </>
+    </LazyLoad>
   )
 }
 
@@ -33,6 +34,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
           opacity="0"
           transform="scale(0)"
           className="trash-bubble"
+          as={LazyLoad}
           transformOrigin="100% 75%"
         >
           <StaticImage alt="對話框" src="bubble-2.svg" placeholder="blurred" />
@@ -59,6 +61,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
           opacity="0"
           transform="scale(0)"
           className="trash-bubble"
+          as={LazyLoad}
           transformOrigin="0% 100%"
           display={responsive('none', 'block')}
         >
@@ -86,6 +89,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
           opacity="0"
           transform="scale(0)"
           className="trash-bubble"
+          as={LazyLoad}
           transformOrigin={responsive('10% 100%', '90% 100%')}
         >
           <Box transform={responsive('scale(-1, 1)', 'scale(1)')}>
@@ -122,6 +126,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
           opacity="0"
           transform="scale(0)"
           className="trash-bubble"
+          as={LazyLoad}
           transformOrigin="100% 25%"
         >
           <StaticImage alt="對話框" src="bubble-4.svg" placeholder="blurred" />
