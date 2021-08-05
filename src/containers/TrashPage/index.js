@@ -602,7 +602,16 @@ const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
           scrollingSpeed={scrollingDuration * 1000}
           verticalCentered={false}
           onLeave={(origin, destination) => {
-            setPageLoaded((p) => Math.max(p, destination.index))
+            setPageLoaded((p) => {
+              const newPage = Math.max(p, destination.index)
+              if (newPage === 2) {
+                setTimeout(() => {
+                  const e = new Event('load-trash')
+                  document.getElementById('more-trashes').dispatchEvent(e)
+                })
+              }
+              return newPage
+            })
             theTimeline.tweenTo(destination.index * scrollingDuration, { duration: scrollingDuration })
             endTimeline.tweenTo(Math.max(destination.index - 3, 0) * scrollingDuration)
             if (progressTimer) {
@@ -634,7 +643,7 @@ const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
             fpApi = fullpageApi
             return (
               <ReactFullpage.Wrapper>
-                {pages.slice(0, inited ? undefined : 1).map((page, i) => (
+                {pages.map((page, i) => (
                   <Box height="100%" pt={theme.headerHeight} className={`section ${i === 4 ? '' : 'fp-noscroll'}`} key={i} ref={pagesRefs[i]}>
                     <Box.Relative height="100%">
                       {page}

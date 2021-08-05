@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import sampleSize from 'lodash/sampleSize'
 import { SizeMe } from 'react-sizeme';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
@@ -32,8 +32,14 @@ const FinalTrash = ({
   endTransition,
   faceId,
 }) => {
-  const allData = useAllTrashes()
+  const ref = useRef()
+  const [canLoad, setCanLoad] = useState(false)
+  const allData = useAllTrashes(canLoad)
   const readeMore = useMemo(() => allData ? sampleSize(allData.filter(d => d.gatsbyImg && d.id !== data.id), 5) : [], [data, allData])
+  useEffect(() => {
+    ref.current.addEventListener('load-trash', () => setCanLoad(true))
+  }, [])
+  console.log(readeMore)
   return (
     <>
       <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>
@@ -111,7 +117,7 @@ const FinalTrash = ({
         </Container>
         <Box overflow={responsive('scroll', 'hidden')} mr={responsive(0, '1.25em')} className="overflow-scroll" py="1em">
           <Box as={isMobile ? 'div' : Container}>
-            <Flex width={responsive('200vw', '100%')}>
+            <Flex width={responsive('200vw', '100%')} id="more-trashes" ref={ref}>
               {readeMore.map(d => (
                 <Box key={d.id} width="20%">
                   <Box p="2%">

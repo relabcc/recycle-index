@@ -6,9 +6,9 @@ import getFormatedTrashes from './getFormatedTrashes'
 
 import useGatsbyImage from './useGatsbyImage'
 
-const useData = () => {
-  const { data: dd } = useSWR(withPrefix('/data/data.json'))
-  const { data: scale } = useSWR(withPrefix('/data/scale.json'))
+const useAllTrashes = (controlled) => {
+  const { data: dd } = useSWR(typeof controlled === 'undefined' || controlled ? withPrefix('/data/data.json') : null)
+  const { data: scale } = useSWR(typeof controlled === 'undefined' || controlled ? withPrefix('/data/scale.json') : null)
 
   const gatsbyImages = useGatsbyImage()
 
@@ -22,4 +22,4 @@ const useData = () => {
   }, [dd, scale, gatsbyImages])
 }
 
-export default useData
+export default useAllTrashes
