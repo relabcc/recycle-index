@@ -255,7 +255,7 @@ const HomePage = () => {
   }, [data, isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   const init = () => {
-    if (!inited || !mountTopLoaded) return
+    if (!inited) return
     if (timeline) {
       timeline.kill()
       timeline2.kill()
@@ -382,7 +382,8 @@ const HomePage = () => {
   }
   useEffect(() => {
     init()
-  }, [windowSize, containerWidth, inited, mountTopLoaded])
+  }, [windowSize, containerWidth, inited])
+  console.log(pageLoaded)
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       {useMemo(() => (
@@ -438,7 +439,7 @@ const HomePage = () => {
       ), [isEn, pageRefs, pages, windowSize.height])}
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
-          <Box.Relative>
+          <Box.Relative opacity={+inited}>
             <StaticImage
               src="./mount-top@2x.png"
               layout="fullWidth"
@@ -446,12 +447,12 @@ const HomePage = () => {
               onLoad={() => setTimeout(() => setMountTopLoaded(true))}
             />
             <Box.FullAbs as={Media} at="mobile">
-              {(mountTopLoaded || pageLoaded > 0) && (
+              {pageLoaded > 0 && (
                 <BgImage image={mountTopMdImage} style={{ width: '100%', height: '100%' }} />
               )}
             </Box.FullAbs>
             <Box.FullAbs as={Media} greaterThan="mobile">
-              {(mountTopLoaded || pageLoaded > 0) && (
+              {pageLoaded > 0 && (
                 <BgImage image={mountTopLgImage} style={{ width: '100%', height: '100%' }} />
               )}
             </Box.FullAbs>
