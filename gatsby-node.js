@@ -1,10 +1,10 @@
 const path = require('path')
+const { groupBy, reduce } = require('lodash')
 
 const data = require('./src/containers/TrashPage/data/data.json')
 const cfg = require('./src/containers/TrashPage/data/cfg.json')
 const scale = require('./src/containers/TrashPage/data/scale.json')
 const getFormatedTrashes = require('./src/containers/TrashPage/data/getFormatedTrashes')
-const { groupBy, reduce } = require('lodash')
 
 async function createTrashPage({ actions, graphql }) {
   const { createPage, createRedirect } = actions
@@ -17,6 +17,7 @@ async function createTrashPage({ actions, graphql }) {
           edges {
             node {
               name
+              relativeDirectory
               childImageSharp {
                 large: gatsbyImageData(
                   placeholder: BLURRED
@@ -59,7 +60,6 @@ async function createTrashPage({ actions, graphql }) {
     if (d.id < 10) {
       await createRedirect({ fromPath: `trash/0${d.id}`, toPath: `trash/${d.id}`, isPermanent: true })
     }
-
     await createPage({
       // will be the url for the page
       path: `trash/${d.id}`,
@@ -71,7 +71,7 @@ async function createTrashPage({ actions, graphql }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
-        gatsbyImages: gatsbyImages[d.name],
+        gatsbyImages: JSON.stringify(gatsbyImages[d.name]),
       },
     })
     await createPage({
@@ -85,7 +85,7 @@ async function createTrashPage({ actions, graphql }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
-        gatsbyImages: gatsbyImages[d.name],
+        gatsbyImages: JSON.stringify(gatsbyImages[d.name]),
       },
     })
   }))

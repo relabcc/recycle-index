@@ -5,8 +5,9 @@ import { Helmet } from 'react-helmet';
 import imgSize from './imgSize'
 
 const withData = SubComp => props => {
-  const { pageContext: { id, name, rawData, gatsbyImages } } = props
+  const { pageContext: { id, name, rawData, gatsbyImg } } = props
   const srcData = useMemo(() => JSON.parse(rawData), [rawData])
+  const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg])
   // const allData = useData()
   const data = useMemo(() => {
     // if (!allData) return null
