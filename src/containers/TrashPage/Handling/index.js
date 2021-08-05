@@ -51,7 +51,7 @@ const Handling = ({ steps, ...props }) => {
             </Box>
           </Flex>
         )
-        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><StaticImage src="next.svg" alt="向左箭頭" /></Box>, s]
+        return [...all, i > 0 && <Box key={`step-${i}`} width="3em"><StaticImage src="next.svg" alt="向左箭頭" placeholder="tracedSVG" /></Box>, s]
       }, [])}
     </Flex>
   )

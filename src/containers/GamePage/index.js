@@ -23,10 +23,10 @@ const GamePage = () => {
     <FullpageVerticalCenter bg="colors.yellow" mt="0" height="100vh" overflow="hidden">
       <Box widht="100%" mt="0">
         <Media at="mobile">
-          <StaticImage placeholder="blurred" alt="丟垃圾大考驗" src="trash-mobile.png" />
+          <StaticImage layout="fullWidth" placeholder="blurred" alt="丟垃圾大考驗" src="trash-mobile.png" />
         </Media>
         <Media greaterThan="mobile">
-          <StaticImage placeholder="blurred" alt="丟垃圾大考驗" src="banner.svg" />
+          <StaticImage layout="fullWidth" placeholder="blurred" alt="丟垃圾大考驗" src="banner.svg" />
         </Media>
       </Box>
       <Container px={responsive('1em', '2em')} mb={responsive('2em', '2em')}>
@@ -35,7 +35,7 @@ const GamePage = () => {
           <Button.Pink border="0.125em solid black" my="1em" to="/game/play/" fontSize={responsive('1.625em', '1.75em')} height="2em" px="1em">開始遊戲</Button.Pink>
         </Flex>
         <Media at="mobile">
-          <StaticImage placeholder="blurred" alt="更多垃圾" src="trash-mobile_2.png" />
+          <StaticImage layout="fullWidth" placeholder="blurred" alt="更多垃圾" src="trash-mobile_2.png" />
         </Media>
       </Container>
     </FullpageVerticalCenter>

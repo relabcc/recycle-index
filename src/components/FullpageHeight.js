@@ -5,9 +5,9 @@ import Box from './Box'
 import theme from './ThemeProvider/theme'
 import headerContext from '../contexts/header/context'
 
+const headerHeight = theme.headerHeight
 const Fullpage = forwardRef(({ children, ...props }, ref) => {
   const { hideHeader } = useContext(headerContext)
-  const headerHeight = theme.headerHeight
   const windowSize = useWindowSize()
   return (
     <Box

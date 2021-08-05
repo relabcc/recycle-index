@@ -23,13 +23,7 @@ async function createTrashPage({ actions, graphql }) {
                   placeholder: BLURRED
                   quality: 90
                   layout: FULL_WIDTH
-                  breakpoints: [512, 1024, 1920]
-                )
-                regular: gatsbyImageData(
-                  placeholder: BLURRED
-                  quality: 90
-                  layout: FULL_WIDTH
-                  breakpoints: [256, 512]
+                  breakpoints: [512, 1024, 1680]
                 )
               }
             }
@@ -60,7 +54,6 @@ async function createTrashPage({ actions, graphql }) {
     if (d.id < 10) {
       await createRedirect({ fromPath: `trash/0${d.id}`, toPath: `trash/${d.id}`, isPermanent: true })
     }
-    if (!gatsbyImages[d.name]) console.log('missing', d.name)
     await createPage({
       // will be the url for the page
       path: `trash/${d.id}`,

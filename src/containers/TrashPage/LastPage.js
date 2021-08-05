@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import sampleSize from 'lodash/sampleSize'
+import React, { useEffect, useRef, useState } from 'react'
 import { SizeMe } from 'react-sizeme';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
+import loadable from '@loadable/component'
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -17,8 +17,11 @@ import shareBg from './share-bg.svg'
 import shareBgMobile from './share-bg-mobile.svg'
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import Handling from './Handling';
-import PerTrash from '../CataloguePage/PerTrash';
-import useAllTrashes from './data/useAllTrashes'
+// import MoreTrashes from './MoreTrashes';
+
+const paddingBox = <Box width="20%"><Box pt="100%" /></Box>
+// const Handling = loadable(() => import('./Handling'))
+const MoreTrashes = loadable(() => import('./MoreTrashes'), { fallback: paddingBox })
 
 const FinalTrash = ({
   windowSize,
@@ -34,8 +37,6 @@ const FinalTrash = ({
 }) => {
   const ref = useRef()
   const [canLoad, setCanLoad] = useState(false)
-  const allData = useAllTrashes(canLoad)
-  const readeMore = useMemo(() => allData ? sampleSize(allData.filter(d => d.gatsbyImg && d.id !== data.id), 5) : [], [data, allData])
   useEffect(() => {
     ref.current.addEventListener('load-trash', () => setCanLoad(true))
   }, [])
@@ -117,13 +118,7 @@ const FinalTrash = ({
         <Box overflow={responsive('scroll', 'hidden')} mr={responsive(0, '1.25em')} className="overflow-scroll" py="1em">
           <Box as={isMobile ? 'div' : Container}>
             <Flex width={responsive('200vw', '100%')} id="more-trashes" ref={ref}>
-              {readeMore.map(d => (
-                <Box key={d.id} width="20%">
-                  <Box p="2%">
-                    <PerTrash data={d} />
-                  </Box>
-                </Box>
-              ))}
+              {canLoad ? <MoreTrashes id={data.id} /> : paddingBox}
             </Flex>
           </Box>
         </Box>

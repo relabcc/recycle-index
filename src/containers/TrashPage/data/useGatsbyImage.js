@@ -12,12 +12,6 @@ const useGatsbyImage = () => {
           node {
             name
             childImageSharp {
-              large: gatsbyImageData(
-                placeholder: BLURRED
-                quality: 90
-                layout: FULL_WIDTH
-                breakpoints: [512, 1024, 1920]
-              )
               regular: gatsbyImageData(
                 placeholder: BLURRED
                 quality: 90

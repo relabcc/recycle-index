@@ -1,4 +1,5 @@
 import React from 'react'
+import { StaticImage } from 'gatsby-plugin-image'
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -12,11 +13,7 @@ import { Media, responsive } from '../../components/ThemeProvider/theme'
 // import four from './four.png'
 // import icon from './icon.png'
 
-const one = [require('./one.webp'), require('./one.png')]
-const two = [require('./two.webp'), require('./two.png')]
-const three = [require('./three.webp'), require('./three.png')]
-const four = [require('./four.webp'), require('./four.png')]
-const icons = [require('./icon.webp'), require('./icon.png')]
+// const icons = [require('./icon.webp'), require('./icon.png')]
 
 const data = [
   {
@@ -24,28 +21,28 @@ const data = [
     example: '因為過去使用普及，有一定的廢棄物量',
     desc: '指能收集到的廢棄物總量',
     text: '量太少的話，可能沒有再利用的誘因跟影響力。嚴格來說，處理後的廢棄物量才能直接影響發生再利用的機會。',
-    number: one
+    number: <StaticImage src="one.png" layout="fullWidth" placeholder="tracedSVG" alt="01" />,
   },
   {
     title: '材質價格',
     example: '材質是價格不高的PE或PP塑膠',
     desc: '指回收物中的材質再生後的市場價格',
     text: '如果價值夠高，即使難處理，還是可能會被大量回收再利用。例如電路板中的黃金。若再生料比新料的成本更低，也會驅動回收再利用發生，例如鋁罐中的鋁金屬。',
-    number: two
+    number: <StaticImage src="two.png" layout="fullWidth" placeholder="tracedSVG" alt="02" />,
   },
   {
     title: '收集成本',
     example: '因為輕薄易飄散，收集成本極高',
     desc: '指收集回收物的成本',
     text: '例如回收物太輕、細小容易飛散、有髒汙或臭味、材積太大造成運費高，都是提高收集成本的因素。',
-    number: three
+    number: <StaticImage src="three.png" layout="fullWidth" placeholder="tracedSVG" alt="03" />,
   },
   {
     title: '處理成本',
     example: '若已經收集好了（例如壓成吸管磚），則材質單純，其實是可以進行再利用的',
     desc: '指收集後處理成再生材料的成本',
     text: '很多材料在技術上都是可回收的，若真的要窮盡各種物化分離的方式，什麼都可以處理，但處理技術的價格可能非常高，使再利用不容易實際發生。因此這裡也包含了技術的可行性。',
-    number: four
+    number: <StaticImage src="four.png" layout="fullWidth" placeholder="tracedSVG" alt="04" />,
   },
 ]
 
@@ -91,7 +88,7 @@ const Factor = () => {
             <Text.Bold fontSize="1.5em">案例：塑膠吸管</Text.Bold>
           </Media>
           <Box pr={responsive(0, '2em')} py={responsive('1em', 0)} width={responsive('25%', '15%')}>
-            <Image src={icons} />
+            <StaticImage src="icon.png" alt="塑膠吸管" layout="fullWidth" />
           </Box>
           <Box pt={responsive('2em', '0')}>
             <Media greaterThan="mobile">
