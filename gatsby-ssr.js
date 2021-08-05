@@ -15,3 +15,13 @@ export const wrapPageElement = ({ element, props }) => {
   // including location, data, etc - you don't need to pass it
   return <Layout {...props}>{element}</Layout>
 }
+
+export const onRenderBody = ({ setHeadComponents }) => {
+  const HeadComponents = [
+    <link key="fonts.dns" rel="dns-prefetch" href="//fonts.googleapis.com" />,
+    <link key="fonts.googleapis" rel="preconnect" href="https://fonts.googleapis.com" />,
+    <link key="fonts.gstatic" rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />,
+  ]
+
+  setHeadComponents(HeadComponents)
+}
