@@ -101,8 +101,6 @@ let fpApi
 
 const MountBottom = ({
   images: {
-    mountBottomXs,
-    mountBottomSm,
     mountBottomMd,
     mountBottomLg,
   },
@@ -127,34 +125,12 @@ const MountBottom = ({
 const HomePage = () => {
   useShowHeader()
   const {
-    mountTopXs,
-    mountTopSm,
     mountTopMd,
     mountTopLg,
-    mountBottomXs,
-    mountBottomSm,
     mountBottomMd,
     mountBottomLg,
   } = useStaticQuery(graphql`
     query {
-      mountTopXs: file(relativePath: { eq: "mount-top@2x.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 768
-            placeholder: BLURRED
-            layout: FIXED
-          )
-        }
-      }
-      mountTopSm: file(relativePath: { eq: "mount-top@2x.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 1920
-            placeholder: BLURRED
-            layout: FIXED
-          )
-        }
-      }
       mountTopMd: file(relativePath: { eq: "mount-top@2x.png" }) {
         childImageSharp {
           gatsbyImageData(
@@ -169,24 +145,6 @@ const HomePage = () => {
           gatsbyImageData(
             width: 3400
             placeholder: NONE
-            layout: FIXED
-          )
-        }
-      }
-      mountBottomXs: file(relativePath: { eq: "mount-bottom.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 768
-            placeholder: BLURRED
-            layout: FIXED
-          )
-        }
-      }
-      mountBottomSm: file(relativePath: { eq: "mount-bottom.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 1920
-            placeholder: BLURRED
             layout: FIXED
           )
         }
@@ -211,8 +169,6 @@ const HomePage = () => {
       }
     }
     `);
-  const mountTopXsImage = getImage(mountTopXs);
-  const mountTopSmImage = getImage(mountTopSm);
   const mountTopMdImage = getImage(mountTopMd);
   const mountTopLgImage = getImage(mountTopLg);
 
@@ -256,6 +212,7 @@ const HomePage = () => {
                 fontSize={responsive('1em', '1.75em')}
                 fontFamily={theme.fonts.number}
                 fontStyle="italic"
+                ensureFont="Concert One"
               >
                 秒懂101個台灣人必知的垃圾
               </Heading.H2>
@@ -482,35 +439,22 @@ const HomePage = () => {
       <Box.Fixed left="0" top="0" right="0" ref={trashMountRef} transformOrigin="50% 25%" pointerEvents="none">
         <Box ml={`${trashMx - windowSize.width * 0.04}px`} mr={`${trashMx + windowSize.width * 0.04}px`} mt={`${trashMt}px`} className="margin-adj">
           <Box.Relative>
-            {/* <StaticImage
+            <StaticImage
               src="./mount-top@2x.png"
               layout="fullWidth"
               alt="垃圾山"
               onLoad={() => setTimeout(() => setMountTopLoaded(true))}
-              css={css`
-                opacity: ${+hiResloaded};
-              `}
-            /> */}
-            <AspectRatio ratio={mountRatio}>
-              <div>
-                <Box.FullAbs as={Media} at="mobile">
-                  <BgImage image={mountTopXsImage} style={{ width: '100%', height: '100%' }} onLoad={() => setMountTopLoaded(true)} />
-                  {pageLoaded > 0 && (
-                    <Box.FullAbs>
-                      <BgImage image={mountTopMdImage} style={{ width: '100%', height: '100%' }} />
-                    </Box.FullAbs>
-                  )}
-                </Box.FullAbs>
-                <Box.FullAbs as={Media} greaterThan="mobile">
-                  <BgImage image={mountTopSmImage} style={{ width: '100%', height: '100%' }} onLoad={() => setMountTopLoaded(true)} />
-                  {pageLoaded > 0 && (
-                    <Box.FullAbs>
-                      <BgImage image={mountTopLgImage} style={{ width: '100%', height: '100%' }} />
-                    </Box.FullAbs>
-                  )}
-                </Box.FullAbs>
-              </div>
-            </AspectRatio>
+            />
+            <Box.FullAbs as={Media} at="mobile">
+              {(mountTopLoaded || pageLoaded > 0) && (
+                <BgImage image={mountTopMdImage} style={{ width: '100%', height: '100%' }} />
+              )}
+            </Box.FullAbs>
+            <Box.FullAbs as={Media} greaterThan="mobile">
+              {(mountTopLoaded || pageLoaded > 0) && (
+                <BgImage image={mountTopLgImage} style={{ width: '100%', height: '100%' }} />
+              )}
+            </Box.FullAbs>
             {/*
             <BackgroundImage
               src={mountTop}
@@ -526,39 +470,39 @@ const HomePage = () => {
               />
             )}
           </Box.Relative>
-          {pageLoaded > 1 && (
-            <Box mt={`${trashWidth * -0.05}px`}>
+          <Box mt={`${trashWidth * -0.05}px`}>
+            {pageLoaded > 1 ? (
               <StaticImage
                 src="./mount-middle.png"
                 layout="fullWidth"
                 alt="垃圾山"
               />
-            </Box>
-          )}
-          {pageLoaded > 1 && (
-            <Box mt={`${trashWidth * -0.07}px`}>
+            ) : <Box pt={`${728 / 3424 * 100}%`} />}
+          </Box>
+          <Box mt={`${trashWidth * -0.07}px`}>
+            {pageLoaded > 1 ? (
               <MountBottom
                 images={{
-                  mountBottomXs,
-                  mountBottomSm,
                   mountBottomMd,
                   mountBottomLg,
                 }}
               />
-            </Box>
-          )}
+            ) : <Box pt={`${1286 / 3424 * 100}%`} />}
+          </Box>
         </Box>
       </Box.Fixed>
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none" style={{ opacity: +inited }}>
         <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
-          {data && (
-            <Box.Relative transform="rotate(7deg)" className="trash">
-              <GatsbyImage image={data[trashes[0]].gatsbyImg.regular} alt={data[trashes[0]].name} />
-              <Box.FullAbs>
-                <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
-              </Box.FullAbs>
-            </Box.Relative>
-          )}
+          <Box.Relative transform="rotate(7deg)" className="trash">
+            {data && (
+              <>
+                <GatsbyImage image={data[trashes[0]].gatsbyImg.regular} alt={data[trashes[0]].name} />
+                <Box.FullAbs>
+                  <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
+                </Box.FullAbs>
+              </>
+            )}
+          </Box.Relative>
 
           <Box.Absolute
             width={responsive('68%', '70%', '90%')}
@@ -567,7 +511,7 @@ const HomePage = () => {
             ref={bubbleRef}
             opacity="0"
           >
-            <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />
+            {pageLoaded > 0 && <StaticImage alt="對話框" src="bubble-1.svg" placeholder="blurred" />}
             <Box.Absolute
               top={responsive(isEn ? '10%' : '22%', isEn ? '12%' : '24%')}
               left={responsive('9%', '12%')}

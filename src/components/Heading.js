@@ -1,12 +1,22 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { Heading } from '@chakra-ui/react'
 import range from 'lodash/range'
-import styled from '@emotion/styled'
+import FontFaceObserver from 'fontfaceobserver'
 
-const ReHeading = styled(Heading)``
+const ReHeading = forwardRef(({ ensureFont, opacity, fontWeight, ...props }, ref) => {
+  const [loaded, setLoaded] = useState(!ensureFont)
+  useEffect(() => {
+    const font = new FontFaceObserver(ensureFont, {
+      weight: fontWeight
+    });
+
+    font.load().then(() => setLoaded(true), () => setLoaded(true));
+  }, [ensureFont, fontWeight])
+  return <Heading opacity={+loaded} fontWeight={fontWeight} {...props} ref={ref} />
+})
 
 ReHeading.defaultProps = {
-  // fontWeight: 400,
+  fontWeight: 700,
 }
 
 range(1, 7).forEach((key) => {

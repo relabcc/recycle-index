@@ -30,6 +30,7 @@
     "date-fns": "^2.23.0",
     "emotion-theming": "^11.0.0",
     "focus-visible": "^5.2.0",
+    "fontfaceobserver": "^2.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "gatsby": "^3.10.2",
