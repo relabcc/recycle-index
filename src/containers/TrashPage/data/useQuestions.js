@@ -2,7 +2,6 @@ import { filter, get, groupBy, shuffle } from "lodash"
 import { useMemo } from "react"
 
 import useData from "./useData"
-// import images from './images'
 import useGatsbyImage from "./useGatsbyImage"
 
 const useQuestions = (run = 0) => {

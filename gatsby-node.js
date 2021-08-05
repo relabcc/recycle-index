@@ -4,15 +4,62 @@ const data = require('./src/containers/TrashPage/data/data.json')
 const cfg = require('./src/containers/TrashPage/data/cfg.json')
 const scale = require('./src/containers/TrashPage/data/scale.json')
 const getFormatedTrashes = require('./src/containers/TrashPage/data/getFormatedTrashes')
+const { groupBy, reduce } = require('lodash')
 
-function createTrashPage({ actions }) {
+async function createTrashPage({ actions, graphql }) {
   const { createPage, createRedirect } = actions
   const component = path.resolve('./src/templates/trash.js')
   const trashes = getFormatedTrashes(data, scale, cfg)
+  const { data: { allFile } } = await graphql(
+    `
+      {
+        allFile {
+          edges {
+            node {
+              name
+              childImageSharp {
+                large: gatsbyImageData(
+                  placeholder: BLURRED
+                  quality: 90
+                  layout: FULL_WIDTH
+                  breakpoints: [512, 1024, 1920]
+                )
+                regular: gatsbyImageData(
+                  placeholder: BLURRED
+                  quality: 90
+                  layout: FULL_WIDTH
+                  breakpoints: [256, 512]
+                )
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
+  const grouped = groupBy(allFile.edges, 'node.relativeDirectory')
+  const gatsbyImages = reduce(grouped, (f, files, group) => {
+    if (group) {
+      const name = group.replace(/(\d|\s)+/, '')
+      f[name] = {}
+      files.forEach(({ node }) => {
+        const [pn, partName] = node.name.split('-')
+        f[name][partName || pn] = node.childImageSharp
+      })
+    } else {
+      files.forEach(({ node }) => {
+        f[node.name] = { [node.name]: node.childImageSharp }
+      })
+    }
+    return f
+  }, {})
+
   return Promise.all(trashes.filter(d => d.id).map(async (d) => {
     if (d.id < 10) {
       await createRedirect({ fromPath: `trash/0${d.id}`, toPath: `trash/${d.id}`, isPermanent: true })
     }
+
     await createPage({
       // will be the url for the page
       path: `trash/${d.id}`,
@@ -24,6 +71,7 @@ function createTrashPage({ actions }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
+        gatsbyImages: gatsbyImages[d.name],
       },
     })
     await createPage({
@@ -37,6 +85,7 @@ function createTrashPage({ actions }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
+        gatsbyImages: gatsbyImages[d.name],
       },
     })
   }))

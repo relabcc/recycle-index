@@ -2,8 +2,8 @@ import { withPrefix } from 'gatsby'
 import { get } from 'lodash'
 import { useMemo } from 'react'
 import useSWR from 'swr'
-import getFormatedTrashes from './getFormatedTrashes'
 
+import getFormatedTrashes from './getFormatedTrashes'
 import useGatsbyImage from './useGatsbyImage'
 
 const useAllTrashes = (controlled) => {

@@ -39,7 +39,6 @@ const FinalTrash = ({
   useEffect(() => {
     ref.current.addEventListener('load-trash', () => setCanLoad(true))
   }, [])
-  console.log(readeMore)
   return (
     <>
       <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>

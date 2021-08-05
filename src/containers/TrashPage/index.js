@@ -8,6 +8,7 @@ import { timer } from 'd3-timer';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
 import loadable from '@loadable/component'
+import { css } from '@emotion/react';
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -36,7 +37,6 @@ import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
-import { css } from '@emotion/react';
 // const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))

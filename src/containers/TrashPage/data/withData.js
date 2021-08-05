@@ -1,17 +1,13 @@
 import React, { createElement, useMemo } from 'react';
-import { get, groupBy, reduce, size } from 'lodash'
+import { groupBy, reduce, size } from 'lodash'
 import { Helmet } from 'react-helmet';
 
-// import useData from './useData';
-// import images from './images'
 import imgSize from './imgSize'
-import useGatsbyImage from './useGatsbyImage';
 
 const withData = SubComp => props => {
-  const { pageContext: { id, name, rawData } } = props
+  const { pageContext: { id, name, rawData, gatsbyImages } } = props
   const srcData = useMemo(() => JSON.parse(rawData), [rawData])
   // const allData = useData()
-  const gatsbyImages = useGatsbyImage()
   const data = useMemo(() => {
     // if (!allData) return null
     // const index = id * 1
@@ -51,7 +47,7 @@ const withData = SubComp => props => {
       centeroid,
       positions,
       partsCount,
-      gatsbyImg: get(gatsbyImages, [srcData.name, srcData.name]),
+      gatsbyImg: gatsbyImages[srcData.name],
       imgs: ordered.map(o => {
         if (o.partName) {
           namedPartCount += 1
@@ -61,7 +57,7 @@ const withData = SubComp => props => {
           ...o,
           partName: partsCount === 1 ? srcData.name : o.partName,
           // src: images[srcData.name][o.layerName || o.name],
-          gatsbySrc: gatsbyImages[srcData.name][o.layerName || o.name].large,
+          gatsbySrc: gatsbyImages[o.layerName || o.name].large,
         }
       }),
     }
