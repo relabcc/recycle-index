@@ -1,21 +1,22 @@
 import React, { createElement, useMemo } from 'react';
-import { groupBy, reduce, size } from 'lodash'
+import { get, groupBy, reduce, size } from 'lodash'
 import { Helmet } from 'react-helmet';
 
-import useData from './useData';
+// import useData from './useData';
 // import images from './images'
 import imgSize from './imgSize'
 import useGatsbyImage from './useGatsbyImage';
 import FullpageLoading from '../../../components/FullpageLoading'
 
 const withData = SubComp => props => {
-  const { pageContext: { id, name } } = props
-  const allData = useData()
+  const { pageContext: { id, name, rawData } } = props
+  const srcData = useMemo(() => JSON.parse(rawData), [rawData])
+  // const allData = useData()
   const gatsbyImages = useGatsbyImage()
   const data = useMemo(() => {
-    if (!allData) return null
-    const index = id * 1
-    const ordered = allData[index].parts.sort((a, b) => a.layerOrder - b.layerOrder).map((cfg, index) => ({
+    // if (!allData) return null
+    // const index = id * 1
+    const ordered = srcData.parts.sort((a, b) => a.layerOrder - b.layerOrder).map((cfg, index) => ({
       ...cfg,
       index,
       order: cfg.order - 1,
@@ -45,12 +46,13 @@ const withData = SubComp => props => {
     const partsCount = size(grouped)
     let namedPartCount = 0
     return {
-      ...allData[index],
+      ...srcData,
       totalHeight,
       xRange,
       centeroid,
       positions,
       partsCount,
+      gatsbyImg: get(gatsbyImages, [srcData.name, srcData.name]),
       imgs: ordered.map(o => {
         if (o.partName) {
           namedPartCount += 1
@@ -58,13 +60,13 @@ const withData = SubComp => props => {
         }
         return {
           ...o,
-          partName: partsCount === 1 ? allData[index].name : o.partName,
-          // src: images[allData[index].name][o.layerName || o.name],
-          gatsbySrc: gatsbyImages[allData[index].name][o.layerName || o.name].large,
+          partName: partsCount === 1 ? srcData.name : o.partName,
+          // src: images[srcData.name][o.layerName || o.name],
+          gatsbySrc: gatsbyImages[srcData.name][o.layerName || o.name].large,
         }
       }),
     }
-  }, [allData, gatsbyImages, id])
+  }, [srcData, gatsbyImages])
   // console.log(data)
   return (
     <>
@@ -77,7 +79,6 @@ const withData = SubComp => props => {
         key: id,
         ...props,
         trashData: data,
-        allData,
       }) : <FullpageLoading />}
     </>
   )

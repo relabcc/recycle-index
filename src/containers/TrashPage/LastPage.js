@@ -18,6 +18,7 @@ import shareBgMobile from './share-bg-mobile.svg'
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import Handling from './Handling';
 import PerTrash from '../CataloguePage/PerTrash';
+import useAllTrashes from './data/useAllTrashes'
 
 const FinalTrash = ({
   windowSize,
@@ -30,9 +31,9 @@ const FinalTrash = ({
   endPos,
   endTransition,
   faceId,
-  allData,
 }) => {
-  const readeMore = useMemo(() => sampleSize(allData.filter(d => d.gatsbyImg && d.id !== data.id), 5), [data, allData])
+  const allData = useAllTrashes()
+  const readeMore = useMemo(() => allData ? sampleSize(allData.filter(d => d.gatsbyImg && d.id !== data.id), 5) : [], [data, allData])
   return (
     <>
       <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>

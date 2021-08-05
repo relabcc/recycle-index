@@ -36,6 +36,7 @@ import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
+import { css } from '@emotion/react';
 // const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
@@ -152,7 +153,7 @@ const colorsCfg = {
 
 let cfgPoses = {}
 
-const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } }) => {
+const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
   const isEn = useIsEn()
   const [scrollProgress, setProgress] = useState()
   const windowSize = useWindowSize()
@@ -168,6 +169,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data])
   const [inited, setInited] = useState(false)
+  const [pageLoaded, setPageLoaded] = useState(0)
   const gradeData = useMemo(() => {
     return {
       A: isEn ? 'This kind of trash has a plain composition that can be easily processed. If it is placed in the right trash bin, it has a high chance to recycle and be reused!' : '因為材質單純、處理成本相對低，此類垃圾回收價值高。只要你不分錯，它們就有很高的機會被再利用。',
@@ -218,7 +220,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       return (
         <Box.FullAbs ref={layerRefs[i]} key={i}>
           <div ref={animaRefs[i]}>
-            <GatsbyImage image={gatsbySrc} alt={partName} />
+            {pageLoaded > 0 && <GatsbyImage image={gatsbySrc} alt={partName} />}
           </div>
           {partName && (
             <Box ref={partsRefs[i]}>
@@ -271,7 +273,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         </Box.FullAbs>
       )
     })
-  }, [data, inited, isMobile])
+  }, [data, inited, isMobile, pageLoaded])
   const pages = [
     (
       <Container height="100%">
@@ -343,7 +345,6 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
       endPos,
       endTransition,
       faceId,
-      allData,
     })
   ]
   const pageCount = pages.length
@@ -601,6 +602,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
           scrollingSpeed={scrollingDuration * 1000}
           verticalCentered={false}
           onLeave={(origin, destination) => {
+            setPageLoaded((p) => Math.max(p, destination.index))
             theTimeline.tweenTo(destination.index * scrollingDuration, { duration: scrollingDuration })
             endTimeline.tweenTo(Math.max(destination.index - 3, 0) * scrollingDuration)
             if (progressTimer) {
@@ -649,10 +651,7 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
         left="0"
         right="0"
         height="100%"
-        display={scrollProgress >= 1 ? 'none' : 'block'}
-        style={{
-          height: inited && windowSize.height,
-        }}
+        display={!inited || scrollProgress >= 1 ? 'none' : 'block'}
         zIndex="docked"
         pointerEvents="none"
         pt={theme.headerHeight}
@@ -667,9 +666,9 @@ const TrashPage = ({ trashData: data, allData, data: { site: { siteMetadata } } 
               left={`${(100 - trashWidth) / 2}%`}
             >
               <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible" ref={trashXRef}>
-                <div style={{ overflow: 'visible' }}>
-                  {!inited && <GatsbyImage image={data.gatsbySrc} alt={data.name} />}
+                <div style={{ overflow: 'visible', width: '100%' }}>
                   {parts}
+                  {(!inited || pageLoaded < 2) && <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />}
                   <Face transform={data.transform.face} ref={faceRef} id={faceId} />
                 </div>
               </AspectRatio>

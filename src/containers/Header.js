@@ -45,7 +45,7 @@ const Header = ({ isEn, ...props }) => {
       <Box px="1em">
         <Link to="/" aria-label="回首頁">
           <Box width={responsive('8em', '12em', '7.5em')}>
-            <StaticImage src="./logo.svg" alt="回收大百科" />
+            <StaticImage src="./logo.svg" alt="回收大百科" placeholder="tracedSVG" />
           </Box>
         </Link>
       </Box>

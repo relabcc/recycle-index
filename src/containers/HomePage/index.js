@@ -21,7 +21,7 @@ import Text from '../../components/Text'
 // import BackgroundImage from '../../components/BackgroundImage'
 import theme, { responsive, Media } from '../../components/ThemeProvider/theme';
 
-import useData from '../TrashPage/data/useData'
+import useAllTrashes from '../TrashPage/data/useAllTrashes'
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
 import useShowHeader from '../../contexts/header/useShowHeader';
 import containerWidthContext from '../../contexts/containerWidth/context';
@@ -44,7 +44,6 @@ import PointingDown from '../../components/PointingDown'
 import ChevDown from '../TrashPage/ChevDown'
 // import withLoading from '../withLoading'
 import useIsEn from '../useIsEn'
-import { LazyMotion } from 'framer-motion'
 // const GSAP = loadable.lib(() => import('gsap'))
 // const ReactFullpage = loadable(() => import('@fullpage/react-fullpage'))
 // const LastPage = loadable(() => import('./LastPage'))
@@ -180,11 +179,11 @@ const HomePage = () => {
   // const gsapRef = useRef()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
-  const data = useData()
+  const data = useAllTrashes()
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
   const [pageLoaded, setPageLoaded] = useState(0)
-  const [mountTopLoaded, setMountTopLoaded] = useState()
+  // const [mountTopLoaded, setMountTopLoaded] = useState()
   // const [hiResloaded, setHiresLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(isMobile ? 4.25 : (isTablet ? 2.75 : 1.375), 3000 / windowSize.width)
@@ -383,7 +382,6 @@ const HomePage = () => {
   useEffect(() => {
     init()
   }, [windowSize, containerWidth, inited])
-  console.log(pageLoaded)
   return (
     <Wrapper className="home-bg" bg="colors.yellow" height="100%">
       {useMemo(() => (
@@ -444,7 +442,7 @@ const HomePage = () => {
               src="./mount-top@2x.png"
               layout="fullWidth"
               alt="垃圾山"
-              onLoad={() => setTimeout(() => setMountTopLoaded(true))}
+              // onLoad={() => setTimeout(() => setMountTopLoaded(true))}
             />
             <Box.FullAbs as={Media} at="mobile">
               {pageLoaded > 0 && (
@@ -462,14 +460,12 @@ const HomePage = () => {
               ratio={mountRatio}
               style={{ opacity: +inited }}
             /> */}
-            {data && mountTopLoaded && (
-              <OtherTrashes
-                isEn={isEn}
-                isMobile={isMobile}
-                data={data}
-                trashes={trashes}
-              />
-            )}
+            <OtherTrashes
+              isEn={isEn}
+              isMobile={isMobile}
+              data={data}
+              trashes={trashes}
+            />
           </Box.Relative>
           <Box mt={`${trashWidth * -0.05}px`}>
             {pageLoaded > 1 ? (

@@ -9,6 +9,7 @@ import Face from '../Face'
 import LazyLoad from '../../components/LazyLoad';
 
 const Trash = ({ data, noFace }) => {
+  if (!data) return null
   return (
     <LazyLoad>
       <GatsbyImage image={data.gatsbyImg.regular} alt={data.name} />
@@ -25,7 +26,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
     <>
       <Box.Absolute width="12%" left={responsive('32%', '28%', '31%')} top={responsive(isIos ? '35%' : '39%', '41%')}>
         <Box.Relative transform="rotate(30deg)">
-          <Trash data={data[trashes[1]]} />
+          <Trash data={data?.[trashes[1]]} />
         </Box.Relative>
         <Box.Absolute
           top="17%"
@@ -52,7 +53,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
       </Box.Absolute>
       <Box.Absolute width="9%" left={responsive('40%', '36%', '40%')} top="40%">
         <Box.Relative transform={responsive('rotate(-40deg)', 'rotate(0deg)')}>
-          <Trash data={data[trashes[2]]} noFace={isMobile} />
+          <Trash data={data?.[trashes[2]]} noFace={isMobile} />
         </Box.Relative>
         <Box.Absolute
           top={isEn ? '-42.5%' : "-28%"}
@@ -80,7 +81,7 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
       </Box.Absolute>
       <Box.Absolute width={responsive('8%', '10%')} left={responsive('27%', '38%', '43%')} top={responsive(isIos ? '51%' : '57%', '56%')}>
         <Box.Relative transform="rotate(-10deg)">
-          <Trash data={data[trashes[3]]} />
+          <Trash data={data?.[trashes[3]]} />
         </Box.Relative>
         <Box.Absolute
           left={responsive('75%', '-30%')}
@@ -111,13 +112,13 @@ const OtherMountians = ({ data, isEn, isMobile, trashes, onLoad = () => {} }) =>
       <Media at="mobile">
         <Box.Absolute width="10%" left="42%" top="54%">
           <Box.Relative transform="rotate(-10deg)">
-            <Trash data={data[18]} noFace />
+            <Trash data={data?.[18]} noFace />
           </Box.Relative>
         </Box.Absolute>
       </Media>
       <Box.Absolute width={responsive('8%', '10%')} left={responsive('35%', '32%', '33%')} top={responsive(isIos ? '58%' : '66%', '66%', '55%')}>
         <Box.Relative transform="rotate(-10deg)">
-          <Trash data={data[trashes[4]]} />
+          <Trash data={data?.[trashes[4]]} />
         </Box.Relative>
         <Box.Absolute
           top={responsive('10%', '0')}
