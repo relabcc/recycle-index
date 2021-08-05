@@ -29,7 +29,7 @@ const FullpageLoading = () => (
       />
       <Flex alignItems="center" color="black" my="2" fontSize="16px">
         <Box width="2em" mr="0.5em">
-          <StaticImage layout="fullWidth" src="../containers/TrashPage/planb.svg" alt="小垃圾" />
+          <StaticImage layout="fullWidth" src="../containers/TrashPage/planb.svg" alt="小垃圾" placeholder="tracedSVG" />
         </Box>
         <Text>Loading...</Text>
       </Flex>

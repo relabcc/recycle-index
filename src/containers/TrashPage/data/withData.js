@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet';
 // import images from './images'
 import imgSize from './imgSize'
 import useGatsbyImage from './useGatsbyImage';
-import FullpageLoading from '../../../components/FullpageLoading'
 
 const withData = SubComp => props => {
   const { pageContext: { id, name, rawData } } = props
@@ -75,11 +74,11 @@ const withData = SubComp => props => {
         <meta name="og:image" content={`${props.data.site.siteMetadata.siteUrl}/share/${id}.jpg`} />
         <meta name="description" content={`${name}回收該怎麼做好呢？回收大百科教你如何處理${name}的回收跟垃圾分類。讓我們一起幫每個垃圾找到回家的路！`} />
       </Helmet>
-      {data ? createElement(SubComp, {
+      {createElement(SubComp, {
         key: id,
         ...props,
         trashData: data,
-      }) : <FullpageLoading />}
+      })}
     </>
   )
 }

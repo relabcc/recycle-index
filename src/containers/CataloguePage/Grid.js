@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { useFormik } from 'formik'
-import { isArray } from 'lodash';
+import { isArray, range } from 'lodash';
 import loadable from '@loadable/component';
 
 import Box from '../../components/Box';
@@ -79,9 +79,9 @@ const Catalogue = ({ data }) => {
         />
       </Box>
       <Flex pt={responsive('4em', '4.5em', '3.25em')} px={responsive('0.5em', '1.5em')} flexWrap="wrap">
-        {filtered.map(d => (
-          <Box key={d.id} width={responsive(1 / 3, 1 / 4, 1 / 6)}>
-            <PerTrash data={d} />
+        {(data ? filtered : range(101)).map((d, i) => (
+          <Box key={i} width={responsive(1 / 3, 1 / 4, 1 / 6)}>
+            <PerTrash data={typeof d === 'object' && d} />
           </Box>
         ))}
       </Flex>

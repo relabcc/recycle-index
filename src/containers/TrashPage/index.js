@@ -56,9 +56,9 @@ let endTimeline
 let progressTimer
 
 const Wrapper = styled.div`
+height: 100%;
 #fullpage {
   height: 100%;
-  overflow: hidden;
 }
 .section {
   height: 100%;
