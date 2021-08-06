@@ -8,7 +8,6 @@ import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
 // import loadable from '@loadable/component'
 import styled from '@emotion/styled'
 // import { css } from '@emotion/react'
-import { graphql, useStaticQuery } from 'gatsby';
 import { BgImage } from 'gbimage-bridge';
 import { AspectRatio } from '@chakra-ui/react'
 
@@ -21,7 +20,7 @@ import Text from '../../components/Text'
 // import BackgroundImage from '../../components/BackgroundImage'
 import theme, { responsive, Media } from '../../components/ThemeProvider/theme';
 
-import useAllTrashes from '../TrashPage/data/useAllTrashes'
+// import useAllTrashes from '../TrashPage/data/useAllTrashes'
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
 import useShowHeader from '../../contexts/header/useShowHeader';
 import containerWidthContext from '../../contexts/containerWidth/context';
@@ -72,14 +71,6 @@ const Wrapper = styled(Box)`
 }
 `
 
-const trashes = [
-  4,
-  56,
-  20,
-  35,
-  28,
-]
-
 const mountRatio = 3424 / 1844
 const titleRatio = 1920 / 430
 const scrollingDuration = 1
@@ -121,53 +112,21 @@ const MountBottom = ({
   )
 }
 
-const HomePage = () => {
-  useShowHeader()
-  const {
+const HomePage = ({
+  pageContext: { trashes: trasheSrc },
+  data: {
     mountTopMd,
     mountTopLg,
     mountBottomMd,
     mountBottomLg,
-  } = useStaticQuery(graphql`
-    query {
-      mountTopMd: file(relativePath: { eq: "mount-top@2x.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 2560
-            placeholder: NONE
-            layout: FIXED
-          )
-        }
-      }
-      mountTopLg: file(relativePath: { eq: "mount-top@2x.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 3400
-            placeholder: NONE
-            layout: FIXED
-          )
-        }
-      }
-      mountBottomMd: file(relativePath: { eq: "mount-bottom.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 2560
-            placeholder: NONE
-            layout: FIXED
-          )
-        }
-      }
-      mountBottomLg: file(relativePath: { eq: "mount-bottom.png" }) {
-        childImageSharp {
-          gatsbyImageData(
-            width: 3400
-            placeholder: NONE
-            layout: FIXED
-          )
-        }
-      }
-    }
-    `);
+  },
+  gatsbyImages,
+}) => {
+  useShowHeader()
+  const trashes = useMemo(() => JSON.parse(trasheSrc).map(t => ({
+    ...t,
+    gatsbyImg: gatsbyImages[t.name][t.name],
+  })), [trasheSrc, gatsbyImages])
   const mountTopMdImage = getImage(mountTopMd);
   const mountTopLgImage = getImage(mountTopLg);
 
@@ -179,7 +138,7 @@ const HomePage = () => {
   // const gsapRef = useRef()
   const { containerWidth } = useContext(containerWidthContext)
   const windowSize = useWindowSize()
-  const data = useAllTrashes()
+
   // useReloadOnOrentation()
   const [inited, setInited] = useState(false)
   const [pageLoaded, setPageLoaded] = useState(0)
@@ -197,7 +156,7 @@ const HomePage = () => {
   }, [windowSize, isMobile, isTablet, containerWidth])
 
   const pages = useMemo(() => {
-    const trash = data?.[trashes[0]]
+    const trash = trashes[0]
     return [
       <Box pt={theme.headerHeight} height="100%">
         <Container pt={responsive('10%', '4%')} textAlign="center" height="100%" position="relative" px="0">
@@ -251,7 +210,7 @@ const HomePage = () => {
 
       </>,
     ]
-  }, [data, isEn])
+  }, [isEn])
   const pageRefs = useMemo(() => pages.map(() => createRef()), [pages])
   const init = () => {
     if (!inited) return
@@ -463,7 +422,6 @@ const HomePage = () => {
             <OtherTrashes
               isEn={isEn}
               isMobile={isMobile}
-              data={data}
               trashes={trashes}
             />
           </Box.Relative>
@@ -491,14 +449,10 @@ const HomePage = () => {
       <FullpageHeight position="fixed" top="0" left="0" right="0" pointerEvents="none" style={{ opacity: +inited }}>
         <Box.Absolute right={trashWidth * 0.5} top="-100%" width={trashWidth * 0.3} ref={heroTrashRef} id="hero-trash">
           <Box.Relative transform="rotate(7deg)" className="trash">
-            {data && (
-              <>
-                <GatsbyImage image={data[trashes[0]].gatsbyImg.regular} alt={data[trashes[0]].name} />
-                <Box.FullAbs>
-                  <Face className="face" id={data[trashes[0]].transform.faceNo} transform={data[trashes[0]].transform.face} />
-                </Box.FullAbs>
-              </>
-            )}
+            <GatsbyImage image={trashes[0].gatsbyImg.regular} alt={trashes[0].name} />
+            <Box.FullAbs>
+              <Face className="face" id={trashes[0].transform.faceNo} transform={trashes[0].transform.face} />
+            </Box.FullAbs>
           </Box.Relative>
 
           <Box.Absolute

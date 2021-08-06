@@ -1,15 +1,22 @@
 const path = require('path')
-const { groupBy, reduce, sampleSize, pick, mapValues } = require('lodash')
+const { sampleSize, pick, mapValues } = require('lodash')
 
 const data = require('./src/containers/TrashPage/data/data.json')
 const cfg = require('./src/containers/TrashPage/data/cfg.json')
 const scale = require('./src/containers/TrashPage/data/scale.json')
 const getFormatedTrashes = require('./src/containers/TrashPage/data/getFormatedTrashes')
+const handleGatsbyImage = require('./src/utils/handleGatsbyImage')
+
+const getTrashes = (ids) => {
+  const trashes = getFormatedTrashes(data, scale, cfg)
+
+  const validTrashes = trashes.filter(d => d.id)
+  return ids ? ids.map(i => validTrashes[i]) : trashes
+}
 
 async function createTrashPage({ actions, graphql }) {
   const { createPage, createRedirect } = actions
   const component = path.resolve('./src/templates/trash.js')
-  const trashes = getFormatedTrashes(data, scale, cfg)
   const { data: { allFile } } = await graphql(
     `
       {
@@ -38,24 +45,9 @@ async function createTrashPage({ actions, graphql }) {
       }
     `
   )
+  const gatsbyImages = handleGatsbyImage(allFile)
 
-  const grouped = groupBy(allFile.edges, 'node.relativeDirectory')
-  const gatsbyImages = reduce(grouped, (f, files, group) => {
-    if (group) {
-      const name = group.replace(/(\d|\s)+/, '')
-      f[name] = {}
-      files.forEach(({ node }) => {
-        const [pn, partName] = node.name.split('-')
-        f[name][partName || pn] = node.childImageSharp
-      })
-    } else {
-      files.forEach(({ node }) => {
-        f[node.name] = { [node.name]: node.childImageSharp }
-      })
-    }
-    return f
-  }, {})
-
+  const trashes = getTrashes()
   return Promise.all(trashes.filter(d => d.id).map(async (d, _, allTrashes) => {
     if (d.id < 10) {
       await createRedirect({ fromPath: `trash/0${d.id}`, toPath: `trash/${d.id}`, isPermanent: true })
@@ -103,4 +95,29 @@ exports.createPages = async (gatsbyUtilities) => {
   // await createIndividualBlogPostPages({ posts, gatsbyUtilities })
   // await createBlogPostArchive({ posts, gatsbyUtilities })
   await createTrashPage(gatsbyUtilities)
+}
+
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+  if (page.path === '/' || page.path === '/en/') {
+    const trashes = getTrashes([
+      3,
+      55,
+      19,
+      34,
+      27,
+      17,
+    ])
+
+    deletePage(page)
+    // You can access the variable "house" in your page queries now
+    createPage({
+      ...page,
+      context: {
+        ...page.context,
+        trashes: JSON.stringify(trashes),
+        nameSearch: `/${trashes.map(t => t.name).join('|')}/`,
+      },
+    })
+  }
 }

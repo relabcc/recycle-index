@@ -4,11 +4,12 @@ import { StaticImage } from 'gatsby-plugin-image'
 import Box from '../Box'
 import Flex from '../Flex'
 import { responsive } from '../ThemeProvider/theme'
+import LazyLoad from '../LazyLoad'
 
 const sponsor = [
-  <StaticImage src="rc.svg" alt="RC文化基金會" placeholder="blurred" />,
-  <StaticImage src="foodpanda.svg" alt="Foodpanda" placeholder="blurred" />,
-  <StaticImage src="citi.svg" alt="花旗銀行" placeholder="blurred" />,
+  <StaticImage src="rc.svg" alt="RC文化基金會" placeholder="tracedSVG" />,
+  <StaticImage src="foodpanda.svg" alt="Foodpanda" placeholder="tracedSVG" />,
+  <StaticImage src="citi.svg" alt="花旗銀行" placeholder="tracedSVG" />,
 ]
 
 const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ...props }) => {
@@ -43,7 +44,9 @@ const Sponsor = ({ bg, textColor, bgColor, px, logoProps, fontSize, isFooter, ..
         <Flex justifyContent="center" flex={responsive('1', 'none')}>
           {sponsor.map((logo, k) => (
             <Box px={responsive('1em', '1.25em')} key={k} width={1 / 3} {...logoProps}>
-              {logo}
+              <LazyLoad ratio={363 / 210}>
+                {logo}
+              </LazyLoad>
             </Box>
           ))}
         </Flex>
