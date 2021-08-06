@@ -179,20 +179,20 @@ const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata 
   }, [isEn])
   // useReloadOnOrentation()
 
-  const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
-  const trashWidth = (isMobile ? (isIos ? 135 : 160) : 75) * (data.transform.scale ? (isMobile && data.transform.mobileScale ? data.transform.mobileScale : data.transform.scale) / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
-  const explosionGap = (isMobile ? 10 : 5) * (100 + (data.transform.gap || 0)) / 100
+  const colorScheme = useMemo(() => `colors.${colorsCfg[data.recycleValue]}`, [data.recycleValue])
+  const trashWidth = useMemo(() => (isMobile ? (isIos ? 135 : 160) : 75) * (data.transform.scale ? (isMobile && data.transform.mobileScale ? data.transform.mobileScale : data.transform.scale) / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0]))), [data.transform.mobileScale, data.transform.scale, data.xRange, isMobile])
+  const explosionGap = useMemo(() => (isMobile ? 10 : 5) * (100 + (data.transform.gap || 0)) / 100, [data.transform.gap, isMobile])
   const faceId = useMemo(() => data.transform.faceNo || (random(4) + 1), [data])
-  const endTransition = [
+  const endTransition = useMemo(() => [
     [0 + (data.transform.mobileX || 0), -50 + (data.transform.mobileY || 0)],
     [-trashSidePos + (data.transform.x || 0), -20 + (data.transform.y || 0)],
-  ]
-  const endPos = [containerWidth * 1, containerWidth * 0.25]
+  ], [data.transform.mobileX, data.transform.mobileY, data.transform.x, data.transform.y])
+  const endPos = useMemo(() => [containerWidth * 1, containerWidth * 0.25], [containerWidth])
   useShowHeader(colorScheme)
   // useLoader(data.img)
   const pageUrl = `${siteMetadata.siteUrl}/trash/${data.id}`
 
-  const n = `#${String(data.id).padStart(3, '0')}`
+  const n = useMemo(() => `#${String(data.id).padStart(3, '0')}`, [data.id])
   const parts = useMemo(() => {
     if (!data) return null
     return data.imgs.map(({ gatsbySrc, centeroid, x, width, partName, side }, i) => {
@@ -595,7 +595,6 @@ const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata 
   // console.log(data)
   return (
     <Wrapper height="100%">
-      {/* <GSAP ref={gsapRef} /> */}
       {useMemo(() => (
         <ReactFullpage
           sectionsColor={['', bgColor, 'white', 'white', bgColor]}
