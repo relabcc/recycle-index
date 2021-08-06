@@ -656,24 +656,22 @@ const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata 
         pointerEvents="none"
         pt={theme.headerHeight}
       >
-        <Container height="100%">
-          <Box.Relative height="100%">
-            <Box.Absolute
-              ref={trashRef}
-              id="trash-container"
-              top={responsive(`${45 + (data.transform.mobileFirstY || 0)}%`, `${50 + (data.transform.firstY || 0)}%`)}
-              width={`${trashWidth}%`}
-              left={`${(100 - trashWidth) / 2}%`}
-            >
-              <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible" ref={trashXRef}>
-                <div style={{ overflow: 'visible', width: '100%' }}>
-                  {parts}
-                  {(!inited || pageLoaded < 2) && <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />}
-                  <Face transform={data.transform.face} ref={faceRef} id={faceId} />
-                </div>
-              </AspectRatio>
-            </Box.Absolute>
-          </Box.Relative>
+        <Container position="relative" height="100%">
+          <Box.Absolute
+            ref={trashRef}
+            id="trash-container"
+            top={responsive(`${45 + (data.transform.mobileFirstY || 0)}%`, `${50 + (data.transform.firstY || 0)}%`)}
+            width={`${trashWidth}%`}
+            left={`${(100 - trashWidth) / 2}%`}
+          >
+            <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible" ref={trashXRef}>
+              <div style={{ overflow: 'visible', width: '100%' }} ref={trashXRef}>
+                {parts}
+                {(!inited || pageLoaded < 2) && <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />}
+                <Face transform={data.transform.face} ref={faceRef} id={faceId} />
+              </div>
+            </AspectRatio>
+          </Box.Absolute>
         </Container>
       </Box.Fixed>
       <Media greaterThan="mobile">
