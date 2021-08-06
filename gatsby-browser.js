@@ -8,7 +8,6 @@
 import React from 'react'
 import 'focus-visible'
 import 'fullpage.js/vendors/scrolloverflow'
-import { getLCP, getFID, getCLS } from 'web-vitals';
 
 import './webp'
 import wrapWithProvider from './with-provider';
@@ -37,6 +36,7 @@ export const onInitialClientRender = () => {
 }
 
 if (process.env.NODE_ENV === 'development') {
+  const { getLCP, getFID, getCLS } = require('web-vitals');
   getCLS(console.log);
   getFID(console.log);
   getLCP(console.log);

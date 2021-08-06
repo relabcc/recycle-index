@@ -16,7 +16,7 @@ export const wrapPageElement = ({ element, props }) => {
   return <Layout {...props}>{element}</Layout>
 }
 
-export const onRenderBody = ({ setHeadComponents }) => {
+export const onRenderBody = ({ setHeadComponents, setPostBodyComponents  }) => {
   const HeadComponents = [
     <link key="fonts.dns" rel="dns-prefetch" href="//fonts.googleapis.com" />,
     // <link key="fonts.googleapis" rel="preconnect" href="https://fonts.googleapis.com" />,
@@ -24,4 +24,9 @@ export const onRenderBody = ({ setHeadComponents }) => {
   ]
 
   setHeadComponents(HeadComponents)
+
+  const BodyComponents = [
+    <script key="bodymovin.cdn" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.12/lottie_light.min.js" integrity="sha512-z/Usjm8khSdtJkJlvYdEBJX5Q+MJjKIKkopb62CylWWKRID4yVorCCkAAqpYGX+j/Y1CwLUwTD/7beRZCfURIQ==" crossOrigin="anonymous" referrerPolicy="no-referrer" />,
+  ]
+  setPostBodyComponents(BodyComponents)
 }
