@@ -58,7 +58,7 @@ const PerTrash = ({ data }) => {
       <Box p={responsive('0.5em', '1em')}>
         <Box
           cursor="pointer"
-          onClick={() => data && navigate(`${isEn ? '/en' : ''}/trash/${data.id}`)}
+          onClick={() => data && navigate(`${isEn ? '/en' : ''}/trash/${data.id}/`)}
           width="100%"
           height="100%"
           bg="white"

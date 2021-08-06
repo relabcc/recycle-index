@@ -353,7 +353,7 @@ const HomePage = ({
           onLeave={(origin, destination) => {
             setPageLoaded((p) => Math.max(p, destination.index))
             if (destination.isLast) {
-              setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue`), scrollingDuration * 500)
+              setTimeout(() => navigate(`${isEn ? '/en' : ''}/catalogue/`), scrollingDuration * 500)
             }
             if (timeline) {
               timeline.tweenTo(destination.index * scrollingDuration, { duration: (destination.index === 3 ? 2 : 1) * scrollingDuration })
