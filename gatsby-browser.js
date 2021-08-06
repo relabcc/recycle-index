@@ -24,7 +24,7 @@ export const onInitialClientRender = () => {
   const fonts = [
     'Concert One',
     'Nunito Sans:600,700,900',
-    // 'Noto Sans TC:500,700,900',
+    'Noto Sans TC:500,700,900',
   ].join('|')
   const params = new URLSearchParams()
   params.append('family', fonts)

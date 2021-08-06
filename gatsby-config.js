@@ -29,21 +29,13 @@ module.exports = {
         path: `${__dirname}/src/containers/HomePage`,
       },
     },
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-TBZHKQZ",
-      },
-    },
     // {
-    //   resolve: 'gatsby-plugin-web-font-loader',
+    //   resolve: "gatsby-plugin-google-tagmanager",
     //   options: {
-    //     google: {
-    //       families: ['Concert One', 'Nunito Sans:600,700,900', 'Noto Sans TC:500,700,900']
-    //     }
-    //   }
+    //     id: "GTM-TBZHKQZ",
+    //   },
     // },
-    // {
+ // {
     //   resolve: `gatsby-source-wordpress`,
     //   options: {
     //     url:
