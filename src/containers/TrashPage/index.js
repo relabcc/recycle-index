@@ -153,7 +153,7 @@ const colorsCfg = {
 
 let cfgPoses = {}
 
-const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
+const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata } } }) => {
   const isEn = useIsEn()
   const [scrollProgress, setProgress] = useState()
   const windowSize = useWindowSize()
@@ -345,6 +345,7 @@ const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
       endPos,
       endTransition,
       faceId,
+      moreTrashes,
     })
   ]
   const pageCount = pages.length
@@ -602,16 +603,7 @@ const TrashPage = ({ trashData: data, data: { site: { siteMetadata } } }) => {
           scrollingSpeed={scrollingDuration * 1000}
           verticalCentered={false}
           onLeave={(origin, destination) => {
-            setPageLoaded((p) => {
-              const newPage = Math.max(p, destination.index)
-              if (newPage === 2) {
-                setTimeout(() => {
-                  const e = new Event('load-trash')
-                  document.getElementById('more-trashes').dispatchEvent(e)
-                })
-              }
-              return newPage
-            })
+            setPageLoaded((p) => Math.max(p, destination.index))
             theTimeline.tweenTo(destination.index * scrollingDuration, { duration: scrollingDuration })
             endTimeline.tweenTo(Math.max(destination.index - 3, 0) * scrollingDuration)
             if (progressTimer) {

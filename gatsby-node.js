@@ -1,5 +1,5 @@
 const path = require('path')
-const { groupBy, reduce } = require('lodash')
+const { groupBy, reduce, sampleSize, pick, mapValues } = require('lodash')
 
 const data = require('./src/containers/TrashPage/data/data.json')
 const cfg = require('./src/containers/TrashPage/data/cfg.json')
@@ -24,6 +24,12 @@ async function createTrashPage({ actions, graphql }) {
                   quality: 90
                   layout: FULL_WIDTH
                   breakpoints: [512, 1024, 1680]
+                )
+                regular: gatsbyImageData(
+                  placeholder: BLURRED
+                  quality: 90
+                  layout: FULL_WIDTH
+                  breakpoints: [256, 512]
                 )
               }
             }
@@ -50,10 +56,15 @@ async function createTrashPage({ actions, graphql }) {
     return f
   }, {})
 
-  return Promise.all(trashes.filter(d => d.id).map(async (d) => {
+  return Promise.all(trashes.filter(d => d.id).map(async (d, _, allTrashes) => {
     if (d.id < 10) {
       await createRedirect({ fromPath: `trash/0${d.id}`, toPath: `trash/${d.id}`, isPermanent: true })
     }
+    const readMore = sampleSize(allTrashes.filter(t => t.id !== d.id), 5).map(t => ({
+      ...t,
+      gatsbyImg: pick(gatsbyImages[t.name][t.name], ['regular']),
+    }))
+    const pickedImag = mapValues(gatsbyImages[d.name], imgs => pick(imgs, ['large']))
     await createPage({
       // will be the url for the page
       path: `trash/${d.id}`,
@@ -65,7 +76,8 @@ async function createTrashPage({ actions, graphql }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
-        gatsbyImg: JSON.stringify(gatsbyImages[d.name]),
+        gatsbyImg: JSON.stringify(pickedImag),
+        readMore: JSON.stringify(readMore),
       },
     })
     await createPage({
@@ -79,7 +91,8 @@ async function createTrashPage({ actions, graphql }) {
         id: d.id,
         name: d.name,
         rawData: JSON.stringify(d),
-        gatsbyImg: JSON.stringify(gatsbyImages[d.name]),
+        gatsbyImg: JSON.stringify(pickedImag),
+        readMore: JSON.stringify(readMore),
       },
     })
   }))

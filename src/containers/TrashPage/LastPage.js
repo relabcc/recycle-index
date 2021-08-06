@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { SizeMe } from 'react-sizeme';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
-import loadable from '@loadable/component'
+// import loadable from '@loadable/component'
 
 import Box from '../../components/Box'
 import Text from '../../components/Text'
@@ -18,10 +18,10 @@ import shareBgMobile from './share-bg-mobile.svg'
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import Handling from './Handling';
 // import MoreTrashes from './MoreTrashes';
+import PerTrash from '../CataloguePage/PerTrash';
 
-const paddingBox = <Box width="20%"><Box pt="100%" /></Box>
+// const paddingBox = <Box width="20%"><Box pt="100%" /></Box>
 // const Handling = loadable(() => import('./Handling'))
-const MoreTrashes = loadable(() => import('./MoreTrashes'), { fallback: paddingBox })
 
 const FinalTrash = ({
   windowSize,
@@ -34,12 +34,8 @@ const FinalTrash = ({
   endPos,
   endTransition,
   faceId,
+  moreTrashes,
 }) => {
-  const ref = useRef()
-  const [canLoad, setCanLoad] = useState(false)
-  useEffect(() => {
-    ref.current.addEventListener('load-trash', () => setCanLoad(true))
-  }, [])
   return (
     <>
       <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>
@@ -117,8 +113,14 @@ const FinalTrash = ({
         </Container>
         <Box overflow={responsive('scroll', 'hidden')} mr={responsive(0, '1.25em')} className="overflow-scroll" py="1em">
           <Box as={isMobile ? 'div' : Container}>
-            <Flex width={responsive('200vw', '100%')} id="more-trashes" ref={ref}>
-              {canLoad ? <MoreTrashes id={data.id} /> : paddingBox}
+            <Flex width={responsive('200vw', '100%')}>
+              {moreTrashes.map(d => (
+                <Box key={d.id} width="20%">
+                  <Box p="2%">
+                    <PerTrash data={d} />
+                  </Box>
+                </Box>
+              ))}
             </Flex>
           </Box>
         </Box>
