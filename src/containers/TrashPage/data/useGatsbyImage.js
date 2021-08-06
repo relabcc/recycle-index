@@ -13,8 +13,7 @@ const useGatsbyImage = () => {
             name
             childImageSharp {
               regular: gatsbyImageData(
-                placeholder: BLURRED
-                quality: 90
+                placeholder: TRACED_SVG
                 layout: FULL_WIDTH
                 breakpoints: [256, 512]
               )

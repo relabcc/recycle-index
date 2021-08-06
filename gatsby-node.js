@@ -27,14 +27,12 @@ async function createTrashPage({ actions, graphql }) {
               relativeDirectory
               childImageSharp {
                 large: gatsbyImageData(
-                  placeholder: BLURRED
-                  quality: 90
+                  placeholder: TRACED_SVG
                   layout: FULL_WIDTH
                   breakpoints: [512, 1024, 1680]
                 )
                 regular: gatsbyImageData(
-                  placeholder: BLURRED
-                  quality: 90
+                  placeholder: TRACED_SVG
                   layout: FULL_WIDTH
                   breakpoints: [256, 512]
                 )
