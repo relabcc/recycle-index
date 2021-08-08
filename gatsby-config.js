@@ -1,6 +1,7 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+const pathPrefix = 'recycle-index';
 
 module.exports = {
   siteMetadata: {
@@ -78,4 +79,5 @@ module.exports = {
     `gatsby-plugin-image`,
     // "gatsby-plugin-loadable-components-ssr",
   ],
+  pathPrefix,
 };

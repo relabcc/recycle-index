@@ -11,6 +11,7 @@
     "develop": "gatsby develop -H 0.0.0.0",
     "start": "gatsby develop -H 0.0.0.0",
     "build": "gatsby build",
+    "build:prefix": "gatsby build --prefix-paths",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "deploy": "node deploy"
