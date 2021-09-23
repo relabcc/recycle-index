@@ -268,7 +268,7 @@ const Result = ({ answers, questions, onReset, data: { site: { siteMetadata } } 
           <Flex flexDirection={responsive('column', 'row')} justifyContent="center" alignItems="center">
             <Text fontSize={responsive('1.25em', '1.5em')} fontWeight="700" letterSpacing="0.125em">想更深入認識每個垃圾嗎？</Text>
             <Button.Orange
-              to="/catalogue"
+              to="/catalogue/"
               my="1em"
               fontSize={responsive('1.25em', '1.5em')}
               mx="1em"

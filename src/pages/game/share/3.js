@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 
 const Game = ({ data }) => {
   useEffect(() => {
-    navigate('/game')
+    navigate('/game/')
   }, [])
   return (
     <>

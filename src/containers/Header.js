@@ -22,7 +22,7 @@ const links = [
   { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game/' },
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how/' },
   { name: '關於我們', en: 'About Us', to: '/about/' },
-  { name: '文章專區', en: 'Articles', href: 'https://relab.cc/recycle-index/blog/' },
+  { name: '文章專區', en: 'Articles', href: '/blog/' },
   { name: '課程申請', href: 'https://docs.google.com/forms/d/e/1FAIpQLSePuqu6i9Q0e2IoOih6RNOsBFwRrxo3lwrXI7MGikkdKsFYZg/viewform', hideEn: true, isExternal: true },
   { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true, hideEn: true, isExternal: true },
 ]
