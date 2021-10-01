@@ -72,11 +72,13 @@ const Catalogue = ({ data }) => {
   return (
     <Box bg="gray.100">
       <Box position="fixed" top={theme.headerHeight} left="0" right="0" bg="white" px={responsive('1em', '2em')} zIndex="dropdown">
-        <FilterAndSearch
-          onChange={handleChange}
-          setFieldValue={setFieldValue}
-          values={values}
-        />
+        {useMemo(() => (
+          <FilterAndSearch
+            onChange={handleChange}
+            setFieldValue={setFieldValue}
+            values={values}
+          />
+        ), [values])}
       </Box>
       <Flex pt={responsive('4em', '4.5em', '3.25em')} px={responsive('0.5em', '1.5em')} flexWrap="wrap">
         {(data ? filtered : range(101)).map((d, i) => (

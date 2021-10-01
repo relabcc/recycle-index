@@ -101,34 +101,36 @@ function RadioCard(props) {
   )
 }
 
+const FilterInput = ({ isMobile, isEn, value, onChange }) => (
+  <InputGroup ml={responsive(0, '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('1em', '0.75em')}>
+    <Input
+      lineHeight="2.25"
+      fontSize="1em"
+      placeholder={isEn ? `Insert Keyword${isMobile ? '' : ', e.g. Helmet'}` : `輸入垃圾關鍵字${isMobile ? '' : '，例如：水果網套'}`}
+      value={value}
+      name="search"
+      onChange={onChange}
+      borderRadius="0"
+      border="none"
+      borderBottom="2px solid black"
+      _hover={{
+        borderBottomColor: "black"
+      }}
+      _focus={{
+        borderBottomColor: "black"
+      }}
+      _active={{
+        borderBottomColor: "black"
+      }}
+    />
+    <InputRightElement width="2.5em" height="2.5em" fontSize="1em" px="0" children={<MdSearch size="1.5em" />} />
+  </InputGroup>
+)
+
 const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
   const isEn = useIsEn()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const FilterInput = ({ isMobile }) => (
-    <InputGroup ml={responsive(0, '1em')} width={responsive('auto', '15em')} flex={responsive('1', 'auto')} fontSize={responsive('1em', '0.75em')}>
-      <Input
-        lineHeight="2.25"
-        fontSize="1em"
-        placeholder={isEn ? `Insert Keyword${isMobile ? '' : ', e.g. Helmet'}` : `輸入垃圾關鍵字${isMobile ? '' : '，例如：水果網套'}`}
-        value={values.search}
-        name="search"
-        onChange={onChange}
-        borderRadius="0"
-        border="none"
-        borderBottom="2px solid black"
-        _hover={{
-          borderBottomColor: "black"
-        }}
-        _focus={{
-          borderBottomColor: "black"
-        }}
-        _active={{
-          borderBottomColor: "black"
-        }}
-      />
-      <InputRightElement width="2.5em" height="2.5em" fontSize="1em" px="0" children={<MdSearch size="1.5em" />} />
-    </InputGroup>
-  )
+
   return (
     <>
       <Media at="mobile">
@@ -140,7 +142,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
             onClick={onOpen}
             mr="1em"
           >篩選器</Button>
-          <FilterInput isMobile />
+          <FilterInput isEn={isEn} value={values.search} onChange={onChange} isMobile />
         </Flex>
         <Modal
           isOpen={isOpen}
@@ -239,7 +241,7 @@ const FilterAndSearch = ({ onChange, values, setFieldValue }) => {
               />
             </Box>
           ))}
-          <FilterInput />
+          <FilterInput isEn={isEn} value={values.search} onChange={onChange} />
         </Flex>
       </Media>
     </>
