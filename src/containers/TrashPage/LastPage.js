@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SizeMe } from 'react-sizeme';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 // import loadable from '@loadable/component'
@@ -36,9 +36,13 @@ const FinalTrash = ({
   faceId,
   moreTrashes,
 }) => {
+  const [loaded, setLoaded] = React.useState(false)
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
   return (
     <>
-      <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')}>
+      <Box as={isMobile ? 'div' : Container} px={responsive(0, '1.25em')} key={String(loaded)}>
         <Box width={responsive('100%', '50%')} mx="auto" pt={responsive('0', '5vh')}>
           <BackgroundImage src={isMobile ? shareBgMobile : shareBg} ratio={isMobile ? 750 / 574 : 1368 / 746} overflow="visible">
             <SizeMe>
