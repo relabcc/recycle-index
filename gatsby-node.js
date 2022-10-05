@@ -1,9 +1,9 @@
 const path = require('path')
 const { sampleSize, pick, mapValues } = require('lodash')
 
-const data = require('./src/containers/TrashPage/data/data.json')
-const cfg = require('./src/containers/TrashPage/data/cfg.json')
-const scale = require('./src/containers/TrashPage/data/scale.json')
+const data = require('./static/data/data.json')
+const cfg = require('./static/data/cfg.json')
+const scale = require('./static/data/scale.json')
 const getFormatedTrashes = require('./src/containers/TrashPage/data/getFormatedTrashes')
 const handleGatsbyImage = require('./src/utils/handleGatsbyImage')
 
