@@ -9,7 +9,6 @@ const withData = SubComp => props => {
   const srcData = useMemo(() => JSON.parse(rawData), [rawData])
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg])
   const moreTrashes = useMemo(() => JSON.parse(readMore), [readMore])
-  // const allData = useData()
   const data = useMemo(() => {
     // if (!allData) return null
     // const index = id * 1

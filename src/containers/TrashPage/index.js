@@ -664,7 +664,7 @@ const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata 
             width={`${trashWidth}%`}
             left={`${(100 - trashWidth) / 2}%`}
           >
-            <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible" ref={trashXRef}>
+            <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible">
               <div style={{ overflow: 'visible', width: '100%' }} ref={trashXRef}>
                 {parts}
                 {(!inited || pageLoaded < 2) && <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />}

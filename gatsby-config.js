@@ -8,6 +8,7 @@ module.exports = {
     siteUrl: "https://recycle.rethinktw.org",
     title: "回收大百科",
     titleEn: "Recycle Index",
+    version: Math.floor(Date.now() / 1000),
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -27,12 +28,12 @@ module.exports = {
         path: `${__dirname}/src/containers/HomePage`,
       },
     },
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-TBZHKQZ",
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-google-tagmanager",
+    //   options: {
+    //     id: "GTM-TBZHKQZ",
+    //   },
+    // },
     // {
     //   resolve: `gatsby-source-wordpress`,
     //   options: {
