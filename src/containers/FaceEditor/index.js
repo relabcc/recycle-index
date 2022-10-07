@@ -1,103 +1,158 @@
-import React, { Fragment, useMemo } from 'react'
-import { AspectRatio, Input, useClipboard, Select, Stack, IconButton } from '@chakra-ui/react'
-import { get, random, range } from 'lodash'
-import { SizeMe } from 'react-sizeme';
-import { useHistory } from 'react-router-dom';
-import ReactSelect from 'react-select'
-import { useFormik } from 'formik';
-import { MdRefresh } from 'react-icons/md';
+import React, { Fragment, useMemo } from "react";
+import {
+  AspectRatio,
+  Input,
+  useClipboard,
+  Select,
+  Stack,
+  IconButton,
+} from "@chakra-ui/react";
+import { get, random, range } from "lodash";
+import { SizeMe } from "react-sizeme";
+import ReactSelect from "react-select";
+import { useFormik } from "formik";
+import { MdRefresh } from "react-icons/md";
+import { navigate } from "gatsby";
+import { css } from '@emotion/react';
+import { GatsbyImage } from "gatsby-plugin-image";
 
-import Box from '../../components/Box'
-import Text from '../../components/Text'
-import Flex from '../../components/Flex'
-import Button from '../../components/Button'
-import Container from '../../components/Container'
-import BackgroundImage from '../../components/BackgroundImage'
-import Face from '../Face';
+import Box from "../../components/Box";
+import Text from "../../components/Text";
+import Flex from "../../components/Flex";
+import Button from "../../components/Button";
+import Container from "../../components/Container";
+import BackgroundImage from "../../components/BackgroundImage";
+import Face from "../Face";
 
-import theme, { responsive } from '../../components/ThemeProvider/theme';
-import useLoader from '../../utils/useLoader';
-import withData from '../TrashPage/data/withData';
-import imgSize from '../TrashPage/data/imgSize';
+import theme, { responsive } from "../../components/ThemeProvider/theme";
+import useLoader from "../../utils/useLoader";
+import withData from "../TrashPage/data/withData";
+import imgSize from "../TrashPage/data/imgSize";
+import useAllTrashes from "../TrashPage/data/useAllTrashes";
 
-const idealWidth = 200
+const idealWidth = 200;
 
 const colorsCfg = {
-  A: 'green',
-  B: 'orange',
-  C: 'pink',
-}
+  A: "green",
+  B: "orange",
+  C: "pink",
+};
 
 const fields = [
-  { name: 'translate', label: '位移', children: ['x', 'y'], unit: '%', min: -100, max: 100 },
-  { name: 'skew', label: '扭曲', children: ['x', 'y'], unit: 'deg', min: -90, max: 90 },
-  { name: 'rotate', label: '旋轉', unit: 'deg', min: -180, max: 180 },
-  { name: 'scale', label: '縮放', unit: '', min: 0, max: 3, step: 0.1 },
-]
+  {
+    name: "translate",
+    label: "位移",
+    children: ["x", "y"],
+    unit: "%",
+    min: -100,
+    max: 100,
+  },
+  {
+    name: "skew",
+    label: "扭曲",
+    children: ["x", "y"],
+    unit: "deg",
+    min: -90,
+    max: 90,
+  },
+  { name: "rotate", label: "旋轉", unit: "deg", min: -180, max: 180 },
+  { name: "scale", label: "縮放", unit: "", min: 0, max: 3, step: 0.1 },
+];
 
 const defaultValues = {
   translate: { x: 0, y: 0 },
   rotate: 0,
   scale: 1,
   skew: { x: 0, y: 0 },
-}
+};
 const SliderWithReset = ({ onReset, ...props }) => (
   <Flex>
     <input type="range" {...props} />
-    <IconButton ml="4" variant="ghost" size="xs" onClick={onReset} icon={<MdRefresh />} />
+    <IconButton
+      ml="4"
+      variant="ghost"
+      size="xs"
+      onClick={onReset}
+      icon={<MdRefresh />}
+    />
   </Flex>
-)
+);
 
-const FaceEditor = ({ data, allData }) => {
-  const history = useHistory()
+const FaceEditor = ({ trashData: data }) => {
+  const allData = useAllTrashes();
+
   const lastConfig = useMemo(() => {
-    if (!data.transform.face) return {}
-    const pttn = /(\w+)\(([^)]+)\)/g
-    const getNumber = /-?\d+(\.\d)*/g
-    const obj = {}
-    let pair
-    while (pair = pttn.exec(data.transform.face)) {
-      const [, name, cfg] = pair
-      const cfgs = []
-      let res
-      while (res = getNumber.exec(cfg)) {
-        cfgs.push(res)
+    if (!data.transform.face) return {};
+    const pttn = /(\w+)\(([^)]+)\)/g;
+    const getNumber = /-?\d+(\.\d)*/g;
+    const obj = {};
+    let pair;
+    while ((pair = pttn.exec(data.transform.face))) {
+      const [, name, cfg] = pair;
+      const cfgs = [];
+      let res;
+      while ((res = getNumber.exec(cfg))) {
+        cfgs.push(res);
       }
       if (cfgs.length > 1) {
         obj[name] = {
           x: cfgs[0][0],
           y: cfgs[1][0],
-        }
+        };
       } else {
-        obj[name] = cfgs[0][0]
+        obj[name] = cfgs[0][0];
       }
     }
-    return obj
-  }, [data.transform.face])
+    return obj;
+  }, [data.transform.face]);
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       faceId: data.transform.faceNo || random(4) + 1,
       ...Object.assign({}, defaultValues, lastConfig),
     },
-  })
-  const transformString = useMemo(() => fields.reduce((str, f) => `${str} ${f.name}(${f.children ? ['x', 'y'].map(d => `${values[f.name][d]}${f.unit}`).join() : `${values[f.name]}${f.unit}`})`, ''), [values])
-  const colorScheme = `colors.${colorsCfg[data.recycleValue]}`
-  const trashWidth = 75 * (data.transform.scale ? data.transform.scale / 100 : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])))
-  const { hasCopied, onCopy } = useClipboard(transformString)
+  });
+  const transformString = useMemo(
+    () =>
+      fields.reduce(
+        (str, f) =>
+          `${str} ${f.name}(${
+            f.children
+              ? ["x", "y"].map((d) => `${values[f.name][d]}${f.unit}`).join()
+              : `${values[f.name]}${f.unit}`
+          })`,
+        ""
+      ),
+    [values]
+  );
+  const colorScheme = `colors.${colorsCfg[data.recycleValue]}`;
+  const trashWidth =
+    75 *
+    (data.transform.scale
+      ? data.transform.scale / 100
+      : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])));
+  const { hasCopied, onCopy } = useClipboard(transformString);
 
-  useLoader(data.img)
+  // useLoader(data.gatsbyImg);
 
-  const n = `#${String(data.id).padStart(3, '0')}`
+  const n = `#${String(data.id).padStart(3, "0")}`;
   // const bgColor = get(theme, `colors.${colorScheme}`)
-  const parts = useMemo(() => {
-    if (!data) return null
-    return data.imgs.map(({ src }, i) => (
-      <Box.FullAbs key={i}>
-        <BackgroundImage ratio={imgSize[0] / imgSize[1]} src={src} />
-      </Box.FullAbs>
-  ))
-  }, [data])
-  const options = useMemo(() => allData.filter(d => d.img).map(d => ({ label: d.name, value: d.id })), [allData])
+  // const parts = useMemo(() => {
+  //   if (!data) return null;
+  //   return data.imgs.map(({ gatsbySrc }, i) => (
+  //     <Box.FullAbs key={i}>
+  //       <AspectRatio ratio={imgSize[0] / imgSize[1]}>
+  //         <GatsbyImage image={gatsbySrc} />
+  //       </AspectRatio>
+  //     </Box.FullAbs>
+  //   ));
+  // }, [data]);
+  const options = useMemo(
+    () =>
+      allData
+        ?.filter((d) => d.gatsbyImg)
+        .map((d) => ({ label: d.name, value: d.id })),
+    [allData]
+  );
   return (
     <Box width="100%" height="100vh" pt={theme.headerHeight}>
       <Box.Relative height="100%" overflow="hidden">
@@ -108,15 +163,29 @@ const FaceEditor = ({ data, allData }) => {
               textStrokeColor={`colors.${colorScheme}`}
               color="white"
               fontSize="6.25em"
-            >{n}</Text.Number>
+            >
+              {n}
+            </Text.Number>
           </Box.Absolute>
-          <Box.AbsCenter top={responsive('25%', '40%')} width="100%" textAlign="center" transform="rotate(-12deg)">
+          <Box.AbsCenter
+            top={responsive("25%", "40%")}
+            width="100%"
+            textAlign="center"
+            transform="rotate(-12deg)"
+          >
             <SizeMe>
               {({ size }) => (
                 <Text
                   as="h2"
                   color={colorScheme}
-                  fontSize={size.width ? `${Math.min(Math.floor(size.width / (data.name.length + 1)), size.width / 3.5)}px` : 0}
+                  fontSize={
+                    size.width
+                      ? `${Math.min(
+                          Math.floor(size.width / (data.name.length + 1)),
+                          size.width / 3.5
+                        )}px`
+                      : 0
+                  }
                   fontWeight="900"
                 >
                   {data.name}
@@ -125,35 +194,83 @@ const FaceEditor = ({ data, allData }) => {
             </SizeMe>
           </Box.AbsCenter>
         </Container>
-        <Box.Absolute right="0" top="0" bottom="0" width="20em" borderLeft="2px solid black" bg="rgba(255,255,255,0.8)" p="1em" overflow="auto">
+        <Box.Absolute
+          right="0"
+          top="0"
+          bottom="0"
+          width="20em"
+          borderLeft="2px solid black"
+          bg="rgba(255,255,255,0.8)"
+          p="1em"
+          overflow="auto"
+        >
           <Stack fontSize="16px" spacing="6">
             <Box>
               <Box>Face No.</Box>
-              <Select fontSize="1em" height="2.5em" name="faceId" value={values.faceId} onChange={handleChange}>
-                {range(5).map(n => (
-                  <option key={n} value={n + 1}>{n + 1}</option>
+              <Select
+                fontSize="1em"
+                height="2.5em"
+                name="faceId"
+                value={values.faceId}
+                onChange={handleChange}
+              >
+                {range(5).map((n) => (
+                  <option key={n} value={n + 1}>
+                    {n + 1}
+                  </option>
                 ))}
               </Select>
             </Box>
             <Box>
               <Box>把結果貼回Google Sheet</Box>
               <Flex>
-                <Input px="1em" height="2.5em" fontSize="1em" readOnly value={transformString} />
+                <Input
+                  px="1em"
+                  height="2.5em"
+                  fontSize="1em"
+                  readOnly
+                  value={transformString}
+                />
                 <Button onClick={onCopy} ml={2} fontSize="1.25em">
                   {hasCopied ? "已複製" : "複製"}
                 </Button>
               </Flex>
             </Box>
-            {fields.map(field => (
+            {fields.map((field) => (
               <Box key={field.name}>
                 <Box>{field.label}</Box>
-                {field.children ? field.children.map(c => (
-                  <Fragment key={c}>
-                    <Box>{c}: </Box>
-                    <SliderWithReset onReset={() => setFieldValue(`${field.name}.${c}`, get(defaultValues, `${field.name}.${c}`))} name={`${field.name}.${c}`} min={field.min} max={field.max} step={field.step} value={values[field.name][c]} onChange={handleChange} />
-                  </Fragment>
-                )) : (
-                  <SliderWithReset onReset={() => setFieldValue(field.name, defaultValues[field.name])} name={field.name} min={field.min} max={field.max} step={field.step} value={values[field.name]} onChange={handleChange} />
+                {field.children ? (
+                  field.children.map((c) => (
+                    <Fragment key={c}>
+                      <Box>{c}: </Box>
+                      <SliderWithReset
+                        onReset={() =>
+                          setFieldValue(
+                            `${field.name}.${c}`,
+                            get(defaultValues, `${field.name}.${c}`)
+                          )
+                        }
+                        name={`${field.name}.${c}`}
+                        min={field.min}
+                        max={field.max}
+                        step={field.step}
+                        value={values[field.name][c]}
+                        onChange={handleChange}
+                      />
+                    </Fragment>
+                  ))
+                ) : (
+                  <SliderWithReset
+                    onReset={() =>
+                      setFieldValue(field.name, defaultValues[field.name])
+                    }
+                    name={field.name}
+                    min={field.min}
+                    max={field.max}
+                    step={field.step}
+                    value={values[field.name]}
+                    onChange={handleChange}
+                  />
                 )}
               </Box>
             ))}
@@ -171,15 +288,22 @@ const FaceEditor = ({ data, allData }) => {
             <Box.Absolute
               id="trash-container"
               width={responsive(`${trashWidth * 2}%`, `${trashWidth}%`)}
-              left={responsive(`${(100 - trashWidth * 2) / 2}%`, `${(100 - trashWidth) / 2}%`)}
-              top={responsive('45%', '50%')}
+              left={responsive(
+                `${(100 - trashWidth * 2) / 2}%`,
+                `${(100 - trashWidth) / 2}%`
+              )}
+              top={responsive("45%", "50%")}
               transform="translate3d(0, -50%, 0)"
             >
               <div>
                 <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible">
                   <Box overflow="visible">
-                    {parts}
-                    <Face key={values.faceId} id={values.faceId} transform={transformString} />
+                  <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />
+                    <Face
+                      key={values.faceId}
+                      id={values.faceId}
+                      transform={transformString}
+                    />
                   </Box>
                 </AspectRatio>
               </div>
@@ -188,13 +312,15 @@ const FaceEditor = ({ data, allData }) => {
         </Box.Absolute>
       </Box.Relative>
       <Box.Absolute top="0.75em" left="1em" right="1em">
-        <ReactSelect
-          onChange={selected => history.push(`/trash/${selected.value}/face`)}
-          options={options}
-        />
+        {options && (
+          <ReactSelect
+            onChange={(selected) => navigate(`/trash/${selected.value}/face`)}
+            options={options}
+          />
+        )}
       </Box.Absolute>
     </Box>
-  )
-}
+  );
+};
 
-export default withData(FaceEditor)
+export default withData(FaceEditor);

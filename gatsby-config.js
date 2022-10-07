@@ -1,11 +1,11 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
-const pathPrefix = 'recycle-index';
+});
+const pathPrefix = "recycle-index";
 
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://recycle.rethinktw.org',
+    siteUrl: "https://recycle.rethinktw.org",
     title: "回收大百科",
     titleEn: "Recycle Index",
   },

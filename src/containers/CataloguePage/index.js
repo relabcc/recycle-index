@@ -10,7 +10,6 @@ import FullpageLoading from '../../components/FullpageLoading';
 const Catalogue = () => {
   useShowHeader('colors.yellow')
   const data = useAllTrashes()
-  console.log(data)
   return (
     <>
       <Fullpage mt="0">

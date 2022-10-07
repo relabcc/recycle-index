@@ -17,6 +17,7 @@ const getTrashes = (ids) => {
 async function createTrashPage({ actions, graphql }) {
   const { createPage, createRedirect } = actions
   const component = path.resolve('./src/templates/trash.js')
+  const faceEditor = path.resolve('./src/containers/FaceEditor/index.js')
   const { data: { allFile } } = await graphql(
     `
       {
@@ -60,6 +61,21 @@ async function createTrashPage({ actions, graphql }) {
       path: `trash/${d.id}`,
       // specify the component template of your choice
       component,
+      // In the ^template's GraphQL query, 'id' will be available
+      // as a GraphQL variable to query for this posts's data.
+      context: {
+        id: d.id,
+        name: d.name,
+        rawData: JSON.stringify(d),
+        gatsbyImg: JSON.stringify(pickedImag),
+        readMore: JSON.stringify(readMore),
+      },
+    })
+    await createPage({
+      // will be the url for the page
+      path: `trash/${d.id}/face`,
+      // specify the component template of your choice
+      component: faceEditor,
       // In the ^template's GraphQL query, 'id' will be available
       // as a GraphQL variable to query for this posts's data.
       context: {
