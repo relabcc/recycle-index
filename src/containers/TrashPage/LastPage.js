@@ -19,6 +19,7 @@ import theme, { responsive } from '../../components/ThemeProvider/theme';
 import Handling from './Handling';
 // import MoreTrashes from './MoreTrashes';
 import PerTrash from '../CataloguePage/PerTrash';
+import SponsorNote from './SponsorNote';
 
 // const paddingBox = <Box width="20%"><Box pt="100%" /></Box>
 // const Handling = loadable(() => import('./Handling'))
@@ -107,6 +108,9 @@ const FinalTrash = ({
         </Container>
       </Box>
       <Box bg="white" py="1.25em" position="relative" zIndex={1}>
+        {data.sponsor && (
+          <SponsorNote sponsor={data.sponsor} />
+        )}
         <Container>
           <Flex mt={responsive('0.5em', '0.25em')}>
             <Box width="1.75em" mr="0.5em">

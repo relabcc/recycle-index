@@ -37,6 +37,7 @@ import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
 import LastPage from './LastPage';
 import TrashTitle from './TrashTitle';
+import ReLink from '../../components/Link';
 // const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import('./Hashtag'))
 const ScrollIndicator = loadable(() => import('./ScrollIndicator'))
@@ -88,9 +89,24 @@ const TrashDescription = (props) => (
   </Box.Absolute>
 )
 
-const TrashValue = (props) => (
+const TrashAdditional = ({ data, bg }) => {
+  const [text, url] = useMemo(() => {
+    const pttn = /([^[]+)\[([^\]]+)]/.exec(data)
+    return pttn ? [pttn[1], pttn[2]] : []
+  }, [data])
+  return text ? (
+    <Box mt="2">
+      <ReLink color={bg} bg="white" href={url} p="1">
+        {text}
+      </ReLink>
+    </Box>
+  ) : null
+}
+
+const TrashValue = ({ additional, bg, ...props }) => (
   <Box.Absolute bottom={responsive('12%', '10%')} right={responsive('10%', '8em')} width={responsive('80%', '25%')}>
     <Text lineHeight="1.75" letterSpacing="0.075em" textAlign="justify" fontSize={responsive('1em', '1em')} fontWeight="700" {...props} />
+    {additional ? <TrashAdditional bg={bg} data={additional} /> : null}
   </Box.Absolute>
 )
 
@@ -300,7 +316,7 @@ const TrashPage = ({ trashData: data, moreTrashes, data: { site: { siteMetadata 
         <Box.Absolute top={responsive('5%', '10%')} width={responsive('86%', '50%')} left={responsive('7%', 0)}>
           <Hashtag color={colorScheme}>{data.recycleValue}</Hashtag>
         </Box.Absolute>
-        <TrashValue color="white">
+        <TrashValue color="white" bg={colorScheme} additional={data.additional}>
           {gradeData[data.recycleValue]}
         </TrashValue>
         <TrashNumber>{n}</TrashNumber>

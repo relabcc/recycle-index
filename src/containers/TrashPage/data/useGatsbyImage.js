@@ -1,6 +1,6 @@
-import { groupBy, reduce } from "lodash"
-import { useMemo } from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { groupBy, reduce } from "lodash";
+import { useMemo } from "react";
+import { useStaticQuery, graphql } from "gatsby";
 
 // const trashBreakpoins = [256, 320, 512]
 
@@ -24,25 +24,31 @@ const useGatsbyImage = () => {
         }
       }
     }
-  `)
+  `);
   return useMemo(() => {
-    const grouped = groupBy(allFile.edges, 'node.relativeDirectory')
-    return reduce(grouped, (f, files, group) => {
-      if (group) {
-        const name = group.replace(/(\d|\s)+/, '')
-        f[name] = {}
-        files.forEach(({ node }) => {
-          const [pn, partName] = node.name.split('-')
-          f[name][partName || pn] = node.childImageSharp
-        })
-      } else {
-        files.forEach(({ node }) => {
-          f[node.name] = { [node.name]: node.childImageSharp }
-        })
-      }
-      return f
-    }, {})
-  }, [allFile])
-}
+    const grouped = groupBy(allFile.edges, "node.relativeDirectory");
+    return reduce(
+      grouped,
+      (f, files, group) => {
+        if (group) {
+          const name = decodeURIComponent(group).replace(/(\d|\s)+/, "");
+          f[name] = {};
+          files.forEach(({ node }) => {
+            const nodeName = decodeURIComponent(node.name);
+            const [pn, partName] = nodeName.split("-");
+            f[name][partName || pn] = node.childImageSharp;
+          });
+        } else {
+          files.forEach(({ node }) => {
+            const nodeName = decodeURIComponent(node.name);
+            f[nodeName] = { [nodeName]: node.childImageSharp };
+          });
+        }
+        return f;
+      },
+      {}
+    );
+  }, [allFile]);
+};
 
-export default useGatsbyImage
+export default useGatsbyImage;

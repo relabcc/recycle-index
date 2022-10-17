@@ -3,3 +3,5 @@ node_modules/
 public
 .wordpress-cache
 loadable-stats-build-javascript.json
+
+.DS_Store

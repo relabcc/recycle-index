@@ -31,6 +31,8 @@ const dataKeys = {
   '材質備註': 'partsNote',
   '處理步驟備註': 'recycleNote',
   '使用建議（替代方案）': 'alternative',
+  '贊助商': 'sponsor',
+  '補充說明': 'additional',
 }
 
 const lineParser = d => {
