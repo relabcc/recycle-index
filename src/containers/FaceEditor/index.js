@@ -321,7 +321,7 @@ const FaceEditor = ({ data, allData }) => {
 
 const FaceEditorWithData = (props) => {
   const {
-    pageContext: { id, rawData, gatsbyImg },
+    pageContext: { id, gatsbyImg },
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
