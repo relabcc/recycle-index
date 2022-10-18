@@ -2223,28 +2223,33 @@
   },
   {
     "name": "鋁製膠囊咖啡",
-    "scale": 60,
+    "scale": 75,
     "x": -15,
     "homeScale": 160
   },
   {
     "name": "塑膠醬料盒",
+    "scale": 80,
     "homeScale": 130
   },
   {
     "name": "紙餐盒加蓋",
+    "scale": 65,
     "homeScale": 150
   },
   {
     "name": "植物纖維餐盒",
+    "scale": 70,
     "homeScale": 150
   },
   {
     "name": "速食紙餐盒",
+    "scale": 60,
     "homeScale": 150
   },
   {
     "name": "塑膠飲料底座/杯架",
+    "scale": 50,
     "homeScale": 120
   },
   {
@@ -2253,14 +2258,17 @@
   },
   {
     "name": "木片餐盒",
+    "scale": 70,
     "homeScale": 150
   },
   {
     "name": "鋁箔餐盒",
+    "scale": 70,
     "homeScale": 130
   },
   {
     "name": "漢堡紙/三明治紙",
+    "scale": 60,
     "homeScale": 150
   }
 ]

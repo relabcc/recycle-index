@@ -21,14 +21,12 @@ import Text from "../../components/Text";
 import Flex from "../../components/Flex";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
-import BackgroundImage from "../../components/BackgroundImage";
 import Face from "../Face";
 
 import theme, { responsive } from "../../components/ThemeProvider/theme";
-import useLoader from "../../utils/useLoader";
-import withData from "../TrashPage/data/withData";
 import imgSize from "../TrashPage/data/imgSize";
 import useAllTrashes from "../TrashPage/data/useAllTrashes";
+import useTrashData from "../TrashPage/data/useTrashData";
 
 const idealWidth = 200;
 
@@ -78,9 +76,7 @@ const SliderWithReset = ({ onReset, ...props }) => (
   </Flex>
 );
 
-const FaceEditor = ({ trashData: data }) => {
-  const allData = useAllTrashes();
-
+const FaceEditor = ({ data, allData }) => {
   const lastConfig = useMemo(() => {
     if (!data.transform.face) return {};
     const pttn = /(\w+)\(([^)]+)\)/g;
@@ -323,4 +319,15 @@ const FaceEditor = ({ trashData: data }) => {
   );
 };
 
-export default withData(FaceEditor);
+const FaceEditorWithData = (props) => {
+  const {
+    pageContext: { id, rawData, gatsbyImg },
+  } = props;
+  const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
+  const allData = useAllTrashes();
+  const srcData = useMemo(() => allData?.find(d => d.id === id), [allData, id]);
+  const data = useTrashData(srcData, gatsbyImages);
+  return data ? <FaceEditor data={data} allData={allData} /> : null
+}
+
+export default FaceEditorWithData;

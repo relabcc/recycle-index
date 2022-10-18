@@ -96,7 +96,7 @@ const TrashAdditional = ({ data, bg }) => {
   }, [data])
   return text ? (
     <Box mt="2">
-      <ReLink color={bg} bg="white" href={url} p="1">
+      <ReLink color={bg} bg="white" href={url} p="1" isExternal>
         {text}
       </ReLink>
     </Box>
