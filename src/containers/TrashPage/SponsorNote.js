@@ -1,9 +1,14 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { StaticImage } from "gatsby-plugin-image";
 import React from "react";
 import BackgroundImage from "../../components/BackgroundImage";
 import Container from "../../components/Container";
 import { responsive } from "../../components/ThemeProvider/theme";
+
+const links = {
+  Nespresso: "https://www.nespresso.com/tw/zh/home",
+  foodpanda: "https://www.foodpanda.com.tw/",
+};
 
 const logos = {
   Nespresso: require("./sponsors/Nespresso.svg").default,
@@ -38,12 +43,14 @@ const SponsorNote = ({ sponsor }) => {
               本回收品項頁面由 {sponsor} 贊助，支持 RE-THINK 推動回收教育
             </Text>
             <Box flex="1" px="4" py="2">
-              <BackgroundImage
-                width="15em"
-                src={logos[sponsor]}
-                ratio={400 / 120}
-                ml="auto"
-              />
+              <Link href={links[sponsor]} isExternal>
+                <BackgroundImage
+                  width="15em"
+                  src={logos[sponsor]}
+                  ratio={400 / 120}
+                  ml="auto"
+                />
+              </Link>
             </Box>
           </Flex>
         </Box>
