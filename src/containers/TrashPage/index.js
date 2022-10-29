@@ -73,6 +73,12 @@ const Wrapper = styled.div`
   }
   .section {
     height: 100%;
+    & > div {
+      height: 100%;
+    }
+  }
+  .fp-is-overflow > .fp-overflow {
+    overflow-x: hidden;
   }
 `;
 
@@ -674,10 +680,13 @@ const TrashPage = ({
 
         if (/^@/.test(data.belongsTo[cfg.partName])) {
           const attachName = data.belongsTo[cfg.partName].substring(1);
-          const offset =
-            posByPartName[attachName].replace("%", "") -
-            poses[i].replace("%", "");
-          combineParts[cfg.order] = [attachName, offset];
+          console.log(attachName);
+          if (posByPartName[attachName]) {
+            const offset =
+              posByPartName[attachName].replace("%", "") -
+              poses[i].replace("%", "");
+            combineParts[cfg.order] = [attachName, offset];
+          }
         }
       }
       theTimeline.to(
@@ -864,6 +873,10 @@ const TrashPage = ({
       },
       scrollingDuration * 3
     );
+    const scale =
+      (isMobile && data.transform.mobileShareScale
+        ? data.transform.mobileShareScale
+        : data.transform.shareScale) / 100;
     endTimeline
       .to(
         trashXRef.current,
@@ -871,11 +884,7 @@ const TrashPage = ({
           duration: scrollingDuration,
           x: `${endTransition[isMobile ? 0 : 1][0]}%`,
           y: `${endTransition[isMobile ? 0 : 1][1]}%`,
-          scale: data.transform.shareScale
-            ? (isMobile && data.transform.mobileShareScale
-                ? data.transform.mobileShareScale
-                : data.transform.shareScale) / 100
-            : 1,
+          scale: scale || 1,
         },
         0
       )

@@ -1,9 +1,8 @@
-const parse = require('csv-parse')
 const fs = require('fs')
 const fse = require('fs-extra')
 const Rematrix = require('rematrix')
 
-const { fromPairs, zip, get, mapValues, mapKeys, reduce, isArray } = require('lodash')
+const { fromPairs, zip, get, mapValues, mapKeys, isArray } = require('lodash')
 const path = require('path')
 const util = require('util')
 const { registerFont, createCanvas, loadImage } = require('canvas');
@@ -50,13 +49,6 @@ const remapKeys = (data, keyMap) => data.map((dd, id) => ({
 }))
 
 const readfile = util.promisify(fs.readFile)
-
-const parseTsv = tsv => util.promisify(parse)(tsv, {
-  delimiter: '\t'
-}).then(values => {
-  const header = values.shift()
-  return values.map(v => fromPairs(zip(header, v)));
-})
 
 const parseTransform = (transform) => {
   const pttn = /(\w+)\(([^)]+)\)/g
@@ -147,7 +139,7 @@ const getFaceImage = async data => {
     faceTransform[12],
     faceTransform[13],
   ]
-  
+
   // ctx.translate(imgSize[0] / 2, imgSize[1] / 2)
   ctx.transform(...matrix)
   // ctx.translate(...faceTransform.translate)
@@ -239,7 +231,7 @@ const createOg = async (data) => {
       const savePng = fs.createWriteStream(path.resolve(dirName, 'share.png'))
       canvas.pngStream()
         .pipe(savePng)
-  
+
       savePng.on('close', resolve)
     }),
     writeFile(path.resolve(dirName, 'index.html'), getHtml(data.id)),
@@ -247,7 +239,7 @@ const createOg = async (data) => {
 }
 
 Promise.all(['scale', 'data']
-  .map(n => readfile(path.resolve(__dirname, `src/containers/TrashPage/data/${n}.tsv`)).then(parseTsv))
+  .map(n => readfile(path.resolve(__dirname, `static/data/${n}.json`)))
 ).then(([scale, data]) => {
   const scales = scale.reduce((all, d) => {
     all[d.name] = d

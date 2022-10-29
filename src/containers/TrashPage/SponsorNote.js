@@ -11,8 +11,13 @@ const links = {
 };
 
 const logos = {
-  Nespresso: require("./sponsors/Nespresso.svg").default,
-  foodpanda: require("./sponsors/foodpanda.svg").default,
+  Nespresso: <StaticImage placeholder="tracedSVG" src="sponsors/Nespresso_logo.png" />,
+  foodpanda: (
+    <BackgroundImage
+      src={require("./sponsors/foodpanda.svg").default}
+      ratio={400 / 120}
+    />
+  ),
 };
 
 const SponsorNote = ({ sponsor }) => {
@@ -44,12 +49,9 @@ const SponsorNote = ({ sponsor }) => {
             </Text>
             <Box flex="1" px="4" py="2">
               <Link href={links[sponsor]} isExternal>
-                <BackgroundImage
-                  width="15em"
-                  src={logos[sponsor]}
-                  ratio={400 / 120}
-                  ml="auto"
-                />
+                <Box width="15em" ml="auto">
+                  {logos[sponsor]}
+                </Box>
               </Link>
             </Box>
           </Flex>

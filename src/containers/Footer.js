@@ -44,7 +44,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             <Box borderLeft="1px solid black" />
             <Link isExternal href="https://renato-lab.com/">REnato lab 官網</Link>
             <Box borderLeft="1px solid black" />
-            <Link isExternal href="https://relab.cc/">Re-lab 官網</Link>
+            <Link isExternal href="https://relab.cc/">RE:LAB 官網</Link>
           </Stack>
           <Flex justifyContent="center" py="1em">
             <Box fontWeight="300">Copyright © {new Date().getFullYear()} 回收大百科團隊</Box>
