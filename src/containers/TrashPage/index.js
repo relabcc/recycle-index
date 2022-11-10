@@ -578,7 +578,7 @@ const TrashPage = ({
           containerWidth) *
           100
       ),
-      isMobile ? data.transform.explosionScale || 100 : 50
+      isMobile ? data.transform.explosionScale || 100 : data.transform.deskExplosionScale || 50
     );
 
     const animation = animations[data.name];
@@ -680,7 +680,6 @@ const TrashPage = ({
 
         if (/^@/.test(data.belongsTo[cfg.partName])) {
           const attachName = data.belongsTo[cfg.partName].substring(1);
-          console.log(attachName);
           if (posByPartName[attachName]) {
             const offset =
               posByPartName[attachName].replace("%", "") -
@@ -904,18 +903,28 @@ const TrashPage = ({
   };
   useEffect(() => {
     init();
+    if (fpApi) {
+      fpApi.silentMoveTo(1)
+      setTimeout(() => {
+        if (progressTimer) {
+          progressTimer.stop();
+          setProgress(0)
+        }
+      })
+    }
   }, [data, windowSize.height, containerWidth, isMobile, inited]);
   const bgColor = useMemo(
     () => get(theme, `colors.${colorScheme}`),
     [colorScheme]
   );
-  // console.log(data)
   return (
     <Wrapper height="100%">
       {useMemo(
         () => (
           <ReactFullpage
+            key={data.id}
             sectionsColor={["", bgColor, "white", "white", bgColor]}
+            anchors={['', '2', '3', '4', '5']}
             licenseKey={process.env.FULLPAGE_JS_KEY}
             scrollingSpeed={scrollingDuration * 1000}
             verticalCentered={false}
@@ -1060,6 +1069,4 @@ const TashPageWithDevData = (props) => {
   return data ? <TrashPage {...props} trashData={data} /> : null;
 };
 
-export default withData(
-  process.env.NODE_ENV === "development" ? TashPageWithDevData : TrashPage
-);
+export default process.env.NODE_ENV === "development" ? withData(TashPageWithDevData) : withData(TrashPage)

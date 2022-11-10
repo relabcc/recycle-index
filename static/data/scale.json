@@ -2223,24 +2223,25 @@
   },
   {
     "name": "鋁製膠囊咖啡",
-    "scale": "70",
-    "x": "-12",
-    "y": "",
+    "scale": "50",
+    "x": "-25",
+    "y": "-6",
     "shareScale": "100",
     "rotate": "",
-    "mobileScale": "80",
+    "mobileScale": "75",
     "mobileX": "",
     "mobileY": "-10",
     "mobileShareScale": "",
-    "firstY": "",
-    "gap": "",
-    "explosionScale": "90",
+    "firstY": "0",
+    "gap": "250",
+    "explosionScale": "80",
+    "deskExplosionScale": "30",
     "homeScale": "150",
     "homeX": "",
     "homeY": "",
     "mobileFirstY": "",
     "mobileExplosionY": "",
-    "faceNo": "4",
+    "faceNo": "5",
     "face": "translate(1%,0%) skew(0deg,0deg) rotate(0deg) scale(1.5)"
   },
   {
@@ -2329,7 +2330,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(12%,0%) skew(0deg,0deg) rotate(10deg) scale(1.2)"
+    "face": " translate(9%,31%) skew(0deg,0deg) rotate(13deg) scale(0.9)"
   },
   {
     "name": "塑膠飲料底座/杯架",
