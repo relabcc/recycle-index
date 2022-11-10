@@ -903,15 +903,15 @@ const TrashPage = ({
   };
   useEffect(() => {
     init();
-    if (fpApi) {
-      fpApi.silentMoveTo(1)
-      setTimeout(() => {
-        if (progressTimer) {
-          progressTimer.stop();
-          setProgress(0)
-        }
-      })
-    }
+    // if (fpApi) {
+    //   fpApi.silentMoveTo(1)
+    //   setTimeout(() => {
+    //     if (progressTimer) {
+    //       progressTimer.stop();
+    //       setProgress(0)
+    //     }
+    //   })
+    // }
   }, [data, windowSize.height, containerWidth, isMobile, inited]);
   const bgColor = useMemo(
     () => get(theme, `colors.${colorScheme}`),
@@ -924,7 +924,6 @@ const TrashPage = ({
           <ReactFullpage
             key={data.id}
             sectionsColor={["", bgColor, "white", "white", bgColor]}
-            anchors={['', '2', '3', '4', '5']}
             licenseKey={process.env.FULLPAGE_JS_KEY}
             scrollingSpeed={scrollingDuration * 1000}
             verticalCentered={false}
