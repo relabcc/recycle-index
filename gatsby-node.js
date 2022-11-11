@@ -71,21 +71,21 @@ async function createTrashPage({ actions, graphql }) {
         readMore: JSON.stringify(readMore),
       },
     })
-    await createPage({
-      // will be the url for the page
-      path: `trash/${d.id}/face`,
-      // specify the component template of your choice
-      component: faceEditor,
-      // In the ^template's GraphQL query, 'id' will be available
-      // as a GraphQL variable to query for this posts's data.
-      context: {
-        id: d.id,
-        name: d.name,
-        rawData: JSON.stringify(d),
-        gatsbyImg: JSON.stringify(pickedImag),
-        readMore: JSON.stringify(readMore),
-      },
-    })
+    // await createPage({
+    //   // will be the url for the page
+    //   path: `trash/${d.id}/face`,
+    //   // specify the component template of your choice
+    //   component: faceEditor,
+    //   // In the ^template's GraphQL query, 'id' will be available
+    //   // as a GraphQL variable to query for this posts's data.
+    //   context: {
+    //     id: d.id,
+    //     name: d.name,
+    //     rawData: JSON.stringify(d),
+    //     gatsbyImg: JSON.stringify(pickedImag),
+    //     readMore: JSON.stringify(readMore),
+    //   },
+    // })
     await createPage({
       // will be the url for the page
       path: `en/trash/${d.id}`,

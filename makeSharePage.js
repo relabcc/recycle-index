@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fse = require("fs-extra");
-// const Rematrix = require('rematrix')
+const Rematrix = require('rematrix')
 
 const { get, mapValues, mapKeys } = require("lodash");
 const path = require("path");
@@ -52,55 +52,55 @@ const remapKeys = (data, keyMap) =>
 
 const readfile = util.promisify(fs.readFile);
 
-// const parseTransform = (transform) => {
-//   const pttn = /(\w+)\(([^)]+)\)/g
-//   const getNumber = /-?\d+(\.\d)*/g
-//   let t = [
-//     Rematrix.translate(imgSize[0] / 2, imgSize[1] / 2)
-//   ]
-//   const obj = {}
-//   // const unitify = {
-//   //   translate: pos => [
-//   //     pos[0] / 100 * imgSize[0],
-//   //     pos[1] / 100 * imgSize[1]
-//   //   ],
-//   //   // skew: rs => rs.map(r => r * Math.PI / 180),
-//   //   // rotate: r => r * Math.PI / 180,
-//   // }
-//   let pair
-//   while (pair = pttn.exec(transform)) {
-//     const [, name, cfg] = pair
-//     const cfgs = []
-//     let res
-//     while (res = getNumber.exec(cfg)) {
-//       cfgs.push(res)
-//     }
-//     if (cfgs.length > 1) {
-//       // const x = cfgs[0][0] * 1
-//       // const y = cfgs[1][0] * 1
-//       obj[name] = [
-//         cfgs[0][0] * 1,
-//         cfgs[1][0] * 1,
-//       ]
-//     } else {
-//       // t.push(Rematrix[name](cfgs[0][0] * 1))
-//       obj[name] = cfgs[0][0] * 1
-//     }
-//   }
-//   const mt = ['skew', 'rotate', 'scale'].map(key => {
-//     // const cfg = unitify[key] ? unitify[key](obj[key]) : obj[key]
-//     const cfg = obj[key]
-//     return Rematrix[key](...(isArray(cfg) ? cfg : [cfg]))
-//   })
+const parseTransform = (transform) => {
+  const pttn = /(\w+)\(([^)]+)\)/g
+  const getNumber = /-?\d+(\.\d)*/g
+  let t = [
+    Rematrix.translate(imgSize[0] / 2, imgSize[1] / 2)
+  ]
+  const obj = {}
+  // const unitify = {
+  //   translate: pos => [
+  //     pos[0] / 100 * imgSize[0],
+  //     pos[1] / 100 * imgSize[1]
+  //   ],
+  //   // skew: rs => rs.map(r => r * Math.PI / 180),
+  //   // rotate: r => r * Math.PI / 180,
+  // }
+  let pair
+  while (pair = pttn.exec(transform)) {
+    const [, name, cfg] = pair
+    const cfgs = []
+    let res
+    while (res = getNumber.exec(cfg)) {
+      cfgs.push(res)
+    }
+    if (cfgs.length > 1) {
+      // const x = cfgs[0][0] * 1
+      // const y = cfgs[1][0] * 1
+      obj[name] = [
+        cfgs[0][0] * 1,
+        cfgs[1][0] * 1,
+      ]
+    } else {
+      // t.push(Rematrix[name](cfgs[0][0] * 1))
+      obj[name] = cfgs[0][0] * 1
+    }
+  }
+  const mt = ['skew', 'rotate', 'scale'].map(key => {
+    // const cfg = unitify[key] ? unitify[key](obj[key]) : obj[key]
+    const cfg = obj[key]
+    return Rematrix[key](...(Array.isArray(cfg) ? cfg : [cfg]))
+  })
 
-//   const matrix = [
-//     ...t,
-//     ...mt,
-//     Rematrix.translate(-imgSize[0] / 2, -imgSize[1] / 2)
-//   ].reduce(Rematrix.multiply)
-//   return [matrix, obj]
-//   // return obj
-// }
+  const matrix = [
+    ...t,
+    ...mt,
+    Rematrix.translate(-imgSize[0] / 2, -imgSize[1] / 2)
+  ].reduce(Rematrix.multiply)
+  return [matrix, obj]
+  // return obj
+}
 
 // const getHtml = ({ id }) => `<!DOCTYPE html>
 // <html lang="zh-Hant-TW">
@@ -128,46 +128,46 @@ const readfile = util.promisify(fs.readFile);
 // </html>
 // `
 
-// const getFaceImage = async data => {
-//   const face = await loadImage(path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`))
-//   const canvas = createCanvas(...imgSize);
-//   const ctx = canvas.getContext('2d');
-//   const [faceTransform, transformCfg] = parseTransform(data.transform.face)
-//   const matrix = [
-//     faceTransform[0],
-//     faceTransform[1],
-//     faceTransform[4],
-//     faceTransform[5],
-//     faceTransform[12],
-//     faceTransform[13],
-//   ]
+const getFaceImage = async data => {
+  const face = await loadImage(path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`))
+  const canvas = createCanvas(...imgSize);
+  const ctx = canvas.getContext('2d');
+  const [faceTransform, transformCfg] = parseTransform(data.transform.face)
+  const matrix = [
+    faceTransform[0],
+    faceTransform[1],
+    faceTransform[4],
+    faceTransform[5],
+    faceTransform[12],
+    faceTransform[13],
+  ]
 
-//   // ctx.translate(imgSize[0] / 2, imgSize[1] / 2)
-//   ctx.transform(...matrix)
-//   // ctx.translate(...faceTransform.translate)
-//   // ctx.rotate(faceTransform.rotate * Math.PI / 180)
-//   // ctx.transform(
-//   //   faceTransform.scale,
-//   //   faceTransform.skew[0] * Math.PI / 180,
-//   //   faceTransform.skew[1] * Math.PI / 180,
-//   //   faceTransform.scale,
-//   //   faceTransform.translate[0] / 100 * imgSize[0] * faceTransform.scale,
-//   //   faceTransform.translate[1] / 100 * imgSize[1] * faceTransform.scale,
-//   // )
-//   ctx.drawImage(face, 0, 0, ...imgSize);
-//   // ctx.drawImage(face, 0, 0, ...imgSize);
-//   const dataURL = canvas.toDataURL()
-//   const dirName = path.resolve(__dirname, `public/share/${data.id}`)
-//   return new Promise(resolve => {
-//     const savePng = fs.createWriteStream(path.resolve(dirName, 'face.png'))
-//     canvas.pngStream().pipe(savePng)
+  // ctx.translate(imgSize[0] / 2, imgSize[1] / 2)
+  ctx.transform(...matrix)
+  // ctx.translate(...faceTransform.translate)
+  // ctx.rotate(faceTransform.rotate * Math.PI / 180)
+  // ctx.transform(
+  //   faceTransform.scale,
+  //   faceTransform.skew[0] * Math.PI / 180,
+  //   faceTransform.skew[1] * Math.PI / 180,
+  //   faceTransform.scale,
+  //   faceTransform.translate[0] / 100 * imgSize[0] * faceTransform.scale,
+  //   faceTransform.translate[1] / 100 * imgSize[1] * faceTransform.scale,
+  // )
+  ctx.drawImage(face, 0, 0, ...imgSize);
+  // ctx.drawImage(face, 0, 0, ...imgSize);
+  const dataURL = canvas.toDataURL()
+  const dirName = path.resolve(__dirname, `public/share/${data.id}`)
+  return new Promise(resolve => {
+    const savePng = fs.createWriteStream(path.resolve(dirName, 'face.png'))
+    canvas.pngStream().pipe(savePng)
 
-//     savePng.on('close', async () => {
-//       const face = await loadImage(dataURL)
-//       resolve([face, transformCfg])
-//     })
-//   })
-// }
+    savePng.on('close', async () => {
+      const face = await loadImage(dataURL)
+      resolve([face, transformCfg])
+    })
+  })
+}
 
 const createOg = async (data) => {
   if (!data.img) {
@@ -189,10 +189,10 @@ const createOg = async (data) => {
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.drawImage(logo, 1004, 583.5, 168, 27.8);
   ctx.drawImage(shape, 149, 57, 990.6, 538);
-  const s = ((data.transform.shareScale || 100) / 100) * 1.1;
+  const s = ((data.transform.shareScale || 100) / 100) * 0.8;
   const trashSize = [imgSize[0] * s, imgSize[1] * s];
   const trashPos = [
-    (trashSize[0] * ((data.transform.x || 0) * 1 + 8)) / 100,
+    (trashSize[0] * ((data.transform.x || 0) * 1 + 20)) / 100,
     HEIGHT / 2 - (trashSize[1] * ((data.transform.y || 0) * 1 + 35)) / 100,
   ];
   const transformOrigin = [
@@ -239,7 +239,9 @@ const createOg = async (data) => {
     const saveJpg = fs.createWriteStream(
       path.resolve(dirName, `${+data.id + 1}.jpg`)
     );
-    canvas.createJPEGStream().pipe(saveJpg);
+    canvas.createJPEGStream({
+      quality: 0.95,
+    }).pipe(saveJpg);
 
     saveJpg.on("close", resolve);
   });
@@ -264,7 +266,7 @@ Promise.all(
   }));
 
   return Promise.all(
-    transformed.map((d) =>
+    transformed.slice(101).map((d) =>
       createOg(d).catch((e) => {
         console.log(d);
         console.error(e);
