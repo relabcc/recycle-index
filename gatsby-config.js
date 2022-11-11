@@ -28,12 +28,12 @@ module.exports = {
         path: `${__dirname}/src/containers/HomePage`,
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-google-tagmanager",
-    //   options: {
-    //     id: "GTM-TBZHKQZ",
-    //   },
-    // },
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-TBZHKQZ",
+      },
+    },
     // {
     //   resolve: `gatsby-source-wordpress`,
     //   options: {
