@@ -33,6 +33,7 @@ const dataKeys = {
   '使用建議（替代方案）': 'alternative',
   '贊助商': 'sponsor',
   '補充說明': 'additional',
+  '新品': 'isNew',
 }
 
 const lineParser = d => {
@@ -57,6 +58,7 @@ const transformer = {
   places: d => typeof d  === 'number' ? [d] : d.split(','),
   synonym: d => d.split('、'),
   size: d => d.split('x').map(Number),
+  isNew: d => d === 'TRUE',
 }
 
 const remapKeys = (data, keyMap) => data.map((dd) => mapValues(mapKeys(dd, (v, k) => keyMap[k] || k), (v, k) => transformer[k] ? transformer[k](v) : v))

@@ -53,6 +53,7 @@ const PerTrash = ({ data }) => {
     return `scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`
   }, [data])
   // const [hoverable] = useHover(element);
+  console.log(data.isNew)
   return (
     <AspectRatio ratio={1} ref={nodeRef}>
       <Box p={responsive('0.5em', '1em')}>
