@@ -42,7 +42,7 @@ const useAllTrashes = (controlled) => {
   return useMemo(() => {
     if (!dd || !scale || !cfg) return undefined;
     const formatedTrashes = getFormatedTrashes(dd, scale, cfg);
-    return formatedTrashes.map((d) => ({
+    return formatedTrashes.filter(d => d.name).map((d) => ({
       ...d,
       gatsbyImg: get(gatsbyImages, [d.name, d.name]),
     }));
