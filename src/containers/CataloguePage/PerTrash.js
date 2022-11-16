@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { AspectRatio } from '@chakra-ui/react';
 // import { useHover } from 'react-use';
 import { useHarmonicIntervalFn, useHover } from 'react-use'
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import { navigate } from 'gatsby';
 import { useIsVisible } from 'react-is-visible'
 
@@ -53,7 +53,7 @@ const PerTrash = ({ data }) => {
     return `scale(${scale}) translate(${['homeX', 'homeY'].map((k, i) => `${-1 * ((i ? 0 : 50) - (data.transform[k] || 0)) / scale}%`).join()})`
   }, [data])
   // const [hoverable] = useHover(element);
-  console.log(data.isNew)
+  // console.log(data.isNew)
   return (
     <AspectRatio ratio={1} ref={nodeRef}>
       <Box p={responsive('0.5em', '1em')}>
@@ -94,13 +94,24 @@ const PerTrash = ({ data }) => {
             <Box.Absolute width="100%" left="50%" top="0.75em" transform="translateX(-50%)">
               <Text
                 // color="white"
+                whiteSpace={'pre-wrap'}
                 fontWeight="700"
                 fontSize={isEn ? responsive('0.875em', '1.5em', '0.75em') : responsive('1em', '1.5em', '1em')}
                 letterSpacing="0.125em"
-              >{isEn ? trashEn[data.name] : data.name}</Text>
+              >{isEn ? trashEn[data.name] : data.name.replace('/', '/\n')}</Text>
             </Box.Absolute>
           )}
         </Box>
+        {data.isNew && (
+          <Box.Absolute
+            left="14.5%"
+            top="10%"
+            width="40%"
+            transform={'translate(-50%, -50%)'}
+          >
+            <StaticImage src="new_icon.png" alt="new" />
+          </Box.Absolute>
+        )}
       </Box>
     </AspectRatio>
   )
