@@ -96,7 +96,7 @@ const PerTrash = ({ data }) => {
                 // color="white"
                 whiteSpace={'pre-wrap'}
                 fontWeight="700"
-                fontSize={isEn ? responsive('0.875em', '1.5em', '0.75em') : responsive('1em', '1.5em', '1em')}
+                fontSize={isEn ? responsive('0.875em', '1.5em', '0.75em') : responsive('1em', '1.25em', '1em')}
                 letterSpacing="0.125em"
               >{isEn ? trashEn[data.name] : data.name.replace('/', '/\n')}</Text>
             </Box.Absolute>
