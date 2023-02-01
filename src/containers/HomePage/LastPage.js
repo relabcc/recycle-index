@@ -38,8 +38,8 @@ const LastPage = ({ isEn }) => {
             letterSpacing="0.125em"
           >
             {isEn
-              ? "Introducing 101 most commonly mis-thrown trashes in Taiwan"
-              : "以下是台灣人最常丟錯的101件垃圾"}
+              ? "Introducing 101+ most commonly mis-thrown trashes in Taiwan"
+              : "以下是台灣人最常丟錯的101+垃圾"}
           </Text>
         </Box.Absolute>
       </Box.Relative>

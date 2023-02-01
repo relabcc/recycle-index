@@ -18,7 +18,7 @@ import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
 
 const links = [
-  { name: '101件垃圾', en: '101 Must-Know Trashes', to: '/catalogue/' },
+  { name: '101+垃圾', en: '101+ Must-Know Trashes', to: '/catalogue/' },
   { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game/' },
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how/' },
   { name: '關於我們', en: 'About Us', to: '/about/' },

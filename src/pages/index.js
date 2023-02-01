@@ -10,7 +10,7 @@ const Render = (props) => {
   return (
     <>
       <Helmet>
-        <title>秒懂101個台灣人必知的垃圾</title>
+        <title>秒懂101+台灣人必知的垃圾</title>
       </Helmet>
       <Page gatsbyImages={gatsbyImages} {...props} />
     </>

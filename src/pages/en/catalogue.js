@@ -7,7 +7,7 @@ const Render = () => {
   return (
     <>
       <Helmet>
-        <title>101 Must-Know Trashes</title>
+        <title>101+ Must-Know Trashes</title>
       </Helmet>
       <Page />
     </>

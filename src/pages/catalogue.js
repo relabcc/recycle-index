@@ -7,7 +7,7 @@ const Render = () => {
   return (
     <>
       <Helmet>
-        <title>101件垃圾</title>
+        <title>101+垃圾</title>
       </Helmet>
       <Page />
     </>

@@ -158,7 +158,7 @@ const HomePage = ({
                 fontStyle="italic"
                 ensureFont="Concert One"
               >
-                秒懂101個台灣人必知的垃圾
+                秒懂101+台灣人必知的垃圾
               </Heading.H2>
               <Box.Relative>
                 <StaticImage
