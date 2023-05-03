@@ -4,7 +4,6 @@ import { StaticImage } from 'gatsby-plugin-image'
 import Box from '../../components/Box'
 import Text from '../../components/Text'
 import Flex from '../../components/Flex'
-import Image from '../../components/Image'
 import { Media, responsive } from '../../components/ThemeProvider/theme'
 
 // import one from './one.png'
@@ -64,8 +63,8 @@ const Factor = () => {
             px={responsive(0, '5.625em')}
             py={responsive('1.5em', '5.625em')}
           >
-            <Box position="absolute" width={responsive('4em', 'auto')} top={responsive('1em', '2em')} right={responsive('1em', '2em')}>
-              <Image src={number} />
+            <Box position="absolute" width={responsive('4em', '10em')} top={responsive('1em', '2em')} right={responsive('1em', '2em')}>
+              {number}
             </Box>
             <Box position="relative">
               <Box.Inline
