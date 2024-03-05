@@ -8,14 +8,23 @@ import { responsive } from "../../components/ThemeProvider/theme";
 const links = {
   Nespresso: "https://www.nespresso.com/tw/zh/home",
   foodpanda: "https://www.foodpanda.com.tw/",
+  犀牛盾: "https://www.rhinoshield.tw/",
 };
 
 const logos = {
-  Nespresso: <StaticImage placeholder="tracedSVG" src="sponsors/Nespresso_logo.png" />,
+  Nespresso: (
+    <StaticImage placeholder="tracedSVG" src="sponsors/Nespresso_logo.png" />
+  ),
   foodpanda: (
     <BackgroundImage
       src={require("./sponsors/foodpanda.svg").default}
       ratio={400 / 120}
+    />
+  ),
+  犀牛盾: (
+    <BackgroundImage
+      src={require("./sponsors/rhino.svg").default}
+      ratio={1575 / 169}
     />
   ),
 };
