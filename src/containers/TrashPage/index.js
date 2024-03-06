@@ -133,8 +133,8 @@ const TrashAdditional = ({ data, bg }) => {
     return pttn ? [pttn[1], pttn[2]] : [];
   }, [data]);
   return text ? (
-    <Box mt="2">
-      <ReLink color={bg} bg="white" href={url} p="1" isExternal>
+    <Box mt="2" bg="white" p="1" ml="-1" mr="-1">
+      <ReLink color={bg} href={url} isExternal>
         {text}
       </ReLink>
     </Box>
@@ -578,7 +578,9 @@ const TrashPage = ({
           containerWidth) *
           100
       ),
-      isMobile ? data.transform.explosionScale || 100 : data.transform.deskExplosionScale || 50
+      isMobile
+        ? data.transform.explosionScale || 100
+        : data.transform.deskExplosionScale || 50
     );
 
     const animation = animations[data.name];
@@ -1068,4 +1070,6 @@ const TashPageWithDevData = (props) => {
   return data ? <TrashPage {...props} trashData={data} /> : null;
 };
 
-export default process.env.NODE_ENV === "development" ? withData(TashPageWithDevData) : withData(TrashPage)
+export default process.env.NODE_ENV === "development"
+  ? withData(TashPageWithDevData)
+  : withData(TrashPage);
