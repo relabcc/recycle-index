@@ -8,7 +8,7 @@ import { responsive } from "../../components/ThemeProvider/theme";
 const links = {
   Nespresso: "https://www.nespresso.com/tw/zh/home",
   foodpanda: "https://www.foodpanda.com.tw/",
-  犀牛盾: "https://www.rhinoshield.tw/",
+  犀牛盾: "https://shop.rhinoshield.tw/sustainability/recycling",
 };
 
 const logos = {
