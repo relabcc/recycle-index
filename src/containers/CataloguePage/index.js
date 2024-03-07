@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from "react";
 
-import Fullpage from '../../components/FullpageHeight';
-import useShowHeader from '../../contexts/header/useShowHeader';
+import Fullpage from "../../components/FullpageHeight";
+import useShowHeader from "../../contexts/header/useShowHeader";
 
-import Grid from './Grid';
-import useAllTrashes from '../TrashPage/data/useAllTrashes';
-import FullpageLoading from '../../components/FullpageLoading';
+import Grid from "./Grid";
+import useAllTrashes from "../TrashPage/data/useAllTrashes";
+import FullpageLoading from "../../components/FullpageLoading";
 
-const newer = d => +Boolean(d.isNew)
+const newer = (d) => +Boolean(d.isNew);
 
 const Catalogue = () => {
-  useShowHeader('colors.yellow')
-  const data = useAllTrashes()
-  const orderedData = useMemo(() => data?.sort((a,b) => newer(b) - newer(a)), [data])
+  useShowHeader("colors.yellow");
+  const data = useAllTrashes();
+  const orderedData = useMemo(
+    () => data && [...data].sort((a, b) => newer(b) - newer(a)),
+    [data]
+  );
   return (
     <>
       <Fullpage mt="0">
@@ -20,7 +23,7 @@ const Catalogue = () => {
       </Fullpage>
       {!data && <FullpageLoading />}
     </>
-  )
-}
+  );
+};
 
-export default Catalogue
+export default Catalogue;

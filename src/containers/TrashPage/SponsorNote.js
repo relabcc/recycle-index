@@ -13,7 +13,10 @@ const links = {
 
 const logos = {
   Nespresso: (
-    <StaticImage placeholder="tracedSVG" src="sponsors/Nespresso_logo.png" />
+    <BackgroundImage
+      src={require("./sponsors/Nespresso.svg").default}
+      ratio={231 / 66}
+    />
   ),
   foodpanda: (
     <BackgroundImage

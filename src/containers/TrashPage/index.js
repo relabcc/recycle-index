@@ -1063,7 +1063,7 @@ const TashPageWithDevData = (props) => {
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
   const srcData = useMemo(
-    () => allData?.find((d) => d.id === id),
+    () => allData?.find((d) => d.id == id),
     [allData, id]
   );
   const data = useTrashData(srcData, gatsbyImages);

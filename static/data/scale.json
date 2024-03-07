@@ -2441,5 +2441,27 @@
     "mobileExplosionY": "",
     "faceNo": "3",
     "face": "translate(-8%,9%) skew(0deg,0deg) rotate(0deg) scale(1.9)"
+  },
+  {
+    "name": "單一材料 TPE 手機殼",
+    "scale": "80",
+    "x": "",
+    "y": "",
+    "shareScale": "",
+    "rotate": "",
+    "mobileScale": "",
+    "mobileX": "",
+    "mobileY": "",
+    "mobileShareScale": "",
+    "firstY": "",
+    "gap": "",
+    "explosionScale": "",
+    "homeScale": "160",
+    "homeX": "",
+    "homeY": "",
+    "mobileFirstY": "",
+    "mobileExplosionY": "",
+    "faceNo": "5",
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   }
 ]

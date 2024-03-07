@@ -18,6 +18,7 @@ import dry from './dry.svg'
 import wrap from './wrap.svg'
 import clean from './clean.svg'
 import flatten from './flatten.svg'
+import brand from './brand.svg'
 import { responsive } from '../../../components/ThemeProvider/theme'
 
 const icons = {
@@ -31,6 +32,7 @@ const icons = {
   排空內容物: dry,
   包好: wrap,
   攤平: flatten,
+  送至品牌回收系統: brand,
 }
 
 const Handling = ({ steps, ...props }) => {
