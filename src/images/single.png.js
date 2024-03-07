@@ -4,7 +4,7 @@
       '不織布提袋': { '不織布提袋': path.resolve(__dirname, './不織布提袋.png') },
 '保鮮膜': { '保鮮膜': path.resolve(__dirname, './保鮮膜.png') },
 '光碟': { '光碟': path.resolve(__dirname, './光碟.png') },
-'單一材料 TPE 手機殼': { '單一材料 TPE 手機殼': path.resolve(__dirname, './單一材料 TPE 手機殼.png') },
+'單一材料TPE手機殼': { '單一材料TPE手機殼': path.resolve(__dirname, './單一材料TPE手機殼.png') },
 '塑膠餐盒': { '塑膠餐盒': path.resolve(__dirname, './塑膠餐盒.png') },
 '手機殼': { '手機殼': path.resolve(__dirname, './手機殼.png') },
 '木製品': { '木製品': path.resolve(__dirname, './木製品.png') },
