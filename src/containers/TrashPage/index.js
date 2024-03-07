@@ -382,7 +382,7 @@ const TrashPage = ({
                           fontSize={responsive("1.125em", "0.9375em")}
                           fontWeight="900"
                         >
-                          {partName}
+                          {partName.replace(/([A-Z]+)/, "\n$1")}
                         </Text>
                         <Text
                           color="white"
