@@ -18,7 +18,7 @@ const RightDash = styled(Box)`
 
 const ScrollIndicator = ({ progress, onClick }) => {
   return (
-    <Flex direction="column" height="100%" mt="1.25em">
+    <Flex direction="column" height="100%" mt="1.25em" pb="4em">
       {/* <Button.Icon
         height="auto"
         px="0.25em"

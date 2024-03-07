@@ -7,6 +7,7 @@ import theme from '../components/ThemeProvider/theme';
 import headerContext from '../contexts/header/context'
 
 import Header from './Header'
+import LineButton from '../components/LineButton';
 
 export const EnContext = createContext()
 
@@ -47,6 +48,7 @@ const Layout = ({ children, path }) => {
           <EnContext.Provider value={isEn}>
             {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} />}
             {children}
+            <LineButton />
           </EnContext.Provider>
         </>
       )}
