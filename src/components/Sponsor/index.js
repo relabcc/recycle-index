@@ -75,12 +75,17 @@ const Sponsor = ({
         >
           贊助單位
         </Box>
-        <Flex alignItems="center" flex={responsive("1", "none")}>
+        <Flex
+          alignItems="center"
+          flex={responsive("1", "none")}
+          flexWrap={isFooter && "wrap"}
+        >
           {sponsor.map((logo, k) => (
             <Box
               px={responsive("1em", "1.25em")}
               key={k}
               width={1 / sponsor.length}
+              minW="6em"
               {...logoProps}
             >
               {logo}
