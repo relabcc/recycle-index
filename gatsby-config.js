@@ -85,4 +85,5 @@ module.exports = {
     // "gatsby-plugin-loadable-components-ssr",
   ],
   pathPrefix,
+  trailingSlash: 'never',
 };
