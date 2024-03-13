@@ -132,7 +132,7 @@ const getFaceImage = async data => {
   const face = await loadImage(path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`))
   const canvas = createCanvas(...imgSize);
   const ctx = canvas.getContext('2d');
-  const [faceTransform, transformCfg] = parseTransform(data.transform.face)
+  const [faceTransform, transformCfg] = parseTransform(data.transform.face.trim())
   const matrix = [
     faceTransform[0],
     faceTransform[1],
@@ -158,7 +158,8 @@ const getFaceImage = async data => {
   // ctx.drawImage(face, 0, 0, ...imgSize);
   const dataURL = canvas.toDataURL()
   const dirName = path.resolve(__dirname, `public/share/${data.id}`)
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
+    await fse.ensureDir(dirName)
     const savePng = fs.createWriteStream(path.resolve(dirName, 'face.png'))
     canvas.pngStream().pipe(savePng)
 
@@ -180,7 +181,7 @@ const createOg = async (data) => {
     path.resolve(__dirname, "src/containers/logo.svg")
   );
   const trash = await loadImage(fs.readFileSync(data.img));
-  // const [face, transformObj] = await getFaceImage(data)
+  const [face, transformObj] = await getFaceImage(data)
 
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx = canvas.getContext("2d");
@@ -189,10 +190,10 @@ const createOg = async (data) => {
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.drawImage(logo, 1004, 583.5, 168, 27.8);
   ctx.drawImage(shape, 149, 57, 990.6, 538);
-  const s = ((data.transform.shareScale || 100) / 100) * 0.8;
+  const s = ((data.transform.shareScale || 100) / 100)
   const trashSize = [imgSize[0] * s, imgSize[1] * s];
   const trashPos = [
-    (trashSize[0] * ((data.transform.x || 0) * 1 + 20)) / 100,
+    (trashSize[0] * ((data.transform.x || 0) * 1 + 10)) / 100,
     HEIGHT / 2 - (trashSize[1] * ((data.transform.y || 0) * 1 + 35)) / 100,
   ];
   const transformOrigin = [
@@ -203,12 +204,12 @@ const createOg = async (data) => {
   ctx.translate(...transformOrigin);
   ctx.rotate(r);
   ctx.drawImage(trash, -trashSize[0] / 2, -trashSize[1] / 2, ...trashSize);
-  // ctx.drawImage(
-  //   face,
-  //   -trashSize[0] / 2 + trashSize[0] * transformObj.translate[0] / 100 * transformObj.scale,
-  //   -trashSize[1] / 2 + trashSize[1] * transformObj.translate[1] / 100 * transformObj.scale,
-  //   ...trashSize
-  // );
+  ctx.drawImage(
+    face,
+    -trashSize[0] / 2 + trashSize[0] * transformObj.translate[0] / 100 * transformObj.scale,
+    -trashSize[1] / 2 + trashSize[1] * transformObj.translate[1] / 100 * transformObj.scale,
+    ...trashSize
+  );
 
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
@@ -266,7 +267,7 @@ Promise.all(
   }));
 
   return Promise.all(
-    transformed.slice(101).map((d) =>
+    transformed.slice(111).map((d) =>
       createOg(d).catch((e) => {
         console.log(d);
         console.error(e);
