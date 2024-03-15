@@ -17,7 +17,7 @@ const getTrashes = (ids) => {
 async function createTrashPage({ actions, graphql }) {
   const { createPage, createRedirect } = actions
   const component = path.resolve('./src/templates/trash.js')
-  const faceEditor = path.resolve('./src/containers/FaceEditor/index.js')
+  // const faceEditor = path.resolve('./src/containers/FaceEditor/index.js')
   const { data: { allFile } } = await graphql(
     `
       {
@@ -113,7 +113,7 @@ exports.createPages = async (gatsbyUtilities) => {
 
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions
-  if (page.path === '/' || page.path === '/en') {
+  if (page.path === '/' || page.path === '/en/') {
     const trashes = getTrashes([
       3,
       55,
