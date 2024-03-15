@@ -113,7 +113,7 @@ exports.createPages = async (gatsbyUtilities) => {
 
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions
-  if (page.path === '/' || page.path === '/en/') {
+  if (page.path === '/' || page.path === '/en') {
     const trashes = getTrashes([
       3,
       55,
