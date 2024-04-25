@@ -1188,7 +1188,7 @@
     "face": " translate(0%,-42%) skew(0deg,0deg) rotate(0deg) scale(1.4)"
   },
   {
-    "name": "廢棄藥品",
+    "name": "廢棄藥丸",
     "scale": "75",
     "x": "-10",
     "y": "-8",
@@ -1606,7 +1606,7 @@
     "face": " translate(-10%,-21%) skew(0deg,0deg) rotate(15deg) scale(1.2)"
   },
   {
-    "name": "木製品",
+    "name": "木材、木頭家具",
     "scale": "90",
     "x": "-5",
     "y": "8",

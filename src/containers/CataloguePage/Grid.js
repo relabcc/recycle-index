@@ -83,7 +83,7 @@ const Catalogue = ({ data }) => {
       okData.filter((d) => {
         const isDisabled = Object.keys(values).reduce((res, key) => {
           if (!values[key]) return res;
-          if (key === "search") {
+          if (key === "search" && values[key]) {
             const re = new RegExp(values[key], "gi");
             return (
               res ||

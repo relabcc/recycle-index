@@ -84,12 +84,14 @@ const Wrapper = styled.div`
 
 const TrashName = ({ children, ...props }) => (
   <Box.Absolute
+    as="span"
     top={responsive("1.75em", "1.25em")}
     left={responsive("1em", "1.5em")}
     color="white"
     {...props}
   >
     <Text
+      as="span"
       fontSize={responsive("1em", "1.5625em")}
       fontWeight="900"
       letterSpacing="0.1em"
@@ -101,11 +103,12 @@ const TrashName = ({ children, ...props }) => (
 
 const SectionTitle = ({ children, ...props }) => (
   <Box.Absolute
+    as="span"
     left={responsive("1em", "1.5em")}
     top={responsive("3.25em", "3.4375em")}
     {...props}
   >
-    <Text as="h2" fontSize={responsive("0.875em", "0.9375em")}>
+    <Text as="span" fontSize={responsive("0.875em", "0.9375em")}>
       {children}
     </Text>
   </Box.Absolute>
@@ -489,12 +492,14 @@ const TrashPage = ({
       <ChevDown onClick={() => fpApi.moveSectionDown()} />
     </Container>,
     <Container height="100%">
-      <TrashName color={colorScheme}>
-        {isEn ? trashEn[data.name] : data.name}
-      </TrashName>
-      <SectionTitle>
-        {isEn ? "What is the composition?" : "組成的材質是什麼？"}
-      </SectionTitle>
+      <h2>
+        <TrashName color={colorScheme}>
+          {isEn ? trashEn[data.name] : data.name}
+        </TrashName>
+        <SectionTitle>
+          {isEn ? "What is the composition?" : "組成的材質是什麼？"}
+        </SectionTitle>
+      </h2>
       <TrashNumber color={colorScheme}>{n}</TrashNumber>
       {data.partsNote && (
         <TrashNote color={colorScheme}>{data.partsNote}</TrashNote>
@@ -502,12 +507,14 @@ const TrashPage = ({
       <ChevDown onClick={() => fpApi.moveSectionDown()} />
     </Container>,
     <Container height="100%">
-      <TrashName color={colorScheme}>
-        {isEn ? trashEn[data.name] : data.name}
-      </TrashName>
-      <SectionTitle>
-        {isEn ? "Which category should it be thrown?" : "用完應該丟在哪裡？"}
-      </SectionTitle>
+      <h2>
+        <TrashName color={colorScheme}>
+          {isEn ? trashEn[data.name] : data.name}
+        </TrashName>
+        <SectionTitle>
+          {isEn ? "Which category should it be thrown?" : "用完應該丟在哪裡？"}
+        </SectionTitle>
+      </h2>
       <TrashNumber color={colorScheme}>{n}</TrashNumber>
       {data.recycleNote && (
         <TrashNote color={colorScheme}>{data.recycleNote}</TrashNote>

@@ -7,7 +7,7 @@
 '單一材料TPE手機殼': { '單一材料TPE手機殼': path.resolve(__dirname, './單一材料TPE手機殼.png') },
 '塑膠餐盒': { '塑膠餐盒': path.resolve(__dirname, './塑膠餐盒.png') },
 '手機殼': { '手機殼': path.resolve(__dirname, './手機殼.png') },
-'木製品': { '木製品': path.resolve(__dirname, './木製品.png') },
+'木材、木頭家具': { '木材、木頭家具': path.resolve(__dirname, './木材、木頭家具.png') },
 '枯枝落葉': { '枯枝落葉': path.resolve(__dirname, './枯枝落葉.png') },
 '梳子': { '梳子': path.resolve(__dirname, './梳子.png') },
 '橡皮筋': { '橡皮筋': path.resolve(__dirname, './橡皮筋.png') },

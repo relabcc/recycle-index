@@ -43,7 +43,7 @@ module.exports = {
 '袋裝洋芋片': require('./65 袋裝洋芋片/index.png'),
 '保養品瓶罐': require('./66 保養品瓶罐/index.png'),
 '電子發票': require('./67 電子發票/index.png'),
-'廢棄藥品': require('./69 廢棄藥品/index.png'),
+'廢棄藥丸': require('./69 廢棄藥丸/index.png'),
 '隱形眼鏡': require('./71 隱形眼鏡/index.png'),
 '玩具': require('./73 玩具/index.png'),
 '鋁箔包': require('./74 鋁箔包/index.png'),

@@ -34,6 +34,8 @@ const dataKeys = {
   '贊助商': 'sponsor',
   '補充說明': 'additional',
   '新品': 'isNew',
+  'SEO標題': 'seoTitle',
+  'SEO敘述': 'seoDescription',
 }
 
 const lineParser = d => {
