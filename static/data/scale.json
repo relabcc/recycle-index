@@ -1540,7 +1540,7 @@
     "face": " translate(34%,-41%) skew(-38deg,26deg) rotate(0deg) scale(0.6)"
   },
   {
-    "name": "電源線／充電線",
+    "name": "充電線/電源線",
     "scale": "60",
     "x": "-15",
     "y": "7",
@@ -1562,7 +1562,7 @@
     "face": " translate(-37%,30%) skew(30deg,-20deg) rotate(-11deg) scale(1)"
   },
   {
-    "name": "瓷碗盤、陶瓷、陶器",
+    "name": "陶瓷碗盤",
     "scale": "70",
     "x": "-15",
     "y": "8",
@@ -1606,7 +1606,7 @@
     "face": " translate(-10%,-21%) skew(0deg,0deg) rotate(15deg) scale(1.2)"
   },
   {
-    "name": "木材、木頭家具",
+    "name": "木材/木頭家具",
     "scale": "90",
     "x": "-5",
     "y": "8",
