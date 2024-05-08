@@ -235,7 +235,7 @@ const FinalTrash = ({
               left={`${(100 - trashWidth) / 2}%`}
               top={responsive(`${endPos[0]}px`, `${endPos[1]}px`)}
               transform={responsive([
-                `translate3d(10%, -50%, 0) ${
+                `translate3d(10%, -55%, 0) ${
                   data.transform.mobileRotate
                     ? `rotate(${data.transform.mobileRotate}deg)`
                     : data.transform.rotate

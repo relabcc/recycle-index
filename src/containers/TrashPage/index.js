@@ -384,6 +384,7 @@ const TrashPage = ({
                           color="black"
                           fontSize={responsive("1.125em", "0.9375em")}
                           fontWeight="900"
+                          px={responsive("0.5em", "0")}
                         >
                           {partName.replace(/([A-Z]+)/, (match, p1, offset) =>
                             offset > 0 ? `\n${p1}` : p1
