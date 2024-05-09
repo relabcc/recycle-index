@@ -550,6 +550,9 @@ const TrashPage = ({
     const defaultTrashCfg = {
       width: `${trashWidth}%`,
       left: `${(100 - trashWidth) / 2}%`,
+      top: isMobile
+        ? `${45 + (data.transform.mobileFirstY || 0)}%`
+        : `${50 + (data.transform.firstY || 0)}%`,
       rotate:
         (isMobile && data.transform.mobileRotate
           ? data.transform.mobileRotate
@@ -876,10 +879,11 @@ const TrashPage = ({
         }
       }
     });
+    const { top, ...rest } = defaultTrashCfg;
     theTimeline.to(
       trashRef.current,
       {
-        ...defaultTrashCfg,
+        ...rest,
         duration: scrollingDuration,
       },
       scrollingDuration * 3
