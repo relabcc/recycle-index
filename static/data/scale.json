@@ -2080,7 +2080,7 @@
     "mobileShareScale": "",
     "firstY": "",
     "gap": "",
-    "explosionScale": "",
+    "explosionScale": "85",
     "homeScale": "200",
     "homeX": "0",
     "homeY": "-5",

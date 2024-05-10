@@ -546,13 +546,14 @@ const TrashPage = ({
     if (theTimeline) {
       theTimeline.kill();
     }
+    const windowHeight = windowSize.height - 60;
     // set trash size
     const defaultTrashCfg = {
       width: `${trashWidth}%`,
       left: `${(100 - trashWidth) / 2}%`,
       top: isMobile
-        ? `${45 + (data.transform.mobileFirstY || 0)}%`
-        : `${50 + (data.transform.firstY || 0)}%`,
+        ? (45 + (data.transform.mobileFirstY || 0)) / 100 * (windowHeight)
+        : (50 + (data.transform.firstY || 0)) / 100 * (windowHeight),
       rotate:
         (isMobile && data.transform.mobileRotate
           ? data.transform.mobileRotate
@@ -616,8 +617,8 @@ const TrashPage = ({
         width: `${explodeWidthFactor}%`,
         left: `${(100 - explodeWidthFactor) / 2}%`,
         top: isMobile
-          ? `${50 + (data.transform.mobileExplosionY || 0)}%`
-          : "50%",
+          ? (50 + (data.transform.mobileExplosionY || 0)) / 100 * windowHeight
+          : 0.5 * windowHeight,
         x: isMobile ? "25%" : "0",
         // y: isMobile ? '45%' : '50%',
         duration: scrollingDuration,
@@ -893,7 +894,6 @@ const TrashPage = ({
         ? data.transform.mobileShareScale
         : data.transform.shareScale) / 100;
 
-    console.log("scale", scale);
     endTimeline
       .to(
         trashXRef.current,
@@ -908,10 +908,9 @@ const TrashPage = ({
       .to(
         trashRef.current,
         {
-          ...defaultTrashCfg,
           x: isMobile ? "10%" : 0,
           duration: scrollingDuration,
-          top: `${endPos[isMobile ? 0 : 1]}px`,
+          top: endPos[isMobile ? 0 : 1],
         },
         0
       )
