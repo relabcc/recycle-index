@@ -879,11 +879,11 @@ const TrashPage = ({
         }
       }
     });
-    const { top, ...rest } = defaultTrashCfg;
+    // const { top, ...rest } = defaultTrashCfg;
     theTimeline.to(
       trashRef.current,
       {
-        ...rest,
+        ...defaultTrashCfg,
         duration: scrollingDuration,
       },
       scrollingDuration * 3
@@ -906,6 +906,7 @@ const TrashPage = ({
       .to(
         trashRef.current,
         {
+          ...defaultTrashCfg,
           x: isMobile ? "10%" : 0,
           duration: scrollingDuration,
           top: `${endPos[isMobile ? 0 : 1]}px`,
@@ -1018,10 +1019,10 @@ const TrashPage = ({
           <Box.Absolute
             ref={trashRef}
             id="trash-container"
-            top={responsive(
-              `${45 + (data.transform.mobileFirstY || 0)}%`,
-              `${50 + (data.transform.firstY || 0)}%`
-            )}
+            // top={responsive(
+            //   `${45 + (data.transform.mobileFirstY || 0)}%`,
+            //   `${50 + (data.transform.firstY || 0)}%`
+            // )}
             width={`${trashWidth}%`}
             left={`${(100 - trashWidth) / 2}%`}
           >
