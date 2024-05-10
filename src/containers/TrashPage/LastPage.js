@@ -228,52 +228,46 @@ const FinalTrash = ({
         ref={endTrashRef}
         opacity="0"
       >
-        <Container height="100%">
-          <Box.Relative height="100%">
-            <Box.Absolute
-              width={`${trashWidth}%`}
-              left={`${(100 - trashWidth) / 2}%`}
-              top={responsive(`${endPos[0]}px`, `${endPos[1]}px`)}
+        <Container position="relative" height="100%">
+          <Box.Absolute
+            width={`${trashWidth}%`}
+            left={`${(100 - trashWidth) / 2}%`}
+            top={responsive(`${endPos[0]}px`, `${endPos[1]}px`)}
+            transform={responsive(
+              `translate3d(10%, -50%, 0) ${
+                data.transform.mobileRotate
+                  ? `rotate(${data.transform.mobileRotate}deg)`
+                  : data.transform.rotate
+                  ? `rotate(${data.transform.rotate}deg)`
+                  : ""
+              }`,
+              `translate3d(0, -50%, 0) ${
+                data.transform.rotate
+                  ? `rotate(${data.transform.rotate}deg)`
+                  : ""
+              }`
+            )}
+          >
+            <Box
               transform={responsive([
-                `translate3d(10%, -55%, 0) ${
-                  data.transform.mobileRotate
-                    ? `rotate(${data.transform.mobileRotate}deg)`
-                    : data.transform.rotate
-                    ? `rotate(${data.transform.rotate}deg)`
+                `translate(${endTransition[0].map((d) => `${d}%`).join(",")}) ${
+                  data.transform.mobileShareScale
+                    ? `scale(${data.transform.mobileShareScale / 100})`
+                    : data.transform.shareScale
+                    ? `scale(${data.transform.shareScale / 100})`
                     : ""
                 }`,
-                `translate3d(0, -50%, 0) ${
-                  data.transform.rotate
-                    ? `rotate(${data.transform.rotate}deg)`
+                `translate(${endTransition[1].map((d) => `${d}%`).join(",")}) ${
+                  data.transform.shareScale
+                    ? `scale(${data.transform.shareScale / 100})`
                     : ""
                 }`,
               ])}
             >
-              <Box
-                transform={responsive([
-                  `translate(${endTransition[0]
-                    .map((d) => `${d}%`)
-                    .join(",")}) ${
-                    data.transform.mobileShareScale
-                      ? `scale(${data.transform.mobileShareScale / 100})`
-                      : data.transform.shareScale
-                      ? `scale(${data.transform.shareScale / 100})`
-                      : ""
-                  }`,
-                  `translate(${endTransition[1]
-                    .map((d) => `${d}%`)
-                    .join(",")}) ${
-                    data.transform.shareScale
-                      ? `scale(${data.transform.shareScale / 100})`
-                      : ""
-                  }`,
-                ])}
-              >
-                <GatsbyImage alt={data.name} image={data.gatsbyImg.large} />
-                <Face transform={data.transform.face} id={faceId} />
-              </Box>
-            </Box.Absolute>
-          </Box.Relative>
+              <GatsbyImage alt={data.name} image={data.gatsbyImg.large} />
+              <Face transform={data.transform.face} id={faceId} />
+            </Box>
+          </Box.Absolute>
         </Container>
       </Box.Absolute>
     </>

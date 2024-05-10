@@ -892,6 +892,8 @@ const TrashPage = ({
       (isMobile && data.transform.mobileShareScale
         ? data.transform.mobileShareScale
         : data.transform.shareScale) / 100;
+
+    console.log("scale", scale);
     endTimeline
       .to(
         trashXRef.current,
