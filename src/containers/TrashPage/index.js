@@ -1020,10 +1020,10 @@ const TrashPage = ({
           <Box.Absolute
             ref={trashRef}
             id="trash-container"
-            // top={responsive(
-            //   `${45 + (data.transform.mobileFirstY || 0)}%`,
-            //   `${50 + (data.transform.firstY || 0)}%`
-            // )}
+            top={responsive(
+              `${45 + (data.transform.mobileFirstY || 0)}%`,
+              `${50 + (data.transform.firstY || 0)}%`
+            )}
             width={`${trashWidth}%`}
             left={`${(100 - trashWidth) / 2}%`}
           >
