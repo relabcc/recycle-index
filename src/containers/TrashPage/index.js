@@ -551,9 +551,6 @@ const TrashPage = ({
     const defaultTrashCfg = {
       width: `${trashWidth}%`,
       left: `${(100 - trashWidth) / 2}%`,
-      top: isMobile
-        ? (45 + (data.transform.mobileFirstY || 0)) / 100 * (windowHeight)
-        : (50 + (data.transform.firstY || 0)) / 100 * (windowHeight),
       rotate:
         (isMobile && data.transform.mobileRotate
           ? data.transform.mobileRotate
@@ -561,6 +558,11 @@ const TrashPage = ({
       y: "-50%",
       x: 0,
     };
+    if (isIos) {
+      defaultTrashCfg.top = isMobile
+        ? ((45 + (data.transform.mobileFirstY || 0)) / 100) * windowHeight
+        : ((50 + (data.transform.firstY || 0)) / 100) * windowHeight;
+    }
     gsap.set(trashRef.current, defaultTrashCfg);
     gsap.set(trashXRef.current, {
       x: 0,
@@ -617,7 +619,7 @@ const TrashPage = ({
         width: `${explodeWidthFactor}%`,
         left: `${(100 - explodeWidthFactor) / 2}%`,
         top: isMobile
-          ? (50 + (data.transform.mobileExplosionY || 0)) / 100 * windowHeight
+          ? ((50 + (data.transform.mobileExplosionY || 0)) / 100) * windowHeight
           : 0.5 * windowHeight,
         x: isMobile ? "25%" : "0",
         // y: isMobile ? '45%' : '50%',
