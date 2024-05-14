@@ -613,14 +613,19 @@ const TrashPage = ({
       },
       0
     );
+    const trashTop = isIos
+      ? isMobile
+        ? ((50 + (data.transform.mobileExplosionY || 0)) / 100) * windowHeight
+        : 0.5 * windowHeight
+      : isMobile
+      ? `${(50 + (data.transform.mobileExplosionY || 0)) / 100}%`
+      : "50%";
     theTimeline.to(
       trashRef.current,
       {
         width: `${explodeWidthFactor}%`,
         left: `${(100 - explodeWidthFactor) / 2}%`,
-        top: isMobile
-          ? ((50 + (data.transform.mobileExplosionY || 0)) / 100) * windowHeight
-          : 0.5 * windowHeight,
+        top: trashTop,
         x: isMobile ? "25%" : "0",
         // y: isMobile ? '45%' : '50%',
         duration: scrollingDuration,
