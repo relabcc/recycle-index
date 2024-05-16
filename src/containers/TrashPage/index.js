@@ -618,7 +618,7 @@ const TrashPage = ({
         ? ((50 + (data.transform.mobileExplosionY || 0)) / 100) * windowHeight
         : 0.5 * windowHeight
       : isMobile
-      ? `${(50 + (data.transform.mobileExplosionY || 0)) / 100}%`
+      ? `${(50 + (data.transform.mobileExplosionY || 0))}%`
       : "50%";
     theTimeline.to(
       trashRef.current,
