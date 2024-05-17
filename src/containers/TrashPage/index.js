@@ -384,7 +384,7 @@ const TrashPage = ({
                           color="black"
                           fontSize={responsive("1.125em", "0.9375em")}
                           fontWeight="900"
-                          px={responsive("0.5em", "0")}
+                          px={responsive("0.625em", "0")}
                         >
                           {partName.replace(/([A-Z]+)/, (match, p1, offset) =>
                             offset > 0 ? `\n${p1}` : p1
@@ -410,6 +410,7 @@ const TrashPage = ({
                             color="black"
                             fontSize={responsive("1.125em", "0.9375em")}
                             fontWeight="900"
+                            px={responsive("0.5em", "0")}
                           >
                             {data.belongsTo[partName]}
                           </Text>
@@ -618,7 +619,7 @@ const TrashPage = ({
         ? ((50 + (data.transform.mobileExplosionY || 0)) / 100) * windowHeight
         : 0.5 * windowHeight
       : isMobile
-      ? `${(50 + (data.transform.mobileExplosionY || 0))}%`
+      ? `${50 + (data.transform.mobileExplosionY || 0)}%`
       : "50%";
     theTimeline.to(
       trashRef.current,

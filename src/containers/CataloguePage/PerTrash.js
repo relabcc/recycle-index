@@ -114,9 +114,7 @@ const PerTrash = ({ data }) => {
                 }
                 letterSpacing="0.125em"
               >
-                {isEn
-                  ? trashEn[data.name]
-                  : data.name.replace("/", "/\n").replace(/([A-Z]+)/, "\n$1")}
+                {isEn ? trashEn[data.name] : data.name.replace("/", "/\n")}
               </Text>
             </Box.Absolute>
           )}
