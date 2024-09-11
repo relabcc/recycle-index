@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "canvas": "^2.10.1",
+    "canvas": "^2.11.2",
     "deepmerge": "^4.2.2",
     "eslint-config-react-app": "^6.0.0",
     "gh-pages": "^3.2.3",
