@@ -23,6 +23,7 @@ import { responsive } from '../../../components/ThemeProvider/theme'
 
 const icons = {
   沖洗: wash,
+  清洗: wash,
   清理: clean,
   撕除封膜: teal,
   正確分類: bin,

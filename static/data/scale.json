@@ -803,14 +803,14 @@
     "mobileY": "",
     "mobileShareScale": "",
     "firstY": "",
-    "gap": "",
-    "explosionScale": "85",
+    "gap": "300",
+    "explosionScale": "75",
     "homeScale": "200",
     "homeX": "",
     "homeY": "15",
     "mobileFirstY": "",
     "mobileExplosionY": "",
-    "faceNo": "3",
+    "faceNo": "4",
     "face": " translate(0%,-21%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
@@ -1188,7 +1188,7 @@
     "face": " translate(0%,-42%) skew(0deg,0deg) rotate(0deg) scale(1.4)"
   },
   {
-    "name": "廢棄藥丸",
+    "name": "藥丸",
     "scale": "75",
     "x": "-10",
     "y": "-8",
@@ -1716,7 +1716,7 @@
     "face": " translate(6%,-42%) skew(0deg,0deg) rotate(6deg) scale(1.3)"
   },
   {
-    "name": "不要的舊鞋子",
+    "name": "鞋",
     "scale": "90",
     "x": "-8",
     "y": "10",
@@ -2463,5 +2463,27 @@
     "mobileExplosionY": "",
     "faceNo": "2",
     "face": " translate(-1%,5%) skew(0deg,0deg) rotate(0deg) scale(1)"
+  },
+  {
+    "name": "可透光塑膠袋",
+    "scale": "80",
+    "x": "-10",
+    "y": "",
+    "shareScale": "90",
+    "rotate": "10",
+    "mobileScale": "",
+    "mobileX": "",
+    "mobileY": "",
+    "mobileShareScale": "",
+    "firstY": "10",
+    "gap": "",
+    "explosionScale": "",
+    "homeScale": "180",
+    "homeX": "",
+    "homeY": "10",
+    "mobileFirstY": "",
+    "mobileExplosionY": "",
+    "faceNo": "2",
+    "face": "translate(0%,-10%)"
   }
 ]

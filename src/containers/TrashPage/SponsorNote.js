@@ -30,6 +30,18 @@ const logos = {
       ratio={1575 / 169}
     />
   ),
+  百靈佳殷格翰: (
+    <BackgroundImage
+      src={require("./sponsors/Boehringer_Logo.jpg").default}
+      ratio={1000 / 303}
+    />
+  ),
+  雀巢: (
+    <BackgroundImage
+      src={require("./sponsors/nestle.png").default}
+      ratio={392 / 389}
+    />
+  ),
 };
 
 const SponsorNote = ({ sponsor }) => {
