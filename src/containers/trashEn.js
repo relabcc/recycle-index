@@ -60,7 +60,7 @@ const enName = {
   '鋁箔紙': 'Aluminum Foil',
   '棉被枕頭': 'Quilt & Pillow',
   '塑膠吸管': 'Plastic Straw',
-  '廢棄藥丸': 'Expired Medicines',
+  '藥丸': 'Expired Medicines',
   '泡麵碗': 'Instant Noodle Bowl',
   '玻璃瓶': 'Glass Bottle',
   '立可帶': 'Correction Tape',

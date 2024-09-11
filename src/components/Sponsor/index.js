@@ -1,10 +1,10 @@
 import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 import Box from "../Box";
 import Flex from "../Flex";
 import { responsive } from "../ThemeProvider/theme";
-import LazyLoad from "../LazyLoad";
 
 const ratio = 363 / 210;
 
@@ -25,6 +25,24 @@ const sponsor = [
     placeholder="tracedSVG"
     alt="Nespresso"
     src="../../containers/TrashPage/sponsors/rhino.svg"
+    aspectRatio={ratio}
+    objectFit="contain"
+    transformOptions={{ fit: "contain" }}
+    backgroundColor="transparent"
+  />,
+  <StaticImage
+    placeholder="tracedSVG"
+    alt="Nespresso"
+    src="../../containers/TrashPage/sponsors/nestle.png"
+    aspectRatio={ratio}
+    objectFit="contain"
+    transformOptions={{ fit: "contain" }}
+    backgroundColor="transparent"
+  />,
+  <StaticImage
+    placeholder="tracedSVG"
+    alt="Nespresso"
+    src="../../containers/TrashPage/sponsors/Boehringer_Logo.jpg"
     aspectRatio={ratio}
     objectFit="contain"
     transformOptions={{ fit: "contain" }}
@@ -72,26 +90,28 @@ const Sponsor = ({
           letterSpacing="0.125em"
           borderRight={isFooter && "2px solid"}
           pr={isFooter && responsive("0.5em", "1em")}
+          whiteSpace="nowrap"
+          flexShrink="0"
         >
           贊助單位
         </Box>
-        <Flex
+        <Grid
+          flex="1"
+          px={responsive("1em", "1.25em")}
           alignItems="center"
-          flex={responsive("1", "none")}
-          flexWrap={isFooter && "wrap"}
+          gap={responsive("1em", "1.25em")}
+          templateColumns={{
+            base: "repeat(2, 1fr)",
+            sm: "repeat(3, 1fr)",
+            lg: "repeat(5, 1fr)",
+          }}
         >
           {sponsor.map((logo, k) => (
-            <Box
-              px={responsive("1em", "1.25em")}
-              key={k}
-              width={1 / sponsor.length}
-              minW="6em"
-              {...logoProps}
-            >
-              {logo}
-            </Box>
+            <GridItem key={k} textAlign="center">
+              <Box display="inline-block" minW="5em" {...logoProps}>{logo}</Box>
+            </GridItem>
           ))}
-        </Flex>
+        </Grid>
       </Flex>
     </Box>
   );
