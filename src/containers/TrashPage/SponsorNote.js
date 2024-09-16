@@ -38,8 +38,8 @@ const logos = {
   ),
   雀巢: (
     <BackgroundImage
-      src={require("./sponsors/nestle.png").default}
-      ratio={1}
+      src={require("./sponsors/nestle-wide.png").default}
+      ratio={960 / 480}
     />
   ),
 };
