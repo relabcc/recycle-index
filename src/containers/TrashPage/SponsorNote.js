@@ -39,7 +39,7 @@ const logos = {
   雀巢: (
     <BackgroundImage
       src={require("./sponsors/nestle.png").default}
-      ratio={392 / 389}
+      ratio={1}
     />
   ),
 };
