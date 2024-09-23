@@ -32,14 +32,14 @@ const logos = {
   ),
   百靈佳殷格翰: (
     <BackgroundImage
-      src={require("./sponsors/Boehringer_Logo.jpg").default}
-      ratio={1000 / 303}
+      src={require("./sponsors/Boehringer.png").default}
+      ratio={1}
     />
   ),
   雀巢: (
     <BackgroundImage
       src={require("./sponsors/nestle-wide.png").default}
-      ratio={960 / 480}
+      ratio={1200 / 693}
     />
   ),
 };
