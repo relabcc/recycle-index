@@ -1,5 +1,5 @@
 
     const path = require('path')
     module.exports = {
-      '瓷器': path.resolve(__dirname, './瓷器.png'),
+      '陶瓷碗盤': path.resolve(__dirname, './陶瓷碗盤.png'),
     }
