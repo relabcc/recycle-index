@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fse = require("fs-extra");
-const Rematrix = require('rematrix')
+const Rematrix = require("rematrix");
 
 const { get, mapValues, mapKeys } = require("lodash");
 const path = require("path");
@@ -53,86 +53,56 @@ const remapKeys = (data, keyMap) =>
 const readfile = util.promisify(fs.readFile);
 
 const parseTransform = (transform) => {
-  const pttn = /(\w+)\(([^)]+)\)/g
-  const getNumber = /-?\d+(\.\d)*/g
-  let t = [
-    Rematrix.translate(imgSize[0] / 2, imgSize[1] / 2)
-  ]
-  const obj = {}
-  // const unitify = {
-  //   translate: pos => [
-  //     pos[0] / 100 * imgSize[0],
-  //     pos[1] / 100 * imgSize[1]
-  //   ],
-  //   // skew: rs => rs.map(r => r * Math.PI / 180),
-  //   // rotate: r => r * Math.PI / 180,
-  // }
-  let pair
-  while (pair = pttn.exec(transform)) {
-    const [, name, cfg] = pair
-    const cfgs = []
-    let res
-    while (res = getNumber.exec(cfg)) {
-      cfgs.push(res)
+  const pttn = /(\w+)\(([^)]+)\)/g;
+  const getNumber = /-?\d+(\.\d)*/g;
+  let t = [Rematrix.translate(imgSize[0] / 2, imgSize[1] / 2)];
+  const obj = {};
+
+  let pair;
+  while ((pair = pttn.exec(transform))) {
+    const [, name, cfg] = pair;
+    const cfgs = [];
+    let res;
+    while ((res = getNumber.exec(cfg))) {
+      cfgs.push(res);
     }
     if (cfgs.length > 1) {
       // const x = cfgs[0][0] * 1
       // const y = cfgs[1][0] * 1
-      obj[name] = [
-        cfgs[0][0] * 1,
-        cfgs[1][0] * 1,
-      ]
+      obj[name] = [cfgs[0][0] * 1, cfgs[1][0] * 1];
     } else {
       // t.push(Rematrix[name](cfgs[0][0] * 1))
-      obj[name] = cfgs[0][0] * 1
+      obj[name] = cfgs[0][0] * 1;
     }
   }
-  const mt = ['skew', 'rotate', 'scale'].map(key => {
-    // const cfg = unitify[key] ? unitify[key](obj[key]) : obj[key]
-    const cfg = obj[key]
-    return Rematrix[key](...(Array.isArray(cfg) ? cfg : [cfg]))
-  })
+  const mt = ["skew", "rotate", "scale"]
+    .map((key) => {
+      // const cfg = unitify[key] ? unitify[key](obj[key]) : obj[key]
+      const cfg = obj[key];
+      if (cfg) {
+        return Rematrix[key](...(Array.isArray(cfg) ? cfg : [cfg]));
+      }
+    })
+    .filter(Boolean);
 
   const matrix = [
     ...t,
     ...mt,
-    Rematrix.translate(-imgSize[0] / 2, -imgSize[1] / 2)
-  ].reduce(Rematrix.multiply)
-  return [matrix, obj]
+    Rematrix.translate(-imgSize[0] / 2, -imgSize[1] / 2),
+  ].reduce(Rematrix.multiply);
+  return [matrix, obj];
   // return obj
-}
+};
 
-// const getHtml = ({ id }) => `<!DOCTYPE html>
-// <html lang="zh-Hant-TW">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-//   <title>回收大百科</title>
-//   <meta property="description" content="台灣人必懂的101件垃圾" />
-//   <meta property="og:type" content="website" />
-//   <meta property="og:title" content="回收大百科" />
-//   <meta property="og:description" content="台灣人必懂的101件垃圾" />
-//   <meta property="og:image" content="https://recycle.rethinktw.org/share/${id}/share.png" />
-//   <meta property="og:image:width" content="1200" />
-//   <meta property="og:image:height" content="630" />
-// </head>
-// <body>
-//   <img src="share.png" style="display: none" />
-//   <script>
-//     window.onload = function() {
-//       window.location = "https://recycle.rethinktw.org/";
-//     };
-//   </script>
-// </body>
-// </html>
-// `
-
-const getFaceImage = async data => {
-  const face = await loadImage(path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`))
+const getFaceImage = async (data) => {
+  const face = await loadImage(
+    path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`)
+  );
   const canvas = createCanvas(...imgSize);
-  const ctx = canvas.getContext('2d');
-  const [faceTransform, transformCfg] = parseTransform(data.transform.face.trim())
+  const ctx = canvas.getContext("2d");
+  const [faceTransform, transformCfg] = parseTransform(
+    data.transform.face.trim()
+  );
   const matrix = [
     faceTransform[0],
     faceTransform[1],
@@ -140,39 +110,28 @@ const getFaceImage = async data => {
     faceTransform[5],
     faceTransform[12],
     faceTransform[13],
-  ]
+  ];
 
-  // ctx.translate(imgSize[0] / 2, imgSize[1] / 2)
-  ctx.transform(...matrix)
-  // ctx.translate(...faceTransform.translate)
-  // ctx.rotate(faceTransform.rotate * Math.PI / 180)
-  // ctx.transform(
-  //   faceTransform.scale,
-  //   faceTransform.skew[0] * Math.PI / 180,
-  //   faceTransform.skew[1] * Math.PI / 180,
-  //   faceTransform.scale,
-  //   faceTransform.translate[0] / 100 * imgSize[0] * faceTransform.scale,
-  //   faceTransform.translate[1] / 100 * imgSize[1] * faceTransform.scale,
-  // )
+  ctx.transform(...matrix);
+
   ctx.drawImage(face, 0, 0, ...imgSize);
-  // ctx.drawImage(face, 0, 0, ...imgSize);
-  const dataURL = canvas.toDataURL()
-  const dirName = path.resolve(__dirname, `public/share/${data.id}`)
-  return new Promise(async resolve => {
-    await fse.ensureDir(dirName)
-    const savePng = fs.createWriteStream(path.resolve(dirName, 'face.png'))
-    canvas.pngStream().pipe(savePng)
+  const dataURL = canvas.toDataURL();
+  const dirName = path.resolve(__dirname, `public/share/${data.id}`);
+  return new Promise(async (resolve) => {
+    await fse.ensureDir(dirName);
+    const savePng = fs.createWriteStream(path.resolve(dirName, "face.png"));
+    canvas.pngStream().pipe(savePng);
 
-    savePng.on('close', async () => {
-      const face = await loadImage(dataURL)
-      resolve([face, transformCfg])
-    })
-  })
-}
+    savePng.on("close", async () => {
+      const face = await loadImage(dataURL);
+      resolve([face, transformCfg]);
+    });
+  });
+};
 
 const createOg = async (data) => {
   if (!data.img) {
-    throw new Error('no image')
+    throw new Error("no image");
   }
   const shape = await loadImage(
     path.resolve(__dirname, "src/containers/TrashPage/share-bg.svg")
@@ -181,7 +140,7 @@ const createOg = async (data) => {
     path.resolve(__dirname, "src/containers/logo.svg")
   );
   const trash = await loadImage(fs.readFileSync(data.img));
-  const [face, transformObj] = await getFaceImage(data)
+  const [face, transformObj] = await getFaceImage(data);
 
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx = canvas.getContext("2d");
@@ -190,7 +149,7 @@ const createOg = async (data) => {
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.drawImage(logo, 1004, 583.5, 168, 27.8);
   ctx.drawImage(shape, 149, 57, 990.6, 538);
-  const s = ((data.transform.shareScale || 100) / 100)
+  const s = (data.transform.shareScale || 100) / 100;
   const trashSize = [imgSize[0] * s, imgSize[1] * s];
   const trashPos = [
     (trashSize[0] * ((data.transform.x || 0) * 1 + 10)) / 100,
@@ -206,8 +165,10 @@ const createOg = async (data) => {
   ctx.drawImage(trash, -trashSize[0] / 2, -trashSize[1] / 2, ...trashSize);
   ctx.drawImage(
     face,
-    -trashSize[0] / 2 + trashSize[0] * transformObj.translate[0] / 100 * transformObj.scale,
-    -trashSize[1] / 2 + trashSize[1] * transformObj.translate[1] / 100 * transformObj.scale,
+    -trashSize[0] / 2 +
+      ((trashSize[0] * transformObj.translate[0]) / 100) * transformObj.scale,
+    -trashSize[1] / 2 +
+      ((trashSize[1] * transformObj.translate[1]) / 100) * transformObj.scale,
     ...trashSize
   );
 
@@ -240,9 +201,11 @@ const createOg = async (data) => {
     const saveJpg = fs.createWriteStream(
       path.resolve(dirName, `${+data.id + 1}.jpg`)
     );
-    canvas.createJPEGStream({
-      quality: 0.95,
-    }).pipe(saveJpg);
+    canvas
+      .createJPEGStream({
+        quality: 0.95,
+      })
+      .pipe(saveJpg);
 
     saveJpg.on("close", resolve);
   });
@@ -260,18 +223,26 @@ Promise.all(
     return all;
   }, {});
 
-  const transformed = remapKeys(data.filter(d => d['最終序號']), dataKeys).map((d) => ({
+  const transformed = remapKeys(
+    data.filter((d) => d["最終序號"]),
+    dataKeys
+  ).map((d) => ({
     ...d,
-    img: get(images, [d.name, d.name].map(s => s.replace(/\//g, '%2F'))),
+    img: get(
+      images,
+      [d.name, d.name].map((s) => s.replace(/\//g, "%2F"))
+    ),
     transform: mapValues(scales[d.name], (d) => (isNaN(d) ? d : d * 1)),
   }));
 
   return Promise.all(
     transformed.slice(111).map((d) =>
       createOg(d).catch((e) => {
-        console.log(d);
+        console.log(d["最終序號"], d.name);
         console.error(e);
       })
     )
-  ).then(process.exit);
+  ).then(() => {
+    process.exit(0);
+  });
 });
