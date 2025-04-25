@@ -42,6 +42,12 @@ const logos = {
       ratio={1200 / 693}
     />
   ),
+  eneloop: (
+    <BackgroundImage
+      src={require("./sponsors/eneloop.jpg").default}
+      ratio={945 / 332}
+    />
+  ),
 };
 
 const SponsorNote = ({ sponsor }) => {

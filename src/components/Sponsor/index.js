@@ -8,45 +8,46 @@ import { responsive } from "../ThemeProvider/theme";
 
 const ratio = 363 / 210;
 
+const logoProps = {
+  placeholder: "tracedSVG",
+  objectFit: "contain",
+  transformOptions: { fit: "contain" },
+  backgroundColor: "transparent",
+};
+
 const sponsor = [
   <StaticImage src="rc.svg" alt="RC文化基金會" placeholder="tracedSVG" />,
   <StaticImage src="foodpanda.svg" alt="Foodpanda" placeholder="tracedSVG" />,
   <StaticImage src="citi.svg" alt="花旗銀行" placeholder="tracedSVG" />,
   <StaticImage
-    placeholder="tracedSVG"
     alt="Nespresso"
     src="../../containers/TrashPage/sponsors/Nespresso.svg"
     aspectRatio={ratio}
-    objectFit="contain"
-    transformOptions={{ fit: "contain" }}
-    backgroundColor="transparent"
+    {...logoProps}
   />,
   <StaticImage
-    placeholder="tracedSVG"
-    alt="Nespresso"
+    alt="犀牛盾"
     src="../../containers/TrashPage/sponsors/rhino.svg"
     aspectRatio={ratio}
-    objectFit="contain"
-    transformOptions={{ fit: "contain" }}
-    backgroundColor="transparent"
+    {...logoProps}
   />,
   <StaticImage
-    placeholder="tracedSVG"
-    alt="Nespresso"
+    alt="雀巢"
     src="../../containers/TrashPage/sponsors/nestle.png"
     aspectRatio={1}
-    objectFit="contain"
-    transformOptions={{ fit: "contain" }}
-    backgroundColor="transparent"
+    {...logoProps}
   />,
   <StaticImage
-    placeholder="tracedSVG"
-    alt="Nespresso"
+    alt="Boehringer"
     src="../../containers/TrashPage/sponsors/Boehringer.png"
     aspectRatio={1}
-    objectFit="contain"
-    transformOptions={{ fit: "contain" }}
-    backgroundColor="transparent"
+    {...logoProps}
+  />,
+  <StaticImage
+    alt="eneloop"
+    src="../../containers/TrashPage/sponsors/eneloop.jpg"
+    aspectRatio={1}
+    {...logoProps}
   />,
 ];
 
@@ -108,7 +109,9 @@ const Sponsor = ({
         >
           {sponsor.map((logo, k) => (
             <GridItem key={k} textAlign="center">
-              <Box display="inline-block" minW="5em" {...logoProps}>{logo}</Box>
+              <Box display="inline-block" minW="5em" {...logoProps}>
+                {logo}
+              </Box>
             </GridItem>
           ))}
         </Grid>

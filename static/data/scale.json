@@ -2485,5 +2485,27 @@
     "mobileExplosionY": "",
     "faceNo": "2",
     "face": "translate(0%,-10%)"
+  },
+  {
+    "name": "充電電池",
+    "scale": "",
+    "x": "",
+    "y": "",
+    "shareScale": "",
+    "rotate": "",
+    "mobileScale": "",
+    "mobileX": "",
+    "mobileY": "",
+    "mobileShareScale": "",
+    "firstY": "",
+    "gap": "",
+    "explosionScale": "",
+    "homeScale": "150",
+    "homeX": "",
+    "homeY": "",
+    "mobileFirstY": "",
+    "mobileExplosionY": "",
+    "faceNo": "2",
+    "face": "translate(0%,-52%)"
   }
 ]
