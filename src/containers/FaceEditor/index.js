@@ -1,25 +1,15 @@
-import React, { Fragment, useMemo } from "react";
-import {
-  AspectRatio,
-  Input,
-  useClipboard,
-  Select,
-  Stack,
-  IconButton,
-} from "@chakra-ui/react";
-import { get, random, range } from "lodash";
+import React, { useMemo } from "react";
+import { AspectRatio } from "@chakra-ui/react";
+import random from "lodash/random";
 import { SizeMe } from "react-sizeme";
 import ReactSelect from "react-select";
 import { useFormik } from "formik";
-import { MdRefresh } from "react-icons/md";
 import { navigate } from "gatsby";
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 import Box from "../../components/Box";
 import Text from "../../components/Text";
-import Flex from "../../components/Flex";
-import Button from "../../components/Button";
 import Container from "../../components/Container";
 import Face from "../Face";
 
@@ -27,6 +17,7 @@ import theme, { responsive } from "../../components/ThemeProvider/theme";
 import imgSize from "../TrashPage/data/imgSize";
 import useAllTrashes from "../TrashPage/data/useAllTrashes";
 import useTrashData from "../TrashPage/data/useTrashData";
+import TheFaceEditor, { fields } from "./TheFaceEditor";
 
 const idealWidth = 200;
 
@@ -36,45 +27,12 @@ const colorsCfg = {
   C: "pink",
 };
 
-const fields = [
-  {
-    name: "translate",
-    label: "位移",
-    children: ["x", "y"],
-    unit: "%",
-    min: -100,
-    max: 100,
-  },
-  {
-    name: "skew",
-    label: "扭曲",
-    children: ["x", "y"],
-    unit: "deg",
-    min: -90,
-    max: 90,
-  },
-  { name: "rotate", label: "旋轉", unit: "deg", min: -180, max: 180 },
-  { name: "scale", label: "縮放", unit: "", min: 0, max: 3, step: 0.1 },
-];
-
 const defaultValues = {
   translate: { x: 0, y: 0 },
   rotate: 0,
   scale: 1,
   skew: { x: 0, y: 0 },
 };
-const SliderWithReset = ({ onReset, ...props }) => (
-  <Flex>
-    <input type="range" {...props} />
-    <IconButton
-      ml="4"
-      variant="ghost"
-      size="xs"
-      onClick={onReset}
-      icon={<MdRefresh />}
-    />
-  </Flex>
-);
 
 const FaceEditor = ({ data, allData }) => {
   const lastConfig = useMemo(() => {
@@ -126,22 +84,9 @@ const FaceEditor = ({ data, allData }) => {
     (data.transform.scale
       ? data.transform.scale / 100
       : Math.min(1, idealWidth / (data.xRange[1] - data.xRange[0])));
-  const { hasCopied, onCopy } = useClipboard(transformString);
-
-  // useLoader(data.gatsbyImg);
 
   const n = `#${String(data.id).padStart(3, "0")}`;
-  // const bgColor = get(theme, `colors.${colorScheme}`)
-  // const parts = useMemo(() => {
-  //   if (!data) return null;
-  //   return data.imgs.map(({ gatsbySrc }, i) => (
-  //     <Box.FullAbs key={i}>
-  //       <AspectRatio ratio={imgSize[0] / imgSize[1]}>
-  //         <GatsbyImage image={gatsbySrc} />
-  //       </AspectRatio>
-  //     </Box.FullAbs>
-  //   ));
-  // }, [data]);
+
   const options = useMemo(
     () =>
       allData
@@ -200,77 +145,13 @@ const FaceEditor = ({ data, allData }) => {
           p="1em"
           overflow="auto"
         >
-          <Stack fontSize="16px" spacing="6">
-            <Box>
-              <Box>Face No.</Box>
-              <Select
-                fontSize="1em"
-                height="2.5em"
-                name="faceId"
-                value={values.faceId}
-                onChange={handleChange}
-              >
-                {range(5).map((n) => (
-                  <option key={n} value={n + 1}>
-                    {n + 1}
-                  </option>
-                ))}
-              </Select>
-            </Box>
-            <Box>
-              <Box>把結果貼回Google Sheet</Box>
-              <Flex>
-                <Input
-                  px="1em"
-                  height="2.5em"
-                  fontSize="1em"
-                  readOnly
-                  value={transformString}
-                />
-                <Button onClick={onCopy} ml={2} fontSize="1.25em">
-                  {hasCopied ? "已複製" : "複製"}
-                </Button>
-              </Flex>
-            </Box>
-            {fields.map((field) => (
-              <Box key={field.name}>
-                <Box>{field.label}</Box>
-                {field.children ? (
-                  field.children.map((c) => (
-                    <Fragment key={c}>
-                      <Box>{c}: </Box>
-                      <SliderWithReset
-                        onReset={() =>
-                          setFieldValue(
-                            `${field.name}.${c}`,
-                            get(defaultValues, `${field.name}.${c}`)
-                          )
-                        }
-                        name={`${field.name}.${c}`}
-                        min={field.min}
-                        max={field.max}
-                        step={field.step}
-                        value={values[field.name][c]}
-                        onChange={handleChange}
-                      />
-                    </Fragment>
-                  ))
-                ) : (
-                  <SliderWithReset
-                    onReset={() =>
-                      setFieldValue(field.name, defaultValues[field.name])
-                    }
-                    name={field.name}
-                    min={field.min}
-                    max={field.max}
-                    step={field.step}
-                    value={values[field.name]}
-                    onChange={handleChange}
-                  />
-                )}
-              </Box>
-            ))}
-          </Stack>
+          <TheFaceEditor
+            handleChange={handleChange}
+            setFieldValue={setFieldValue}
+            values={values}
+            defaultValues={defaultValues}
+            transformString={transformString}
+          />
         </Box.Absolute>
         <Box.Absolute
           top="0"
@@ -294,7 +175,13 @@ const FaceEditor = ({ data, allData }) => {
               <div>
                 <AspectRatio ratio={imgSize[0] / imgSize[1]} overflow="visible">
                   <Box overflow="visible">
-                  <GatsbyImage image={data.gatsbyImg.large} alt={data.name} css={css`width:100%`} />
+                    <GatsbyImage
+                      image={data.gatsbyImg.large}
+                      alt={data.name}
+                      css={css`
+                        width: 100%;
+                      `}
+                    />
                     <Face
                       key={values.faceId}
                       id={values.faceId}
@@ -325,9 +212,12 @@ const FaceEditorWithData = (props) => {
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
-  const srcData = useMemo(() => allData?.find(d => d.id === id), [allData, id]);
+  const srcData = useMemo(
+    () => allData?.find((d) => d.id === id),
+    [allData, id]
+  );
   const data = useTrashData(srcData, gatsbyImages);
-  return data ? <FaceEditor data={data} allData={allData} /> : null
-}
+  return data ? <FaceEditor data={data} allData={allData} /> : null;
+};
 
 export default FaceEditorWithData;
