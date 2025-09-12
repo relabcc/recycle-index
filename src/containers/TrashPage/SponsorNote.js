@@ -9,6 +9,7 @@ const links = {
   Nespresso: "https://www.nespresso.com/tw/zh/home",
   foodpanda: "https://www.foodpanda.com.tw/",
   犀牛盾: "https://shop.rhinoshield.tw/sustainability/recycling",
+  "Family Mart": "https://www.family.com.tw/",
 };
 
 const logos = {
@@ -46,6 +47,12 @@ const logos = {
     <BackgroundImage
       src={require("./sponsors/eneloop.jpg").default}
       ratio={945 / 332}
+    />
+  ),
+  "Family Mart": (
+    <BackgroundImage
+      src={require("./sponsors/familymart.svg").default}
+      ratio={400 / 120}
     />
   ),
 };

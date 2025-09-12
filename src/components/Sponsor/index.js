@@ -49,6 +49,12 @@ const sponsor = [
     aspectRatio={1}
     {...logoProps}
   />,
+  <StaticImage
+    alt="Family Mart"
+    src="familymart.svg"
+    aspectRatio={ratio}
+    {...logoProps}
+  />,
 ];
 
 const Sponsor = ({
