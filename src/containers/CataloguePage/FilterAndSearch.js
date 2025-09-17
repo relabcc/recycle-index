@@ -1,6 +1,5 @@
 import React from 'react'
 import Select from 'react-select'
-// import chroma from 'chroma-js';
 import { MdSearch } from 'react-icons/md'
 import { GrFilter } from 'react-icons/gr'
 import {
@@ -31,7 +30,8 @@ const filterOptions = (isEn) => ([
       { label: isEn ? 'Home - Bathroom' : '家庭－衛浴', value: 4 },
       { label: isEn ? 'Home - Living Room' : '家庭－居家', value: 5 },
       { label: isEn ? 'Office' : '辦公室', value: 6 },
-      { label: isEn ? 'Delivery' : '美食/生鮮外送 ( foodpanda 贊助 )', value: 7 },
+      { label: isEn ? 'Delivery' : '美食外送', value: 7 },
+      { label: isEn ? 'Convenience Store' : '便利商店（全家便利商店贊助）', value: 8 },
     ],
   },
   {
