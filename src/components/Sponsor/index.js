@@ -51,7 +51,7 @@ const sponsor = [
   />,
   <StaticImage
     alt="Family Mart"
-    src="familymart.svg"
+    src="../../containers/TrashPage/sponsors/familyMart.png"
     aspectRatio={ratio}
     {...logoProps}
   />,

@@ -51,7 +51,7 @@ const logos = {
   ),
   "Family Mart": (
     <BackgroundImage
-      src={require("./sponsors/familymart.svg").default}
+      src={require("./sponsors/familyMart.png").default}
       ratio={400 / 120}
     />
   ),
