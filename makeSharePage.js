@@ -236,7 +236,7 @@ Promise.all(
   }));
 
   return Promise.all(
-    transformed.slice(111).map((d) =>
+    transformed.slice(115).map((d) =>
       createOg(d).catch((e) => {
         console.log(d["最終序號"], d.name);
         console.error(e);
