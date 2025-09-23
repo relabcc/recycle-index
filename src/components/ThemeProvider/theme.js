@@ -142,6 +142,10 @@ const overrides = {
   breakpoints: createBreakpoints(chakraBps),
   containerWidth,
   headerHeight: '60px',
+  zIndices: {
+    ...theme.zIndices,
+    banner: 1400, // Higher than header (1200) but lower than modal (1500)
+  },
 }
 
 const customTheme = extendTheme(overrides)

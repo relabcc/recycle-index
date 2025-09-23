@@ -16,6 +16,7 @@ import Button from '../components/Button';
 import Flex from '../components/Flex';
 import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
+import { useCountdownConfig } from '../hooks/useGlobalConfig';
 
 const links = [
   { name: '101+垃圾', en: '101+ Must-Know Trashes', to: '/catalogue/' },
@@ -30,11 +31,16 @@ const links = [
 const Header = ({ isEn, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
+  const countdownConfig = useCountdownConfig();
+  
+  // Calculate top offset if countdown banner is visible
+  const topOffset = countdownConfig?.enabled ? '3em' : 0;
+  
   return (
     <Flex
       as="header"
       position="fixed"
-      top={0}
+      top={topOffset}
       left={0}
       right={0}
       alignItems="center"
