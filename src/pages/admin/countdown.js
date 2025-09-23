@@ -19,7 +19,7 @@ import {
   useToast,
   Spinner,
 } from '@chakra-ui/react';
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { MdArrowBack } from 'react-icons/md';
 import Layout from '../../containers/Layout';
 import GoogleOAuthWrapper from '../../components/GoogleOAuthWrapper';
 
@@ -149,7 +149,7 @@ const CountdownManagementContent = ({ location }) => {
           {/* Header */}
           <HStack>
             <Button
-              leftIcon={<ArrowBackIcon />}
+              leftIcon={<MdArrowBack />}
               variant="ghost"
               onClick={() => window.location.href = '/admin'}
             >
