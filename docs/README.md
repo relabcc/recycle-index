@@ -8,7 +8,7 @@
 - ⏰ **全站倒數計時條** - 頂部倒數橫幅，支援自訂樣式
 - 📊 **Google Sheets 整合** - 使用 Google Sheets 作為資料來源
 - 🔐 **Google OAuth 權限管理** - 安全的管理員身份驗證
-- 🖼️ **雲端圖片上傳** - 支援 Cloudflare R2 圖片存儲
+- 🖼️ **多元圖片上傳** - 支援 Google Drive、Cloudflare R2、本地伺服器
 - 🌐 **雙 API 支援** - 同時提供 Cloudflare Functions 和 PHP 版本
 
 ## 系統架構

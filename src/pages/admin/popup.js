@@ -21,10 +21,14 @@ import {
   Image,
   useToast,
   Spinner,
+  RadioGroup,
+  Radio,
+  Stack,
 } from '@chakra-ui/react';
 import { MdArrowBack } from 'react-icons/md';
 import Layout from '../../containers/Layout';
 import GoogleOAuthWrapper from '../../components/GoogleOAuthWrapper';
+import { createUploadService } from '../../services/uploadService';
 
 const PopupManagementPage = ({ location }) => {
   const content = <PopupManagementContent location={location} />;
@@ -53,10 +57,16 @@ const PopupManagementContent = ({ location }) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadProvider, setUploadProvider] = useState('googledrive');
   const toast = useToast();
 
   useEffect(() => {
     loadConfig();
+    // Load saved upload provider
+    const savedProvider = localStorage.getItem('upload_provider');
+    if (savedProvider) {
+      setUploadProvider(savedProvider);
+    }
   }, []);
 
   const loadConfig = async () => {
@@ -93,21 +103,24 @@ const PopupManagementContent = ({ location }) => {
 
     setUploading(true);
     try {
-      // In a real implementation, this would upload to Cloudflare R2, S3, or another service
-      const formData = new FormData();
-      formData.append('image', file);
-      
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData,
+      // Get access token from localStorage
+      const accessToken = localStorage.getItem('google_access_token');
+      if (!accessToken) {
+        throw new Error('請先登入 Google 帳號');
+      }
+
+      // Create upload service with selected provider
+      const uploadService = createUploadService(uploadProvider, {
+        googleDriveFolderId: localStorage.getItem('google_drive_folder_id') || undefined,
       });
       
-      const data = await response.json();
-      if (data.url) {
-        handleInputChange('image', data.url);
+      const result = await uploadService.uploadFile(file, accessToken);
+      
+      if (result.success) {
+        handleInputChange('image', result.url);
         toast({
           title: '上傳成功',
-          description: '圖片已成功上傳',
+          description: `圖片已成功上傳到 ${uploadService.getProviderName()}`,
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -117,7 +130,7 @@ const PopupManagementContent = ({ location }) => {
       console.error('Error uploading image:', error);
       toast({
         title: '上傳失敗',
-        description: '圖片上傳失敗，請稍後再試',
+        description: error.message || '圖片上傳失敗，請稍後再試',
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -233,6 +246,20 @@ const PopupManagementContent = ({ location }) => {
                 </FormControl>
 
                 <FormControl>
+                  <FormLabel>圖片上傳服務</FormLabel>
+                  <RadioGroup value={uploadProvider} onChange={setUploadProvider}>
+                    <Stack direction="row" spacing={4}>
+                      <Radio value="googledrive">Google Drive</Radio>
+                      <Radio value="cloudflare">Cloudflare R2</Radio>
+                      <Radio value="local">本地伺服器</Radio>
+                    </Stack>
+                  </RadioGroup>
+                  <Text fontSize="sm" color="gray.600" mt={1}>
+                    選擇圖片上傳的儲存服務
+                  </Text>
+                </FormControl>
+
+                <FormControl>
                   <FormLabel>圖片</FormLabel>
                   <VStack align="stretch">
                     <Input
@@ -241,7 +268,12 @@ const PopupManagementContent = ({ location }) => {
                       onChange={handleImageUpload}
                       disabled={uploading}
                     />
-                    {uploading && <Text color="blue.500">上傳中...</Text>}
+                    {uploading && (
+                      <HStack>
+                        <Spinner size="sm" />
+                        <Text color="blue.500">上傳到 {createUploadService(uploadProvider).getProviderName()} 中...</Text>
+                      </HStack>
+                    )}
                     {config.image && (
                       <Box>
                         <Text fontSize="sm" mb={2}>目前圖片：</Text>

@@ -18,6 +18,7 @@ import {
 import { useGoogleLogin } from '@react-oauth/google';
 import Layout from '../../containers/Layout';
 import GoogleOAuthWrapper from '../../components/GoogleOAuthWrapper';
+import UploadSettings from '../../components/UploadSettings';
 
 const AdminPage = ({ location }) => {
   const adminContent = <AdminPageContent location={location} />;
@@ -76,7 +77,7 @@ const AdminPageContent = ({ location }) => {
       console.error('Login failed:', error);
       setLoading(false);
     },
-    scope: 'email profile https://www.googleapis.com/auth/spreadsheets',
+    scope: 'email profile https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file',
   });
 
   const logout = () => {
@@ -224,6 +225,9 @@ const AdminPageContent = ({ location }) => {
             </Card>
           </HStack>
 
+          {/* Upload Settings */}
+          <UploadSettings />
+
           {/* Google Sheets Info */}
           <Alert status="info">
             <AlertIcon />
@@ -231,6 +235,7 @@ const AdminPageContent = ({ location }) => {
               <Text fontWeight="bold">Google Sheets 整合</Text>
               <Text fontSize="sm">
                 設定資料會自動同步到 Google Sheets，您也可以直接在試算表中編輯內容。
+                圖片可上傳到 Google Drive 並使用相同的 OAuth 權限管理。
               </Text>
             </Box>
           </Alert>
