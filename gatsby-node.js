@@ -87,7 +87,7 @@ async function createTrashPage({ actions, graphql }) {
         });
         if (
           process.env.NODE_ENV === "development" ||
-          process.env.GATCF_PAGESSBY_DEV
+          process.env.CF_PAGES
         ) {
           await createPage({
             // will be the url for the page
