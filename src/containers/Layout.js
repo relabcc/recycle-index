@@ -8,6 +8,9 @@ import headerContext from '../contexts/header/context'
 
 import Header from './Header'
 import LineButton from '../components/LineButton';
+import GlobalPopup from '../components/GlobalPopup';
+import CountdownBanner from '../components/CountdownBanner';
+import { usePopupConfig, useCountdownConfig } from '../hooks/useGlobalConfig';
 
 export const EnContext = createContext()
 
@@ -19,6 +22,9 @@ const description = [
 const Layout = ({ children, path }) => {
   const isEn = useMemo(() => /^\/en/.test(path), [path])
   const { hideHeader, headerBg } = useContext(headerContext)
+  const popupConfig = usePopupConfig();
+  const countdownConfig = useCountdownConfig();
+  
   return (
     <StaticQuery
       query={graphql`
@@ -46,9 +52,11 @@ const Layout = ({ children, path }) => {
             <meta name="og:image" content={`${data.site.siteMetadata.siteUrl}/og-0113.jpg`} />
           </Helmet>
           <EnContext.Provider value={isEn}>
+            <CountdownBanner config={countdownConfig} />
             {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} />}
             {children}
             <LineButton />
+            <GlobalPopup config={popupConfig} />
           </EnContext.Provider>
         </>
       )}
