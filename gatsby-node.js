@@ -64,7 +64,7 @@ async function createTrashPage({ actions, graphql }) {
           allTrashes.filter((t) => t.id !== d.id),
           5
         ).map((t) => ({
-          ...t,
+            ...t,
           gatsbyImg: pick(gatsbyImages[t.name][t.name], ["regular"]),
         }));
         const pickedImag = mapValues(gatsbyImages[d.name], (imgs) =>

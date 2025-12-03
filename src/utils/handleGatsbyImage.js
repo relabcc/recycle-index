@@ -3,11 +3,13 @@ const { groupBy, reduce } = require("lodash");
 module.exports = (allFile) => {
   const grouped = groupBy(allFile.edges, "node.relativeDirectory");
 
+  const normalizeName = require("./normalizeName");
+
   return reduce(
     grouped,
     (f, files, group) => {
       if (group) {
-        const name = decodeURIComponent(group).replace(/(\d|\s)+/, "");
+        const name = normalizeName(group);
         f[name] = {};
         files.forEach(({ node }) => {
           const nodeName = decodeURIComponent(node.name);

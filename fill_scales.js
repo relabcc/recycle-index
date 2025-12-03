@@ -14,8 +14,17 @@ const TARGET_HEIGHTS = {
     mobileShareScale: 280  // Mobile share image default
 };
 
-// Helper to check if a value is "empty"
-const isEmpty = (val) => val === "" || val === null || val === undefined;
+// Helper to check if a value is "empty" (treat zero-like and blank as empty)
+const isEmpty = (val) => {
+    if (val === null || val === undefined) return true;
+    const s = String(val).trim();
+    if (s === '') return true;
+    // Remove common suffixes and whitespace, then test numeric value
+    const cleaned = s.replace(/[%px\s]/gi, '');
+    const n = Number(cleaned);
+    if (!Number.isNaN(n) && n === 0) return true;
+    return false;
+};
 
 function loadJSON(filePath) {
     return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -113,14 +122,16 @@ function main() {
 
     let updatedCount = 0;
 
-    scaleData.forEach(item => {
-        const name = item.name;
+    // Build a name->entry map for quick lookup
+    const scaleMap = {};
+    scaleData.forEach(e => {
+        if (e && e.name) scaleMap[e.name] = e;
+    });
 
-        // Filter check
-        if (targetNames && !targetNames.has(name)) {
-            return;
-        }
+    // Determine which item names to process
+    const namesToProcess = targetNames ? Array.from(targetNames) : dataInfo.map(d => d['品項']);
 
+    namesToProcess.forEach(name => {
         const layers = cfgMap[name];
 
         if (!layers) {
@@ -135,21 +146,57 @@ function main() {
         }
 
         const originalHeight = dimensions.height;
-        
-        // Fields to check and update
         const fields = ['scale', 'mobileScale', 'homeScale', 'shareScale', 'mobileShareScale'];
 
-        fields.forEach(field => {
-            if (isEmpty(item[field])) {
+        const existing = scaleMap[name];
+
+        if (existing) {
+            // Update only empty fields in existing entry
+            fields.forEach(field => {
+                if (isEmpty(existing[field])) {
+                    const targetHeight = TARGET_HEIGHTS[field];
+                    let calculatedScale = Math.round((targetHeight / originalHeight) * 100);
+                    console.log(`Updating "${name}" ${field}: ${calculatedScale} (Original Height: ${Math.round(originalHeight)})`);
+                    existing[field] = calculatedScale.toString();
+                    updatedCount++;
+                }
+            });
+        } else {
+            // Create a new scale entry for this name
+            const newEntry = {
+                name: name,
+                scale: '',
+                x: '',
+                y: '',
+                shareScale: '',
+                rotate: '',
+                mobileScale: '',
+                mobileX: '',
+                mobileY: '',
+                mobileShareScale: '',
+                firstY: '',
+                gap: '',
+                explosionScale: '',
+                homeScale: '',
+                homeX: '',
+                homeY: '',
+                mobileFirstY: '',
+                mobileExplosionY: '',
+                faceNo: '',
+                face: ''
+            };
+
+            fields.forEach(field => {
                 const targetHeight = TARGET_HEIGHTS[field];
-                // Calculate scale: (Target / Original) * 100
                 let calculatedScale = Math.round((targetHeight / originalHeight) * 100);
-                
-                console.log(`Updating "${name}" ${field}: ${calculatedScale} (Original Height: ${Math.round(originalHeight)})`);
-                item[field] = calculatedScale.toString();
+                console.log(`Creating "${name}" ${field}: ${calculatedScale} (Original Height: ${Math.round(originalHeight)})`);
+                newEntry[field] = calculatedScale.toString();
                 updatedCount++;
-            }
-        });
+            });
+
+            scaleData.push(newEntry);
+            scaleMap[name] = newEntry;
+        }
     });
 
     if (updatedCount > 0) {

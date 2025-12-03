@@ -1,6 +1,7 @@
 import { groupBy, reduce } from "lodash";
 import { useMemo } from "react";
 import { useStaticQuery, graphql } from "gatsby";
+import normalizeName from '../../../utils/normalizeName';
 
 // const trashBreakpoins = [256, 320, 512]
 
@@ -31,7 +32,8 @@ const useGatsbyImage = () => {
       grouped,
       (f, files, group) => {
         if (group) {
-          const name = decodeURIComponent(group).replace(/(\d|\s)+/, "");
+          // normalize directory name to canonical display key
+          const name = normalizeName(group);
           f[name] = {};
           files.forEach(({ node }) => {
             const nodeName = decodeURIComponent(node.name);
