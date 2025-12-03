@@ -39,8 +39,8 @@ const dataKeys = {
 }
 
 const lineParser = d => {
-  const lines = d.replace(/\n|、\n/g, '\n').split('\n')
-  return fromPairs(lines.map(l => l.split('-').map(w => w.replace(/\|/g, '\n'))))
+  const lines = d.trim().replace(/\n|、\n/g, '\n').split('\n')
+  return fromPairs(lines.map(l => l.split('-').map(w => w.trim().replace(/\|/g, '\n'))))
 }
 
 const rateParser = d => {
