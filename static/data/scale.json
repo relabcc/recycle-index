@@ -418,7 +418,7 @@
     "face": " translate(0%,-27%) skew(0deg,0deg) rotate(0deg) scale(1.1)"
   },
   {
-    "name": "泡泡紙",
+    "name": "氣泡紙",
     "scale": "70",
     "x": "-15",
     "y": "3",
@@ -440,7 +440,7 @@
     "face": " translate(-3%,-7%) skew(3deg,-3deg) rotate(-6deg) scale(1)"
   },
   {
-    "name": "防撞乖乖粒",
+    "name": "泡棉",
     "scale": "85",
     "x": "-8",
     "y": "8",
@@ -1474,7 +1474,7 @@
     "face": " translate(7%,20%) skew(0deg,-9deg) rotate(0deg) scale(0.8)"
   },
   {
-    "name": "衣物",
+    "name": "衣服",
     "scale": "65",
     "x": "-10",
     "y": "2",

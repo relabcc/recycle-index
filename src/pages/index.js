@@ -9,8 +9,8 @@ const Render = (props) => {
   const gatsbyImages = useMemo(() => handleGatsbyImage(props.data.allFile), [props.data.allFile])
   return (
     <>
-      <Helmet>
-        <title>秒懂101+台灣人必知的垃圾</title>
+      <Helmet titleTemplate={null}>
+        <title>回收大百科｜台灣最具參考性的資源回收指南</title>
       </Helmet>
       <Page gatsbyImages={gatsbyImages} {...props} />
     </>

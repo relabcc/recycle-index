@@ -12,13 +12,13 @@ module.exports = (allFile) => {
         const name = normalizeName(group);
         f[name] = {};
         files.forEach(({ node }) => {
-          const nodeName = decodeURIComponent(node.name);
+          const nodeName = node.name;
           const [pn, partName] = nodeName.split("-");
           f[name][partName || pn] = node.childImageSharp;
         });
       } else {
         files.forEach(({ node }) => {
-          const nodeName = decodeURIComponent(node.name);
+          const nodeName = normalizeName(node.name);
 
           f[nodeName] = { [nodeName]: node.childImageSharp };
         });

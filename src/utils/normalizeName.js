@@ -5,5 +5,5 @@ module.exports = function normalizeName(input) {
   const decoded = decodeURIComponent(String(input));
   // strip digits, whitespace, underscores, hyphens and slashes (including fullwidth forms)
   // e.g. "38-電動牙刷" -> "電動牙刷" ; "01_手機" -> "手機"
-  return decoded.replace(/[\d\s_\-＿－\/]+/g, "").trim();
+  return decoded.replace(/[\d\s_\-＿－]+/g, "").trim();
 };

@@ -47,7 +47,7 @@ const enName = {
   '手機殼': 'Cellphone Case',
   '優格杯': 'Yogurt Cup',
   '鏡子': 'Mirror',
-  '泡泡紙': 'Bubble Wrap',
+  '氣泡紙': 'Bubble Wrap',
   '枯枝落葉': 'Leaf',
   '口紅': 'Lipstick',
   '碎紙': 'Shredded Paper',
@@ -96,10 +96,10 @@ const enName = {
   '保養品瓶罐': 'Skin Care Products',
   '高壓瓶': 'High Pressure Can',
   '餅乾禮盒': 'Biscuit Gift Box',
-  '衣物': 'Clothes',
+  '衣服': 'Clothes',
   '環保袋': 'Reusable Bag',
   '鞋': 'Shoes',
-  '防撞乖乖粒': 'EPE Cushion',
+  '泡棉': 'EPE Cushion',
 }
 
 export default enName
