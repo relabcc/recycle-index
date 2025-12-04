@@ -9,7 +9,7 @@ const DATA_FILE = path.join(__dirname, 'static/data/data.json');
 const TARGET_HEIGHTS = {
     scale: 350,            // Desktop default
     mobileScale: 300,      // Mobile default
-    homeScale: 200,        // Home page default
+    homeScale: 600,        // Home page default
     shareScale: 250,       // Share image default
     mobileShareScale: 280  // Mobile share image default
 };
@@ -183,7 +183,7 @@ function main() {
                 mobileFirstY: '',
                 mobileExplosionY: '',
                 faceNo: '',
-                face: ''
+                face: 'translate(0%,0%)'
             };
 
             fields.forEach(field => {
