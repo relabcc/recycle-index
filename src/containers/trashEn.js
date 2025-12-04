@@ -1,6 +1,6 @@
 const enName = {
   '透明塑膠袋': 'Transparent Plastic Bag',
-  '髒髒塑膠袋': 'Dirty Plastic Bag',
+  '耐熱袋': 'Dirty Plastic Bag',
   '安全帽': 'Helmet',
   '塑膠飲料杯': 'Plastic Drink Cup',
   '紙飲料杯': 'Paper Drink Cup',
