@@ -24,22 +24,14 @@ import Circle from "../../components/Circle";
 import Container from "../../components/Container";
 import withData from "./data/withData";
 import animations from "./data/animations";
-// import ChevDown from './ChevDown';
-// import Hashtag from './Hashtag';
 import RateCircle from "./RateCircle";
 import Face from "../Face";
 import isIos from "../../components/utils/isIos";
 
-// import trash from './trash-bag.svg'
-// import planb from './planb.svg'
-// import planbBubble from './planb-bubble.svg'
-// import ScrollIndicator from './ScrollIndicator';
 import containerWidthContext from "../../contexts/containerWidth/context";
 import useResponsive from "../../contexts/mediaQuery/useResponsive";
 import useShowHeader from "../../contexts/header/useShowHeader";
 import theme, { Media, responsive } from "../../components/ThemeProvider/theme";
-// import FullpageLoading from '../../components/FullpageLoading';
-// import useLoader from '../../utils/useLoader';
 import imgSize from "./data/imgSize";
 import useIsEn from "../useIsEn";
 import trashEn from "../trashEn";
@@ -48,16 +40,11 @@ import TrashTitle from "./TrashTitle";
 import ReLink from "../../components/Link";
 import useTrashData from "./data/useTrashData";
 import useAllTrashes from "./data/useAllTrashes";
-// const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import("./Hashtag"));
 const ScrollIndicator = loadable(() => import("./ScrollIndicator"));
 const ChevDown = loadable(() => import("./ChevDown"));
-// const LastPage = loadable(() => import('./LastPage'))
-
-// import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
 let fpApi;
-// const pageCount = 5
 const trashSidePos = 20;
 const scrollingDuration = 1;
 const idealWidth = 200;
@@ -929,15 +916,6 @@ const TrashPage = ({
   };
   useEffect(() => {
     init();
-    // if (fpApi) {
-    //   fpApi.silentMoveTo(1)
-    //   setTimeout(() => {
-    //     if (progressTimer) {
-    //       progressTimer.stop();
-    //       setProgress(0)
-    //     }
-    //   })
-    // }
   }, [data, windowSize.height, containerWidth, isMobile, inited]);
   const bgColor = useMemo(
     () => get(theme, `colors.${colorScheme}`),
@@ -1075,7 +1053,6 @@ const TrashPage = ({
           />
         </Box.Fixed>
       </Media>
-      {/* {!inited && <FullpageLoading />} */}
     </Wrapper>
   );
 };
