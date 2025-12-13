@@ -1,6 +1,10 @@
 import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex as ChakraFlex, useToken } from "@chakra-ui/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 import Box from "../Box";
 import Flex from "../Flex";
@@ -13,6 +17,13 @@ const logoProps = {
   objectFit: "contain",
   transformOptions: { fit: "contain" },
   backgroundColor: "transparent",
+};
+
+const carouselBreakpoints = {
+  0: { slidesPerView: 2, spaceBetween: 12 },
+  480: { slidesPerView: 3, spaceBetween: 16 },
+  768: { slidesPerView: 4, spaceBetween: 20 },
+  1024: { slidesPerView: 5, spaceBetween: 24 },
 };
 
 const sponsor = [
@@ -67,6 +78,14 @@ const Sponsor = ({
   isFooter,
   ...props
 }) => {
+  const [primaryColor] = useToken("colors", ["colors.yellow"]);
+  const shouldLoop = isFooter && sponsor.length > 5;
+  const renderLogo = (logo) => (
+    <Box display="inline-block" minW="5em" {...logoProps}>
+      {logo}
+    </Box>
+  );
+
   return (
     <Box
       position="relative"
@@ -102,25 +121,42 @@ const Sponsor = ({
         >
           贊助單位
         </Box>
-        <Grid
+        <Box
           flex="1"
           px={responsive("1em", "1.25em")}
-          alignItems="center"
-          gap={responsive("1em", "1.25em")}
-          templateColumns={{
-            base: "repeat(2, 1fr)",
-            sm: "repeat(3, 1fr)",
-            lg: "repeat(5, 1fr)",
-          }}
+          overflow="hidden"
+          maxWidth="100%"
         >
-          {sponsor.map((logo, k) => (
-            <GridItem key={k} textAlign="center">
-              <Box display="inline-block" minW="5em" {...logoProps}>
-                {logo}
-              </Box>
-            </GridItem>
-          ))}
-        </Grid>
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            breakpoints={carouselBreakpoints}
+            slidesPerView={2}
+            spaceBetween={12}
+            loop={shouldLoop}
+            rewind={!shouldLoop}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            style={{
+              paddingBottom: "2.5em",
+              width: "100%",
+              "--swiper-theme-color": primaryColor,
+              "--swiper-pagination-color": primaryColor,
+            }}
+          >
+            {sponsor.map((logo, k) => (
+              <SwiperSlide key={k}>
+                <ChakraFlex
+                  justifyContent="center"
+                  alignItems="center"
+                  h="100%"
+                  minH={responsive("3.5rem", "5.5rem")}
+                >
+                  {renderLogo(logo)}
+                </ChakraFlex>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
       </Flex>
     </Box>
   );
