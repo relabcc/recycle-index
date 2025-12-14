@@ -133,6 +133,7 @@ const overrides = {
       green: get(colors, 'green.500'),
       orange: get(colors, 'orange.500'),
       yellow: get(colors, 'yellow.500'),
+      neonGreen: '#8ce63c',
     },
     primary: get(colors, `${primary}.500`),
     secondary: get(colors, `${secondary}.300`),

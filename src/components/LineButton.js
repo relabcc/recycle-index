@@ -1,11 +1,11 @@
-import React from "react";
 import { Box, Image, Link } from "@chakra-ui/react";
+import { responsive } from "./ThemeProvider/theme";
 
 const LineButton = () => {
   return (
-    <Box pos="fixed" right={4} bottom={4} zIndex={99}>
+    <Box pos="fixed" right={4} bottom={responsive(4, '192px')} zIndex={99}>
       <Link href="https://s.no8.io/link/channels/ysfjrgOKln" isExternal>
-        <Image src="/line.png" alt="LINE" w="60px" h="60px" />
+        <Image src="/line.svg" alt="LINE" w="64px" h="64px" />
       </Link>
     </Box>
   );

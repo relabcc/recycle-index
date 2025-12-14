@@ -24,7 +24,7 @@ const links = [
   { name: '關於我們', en: 'About Us', to: '/about/' },
   { name: '文章專區', en: 'Articles', href: '/blog/' },
   { name: '課程申請', href: 'https://rethinktw.cc/5Y9hr', hideEn: true, isExternal: true },
-  { name: '贊助我們', href: 'https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26', isSupport: true, hideEn: true, isExternal: true },
+  { name: '捐款支持', href: '/donate/', isSupport: true, hideEn: true },
 ]
 
 const Header = ({ isEn, ...props }) => {
@@ -55,7 +55,7 @@ const Header = ({ isEn, ...props }) => {
           <Button
             variant="outline"
             colorScheme="black"
-            bg={isSupport ? 'colors.pink' : 'white'}
+            bg={isSupport ? 'colors.cyan' : 'white'}
             href={href}
             to={to && `${isEn ? '/en' : ''}${to}`}
             mx="0.5em"
