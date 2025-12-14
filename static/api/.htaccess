@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# 處理 /api/events 請求
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^events$ events.php [L,QSA]
+
+# 如果有其他 API 端點，可以加在這裡
+# RewriteRule ^other-endpoint$ other-endpoint.php [L,QSA]

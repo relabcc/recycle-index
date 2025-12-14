@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import Box from "../../components/Box";
 import Container from "../../components/Container";
-import Flex from "../../components/Flex";
 import { responsive } from "../../components/ThemeProvider/theme";
 import useShowHeader from "../../contexts/header/useShowHeader";
 import Footer from "../Footer";

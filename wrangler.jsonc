@@ -1,0 +1,10 @@
+{
+  "name": "recycle-index",
+  "compatibility_date": "2025-04-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "pages_build_output_dir": "./public",
+  "vars": {
+    "GOOGLE_CLIENT_EMAIL": "re-think@re-lab-205708.iam.gserviceaccount.com",
+    "SHEET_ID": "1tbnPTbStDsY8M8TE6TAP0QnwdwOzo8IxNOocoFup1uM"
+  }
+}
