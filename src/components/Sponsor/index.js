@@ -26,6 +26,21 @@ const carouselBreakpoints = {
   1024: { slidesPerView: 5, spaceBetween: 24 },
 };
 
+const swiperStyles = {
+  ".swiper-wrapper": { alignItems: "center" },
+  ".swiper-slide": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  ".swiper-pagination": {
+    position: "absolute",
+    bottom: "0.5rem",
+    left: 0,
+    right: 0,
+  },
+};
+
 const sponsor = [
   <StaticImage src="rc.svg" alt="RC文化基金會" placeholder="tracedSVG" />,
   <StaticImage src="foodpanda.svg" alt="Foodpanda" placeholder="tracedSVG" />,
@@ -126,6 +141,8 @@ const Sponsor = ({
           px={responsive("1em", "1.25em")}
           overflow="hidden"
           maxWidth="100%"
+          position="relative"
+          sx={swiperStyles}
         >
           <Swiper
             modules={[Autoplay, Pagination]}
@@ -137,7 +154,6 @@ const Sponsor = ({
             rewind={!shouldLoop}
             pagination={{ clickable: true, dynamicBullets: true }}
             style={{
-              paddingBottom: "2.5em",
               width: "100%",
               "--swiper-theme-color": primaryColor,
               "--swiper-pagination-color": primaryColor,

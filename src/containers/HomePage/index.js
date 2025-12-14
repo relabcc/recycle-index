@@ -12,9 +12,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import innerHeight from "ios-inner-height";
 import { navigate } from "gatsby";
 import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
-// import loadable from '@loadable/component'
 import styled from "@emotion/styled";
-// import { css } from '@emotion/react'
 import { BgImage } from "gbimage-bridge";
 import { AspectRatio } from "@chakra-ui/react";
 
@@ -54,16 +52,6 @@ const scrollingDuration = 1;
 let timeline;
 let timeline2;
 let fpApi;
-
-// const MountTop = () => {
-//   const [mountTopLoaded, setMountTopLoaded] = useState()
-//   const [hiResloaded, setHiresLoaded] = useState()
-//   return (
-//     <Box.Relative width="100%">
-
-//     </Box.Relative>
-//   )
-// }
 
 const MountBottom = ({ images: { mountBottomMd, mountBottomLg } }) => {
   const mountBottomMdImage = getImage(mountBottomMd);
@@ -110,15 +98,11 @@ const HomePage = ({
   const heroTrashRef = useRef();
   const bubbleRef = useRef();
   const trashMountRef = useRef();
-  // const gsapRef = useRef()
   const { containerWidth } = useContext(containerWidthContext);
   const windowSize = useWindowSize();
 
-  // useReloadOnOrentation()
   const [inited, setInited] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(0);
-  // const [mountTopLoaded, setMountTopLoaded] = useState()
-  // const [hiResloaded, setHiresLoaded] = useState()
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(
       isMobile ? 4.25 : isTablet ? 2.75 : 1.375,
@@ -489,7 +473,6 @@ const HomePage = ({
               src="./mount-top@2x.png"
               layout="fullWidth"
               alt="垃圾山"
-              // onLoad={() => setTimeout(() => setMountTopLoaded(true))}
             />
             <Box.FullAbs as={Media} at="mobile">
               {pageLoaded > 0 && (
@@ -507,12 +490,6 @@ const HomePage = ({
                 />
               )}
             </Box.FullAbs>
-            {/*
-            <BackgroundImage
-              src={mountTop}
-              ratio={mountRatio}
-              style={{ opacity: +inited }}
-            /> */}
             <OtherTrashes isEn={isEn} isMobile={isMobile} trashes={trashes} />
           </Box.Relative>
           <Box mt={`${trashWidth * -0.05}px`}>
@@ -595,20 +572,10 @@ const HomePage = ({
             </Box.Absolute>
           </Box.Absolute>
         </Box.Absolute>
-
-        {/* <Box.Relative>
-          <Box.Absolute top="2em" left="0" right="0">
-            <BackgroundImage src={titleOverlay} ratio={titleRatio} />
-          </Box.Absolute>
-        </Box.Relative> */}
-        {/* <Box.Absolute left="50%" bottom="1em" transform="translateX(-50%)" fontSize={responsive('5em', '2em')} color="black" pointerEvents="all">
-
-        </Box.Absolute> */}
         <Box.Absolute bottom="1em" left="0" right="0" pointerEvents="all">
           <ChevDown as={PointingDown} onClick={() => fpApi.moveSectionDown()} />
         </Box.Absolute>
       </FullpageHeight>
-      {/* {!inited && <FullpageLoading />} */}
     </Wrapper>
   );
 };

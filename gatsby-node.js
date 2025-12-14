@@ -63,10 +63,13 @@ async function createTrashPage({ actions, graphql }) {
         const readMore = sampleSize(
           allTrashes.filter((t) => t.id !== d.id),
           5
-        ).map((t) => ({
+        ).map((t) => {
+          const gatsbyImg = pick(gatsbyImages[t.name][t.name], ["regular"]);
+          return {
             ...t,
-          gatsbyImg: pick(gatsbyImages[t.name][t.name], ["regular"]),
-        }));
+            gatsbyImg,
+          };
+        });
         const pickedImag = mapValues(gatsbyImages[d.name], (imgs) =>
           pick(imgs, ["large"])
         );
@@ -85,10 +88,7 @@ async function createTrashPage({ actions, graphql }) {
             readMore: JSON.stringify(readMore),
           },
         });
-        if (
-          process.env.NODE_ENV === "development" ||
-          process.env.CF_PAGES
-        ) {
+        if (process.env.NODE_ENV === "development" || process.env.CF_PAGES) {
           await createPage({
             // will be the url for the page
             path: `trash/${d.id}/face`,

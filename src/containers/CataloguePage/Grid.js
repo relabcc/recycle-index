@@ -78,6 +78,19 @@ const Catalogue = ({ data }) => {
       : [];
   }, [data]);
 
+  const searchCandidates = useMemo(() => {
+    const pool = new Set();
+    okData.forEach((d) => {
+      if (!d) return;
+      if (d.name) pool.add(d.name);
+      if (trashEn[d.name]) pool.add(trashEn[d.name]);
+      if (isArray(d.synonym)) {
+        d.synonym.filter(Boolean).forEach((s) => pool.add(s));
+      }
+    });
+    return Array.from(pool);
+  }, [okData]);
+
   const filtered = useMemo(
     () =>
       okData.filter((d) => {
@@ -123,9 +136,10 @@ const Catalogue = ({ data }) => {
               onChange={handleChange}
               setFieldValue={setFieldValue}
               values={values}
+              searchCandidates={searchCandidates}
             />
           ),
-          [values]
+          [values, searchCandidates]
         )}
       </Box>
       <Flex
@@ -133,7 +147,7 @@ const Catalogue = ({ data }) => {
         px={responsive("0.5em", "1.5em")}
         flexWrap="wrap"
       >
-        {(data ? filtered : range(101)).map((d, i) => (
+        {(data ? filtered : range(161)).map((d, i) => (
           <Box key={i} width={responsive(1 / 3, 1 / 4, 1 / 6)}>
             <PerTrash data={typeof d === "object" && d} />
           </Box>

@@ -36,7 +36,7 @@ const useGatsbyImage = () => {
           const name = normalizeName(group);
           f[name] = {};
           files.forEach(({ node }) => {
-            const nodeName = node.name;
+            const nodeName = normalizeName(node.name);
             const [pn, partName] = nodeName.split("-");
             f[name][partName || pn] = node.childImageSharp;
           });
