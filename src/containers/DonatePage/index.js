@@ -2,8 +2,6 @@ import React, { useMemo, useState } from "react";
 import Box from "../../components/Box";
 import Container from "../../components/Container";
 import { responsive } from "../../components/ThemeProvider/theme";
-import useShowHeader from "../../contexts/header/useShowHeader";
-import Footer from "../Footer";
 import DonationPanel, { donationModes, donationOptions } from "./DonationPanel";
 import DesktopText from "./DesktopText";
 import MobileText from "./MobileText";
@@ -102,7 +100,6 @@ const DesktopHero = ({ mode, setMode, options }) => (
 );
 
 const DonatePage = () => {
-  useShowHeader("colors.yellow");
   const [mode, setMode] = useState(donationModes[0].id);
   const options = useMemo(() => donationOptions[mode], [mode]);
 
@@ -110,7 +107,6 @@ const DonatePage = () => {
     <>
       <MobileHero mode={mode} setMode={setMode} options={options} />
       <DesktopHero mode={mode} setMode={setMode} options={options} />
-      <Footer />
     </>
   );
 };

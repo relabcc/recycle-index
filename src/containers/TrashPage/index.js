@@ -53,6 +53,11 @@ let theTimeline;
 let endTimeline;
 let progressTimer;
 
+const extractLink = (value) => {
+  const pttn = /([^[]+)\[([^\]]+)]/.exec(value || "");
+  return pttn ? { text: pttn[1], url: pttn[2] } : { text: null, url: null };
+};
+
 const Wrapper = styled.div`
   height: 100%;
   #fullpage {
@@ -118,10 +123,7 @@ const TrashDescription = (props) => (
 );
 
 const TrashAdditional = ({ data, bg }) => {
-  const [text, url] = useMemo(() => {
-    const pttn = /([^[]+)\[([^\]]+)]/.exec(data);
-    return pttn ? [pttn[1], pttn[2]] : [];
-  }, [data]);
+  const { text, url } = useMemo(() => extractLink(data), [data]);
   return text ? (
     <Box mt="2" bg="white" p="1" ml="-1" mr="-1">
       <ReLink color={bg} href={url} isExternal>
@@ -149,12 +151,24 @@ const TrashValue = ({ additional, bg, ...props }) => (
   </Box.Absolute>
 );
 
-const TrashNote = ({ children, ...props }) => {
+const TrashNote = ({ children, color, ...props }) => {
+  const { text, url } = useMemo(() => extractLink(children), [children]);
   const lined = useMemo(() => {
-    return children && children.replace(/\|/g, "\n");
-  }, [children]);
+    const target = text || children;
+    return target && target.replace(/\|/g, "\n");
+  }, [children, text]);
+  const noteContent =
+    lined &&
+    (url ? (
+      <ReLink color={color} href={url} isExternal>
+        {lined}
+      </ReLink>
+    ) : (
+      lined
+    ));
   return (
-    children && (
+    children &&
+    noteContent && (
       <Box.Absolute
         top={responsive("1em", "auto")}
         bottom={responsive("auto", "1.25em")}
@@ -164,9 +178,10 @@ const TrashNote = ({ children, ...props }) => {
         <Text
           fontSize={responsive("0.875em", "0.875em")}
           whiteSpace="pre-wrap"
+          color={color}
           {...props}
         >
-          *{lined}
+          *{noteContent}
         </Text>
       </Box.Absolute>
     )

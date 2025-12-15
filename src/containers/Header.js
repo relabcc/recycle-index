@@ -55,7 +55,7 @@ const Header = ({ isEn, ...props }) => {
           <Button
             variant="outline"
             colorScheme="black"
-            bg={isSupport ? 'colors.cyan' : 'white'}
+            bg={isSupport ? 'colors.neonGreen' : 'white'}
             href={href}
             to={to && `${isEn ? '/en' : ''}${to}`}
             mx="0.5em"

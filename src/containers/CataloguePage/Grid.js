@@ -153,7 +153,6 @@ const Catalogue = ({ data }) => {
           </Box>
         ))}
       </Flex>
-      <Footer noSponsor />
     </Box>
   );
 };

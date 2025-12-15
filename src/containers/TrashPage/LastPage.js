@@ -17,12 +17,9 @@ import shareBg from "./share-bg.svg";
 import shareBgMobile from "./share-bg-mobile.svg";
 import theme, { responsive } from "../../components/ThemeProvider/theme";
 import Handling from "./Handling";
-// import MoreTrashes from './MoreTrashes';
 import PerTrash from "../CataloguePage/PerTrash";
 import SponsorNote from "./SponsorNote";
-
-// const paddingBox = <Box width="20%"><Box pt="100%" /></Box>
-// const Handling = loadable(() => import('./Handling'))
+import DonatePage from "../DonatePage";
 
 const FinalTrash = ({
   windowSize,
@@ -213,6 +210,7 @@ const FinalTrash = ({
             </Flex>
           </Box>
         </Box>
+        <DonatePage />
         <Container px={responsive("0", "2em")}>
           <Footer pt="2em" />
         </Container>

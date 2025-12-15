@@ -71,7 +71,7 @@ const SponsorNote = ({ sponsor }) => {
               fontWeight="900"
               letterSpacing="0.125em"
             >
-              贊助單位
+              合作夥伴
             </Text>
           </Flex>
           <Flex

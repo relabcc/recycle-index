@@ -134,7 +134,7 @@ const Sponsor = ({
           whiteSpace="nowrap"
           flexShrink="0"
         >
-          贊助單位
+          合作夥伴
         </Box>
         <Box
           flex="1"
