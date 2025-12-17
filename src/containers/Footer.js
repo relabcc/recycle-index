@@ -105,7 +105,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
                 <Button
                   href="/donate/"
                   colorScheme="yellow"
-                  bg="colors.yellow"
+                  bg="yellow.500"
                   color="black"
                   _hover={{ bg: "yellow.400" }}
                   height={responsive("2.5em", "3em")}
@@ -161,21 +161,18 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
                   支持與服務
                 </Box>
                 <Stack spacing="0.5em">
-                  {supportLinks.map(({ label, href, isExternal }) => {
-                    const isInternal = href.startsWith("/");
-                    return (
+                  {supportLinks.map(({ label, href, isExternal }) => (
                     <Link
                       key={label}
-                      href={isInternal ? undefined : href}
-                      to={isInternal ? href : undefined}
-                      isExternal={isExternal || !isInternal}
+                      to={!isExternal ? href : undefined}
+                      href={isExternal ? href : undefined}
+                      isExternal={isExternal}
                       color="white"
                       _hover={{ color: "yellow.300" }}
                     >
                       {label}
                     </Link>
-                    );
-                  })}
+                  ))}
                 </Stack>
               </Stack>
               <Stack spacing="0.75em">
@@ -223,7 +220,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
               align={responsive("flex-start", "center")}
             >
               <Box>Design by 山葵組設計</Box>
-              <Link onClick={() => setTimeout(onOpen)} as="button" color="yellow.300">
+              <Link onClick={onOpen} as="button" color="yellow.300">
                 製作說明
               </Link>
               <Box>Copyright © {new Date().getFullYear()} RE-THINK</Box>
