@@ -53,7 +53,7 @@ async function createJWT(clientEmail, privateKey) {
     messageData
   );
   const encodedSignature = btoa(String.fromCharCode(...new Uint8Array(signature)));
-  
+
   return `${signatureInput}.${encodedSignature}`;
 }
 
@@ -108,8 +108,26 @@ async function fetchSheetData(accessToken, spreadsheetId, range) {
 export async function getSheetData(context, range, processor) {
   // Get environment variables from Cloudflare
   const clientEmail = context.env.GOOGLE_CLIENT_EMAIL;
-  const privateKey = context.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
+  let privateKey = context.env.GOOGLE_PRIVATE_KEY;
+
+  // Validate environment variables exist
+  if (!clientEmail) {
+    throw new Error('Missing environment variable: GOOGLE_CLIENT_EMAIL');
+  }
+  if (!privateKey) {
+    throw new Error('Missing environment variable: GOOGLE_PRIVATE_KEY');
+  }
+
   const spreadsheetId = context.env.SHEET_ID;
+  if (!spreadsheetId) {
+    throw new Error('Missing environment variable: SHEET_ID');
+  }
+
+  // Handle different private key formats
+  if (typeof privateKey === 'string') {
+    // Replace escaped newlines with actual newlines
+    privateKey = privateKey.replace(/\\n/g, '\n');
+  }
 
   // Create JWT and get access token
   const jwt = await createJWT(clientEmail, privateKey);
