@@ -1,13 +1,15 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import Box from "../../components/Box";
 import Container from "../../components/Container";
 import { responsive } from "../../components/ThemeProvider/theme";
-import DonationPanel, { donationModes, donationOptions } from "./DonationPanel";
+import DonationPanel from "./DonationPanel";
 import DesktopText from "./DesktopText";
 import MobileText from "./MobileText";
 import desktopBg from "./donate-desktop.png";
 import mobileBg from "./donate-mobile.png";
 import { useTheme } from "@chakra-ui/react";
+
+import { StaticImage } from "gatsby-plugin-image";
 
 const HERO_BG = "#69d7e2";
 const DESKTOP_BG_RATIO = "1920 / 936";
@@ -32,7 +34,7 @@ const HERO_CONTENT = {
   },
 };
 
-const MobileHero = ({ mode, setMode, options }) => {
+const MobileHero = () => {
   const theme = useTheme();
   const headerHeight = theme.headerHeight;
 
@@ -49,21 +51,32 @@ const MobileHero = ({ mode, setMode, options }) => {
           title={HERO_CONTENT.mobile.title}
           description={HERO_CONTENT.mobile.description}
         />
+        <Box
+          position="absolute"
+          right="5%"
+          top="13%"
+          width="20%"
+          pointerEvents="none"
+        >
+          <StaticImage src="./cup-mobile.png" alt="" />
+        </Box>
       </Box>
       <Container position="relative" zIndex="1">
-        <DonationPanel
-          mode={mode}
-          setMode={setMode}
-          options={options}
-          layout="mobile"
-        />
+        <DonationPanel layout="mobile" />
       </Container>
-      <Box mt="-20%" as="img" src={mobileBg} alt="" aria-hidden="true" width="100%" />
+      <Box
+        mt="-20%"
+        as="img"
+        src={mobileBg}
+        alt=""
+        aria-hidden="true"
+        width="100%"
+      />
     </Box>
   );
 };
 
-const DesktopHero = ({ mode, setMode, options }) => (
+const DesktopHero = () => (
   <Box display={responsive("none", "block")} bg={HERO_BG} py="3.5em">
     <Container>
       <Box
@@ -86,13 +99,18 @@ const DesktopHero = ({ mode, setMode, options }) => (
             description={HERO_CONTENT.desktop.description}
           />
         </Box>
+        <Box
+          position="absolute"
+          left="37.5%"
+          top="11.5%"
+          width="7%"
+          zIndex="2"
+          pointerEvents="none"
+        >
+          <StaticImage src="./cup-desktop.png" alt="" />
+        </Box>
         <Box position="absolute" top="12%" right="13%">
-          <DonationPanel
-            mode={mode}
-            setMode={setMode}
-            options={options}
-            layout="desktop"
-          />
+          <DonationPanel layout="desktop" />
         </Box>
       </Box>
     </Container>
@@ -100,13 +118,10 @@ const DesktopHero = ({ mode, setMode, options }) => (
 );
 
 const DonatePage = () => {
-  const [mode, setMode] = useState(donationModes[0].id);
-  const options = useMemo(() => donationOptions[mode], [mode]);
-
   return (
     <>
-      <MobileHero mode={mode} setMode={setMode} options={options} />
-      <DesktopHero mode={mode} setMode={setMode} options={options} />
+      <MobileHero />
+      <DesktopHero />
     </>
   );
 };

@@ -44,8 +44,8 @@ const Header = ({ isEn, ...props }) => {
     >
       <Box px="1em">
         <Link to="/" aria-label="回首頁">
-          <Box width={responsive('8em', '12em', '7.5em')}>
-            <StaticImage src="./logo.svg" alt="回收大百科" placeholder="tracedSVG" />
+          <Box width={responsive('8em', '8em', '9em')} lineHeight={0}>
+            <StaticImage src="./logo.png" alt="RE-THINK" placeholder="tracedSVG" />
           </Box>
         </Link>
       </Box>
@@ -109,7 +109,6 @@ const Header = ({ isEn, ...props }) => {
           </Drawer>
         </>
       </Media>
-      {/* <Box.Absolute bottom="0" left="2em" right="2em" height="0.125em" bg="black" /> */}
     </Flex>
   )
 }
