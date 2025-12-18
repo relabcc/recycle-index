@@ -53,7 +53,7 @@ const createTargetDate = (dateStr, timeStr) => {
   if (!dateStr) return null;
   const trimmedDate = dateStr.trim();
   const trimmedTime = (timeStr || '').trim();
-  // Expect yyyy/mm/dd and optional HH:mm:ss; replace '-' to support common input
+  // Expect yyyy/mm/dd (or yyyy-mm-dd) and optional HH:mm:ss; replace '-' to support common input
   const combined = `${trimmedDate}${trimmedTime ? ` ${trimmedTime}` : ''}`;
   const target = new Date(combined.replace(/-/g, '/'));
   if (Number.isNaN(target.getTime())) return null;

@@ -10,13 +10,13 @@ const parseBoolean = (value) => {
 };
 
 const normalizeTopbarData = (values = {}) => ({
-  enabled: parseBoolean(values['啟用']),
-  title: values['標題'] || '',
-  cta: values['CTA'] || '',
-  url: values['URL'] || '',
-  countdownEnabled: parseBoolean(values['啟用倒數']),
-  targetDate: values['目標日期'] || '',
-  targetTime: values['目標時間'] || '',
+  enabled: parseBoolean(values['啟用'] ?? values.enabled),
+  title: values['標題'] ?? values.title ?? '',
+  cta: values['CTA'] ?? values.cta ?? '',
+  url: values['URL'] ?? values.url ?? '',
+  countdownEnabled: parseBoolean(values['啟用倒數'] ?? values.countdownEnabled),
+  targetDate: values['目標日期'] ?? values.targetDate ?? '',
+  targetTime: values['目標時間'] ?? values.targetTime ?? '',
 });
 
 const processSheetData = (responseData) => {
