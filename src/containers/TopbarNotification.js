@@ -53,6 +53,7 @@ const createTargetDate = (dateStr, timeStr) => {
   if (!dateStr) return null;
   const trimmedDate = dateStr.trim();
   const trimmedTime = (timeStr || '').trim();
+  // Expect yyyy/mm/dd and optional HH:mm:ss; replace '-' to support common input
   const combined = `${trimmedDate}${trimmedTime ? ` ${trimmedTime}` : ''}`;
   const target = new Date(combined.replace(/-/g, '/'));
   if (Number.isNaN(target.getTime())) return null;
@@ -85,7 +86,7 @@ const TopbarNotification = ({ onHeightChange }) => {
   const barRef = useRef(null);
   const [dismissed, setDismissed] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const { data, error } = useSWR(getApiEndpoint, fetcher, {
+  const { data, error } = useSWR(getApiEndpoint(), fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 60000,
