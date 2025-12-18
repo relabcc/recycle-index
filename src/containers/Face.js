@@ -6,7 +6,9 @@ import Box from "../components/Box";
 // const Lottie = loadable.lib(() => import('lottie-web'))
 
 const Face = forwardRef(({ id, transform, className }, ref) => {
-  const { data: animationData } = useSWR(`/faces/face${id}.json`);
+  // Only fetch if id is a valid face number (1-5)
+  const isValidId = id && (id === 1 || id === 2 || id === 3 || id === 4 || id === 5 || id === "1" || id === "2" || id === "3" || id === "4" || id === "5");
+  const { data: animationData } = useSWR(isValidId ? `/faces/face${id}.json` : null);
   const faceRef = useRef();
   // const lottieRef = useRef()
   useEffect(() => {
