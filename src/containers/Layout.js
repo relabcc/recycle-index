@@ -11,6 +11,7 @@ import Header from './Header'
 import LineButton from '../components/LineButton';
 import DonateButton from '../components/DonateButton';
 import TopbarNotification from './TopbarNotification';
+import PopupAd from '../components/PopupAd';
 
 export const EnContext = createContext()
 
@@ -64,6 +65,7 @@ const Layout = ({ children, path }) => {
             )}
             <Box pt={topbarHeight}>
               {children}
+              <PopupAd />
               <LineButton />
               <DonateButton />
             </Box>
