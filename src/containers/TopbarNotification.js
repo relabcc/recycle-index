@@ -103,7 +103,15 @@ const TopbarNotification = ({ onHeightChange }) => {
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
     const threshold = breakpoints[3] || 1280;
-    const handleResize = () => setIsDesktop(window.innerWidth >= threshold);
+    let ticking = false;
+    const handleResize = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setIsDesktop(window.innerWidth >= threshold);
+        ticking = false;
+      });
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
