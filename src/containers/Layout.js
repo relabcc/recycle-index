@@ -1,14 +1,16 @@
-import React, { useContext, useMemo, createContext } from 'react'
+import React, { useContext, useEffect, useMemo, useState, createContext } from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
 
+import Box from '../components/Box';
 import theme from '../components/ThemeProvider/theme';
 import headerContext from '../contexts/header/context'
 
 import Header from './Header'
 import LineButton from '../components/LineButton';
 import DonateButton from '../components/DonateButton';
+import TopbarNotification from './TopbarNotification';
 
 export const EnContext = createContext()
 
@@ -20,6 +22,13 @@ const description = [
 const Layout = ({ children, path }) => {
   const isEn = useMemo(() => /^\/en/.test(path), [path])
   const { hideHeader, headerBg } = useContext(headerContext)
+  const [topbarHeight, setTopbarHeight] = useState(0)
+
+  useEffect(() => {
+    if (hideHeader && topbarHeight) {
+      setTopbarHeight(0)
+    }
+  }, [hideHeader, topbarHeight])
   return (
     <StaticQuery
       query={graphql`
@@ -47,10 +56,17 @@ const Layout = ({ children, path }) => {
             <meta name="og:image" content={`${data.site.siteMetadata.siteUrl}/og-0113.jpg`} />
           </Helmet>
           <EnContext.Provider value={isEn}>
-            {!hideHeader && <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} />}
-            {children}
-            <LineButton />
-            <DonateButton />
+            {!hideHeader && (
+              <>
+                <TopbarNotification onHeightChange={setTopbarHeight} />
+                <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} topOffset={topbarHeight} />
+              </>
+            )}
+            <Box pt={topbarHeight}>
+              {children}
+              <LineButton />
+              <DonateButton />
+            </Box>
           </EnContext.Provider>
         </>
       )}
