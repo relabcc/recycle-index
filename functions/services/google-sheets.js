@@ -9,7 +9,7 @@
  * @param {string} privateKey - Google service account private key
  * @returns {string} Signed JWT token
  */
-async function createJWT(clientEmail, privateKey) {
+async function createJWT(clientEmail, privateKey, scope = 'https://www.googleapis.com/auth/spreadsheets.readonly') {
   const now = Math.floor(Date.now() / 1000);
   const jwtHeader = {
     alg: 'RS256',
@@ -17,7 +17,7 @@ async function createJWT(clientEmail, privateKey) {
   };
   const jwtClaim = {
     iss: clientEmail,
-    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+    scope,
     aud: 'https://oauth2.googleapis.com/token',
     exp: now + 3600,
     iat: now
@@ -106,11 +106,63 @@ async function fetchSheetData(accessToken, spreadsheetId, range) {
  * @returns {Object} Processed data
  */
 export async function getSheetData(context, range, processor) {
-  // Get environment variables from Cloudflare
+  const { clientEmail, privateKey, spreadsheetId } = getSheetConfig(context);
+
+  // Create JWT and get access token
+  const jwt = await createJWT(clientEmail, privateKey);
+  const accessToken = await getAccessToken(jwt);
+
+  // Fetch spreadsheet data
+  const responseData = await fetchSheetData(accessToken, spreadsheetId, range);
+
+  // Process the data using the provided processor function
+  return processor(responseData);
+}
+
+/**
+ * Append data to Google Sheets
+ * @param {Object} context - Cloudflare Workers context
+ * @param {string} range - Sheet range to append to
+ * @param {Array<Array<string>>} rows - 2D array of values to append
+ * @returns {Object} Google Sheets API append response
+ */
+export async function appendSheetData(context, range, rows) {
+  if (!Array.isArray(rows)) {
+    throw new Error('Rows must be an array of arrays');
+  }
+
+  const { clientEmail, privateKey, spreadsheetId } = getSheetConfig(context);
+  const jwt = await createJWT(clientEmail, privateKey, 'https://www.googleapis.com/auth/spreadsheets');
+  const accessToken = await getAccessToken(jwt);
+
+  const appendResponse = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}:append?valueInputOption=USER_ENTERED`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ values: rows }),
+    }
+  );
+
+  if (!appendResponse.ok) {
+    throw new Error(`Failed to append data: ${appendResponse.status}`);
+  }
+
+  return await appendResponse.json();
+}
+
+/**
+ * Get Google Sheets configuration from environment variables
+ * @param {Object} context - Cloudflare Workers context
+ * @returns {{clientEmail: string, privateKey: string, spreadsheetId: string}}
+ */
+function getSheetConfig(context) {
   const clientEmail = context.env.GOOGLE_CLIENT_EMAIL;
   let privateKey = context.env.GOOGLE_PRIVATE_KEY;
 
-  // Validate environment variables exist
   if (!clientEmail) {
     throw new Error('Missing environment variable: GOOGLE_CLIENT_EMAIL');
   }
@@ -123,21 +175,11 @@ export async function getSheetData(context, range, processor) {
     throw new Error('Missing environment variable: SHEET_ID');
   }
 
-  // Handle different private key formats
   if (typeof privateKey === 'string') {
-    // Replace escaped newlines with actual newlines
     privateKey = privateKey.replace(/\\n/g, '\n');
   }
 
-  // Create JWT and get access token
-  const jwt = await createJWT(clientEmail, privateKey);
-  const accessToken = await getAccessToken(jwt);
-
-  // Fetch spreadsheet data
-  const responseData = await fetchSheetData(accessToken, spreadsheetId, range);
-
-  // Process the data using the provided processor function
-  return processor(responseData);
+  return { clientEmail, privateKey, spreadsheetId };
 }
 
 /**
