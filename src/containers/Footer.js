@@ -88,27 +88,28 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
         </Container>
       )}
       <Box bg="black" color="white" mt={noSponsor ? 0 : responsive("0.5em", "1em")}>
-        <Container py={responsive("2em", "3.5em")} fontSize={responsive("0.875em", "1em")}>
+        <Container py={responsive("2.5em", "4em")} fontSize={responsive("1em", "1.125em")}>
           <Stack
             direction={responsive("column", "row")}
             spacing={responsive("2em", "3em")}
             align={responsive("flex-start", "flex-start")}
           >
-            <Stack spacing={responsive("0.75em", "1em")} flex={responsive("unset", "1.25")}>
-              <Box fontSize={responsive("1.25em", "1.5em")} fontWeight="900" letterSpacing="0.05em">
+            <Stack spacing={responsive("0.9em", "1.25em")} flex={responsive("unset", "1.25")}>
+              <Box fontSize={responsive("1.75em", "2.25em")} fontWeight="900" letterSpacing="0.05em">
                 回收大百科
               </Box>
-              <Box lineHeight="1.8">
+              <Box lineHeight="1.9" maxW={responsive("100%", "42em")}>
                 最通用的回收指南，集結政府公告、回收專業與實際處理狀況，邀請你一起共創最完整的回收資訊。
               </Box>
-              <Flex wrap="wrap" gap="0.75em">
+              <Flex wrap="wrap" gap={responsive("0.75em", "1em")}>
                 <Button
                   href="/donate/"
                   colorScheme="yellow"
                   bg="yellow.500"
                   color="black"
                   _hover={{ bg: "yellow.400" }}
-                  height={responsive("2.5em", "3em")}
+                  height={responsive("3em", "3.5em")}
+                  minW={responsive("10em", "11em")}
                   fontSize={responsive("0.875em", "1em")}
                 >
                   捐款支持
@@ -121,7 +122,8 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
                   borderColor="white"
                   color="white"
                   _hover={{ bg: "white", color: "black" }}
-                  height={responsive("2.5em", "3em")}
+                  height={responsive("3em", "3.5em")}
+                  minW={responsive("10em", "11em")}
                   fontSize={responsive("0.875em", "1em")}
                 >
                   加入志工
@@ -150,7 +152,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
                       alignItems="center"
                       gap="0.5em"
                     >
-                      <Icon as={icon} aria-hidden fontSize="1.1em" />
+                      <Icon as={icon} aria-hidden fontSize="1.2em" color="yellow.400" />
                       <Box as="span">{label}</Box>
                     </Link>
                   ))}
@@ -191,7 +193,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
                       alignItems="center"
                       gap="0.5em"
                     >
-                      <Icon as={icon} aria-hidden fontSize="1.1em" />
+                      <Icon as={icon} aria-hidden fontSize="1.2em" color="yellow.400" />
                       <Box as="span">{label}</Box>
                     </Link>
                   ))}
