@@ -75,7 +75,6 @@ export async function onRequest(context) {
     console.error('Topbar error:', error);
     return new Response(JSON.stringify({
       error: error.message,
-      details: error.stack,
     }), {
       status: 500,
       headers: {
