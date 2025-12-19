@@ -176,7 +176,7 @@ const FinalTrash = ({
           </Flex>
         </Container>
       </Box>
-      <Box bg="white" py="1.25em" position="relative" zIndex={1}>
+      <Box bg="white" pt="1.25em" position="relative" zIndex={1}>
         {data.sponsor && <SponsorNote sponsor={data.sponsor} />}
         <Container>
           <Flex mt={responsive("0.5em", "0.25em")}>
@@ -211,9 +211,7 @@ const FinalTrash = ({
           </Box>
         </Box>
         <DonatePage />
-        <Container px={responsive("0", "2em")}>
-          <Footer pt="2em" />
-        </Container>
+        <Footer pt="2em" />
       </Box>
       <Box.Absolute
         left="0"
