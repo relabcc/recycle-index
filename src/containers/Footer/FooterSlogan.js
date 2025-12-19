@@ -1,5 +1,6 @@
 import React from "react";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import { StaticImage } from "gatsby-plugin-image";
 
 import Box from "../../components/Box";
 import { responsive } from "../../components/ThemeProvider/theme";
@@ -30,11 +31,14 @@ const FooterSlogan = () => {
           <br />
           成為你我日常
         </Box>
-        <Image
-          src="https://recycle.rethinktw.org/test_blog/wp-content/uploads/2025/12/1ftp_EnvironmentalPartner_Horizontal_White-1-1024x429.png"
-          alt="1% for the planet"
-          width={responsive("120px", "160px")}
-        />
+        <Box width={responsive("120px", "160px")} display="inline-block">
+          <StaticImage
+            src="../1_for_the_planet.png"
+            alt="1% for the planet"
+            placeholder="none"
+            style={{ width: "100%", height: "auto" }}
+          />
+        </Box>
       </Flex>
     </Box>
   );

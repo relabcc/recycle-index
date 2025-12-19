@@ -1,5 +1,6 @@
 import React from "react";
-import { Stack, SimpleGrid, Image } from "@chakra-ui/react";
+import { Stack, SimpleGrid } from "@chakra-ui/react";
+import { StaticImage } from "gatsby-plugin-image";
 
 import Box from "../components/Box";
 import Container from "../components/Container";
@@ -43,12 +44,17 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
           >
             {/* RE-THINK Logo */}
             <Box>
-              <Image
-                src="https://recycle.rethinktw.org/test_blog/wp-content/uploads/2025/12/02_version_White-1024x162.png"
-                alt="RE-THINK"
+              <Box
                 width={responsive("160px", "160px")}
                 display="inline-block"
-              />
+              >
+                <StaticImage
+                  src="./logo.png"
+                  alt="RE-THINK"
+                  placeholder="none"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </Box>
             </Box>
 
             {/* Office Info Title */}
