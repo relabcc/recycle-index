@@ -604,6 +604,10 @@ const TrashPage = ({
 
     const animation = animations[data.name];
 
+    // ========================================
+    // Page 1: 從垃圾標題頁過渡到垃圾爆炸頁
+    // ========================================
+    // 隱藏臉部、垃圾旋轉歸零、垃圾放大爆炸
     theTimeline.to(faceRef.current, {
       opacity: 0,
       duration: scrollingDuration,
@@ -623,6 +627,7 @@ const TrashPage = ({
       : isMobile
       ? `${50 + (data.transform.mobileExplosionY || 0)}%`
       : "50%";
+    // 垃圾尺寸變大，中心位置調整（爆炸效果的準備）
     theTimeline.to(
       trashRef.current,
       {
@@ -638,9 +643,12 @@ const TrashPage = ({
     const [poses, posByPartName] = getPoses(data, newHeight, explosionGap);
     const combineParts = [];
 
+    // ========================================
+    // Page 2: 垃圾爆炸 - 各個部件向外展開
+    // ========================================
     data.imgs.forEach((cfg, i) => {
       gsap.set(layerRefs[cfg.index].current, { y: "0%" });
-      // calc parts y position
+      // 每個部件向外移動，創造爆炸效果
       theTimeline.to(
         layerRefs[cfg.index].current,
         {
@@ -649,6 +657,7 @@ const TrashPage = ({
         },
         scrollingDuration
       );
+      // 如果有動畫配置（如旋轉、縮放等），在爆炸時執行
       if (animation && animation[cfg.layerName]) {
         Object.entries(animation[cfg.layerName]).forEach(([d, ani]) => {
           theTimeline.to(
@@ -661,6 +670,10 @@ const TrashPage = ({
           );
         });
       }
+
+      // ========================================
+      // Page 2-3: 部件標記出現（名稱圓形和連接線）
+      // ========================================
       if (cfg.partName) {
         gsap.set(
           partsRefs[cfg.index].current.querySelector(".circle-container"),
@@ -676,6 +689,7 @@ const TrashPage = ({
         gsap.set(partsRefs[cfg.index].current.querySelector(".circle-1"), {
           opacity: 0,
         });
+        // 部件名稱圓形向邊緣移動
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".circle-container"),
           {
@@ -686,6 +700,7 @@ const TrashPage = ({
           },
           scrollingDuration
         );
+        // 連接線出現
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".line"),
           {
@@ -695,6 +710,7 @@ const TrashPage = ({
           },
           scrollingDuration
         );
+        // 部件名稱圓形顯示
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".circle-1"),
           {
@@ -714,6 +730,10 @@ const TrashPage = ({
           }
         }
       }
+
+      // ========================================
+      // Page 4-5: 垃圾回到初始位置
+      // ========================================
       theTimeline.to(
         layerRefs[cfg.index].current,
         {
@@ -737,6 +757,10 @@ const TrashPage = ({
         }, 0)
       : 0;
     // console.log(combineParts, offsetSign, totalOffset)
+
+    // ========================================
+    // Page 3: 調整垃圾整體位置（部件對齊）
+    // ========================================
     if (totalOffset) {
       theTimeline.to(
         trashXRef.current,
@@ -748,8 +772,12 @@ const TrashPage = ({
       );
     }
 
+    // ========================================
+    // Page 3-4: 部件回收率和分類信息展示
+    // ========================================
     data.imgs.forEach((cfg, i) => {
       if (combineParts[cfg.order]) {
+        // 如果部件有組合關係，調整位置並隱藏標記
         theTimeline.to(
           layerRefs[cfg.index].current,
           {
@@ -759,6 +787,7 @@ const TrashPage = ({
           2 * scrollingDuration
         );
         if (cfg.partName) {
+          // 隱藏部件標記和連接線
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-container"),
             {
@@ -804,12 +833,14 @@ const TrashPage = ({
         }
 
         if (cfg.partName) {
+          // 初始化回收率圓形圖表
           gsap.set(partsRefs[cfg.index].current.querySelector(".circle-2"), {
             scale: 0,
           });
           gsap.set(partsRefs[cfg.index].current.querySelector(".circle-rate"), {
             opacity: 0,
           });
+          // 顯示分類信息圓形（circle-2：白底框線）
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-2"),
             {
@@ -818,6 +849,7 @@ const TrashPage = ({
             },
             2 * scrollingDuration
           );
+          // 顯示回收率圓形圖表
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-rate"),
             {
@@ -832,6 +864,11 @@ const TrashPage = ({
           if (rateEle) {
             rateEles.push(rateEle);
           }
+
+          // ========================================
+          // Page 5: 所有部件標記和信息隱藏，回到初始狀態
+          // ========================================
+          // 隱藏部件名稱和連接線
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-container"),
             {
@@ -860,6 +897,7 @@ const TrashPage = ({
             },
             scrollingDuration * 3
           );
+          // 隱藏分類和回收率圓形
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-2"),
             {
@@ -879,6 +917,7 @@ const TrashPage = ({
         }
 
         if (animation && animation[cfg.layerName]) {
+          // 回到初始動畫狀態
           theTimeline.to(
             animaRefs[cfg.index].current,
             {
@@ -890,6 +929,10 @@ const TrashPage = ({
         }
       }
     });
+
+    // ========================================
+    // Page 5: 垃圾回到初始位置和大小
+    // ========================================
     // const { top, ...rest } = defaultTrashCfg;
     theTimeline.to(
       trashRef.current,
@@ -899,6 +942,10 @@ const TrashPage = ({
       },
       scrollingDuration * 3
     );
+
+    // ========================================
+    // endTimeline: 最後頁面的垃圾位置轉換（進入分享/推薦頁面）
+    // ========================================
     const scale =
       (isMobile && data.transform.mobileShareScale
         ? data.transform.mobileShareScale
