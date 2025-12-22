@@ -6,7 +6,14 @@ const useTrashData = (srcData, gatsbyImages) => {
   const data = useMemo(() => {
     if (!srcData) return null
     // const index = id * 1
-    const ordered = srcData.parts.sort((a, b) => a.layerOrder - b.layerOrder).map((cfg, index) => ({
+    const ordered = srcData.parts
+      .sort((a, b) => {
+        const orderDiff = Number(a.order) - Number(b.order);
+        return orderDiff !== 0
+          ? orderDiff
+          : Number(a.layerOrder) - Number(b.layerOrder);
+      })
+      .map((cfg, index) => ({
       ...cfg,
       index,
       order: cfg.order - 1,

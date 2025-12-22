@@ -323,7 +323,7 @@ const TrashPage = ({
   const parts = useMemo(() => {
     if (!data) return null;
     return data.imgs.map(
-      ({ gatsbySrc, centeroid, x, width, partName, side }, i) => {
+      ({ gatsbySrc, centeroid, x, width, partName, side, layerOrder }, i) => {
         let pos;
         let linePos;
         const theSide = isMobile ? 0 : side;
@@ -349,7 +349,11 @@ const TrashPage = ({
         }
         const top = `${(centeroid[1] / imgSize[1]) * 100}%`;
         return (
-          <Box.FullAbs ref={layerRefs[i]} key={i}>
+          <Box.FullAbs
+            ref={layerRefs[i]}
+            key={i}
+            style={{ zIndex: Number(layerOrder) || 0 }}
+          >
             <div ref={animaRefs[i]}>
               {pageLoaded > 0 && (
                 <GatsbyImage image={gatsbySrc} alt={partName} />

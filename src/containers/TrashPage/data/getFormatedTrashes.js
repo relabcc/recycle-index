@@ -65,10 +65,6 @@ const transformer = {
 
 const remapKeys = (data, keyMap) => data.map((dd) => {
   const mapped = mapValues(mapKeys(dd, (v, k) => keyMap[k] || k), (v, k) => transformer[k] ? transformer[k](v) : v)
-  // If '對應部分/材質' (mapped to `partName`) is empty, fallback to `layerName`
-  if ((!mapped.partName || mapped.partName === '-' || mapped.partName === '') && mapped.layerName) {
-    mapped.partName = mapped.layerName
-  }
   return mapped
 })
 
