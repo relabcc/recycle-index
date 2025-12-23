@@ -27,14 +27,14 @@ const links = [
   { name: '捐款支持', href: '/donate/', isSupport: true, hideEn: true },
 ]
 
-const Header = ({ isEn, ...props }) => {
+const Header = ({ isEn, topOffset = 0, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   return (
     <Flex
       as="header"
       position="fixed"
-      top={0}
+      top={topOffset}
       left={0}
       right={0}
       alignItems="center"
