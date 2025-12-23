@@ -211,7 +211,7 @@ const FinalTrash = ({
           </Box>
         </Box>
         <DonatePage />
-        <Footer pt="2em" />
+        <Footer />
       </Box>
       <Box.Absolute
         left="0"

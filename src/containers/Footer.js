@@ -22,7 +22,6 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
           <Sponsor
             isFooter
             textColor="black"
-            borderTop={!noSep && "1px solid"}
             px="0"
             fontSize={responsive("0.75em", "1.375em")}
             logoProps={{
@@ -45,6 +44,10 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             {/* RE-THINK Logo */}
             <Box>
               <Box
+                as="a"
+                href="https://rethinktw.org/"
+                target="_blank"
+                rel="noopener noreferrer"
                 width={responsive("160px", "160px")}
                 display="inline-block"
               >
@@ -81,10 +84,10 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             {/* Donation Info */}
             <DonationInfo />
           </SimpleGrid>
-
-          {/* Bottom Section: Slogan + Logo */}
-          <FooterSlogan />
         </Container>
+
+        {/* Bottom Section: Slogan + Logo (full-bleed) */}
+        <FooterSlogan />
       </Box>
     </Box>
   );
