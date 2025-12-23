@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import useSWR from 'swr';
 import { CloseButton, Image, Link as ChakraLink, useMediaQuery, AspectRatio } from '@chakra-ui/react';
 import { useMedia } from 'react-use';
@@ -67,7 +67,7 @@ const PopupAd = () => {
     return ['true', '1', 'yes', 'y', '是', 'checked'].includes(normalized);
   };
 
-  const normalizePopup = (data) => {
+  const normalizePopup = useCallback((data) => {
     if (!data) return null;
 
     let source = data;
@@ -105,10 +105,10 @@ const PopupAd = () => {
       desktopOnly: parseBoolean(source.desktopOnly ?? source['僅桌機']),
       key: source.key ?? source['Key'] ?? 'popup',
     };
-  };
+  }, []);
 
   // Derive popup from SWR data with dev fallback
-  const swrPopup = useMemo(() => normalizePopup(popupData), [popupData]);
+  const swrPopup = useMemo(() => normalizePopup(popupData), [popupData, normalizePopup]);
 
   const isSamePopup = (a, b) => {
     if (!a || !b) return false;
@@ -268,6 +268,8 @@ const PopupAd = () => {
         bg="rgba(0,0,0,0.6)"
         zIndex="overlay"
         pointerEvents="auto"
+        onClick={handleDismiss}
+        aria-label="關閉公告覆蓋層"
       />
       <Box.Fixed
         left="0"
@@ -277,6 +279,7 @@ const PopupAd = () => {
         zIndex="popover"
         px={responsive('0.8em', '1.5em')}
         pointerEvents="auto"
+        onClick={(e) => e.stopPropagation()}
       >
         <Box maxW={responsive('100%', '1200px')} mx="auto" pointerEvents="auto">
           <Box
@@ -285,12 +288,16 @@ const PopupAd = () => {
             borderRadius={responsive('0.85em', '1em')}
             boxShadow="0 10px 24px rgba(0,0,0,0.25)"
             overflow="hidden"
+            maxH={responsive('90vh', '80vh')}
           >
           <Flex
             align="stretch"
             gap="0"
             flexWrap={responsive('wrap', 'nowrap')}
             bg={columnsBg}
+            overflowY="auto"
+            maxH={responsive('90vh', '80vh')}
+            style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {popup.image ? (
               <Box
@@ -319,6 +326,9 @@ const PopupAd = () => {
               px={responsive('20px', '40px')}
               py={responsive('30px', '40px')}
               gap="10px"
+              overflowY="auto"
+              maxH="100%"
+              style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {popup.title ? (
                 <Text
