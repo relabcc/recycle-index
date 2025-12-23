@@ -11,7 +11,7 @@ import Input from './Input';
 import { responsive } from './ThemeProvider/theme';
 import { getApiEndpoint } from '../helpers/apiHelpers';
 
-const POPUP_RANGE = "popup!A1:B7";
+const POPUP_RANGE = "popup!A1:B10";
 const DISMISS_DURATION_DAYS = 30;
 
 const DEV_SAMPLE_POPUP = {
@@ -235,6 +235,18 @@ const PopupAd = () => {
     if (dismissed) return true;
     if (popup.desktopOnly && !isDesktop) return true;
     const hasContent = popup.title || popup.subtitle || popup.description || popup.image || (popup.ctaText && popup.url) || popup.collectEmail;
+
+    // Debug: log popup data
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[PopupAd Debug]', {
+        popup,
+        ctaText: popup.ctaText,
+        url: popup.url,
+        hasCTA: Boolean(popup.ctaText && popup.url),
+        shouldHide: !hasContent
+      });
+    }
+
     return !hasContent;
   }, [dismissed, isDesktop, isLoading, popup]);
 
