@@ -7,6 +7,10 @@ import {
   DrawerCloseButton,
   useDisclosure,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react"
 import { MdMenu } from 'react-icons/md';
 import { StaticImage } from 'gatsby-plugin-image';
@@ -25,6 +29,10 @@ const links = [
   { name: '關於我們', en: 'About Us', to: '/about/' },
   { name: '文章專區', en: 'Articles', href: '/blog/' },
   { name: '課程申請', href: COURSE_APPLY_URL, hideEn: true, isExternal: true },
+  { name: '友站連結', isDropdown: true, subLinks: [
+    { name: 'RE-THINK 官網', href: 'https://rethinktw.cc/BkzgJ', isExternal: true },
+    { name: '海廢圖鑑', href: 'https://rethinktw.cc/kRoiM', isExternal: true },
+  ]},
   { name: '捐款支持', href: DONATE_URL, isSupport: true, hideEn: true, isExternal: true },
 ]
 
@@ -65,23 +73,60 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
       </Box>
       <Box flex="1" />
       <Media greaterThan="mobile">
-        {links.map(({ name, en, to, href, isSupport, hideEn, isExternal }, i) => (!isEn || !hideEn) && (
-          <Button
-            variant="outline"
-            colorScheme="black"
-            bg={isSupport ? 'colors.neonGreen' : 'white'}
-            href={href}
-            to={to && `${isEn ? '/en' : ''}${to}`}
-            mx="0.5em"
-            borderWidth="0.15em"
-            fontSize="0.75em"
-            key={i}
-            fontFamily={theme.fonts.number}
-            isExternal={isExternal}
-          >
-            {isEn ? en : name}
-          </Button>
-        ))}
+        {links.map(({ name, en, to, href, isSupport, hideEn, isExternal, isDropdown, subLinks }, i) => {
+          if (isEn && hideEn) return null
+
+          if (isDropdown && subLinks) {
+            return (
+              <Menu key={i} placement="bottom-start" isLazy>
+                <MenuButton
+                  as={Button}
+                  variant="outline"
+                  colorScheme="black"
+                  bg={isSupport ? 'colors.neonGreen' : 'white'}
+                  mx="0.5em"
+                  borderWidth="0.15em"
+                  fontSize="0.75em"
+                  fontFamily={theme.fonts.number}
+                >
+                  {isEn ? en : name}
+                </MenuButton>
+                <MenuList px="0.25em" py="0.5em">
+                  {subLinks.map(({ name: subName, to: subTo, href: subHref, isExternal: subIsExternal }, j) => (
+                    <MenuItem
+                      key={j}
+                      as={Link}
+                      to={subTo && `${isEn ? '/en' : ''}${subTo}`}
+                      href={subHref}
+                      isExternal={subIsExternal}
+                      fontFamily={theme.fonts.number}
+                    >
+                      {subName}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+            )
+          }
+
+          return (!isEn || !hideEn) && (
+            <Button
+              variant="outline"
+              colorScheme="black"
+              bg={isSupport ? 'colors.neonGreen' : 'white'}
+              href={href}
+              to={to && `${isEn ? '/en' : ''}${to}`}
+              mx="0.5em"
+              borderWidth="0.15em"
+              fontSize="0.75em"
+              key={i}
+              fontFamily={theme.fonts.number}
+              isExternal={isExternal}
+            >
+              {isEn ? en : name}
+            </Button>
+          )
+        })}
       </Media>
       <Media at="mobile">
         <>
@@ -119,18 +164,39 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
             blockScrollOnMount={false}
           >
             <DrawerOverlay>
-              <DrawerContent>
-                <DrawerCloseButton />
+              <DrawerContent bg="gray.900" color="white">
+                <DrawerCloseButton color="white" />
                 <DrawerBody pt="3em" pl="2em">
-                  {links.map(({ name, en, hideEn, to, href, isExternal }, i) => (!isEn || !hideEn) && (
-                    <Box key={i} py="1em" fontSize="1.125em" fontFamily={theme.fonts.number}>
+                  {links.map(({ name, en, hideEn, to, href, isExternal, isDropdown, subLinks }, i) => (!isEn || !hideEn) && (
+                    <Box key={i} py="0.5em" fontSize="1.125em" fontFamily={theme.fonts.number}>
                       <Link
                         onClick={onClose}
                         to={to && `${isEn ? '/en' : ''}${to}`}
                         width="100%"
                         href={href}
                         isExternal={isExternal}
+                        color="white"
+                        _hover={{ color: 'gray.200' }}
                       >{isEn ? en : name}</Link>
+                      {isDropdown && subLinks && (
+                        <Box pl="1em" pt="0.5em">
+                          {subLinks.map(({ name: subName, href: subHref, isExternal: subIsExternal }, j) => (
+                            <Box key={j} py="0.25em">
+                              <Link
+                                onClick={onClose}
+                                to={subHref && `${isEn ? '/en' : ''}${subHref}`}
+                                width="100%"
+                                href={subHref}
+                                isExternal={subIsExternal}
+                                color="white"
+                                _hover={{ color: 'gray.200' }}
+                              >
+                                {subName}
+                              </Link>
+                            </Box>
+                          ))}
+                        </Box>
+                      )}
                     </Box>
                   ))}
                 </DrawerBody>
