@@ -4,9 +4,9 @@ import { DONATE_URL } from "../constants/links";
 
 const DonateButton = () => {
   return (
-    <Box display={responsive('none', 'block')} pos="fixed" right="0" bottom="24px" zIndex={99}>
+    <Box display={responsive('none', 'block')} pos="fixed" right="0" bottom="1.5em" zIndex={99}>
       <Link href={DONATE_URL} isExternal>
-        <Image src="/donate.svg" alt="捐款支持" w="92px" />
+        <Image src="/donate.svg" alt="捐款支持" w="5.75em" />
       </Link>
     </Box>
   );

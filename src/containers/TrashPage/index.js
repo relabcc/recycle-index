@@ -200,6 +200,13 @@ const TrashNumber = ({ children, ...props }) => (
   </Box.Absolute>
 );
 
+// Circle with responsive font scaling for very small screens
+const RwdCircle = styled(Circle)`
+  @media (max-width: 400px) {
+    font-size: 0.8em;
+  }
+`;
+
 const getPoses = (data, newHeight, explosionGap) => {
   const posByPartName = {};
   const posByOrder = [];
@@ -378,7 +385,7 @@ const TrashPage = ({
                       className="circle-container"
                       pointerEvents="all"
                     >
-                      <Circle
+                      <RwdCircle
                         bg={colorScheme}
                         width={responsive("7em", "7.5em")}
                         textAlign="center"
@@ -402,9 +409,9 @@ const TrashPage = ({
                         >
                           {data.partsDetail[partName]}
                         </Text>
-                      </Circle>
+                      </RwdCircle>
                       <Box.FullAbs className="circle-2" transform="scale(0)">
-                        <Circle
+                        <RwdCircle
                           border="2px solid"
                           borderColor={colorScheme}
                           bg="white"
@@ -432,7 +439,7 @@ const TrashPage = ({
                               %
                             </Text>
                           )}
-                        </Circle>
+                        </RwdCircle>
                       </Box.FullAbs>
                       <Box.Absolute
                         className="circle-rate"

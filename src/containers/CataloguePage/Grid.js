@@ -8,7 +8,6 @@ import Flex from "../../components/Flex";
 import theme, { responsive } from "../../components/ThemeProvider/theme";
 
 import PerTrash from "./PerTrash";
-import Footer from "../Footer";
 import diff from "./diff";
 import useIsEn from "../useIsEn";
 import trashEn from "../trashEn";
@@ -128,7 +127,7 @@ const Catalogue = ({ data }) => {
         right="0"
         bg="white"
         px={responsive("1em", "2em")}
-        zIndex="dropdown"
+        zIndex="docked"
       >
         {useMemo(
           () => (

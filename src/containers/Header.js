@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Drawer,
   DrawerBody,
@@ -11,8 +11,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Portal,
 } from "@chakra-ui/react"
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdExpandMore, MdExpandLess } from 'react-icons/md';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Box from '../components/Box';
@@ -51,6 +52,11 @@ const mobileButtons = [
 
 const Header = ({ isEn, topOffset = 0, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [expandedIndex, setExpandedIndex] = useState(null)
+  const handleClose = () => {
+    setExpandedIndex(null)
+    onClose()
+  }
   const btnRef = useRef()
   return (
     <Flex
@@ -78,7 +84,11 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
 
           if (isDropdown && subLinks) {
             return (
-              <Menu key={i} placement="bottom-start" isLazy>
+              <Menu
+                key={i}
+                placement="bottom-start"
+                isLazy
+              >
                 <MenuButton
                   as={Button}
                   variant="outline"
@@ -89,22 +99,27 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                   fontSize="0.75em"
                   fontFamily={theme.fonts.number}
                 >
-                  {isEn ? en : name}
+                  <Flex alignItems="center" justifyContent="space-between" gap="0.35em">
+                    <Box as="span">{isEn ? en : name}</Box>
+                    <MdExpandMore size="1em" />
+                  </Flex>
                 </MenuButton>
-                <MenuList px="0.25em" py="0.5em">
-                  {subLinks.map(({ name: subName, to: subTo, href: subHref, isExternal: subIsExternal }, j) => (
-                    <MenuItem
-                      key={j}
-                      as={Link}
-                      to={subTo && `${isEn ? '/en' : ''}${subTo}`}
-                      href={subHref}
-                      isExternal={subIsExternal}
-                      fontFamily={theme.fonts.number}
-                    >
-                      {subName}
-                    </MenuItem>
-                  ))}
-                </MenuList>
+                <Portal>
+                  <MenuList px="0.25em" py="0.5em" zIndex="dropdown" fontSize={responsive(null, '12px', '13.5px')}>
+                    {subLinks.map(({ name: subName, to: subTo, href: subHref, isExternal: subIsExternal }, j) => (
+                      <MenuItem
+                        key={j}
+                        as={Link}
+                        to={subTo && `${isEn ? '/en' : ''}${subTo}`}
+                        href={subHref}
+                        isExternal={subIsExternal}
+                        fontFamily={theme.fonts.number}
+                      >
+                        {subName}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Portal>
               </Menu>
             )
           }
@@ -159,7 +174,7 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
           <Drawer
             isOpen={isOpen}
             placement="right"
-            onClose={onClose}
+            onClose={handleClose}
             finalFocusRef={btnRef}
             blockScrollOnMount={false}
           >
@@ -169,33 +184,50 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                 <DrawerBody pt="3em" pl="2em">
                   {links.map(({ name, en, hideEn, to, href, isExternal, isDropdown, subLinks }, i) => (!isEn || !hideEn) && (
                     <Box key={i} py="0.5em" fontSize="1.125em" fontFamily={theme.fonts.number}>
-                      <Link
-                        onClick={onClose}
-                        to={to && `${isEn ? '/en' : ''}${to}`}
-                        width="100%"
-                        href={href}
-                        isExternal={isExternal}
-                        color="white"
-                        _hover={{ color: 'gray.200' }}
-                      >{isEn ? en : name}</Link>
-                      {isDropdown && subLinks && (
-                        <Box pl="1em" pt="0.5em">
-                          {subLinks.map(({ name: subName, href: subHref, isExternal: subIsExternal }, j) => (
-                            <Box key={j} py="0.25em">
-                              <Link
-                                onClick={onClose}
-                                to={subHref && `${isEn ? '/en' : ''}${subHref}`}
-                                width="100%"
-                                href={subHref}
-                                isExternal={subIsExternal}
-                                color="white"
-                                _hover={{ color: 'gray.200' }}
-                              >
-                                {subName}
-                              </Link>
+                      {isDropdown && subLinks ? (
+                        <>
+                          <Flex
+                            as="button"
+                            onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
+                            width="100%"
+                            color="white"
+                            _hover={{ color: 'gray.200' }}
+                            alignItems="center"
+                            justifyContent="space-between"
+                          >
+                            <Box as="span">{isEn ? en : name}</Box>
+                            {expandedIndex === i ? <MdExpandLess size="1.25em" /> : <MdExpandMore size="1.25em" />}
+                          </Flex>
+                          {expandedIndex === i && (
+                            <Box pl="1em" pt="0.5em">
+                              {subLinks.map(({ name: subName, href: subHref, isExternal: subIsExternal }, j) => (
+                                <Box key={j} py="0.25em">
+                                  <Link
+                                    onClick={handleClose}
+                                    to={subHref && `${isEn ? '/en' : ''}${subHref}`}
+                                    width="100%"
+                                    href={subHref}
+                                    isExternal={subIsExternal}
+                                    color="white"
+                                    _hover={{ color: 'gray.200' }}
+                                  >
+                                    {subName}
+                                  </Link>
+                                </Box>
+                              ))}
                             </Box>
-                          ))}
-                        </Box>
+                          )}
+                        </>
+                      ) : (
+                        <Link
+                          onClick={handleClose}
+                          to={to && `${isEn ? '/en' : ''}${to}`}
+                          width="100%"
+                          href={href}
+                          isExternal={isExternal}
+                          color="white"
+                          _hover={{ color: 'gray.200' }}
+                        >{isEn ? en : name}</Link>
                       )}
                     </Box>
                   ))}
