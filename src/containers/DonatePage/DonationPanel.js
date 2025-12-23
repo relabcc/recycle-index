@@ -5,17 +5,10 @@ import Button from "../../components/Button";
 import Flex from "../../components/Flex";
 import { responsive } from "../../components/ThemeProvider/theme";
 import { Stack } from "@chakra-ui/react";
+import { getApiEndpoint } from "../../helpers/apiHelpers";
 
 const DONATION_URL =
   "https://rethinktw.neticrm.tw/civicrm/contribute/transact?reset=1&id=26";
-
-// API endpoint - use development URL if in development
-const getApiEndpoint = () => {
-  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-    return "https://recycle-index.pages.dev/api/data";
-  }
-  return "/api/data";
-};
 
 /**
  * Parse donation data from API response and group by category
@@ -122,9 +115,8 @@ const DonationPanel = ({ layout }) => {
   const [activeCategory, setActiveCategory] = useState(null);
 
   // Fetch donation data using SWR with caching
-  const endpoint = getApiEndpoint();
   const { data: rawData, error, isLoading } = useSWR(
-    `${endpoint}?range=donate!A1:C`,
+    getApiEndpoint("donate!A1:C"),
     fetcher,
     {
       revalidateOnFocus: false,
