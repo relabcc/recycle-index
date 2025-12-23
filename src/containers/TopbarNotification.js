@@ -7,7 +7,7 @@ import Container from "../components/Container";
 import Flex from "../components/Flex";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import { breakpoints, responsive } from "../components/ThemeProvider/theme";
+import { responsive } from "../components/ThemeProvider/theme";
 import { getApiEndpoint } from "../helpers/apiHelpers";
 
 const TOPBAR_RANGE = "topbar!A1:B10";
@@ -128,10 +128,27 @@ const Countdown = ({ countdown }) => {
   );
 };
 
+const DISMISS_DURATION_DAYS = 30;
+
 const TopbarNotification = ({ onHeightChange }) => {
   const barRef = useRef(null);
-  const [dismissed, setDismissed] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const stored = window.localStorage.getItem('topbar-dismissed');
+    if (!stored) return false;
+    try {
+      const timestamp = parseInt(stored, 10);
+      const now = Date.now();
+      const daysSinceDismissed = (now - timestamp) / (1000 * 60 * 60 * 24);
+      if (daysSinceDismissed < DISMISS_DURATION_DAYS) {
+        return true;
+      }
+      window.localStorage.removeItem('topbar-dismissed');
+      return false;
+    } catch {
+      return false;
+    }
+  });
   const { data, error } = useSWR(getApiEndpoint(TOPBAR_RANGE), fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -148,23 +165,6 @@ const TopbarNotification = ({ onHeightChange }) => {
     () => Boolean(config?.url && /^https?:\/\//i.test(config.url)),
     [config?.url]
   );
-
-  useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-    const threshold = breakpoints[3] || 1280;
-    let ticking = false;
-    const handleResize = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        setIsDesktop(window.innerWidth >= threshold);
-        ticking = false;
-      });
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     if (!config?.countdownEnabled || !targetDate) {
@@ -194,7 +194,7 @@ const TopbarNotification = ({ onHeightChange }) => {
   const showTopbar = Boolean(
     config?.enabled && !dismissed && !error && config.title
   );
-  const shouldRender = showTopbar && isDesktop;
+  const shouldRender = showTopbar;
 
   useEffect(() => {
     if (!onHeightChange) return undefined;
@@ -239,7 +239,12 @@ const TopbarNotification = ({ onHeightChange }) => {
         alignItems="stretch"
         py={responsive("0.85em", "1em")}
       >
-        <Flex flex="1" alignItems="center" gap={responsive("0.8em", "1.1em")}>
+        <Flex
+          flex="1"
+          alignItems={responsive("flex-start", "center")}
+          gap={responsive("0.8em", "1.1em")}
+          direction={responsive("column", "row")}
+        >
           {config.countdownEnabled && countdown && (
             <Countdown countdown={countdown} />
           )}
@@ -284,9 +289,14 @@ const TopbarNotification = ({ onHeightChange }) => {
           variant="ghost"
           colorScheme="blackAlpha"
           color="white"
-          onClick={() => setDismissed(true)}
+          onClick={() => {
+            setDismissed(true);
+            if (typeof window !== 'undefined') {
+              window.localStorage.setItem('topbar-dismissed', Date.now().toString());
+            }
+          }}
           icon={<MdClose size="1.25em" />}
-          alignSelf="center"
+          alignSelf="flex-start"
           ml={responsive("0.25em", "0.5em")}
         />
       </Container>

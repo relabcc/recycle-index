@@ -12,6 +12,7 @@ import { responsive } from './ThemeProvider/theme';
 import { getApiEndpoint } from '../helpers/apiHelpers';
 
 const POPUP_RANGE = "popup!A1:B7";
+const DISMISS_DURATION_DAYS = 30;
 
 const DEV_SAMPLE_POPUP = {
   key: 'dev-sample',
@@ -157,7 +158,23 @@ const PopupAd = () => {
     }
     const storageKeyLocal = `popup-dismissed-${popup.key || 'popup'}`;
     const stored = window.localStorage.getItem(storageKeyLocal);
-    setDismissed(stored === '1');
+    if (!stored) {
+      setDismissed(false);
+      return;
+    }
+    try {
+      const timestamp = parseInt(stored, 10);
+      const now = Date.now();
+      const daysSinceDismissed = (now - timestamp) / (1000 * 60 * 60 * 24);
+      if (daysSinceDismissed < DISMISS_DURATION_DAYS) {
+        setDismissed(true);
+      } else {
+        window.localStorage.removeItem(storageKeyLocal);
+        setDismissed(false);
+      }
+    } catch {
+      setDismissed(false);
+    }
   }, [isClient, popup]);
 
   const storageKey = useMemo(
@@ -168,7 +185,7 @@ const PopupAd = () => {
   const handleDismiss = () => {
     setDismissed(true);
     if (storageKey && typeof window !== 'undefined') {
-      window.localStorage.setItem(storageKey, '1');
+      window.localStorage.setItem(storageKey, Date.now().toString());
     }
   };
 
