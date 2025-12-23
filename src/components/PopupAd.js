@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CloseButton, Image, Link as ChakraLink, useMediaQuery } from '@chakra-ui/react';
+import useSWR from 'swr';
+import { CloseButton, Image, Link as ChakraLink, useMediaQuery, AspectRatio } from '@chakra-ui/react';
 import { useMedia } from 'react-use';
 
 import Box from './Box';
@@ -8,15 +9,9 @@ import Text from './Text';
 import Button from './Button';
 import Input from './Input';
 import { responsive } from './ThemeProvider/theme';
+import { getApiEndpoint } from '../helpers/apiHelpers';
 
-const getApiEndpoint = () => {
-  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-    return 'https://recycle-index.pages.dev/api/popup';
-  }
-  return '/api/popup';
-};
-
-const formatTwoDigits = (num) => num.toString().padStart(2, '0');
+const POPUP_RANGE = "popup!A1:B7";
 
 const DEV_SAMPLE_POPUP = {
   key: 'dev-sample',
@@ -32,54 +27,14 @@ const DEV_SAMPLE_POPUP = {
   textColor: '#ffffff',
   buttonColor: '#ff6695',
   buttonTextColor: '#000000',
-  countdownTarget: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-};
-
-const Countdown = ({ value }) => {
-  if (!value) return null;
-
-  const timeBlocks = [
-    { label: '天', key: 'days', value: value.days },
-    { label: '小時', key: 'hours', value: value.hours },
-    { label: '分鐘', key: 'minutes', value: value.minutes },
-    { label: '秒', key: 'seconds', value: value.seconds },
-  ];
-
-  return (
-    <Flex
-      align="center"
-      bg="colors.orange"
-      color="black"
-      borderRadius={responsive('0.6em', '0.75em')}
-      px={responsive('0.6em', '0.9em')}
-      py={responsive('0.4em', '0.5em')}
-      gap={responsive('0.65em', '0.8em')}
-      boxShadow="0 2px 0 rgba(0,0,0,0.25)"
-      minW={responsive('220px', '260px')}
-      justify="space-between"
-    >
-      {timeBlocks.map((block) => (
-        <Flex key={block.key} direction="column" align="center" minW="3.25em" gap="0.15em">
-          <Text.Number fontSize={responsive('1.3em', '1.6em')} fontWeight="900">
-            {formatTwoDigits(Math.max(block.value, 0))}
-          </Text.Number>
-          <Text fontSize="0.85em" fontWeight="800">
-            {block.label}
-          </Text>
-        </Flex>
-      ))}
-    </Flex>
-  );
 };
 
 const PopupAd = () => {
   const [popup, setPopup] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [dismissed, setDismissed] = useState(false);
   const [email, setEmail] = useState('');
   const [submitState, setSubmitState] = useState('idle'); // idle | submitting | success | error
   const [submitError, setSubmitError] = useState('');
-  const [countdown, setCountdown] = useState(null);
 
   const [isClient, setIsClient] = useState(false);
   const isDesktop = useMedia('(min-width: 992px)', false);
@@ -89,94 +44,121 @@ const PopupAd = () => {
     setIsClient(typeof window !== 'undefined');
   }, []);
 
-  useEffect(() => {
-    if (!isClient) return undefined;
-
-    let cancelled = false;
-    const endpoint = getApiEndpoint();
-
-    const fetchPopup = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(endpoint);
-        if (!response.ok) {
-          throw new Error(`Popup API error: ${response.status}`);
-        }
-        const data = await response.json();
-        const popupConfig = data?.popup;
-
-        if (!popupConfig) {
-          if (!cancelled) {
-            setPopup(null);
-            setDismissed(false);
-          }
-          return;
-        }
-
-        const countdownTarget = popupConfig.countdownTarget
-          ? new Date(popupConfig.countdownTarget)
-          : null;
-        const normalizedCountdown = countdownTarget && !Number.isNaN(countdownTarget.getTime())
-          ? countdownTarget
-          : null;
-
-        if (!cancelled) {
-          setPopup({
-            ...popupConfig,
-            countdownTarget: normalizedCountdown,
-          });
-          const storageKey = `popup-dismissed-${popupConfig.key || 'popup'}`;
-          const stored = window.localStorage.getItem(storageKey);
-          setDismissed(stored === '1');
-        }
-      } catch (err) {
-        console.error('[popup] fetch error', err);
-        if (!cancelled) {
-          if (process.env.NODE_ENV === 'development') {
-            setPopup(DEV_SAMPLE_POPUP);
-            setDismissed(false);
-          } else {
-            setPopup(null);
-          }
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+  // SWR: fetch popup config from API when client-side
+  const endpointKey = isClient ? getApiEndpoint(POPUP_RANGE) : null;
+  const { data: popupData, error: popupError, isLoading } = useSWR(
+    endpointKey,
+    async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Popup API error: ${response.status}`);
       }
-    };
+      return response.json();
+    },
+    { revalidateOnFocus: false }
+  );
 
-    fetchPopup();
-    return () => {
-      cancelled = true;
-    };
-  }, [isClient]);
+  // Helpers to normalize sheet key-value rows (欄位/設定)
+  const parseBoolean = (value) => {
+    if (typeof value === 'boolean') return value;
+    if (value === null || value === undefined) return false;
+    const normalized = String(value).trim().toLowerCase();
+    return ['true', '1', 'yes', 'y', '是', 'checked'].includes(normalized);
+  };
 
-  useEffect(() => {
-    if (!popup?.countdownTarget) {
-      setCountdown(null);
-      return undefined;
+  const normalizePopup = (data) => {
+    if (!data) return null;
+
+    let source = data;
+    if (Array.isArray(data)) {
+      if (data.length === 0) return null;
+      const first = data[0] || {};
+      const keyCol = '欄位' in first ? '欄位' : Object.keys(first)[0];
+      const valueCol = '設定' in first ? '設定' : Object.keys(first)[1];
+      if (!keyCol || !valueCol) return null;
+
+      source = data.reduce((acc, row) => {
+        const key = row?.[keyCol];
+        if (key === undefined || key === null || key === '') return acc;
+        acc[String(key).trim()] = row?.[valueCol];
+        return acc;
+      }, {});
     }
 
-    const target = popup.countdownTarget;
-    const updateCountdown = () => {
-      const diff = target.getTime() - Date.now();
-      if (diff <= 0) {
-        setCountdown(null);
-        return;
-      }
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / (60 * 60 * 24));
-      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-      setCountdown({ days, hours, minutes, seconds });
-    };
+    if (typeof source !== 'object' || Array.isArray(source)) return null;
 
-    updateCountdown();
-    const timer = window.setInterval(updateCountdown, 1000);
-    return () => window.clearInterval(timer);
-  }, [popup?.countdownTarget]);
+    return {
+      enabled: parseBoolean(source.enabled ?? source['啟用']),
+      image: source.image ?? source['圖片'] ?? '',
+      title: source.title ?? source['標題'] ?? '',
+      subtitle: source.subtitle ?? source['小標'] ?? '',
+      description: source.description ?? source['描述'] ?? '',
+      collectEmail: parseBoolean(source.collectEmail ?? source['收集 E-mail']),
+      ctaText: source.ctaText ?? source['CTA'] ?? '',
+      url: source.url ?? source['URL'] ?? '',
+      backgroundColor: source.backgroundColor ?? source['背景色'] ?? '#ffd000',
+      textColor: source.textColor ?? source['文字色'] ?? '#000000',
+      buttonColor: source.buttonColor ?? source['按鈕色'] ?? '#ff6695',
+      buttonTextColor: source.buttonTextColor ?? source['按鈕文字色'] ?? '#000000',
+      closeButtonColor: source.closeButtonColor ?? source['關閉鍵色'] ?? '#000000',
+      desktopOnly: parseBoolean(source.desktopOnly ?? source['僅桌機']),
+      key: source.key ?? source['Key'] ?? 'popup',
+    };
+  };
+
+  // Derive popup from SWR data with dev fallback
+  const swrPopup = useMemo(() => normalizePopup(popupData), [popupData]);
+
+  const isSamePopup = (a, b) => {
+    if (!a || !b) return false;
+    const keys = [
+      'key',
+      'enabled',
+      'image',
+      'title',
+      'subtitle',
+      'description',
+      'collectEmail',
+      'ctaText',
+      'url',
+      'backgroundColor',
+      'textColor',
+      'buttonColor',
+      'buttonTextColor',
+      'closeButtonColor',
+      'desktopOnly',
+    ];
+    return keys.every((k) => a[k] === b[k]);
+  };
+
+  useEffect(() => {
+    if (popupError) {
+      if (process.env.NODE_ENV === 'development') {
+        setPopup(DEV_SAMPLE_POPUP);
+      } else {
+        setPopup(null);
+      }
+      return;
+    }
+
+    if (swrPopup) {
+      setPopup((prev) => (prev && isSamePopup(prev, swrPopup) ? prev : swrPopup));
+    } else {
+      setPopup(null);
+    }
+  }, [swrPopup, popupError]);
+
+  // Sync dismissed state when popup changes
+  useEffect(() => {
+    if (!isClient) return;
+    if (!popup) {
+      setDismissed(false);
+      return;
+    }
+    const storageKeyLocal = `popup-dismissed-${popup.key || 'popup'}`;
+    const stored = window.localStorage.getItem(storageKeyLocal);
+    setDismissed(stored === '1');
+  }, [isClient, popup]);
 
   const storageKey = useMemo(
     () => (popup ? `popup-dismissed-${popup.key || 'popup'}` : null),
@@ -204,7 +186,7 @@ const PopupAd = () => {
     setSubmitError('');
     setSubmitState('submitting');
     try {
-      const endpoint = getApiEndpoint();
+      const endpoint = getApiEndpoint('popup');
       const payload = {
         email: trimmed,
         popupKey: popup.key,
@@ -230,77 +212,106 @@ const PopupAd = () => {
   };
 
   const shouldHide = useMemo(() => {
-    if (loading) return true;
+    if (isLoading) return true;
     if (!popup) return true;
+    if (!popup.enabled) return true;
     if (dismissed) return true;
     if (popup.desktopOnly && !isDesktop) return true;
-    if (popup.countdownTarget && countdown === null) return true;
     const hasContent = popup.title || popup.subtitle || popup.description || popup.image || (popup.ctaText && popup.url) || popup.collectEmail;
     return !hasContent;
-  }, [countdown, dismissed, isDesktop, loading, popup]);
+  }, [dismissed, isDesktop, isLoading, popup]);
 
   if (shouldHide) return null;
 
-  const bg = popup.backgroundColor || 'rgba(73,58,9,0.96)';
-  const textColor = popup.textColor || '#ffffff';
+  const columnsBg = popup.backgroundColor || '#ffd000';
+  const textColor = popup.textColor || '#000000';
   const buttonBg = popup.buttonColor || '#ff6695';
   const buttonText = popup.buttonTextColor || '#000000';
-  const closeColor = popup.closeButtonColor || '#ffffff';
+  const closeColor = popup.closeButtonColor || '#000000';
 
   return (
-    <Box.Fixed
-      left="0"
-      right="0"
-      bottom={responsive('0.5em', '1.5em')}
-      zIndex="popover"
-      px={responsive('0.8em', '1.5em')}
-      pointerEvents="none"
-    >
-      <Box maxW={responsive('100%', '1200px')} mx="auto" pointerEvents="auto">
-        <Box
-          position="relative"
-          bg={bg}
-          color={textColor}
-          borderRadius={responsive('0.85em', '1em')}
-          boxShadow="0 10px 24px rgba(0,0,0,0.25)"
-          overflow="hidden"
-        >
-          <Flex
-            align="center"
-            gap={responsive('0.75em', '1em')}
-            px={responsive('1em', '1.5em', '2em')}
-            py={responsive('1em', '1.25em', '1.4em')}
-            flexWrap={responsive('wrap', 'wrap', 'nowrap')}
+    <>
+      <Box.Fixed
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        bg="rgba(0,0,0,0.6)"
+        zIndex="overlay"
+        pointerEvents="auto"
+      />
+      <Box.Fixed
+        left="0"
+        right="0"
+        top="50%"
+        transform="translateY(-50%)"
+        zIndex="popover"
+        px={responsive('0.8em', '1.5em')}
+        pointerEvents="auto"
+      >
+        <Box maxW={responsive('100%', '1200px')} mx="auto" pointerEvents="auto">
+          <Box
+            position="relative"
+            color={textColor}
+            borderRadius={responsive('0.85em', '1em')}
+            boxShadow="0 10px 24px rgba(0,0,0,0.25)"
+            overflow="hidden"
           >
-            {countdown && <Countdown value={countdown} />}
-
+          <Flex
+            align="stretch"
+            gap="0"
+            flexWrap={responsive('wrap', 'nowrap')}
+            bg={columnsBg}
+          >
             {popup.image ? (
               <Box
-                flexShrink={0}
-                borderRadius={responsive('0.75em', '0.85em')}
-                overflow="hidden"
-                width={responsive('5.5em', '7em')}
-                height={responsive('5.5em', '7em')}
-                bg="rgba(255,255,255,0.08)"
+                flexBasis={responsive('100%', '50%')}
+                width={responsive('100%', '50%')}
+                margin="0"
+                padding="0"
               >
-                <Image src={popup.image} alt={popup.title || 'popup'} width="100%" height="100%" objectFit="cover" />
+                {isDesktop ? (
+                  <Image src={popup.image} alt={popup.title || 'popup'} width="100%" height="100%" objectFit="cover" display="block" />
+                ) : (
+                  <AspectRatio ratio={1} width="100%">
+                    <Image src={popup.image} alt={popup.title || 'popup'} objectFit="cover" />
+                  </AspectRatio>
+                )}
               </Box>
             ) : null}
 
-            <Flex direction="column" flex="1" gap="0.35em" minWidth={responsive('14em', '18em')}>
+            <Flex
+              flexBasis={responsive('100%', '50%')}
+              width={responsive('100%', '50%')}
+              direction="column"
+              justify="center"
+              align="center"
+              textAlign="center"
+              px={responsive('20px', '40px')}
+              py={responsive('30px', '40px')}
+              gap="10px"
+            >
               {popup.title ? (
-                <Text fontWeight="900" fontSize={responsive('1.1em', '1.25em')} lineHeight="1.4">
+                <Text
+                  as="h2"
+                  fontWeight="900"
+                  fontSize={responsive('24px', '28px')}
+                  lineHeight="1.3"
+                  color="#000"
+                  m="0"
+                >
                   {popup.title}
                 </Text>
               ) : null}
               {popup.subtitle ? (
-                <Text fontWeight="700" fontSize={responsive('0.95em', '1.05em')} lineHeight="1.5">
+                <Text
+                  as="p"
+                  fontSize="16px"
+                  fontWeight="700"
+                  color="#000"
+                  mb="10px"
+                >
                   {popup.subtitle}
-                </Text>
-              ) : null}
-              {popup.description ? (
-                <Text fontSize={responsive('0.9em', '0.95em')} opacity="0.9">
-                  {popup.description}
                 </Text>
               ) : null}
 
@@ -309,97 +320,102 @@ const PopupAd = () => {
                   as="form"
                   onSubmit={handleSubmit}
                   display="flex"
-                  gap="0.5em"
-                  flexWrap={responsive('wrap', 'nowrap')}
-                  alignItems="center"
-                  mt="0.25em"
+                  flexDirection="row"
+                  flexWrap="nowrap"
+                  alignItems="flex-start"
+                  gap="8px"
+                  width="100%"
                 >
-                  <Input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={popup.emailPlaceholder || '輸入 Email'}
-                    bg="white"
-                    color="black"
-                    maxW={responsive('100%', '16em')}
-                    borderWidth="2px"
-                    _hover={{ borderColor: 'black' }}
-                    _focus={{ borderColor: 'black', boxShadow: 'none' }}
-                    rounded="0.75em"
-                    height="2.75em"
-                  />
-                  <Button
-                    type="submit"
-                    bg={buttonBg}
-                    color={buttonText}
-                    height="2.75em"
-                    px={responsive('1.25em', '1.8em')}
-                    border="2px solid black"
-                    rounded="0.75em"
-                    letterSpacing="0.05em"
-                    fontWeight="900"
-                    isLoading={submitState === 'submitting'}
-                    loadingText="送出中"
-                    _hover={{ bg: buttonBg }}
-                    _active={{ bg: buttonBg }}
-                  >
-                    {popup.emailButtonText || '送出'}
-                  </Button>
-                  {submitState === 'success' ? (
-                    <Text fontWeight="800" color="green.200">
-                      已送出，感謝支持！
-                    </Text>
-                  ) : null}
-                  {submitState === 'error' && submitError ? (
-                    <Text fontWeight="800" color="red.200">
-                      {submitError}
-                    </Text>
-                  ) : null}
+                  <Box flex="1 1 auto">
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={popup.emailPlaceholder || '請輸入你的email'}
+                      bg="#ffffff"
+                      color="#000"
+                      width="100%"
+                      borderWidth="2px"
+                      borderColor="#000"
+                      _hover={{ borderColor: '#000' }}
+                      _focus={{ borderColor: '#000', boxShadow: 'none' }}
+                      rounded="5px"
+                      height="48px"
+                      fontSize="16px"
+                      px="15px"
+                      m="0"
+                    />
+                    {submitState === 'error' && submitError ? (
+                      <Text fontSize="12px" color="#d32f2f" textAlign="left" mt="4px">
+                        {submitError}
+                      </Text>
+                    ) : null}
+                  </Box>
+                  <Box flex="0 0 auto" position="relative">
+                    <Button
+                      type="submit"
+                      bg={buttonBg}
+                      color={buttonText}
+                      height="48px"
+                      px="20px"
+                      border="2px solid black"
+                      rounded="5px"
+                      fontWeight="bold"
+                      fontSize="16px"
+                      isLoading={submitState === 'submitting'}
+                      loadingText=""
+                      _hover={{ bg: buttonBg }}
+                      _active={{ bg: buttonBg }}
+                    >
+                      {popup.emailButtonText || '送出'}
+                    </Button>
+                  </Box>
                 </Box>
               )}
-            </Flex>
 
-            {popup.ctaText && popup.url ? (
-              <Button
-                as={ChakraLink}
-                href={popup.url}
-                isExternal
-                bg={buttonBg}
-                color={buttonText}
-                height="auto"
-                px={responsive('1.5em', '2.25em')}
-                py={responsive('0.8em', '0.9em')}
-                border="2px solid black"
-                rounded="0.85em"
-                fontWeight="900"
-                letterSpacing="0.08em"
-                whiteSpace="nowrap"
-                _hover={{ bg: buttonBg, textDecoration: 'none' }}
-                _active={{ bg: buttonBg }}
-              >
-                {popup.ctaText}
-              </Button>
-            ) : null}
+              {popup.ctaText && popup.url ? (
+                <Button
+                  as={ChakraLink}
+                  href={popup.url}
+                  isExternal={/^https?:\/\//i.test(popup.url)}
+                  bg={buttonBg}
+                  color={buttonText}
+                  height="auto"
+                  px="40px"
+                  py="10px"
+                  border="3px solid #000"
+                  rounded="10px"
+                  fontWeight="900"
+                  fontSize="20px"
+                  boxShadow="3px 3px 0px #000"
+                  _hover={{ transform: 'translate(1px, 1px)', boxShadow: '2px 2px 0px #000', textDecoration: 'none', bg: buttonBg }}
+                  _active={{ transform: 'translate(1px, 1px)', boxShadow: '2px 2px 0px #000', bg: buttonBg }}
+                  mt="10px"
+                >
+                  {popup.ctaText}
+                </Button>
+              ) : null}
+            </Flex>
           </Flex>
 
-          <CloseButton
-            position="absolute"
-            top={responsive('0.5em', '0.8em')}
-            right={responsive('0.5em', '0.8em')}
-            size="lg"
-            color={closeColor}
-            bg="transparent"
-            border="2px solid"
-            borderColor={closeColor}
-            borderRadius="full"
-            onClick={handleDismiss}
-            _hover={{ bg: 'rgba(255,255,255,0.12)' }}
-            _active={{ bg: 'rgba(255,255,255,0.18)' }}
-            transition={prefersReducedMotion ? 'none' : 'all 0.15s ease'}
-            aria-label="關閉公告"
-          />
+            <CloseButton
+              position="absolute"
+              top={responsive('0.5em', '0.8em')}
+              right={responsive('0.5em', '0.8em')}
+              size="lg"
+              color={closeColor}
+              bg="transparent"
+              border="none"
+              borderRadius="0"
+              onClick={handleDismiss}
+              _hover={{ bg: 'rgba(255,255,255,0.12)' }}
+              _active={{ bg: 'rgba(255,255,255,0.18)' }}
+              transition={prefersReducedMotion ? 'none' : 'all 0.15s ease'}
+              aria-label="關閉公告"
+            />
+          </Box>
         </Box>
-      </Box>
-    </Box.Fixed>
+      </Box.Fixed>
+    </>
   );
 };
 

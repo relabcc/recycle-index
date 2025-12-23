@@ -7,11 +7,7 @@ import Container from "../components/Container";
 import Flex from "../components/Flex";
 import Text from "../components/Text";
 import Button from "../components/Button";
-import {
-  Media,
-  breakpoints,
-  responsive,
-} from "../components/ThemeProvider/theme";
+import { breakpoints, responsive } from "../components/ThemeProvider/theme";
 import { getApiEndpoint } from "../helpers/apiHelpers";
 
 const TOPBAR_RANGE = "topbar!A1:B10";
@@ -97,11 +93,7 @@ const Countdown = ({ countdown }) => {
   ];
 
   return (
-    <Flex
-      overflow="hidden"
-      borderRadius="10px"
-      flexShrink={0}
-    >
+    <Flex overflow="hidden" borderRadius="10px" flexShrink={0}>
       {segments.map(({ label, value }) => (
         <Flex
           key={label}
@@ -247,11 +239,7 @@ const TopbarNotification = ({ onHeightChange }) => {
         alignItems="stretch"
         py={responsive("0.85em", "1em")}
       >
-        <Flex
-          flex="1"
-          alignItems="center"
-          gap={responsive("0.8em", "1.1em")}
-        >
+        <Flex flex="1" alignItems="center" gap={responsive("0.8em", "1.1em")}>
           {config.countdownEnabled && countdown && (
             <Countdown countdown={countdown} />
           )}
