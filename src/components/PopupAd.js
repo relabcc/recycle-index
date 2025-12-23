@@ -321,14 +321,11 @@ const PopupAd = () => {
               width={responsive('100%', '50%')}
               direction="column"
               justify="center"
-              align="center"
-              textAlign="center"
+              align="flex-start"
+              textAlign="left"
               px={responsive('20px', '40px')}
               py={responsive('30px', '40px')}
               gap="10px"
-              overflowY="auto"
-              maxH="100%"
-              style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {popup.title ? (
                 <Text

@@ -16,6 +16,7 @@ import Button from '../components/Button';
 import Flex from '../components/Flex';
 import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
+import { DONATE_URL, COURSE_APPLY_URL } from '../constants/links';
 
 const links = [
   { name: '101+垃圾', en: '101+ Must-Know Trashes', to: '/catalogue/' },
@@ -23,8 +24,21 @@ const links = [
   { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how/' },
   { name: '關於我們', en: 'About Us', to: '/about/' },
   { name: '文章專區', en: 'Articles', href: '/blog/' },
-  { name: '課程申請', href: 'https://rethinktw.cc/5Y9hr', hideEn: true, isExternal: true },
-  { name: '捐款支持', href: '/donate/', isSupport: true, hideEn: true },
+  { name: '課程申請', href: COURSE_APPLY_URL, hideEn: true, isExternal: true },
+  { name: '捐款支持', href: DONATE_URL, isSupport: true, hideEn: true, isExternal: true },
+]
+
+// Buttons displayed next to the mobile hamburger menu
+const mobileButtons = [
+  {
+    name: '贊助',
+    en: 'Donate',
+    href: DONATE_URL,
+    isExternal: true,
+    hideEn: true,
+    isSupport: true,
+    bg: 'colors.neonGreen',
+  },
 ]
 
 const Header = ({ isEn, topOffset = 0, ...props }) => {
@@ -44,7 +58,7 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
     >
       <Box px="1em">
         <Link to="/" aria-label="回首頁">
-          <Box width={responsive('16em', '16em', '18em')} lineHeight={0}>
+          <Box width={responsive('12em', '16em', '18em')} lineHeight={0}>
             <StaticImage src="./logo_all.png" alt="RE-THINK" placeholder="tracedSVG" />
           </Box>
         </Link>
@@ -71,6 +85,22 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
       </Media>
       <Media at="mobile">
         <>
+          {mobileButtons.filter(({ hideEn }) => (!isEn || !hideEn)).map(({ name, en, href, isExternal, isSupport, bg }, i) => (
+            <Button
+              key={i}
+              variant="outline"
+              colorScheme="black"
+              bg={isSupport ? 'colors.neonGreen' : bg}
+              href={href}
+              isExternal={isExternal}
+              mx="0.5em"
+              borderWidth="0.15em"
+              fontSize="0.75em"
+              fontFamily={theme.fonts.number}
+            >
+              {isEn ? en : name}
+            </Button>
+          ))}
           <IconButton
             mr={responsive('1em', '2em')}
             color="white"
