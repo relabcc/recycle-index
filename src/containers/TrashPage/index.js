@@ -1079,7 +1079,10 @@ const TrashPage = ({
         },
         0
       )
-      .to(faceRef.current, { duration: scrollingDuration, opacity: 1 });
+      .to(faceRef.current, {
+        duration: scrollingDuration,
+        opacity: 1,
+      });
 
     endTimeline.pause();
     theTimeline.pause();
@@ -1103,9 +1106,11 @@ const TrashPage = ({
             verticalCentered={false}
             onLeave={(origin, destination) => {
               setPageLoaded((p) => Math.max(p, destination.index));
+
               theTimeline.tweenTo(destination.index * scrollingDuration, {
                 duration: scrollingDuration,
               });
+
               endTimeline.tweenTo(
                 Math.max(destination.index - 3, 0) * scrollingDuration
               );
@@ -1202,6 +1207,7 @@ const TrashPage = ({
                   transform={data.transform.face}
                   ref={faceRef}
                   id={faceId}
+                  zIndex="99"
                 />
               </div>
             </AspectRatio>
