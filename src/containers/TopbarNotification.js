@@ -132,23 +132,36 @@ const DISMISS_DURATION_DAYS = 30;
 
 const TopbarNotification = ({ onHeightChange }) => {
   const barRef = useRef(null);
-  const [dismissed, setDismissed] = useState(() => {
-    if (typeof window === 'undefined') return false;
+  const [dismissed, setDismissed] = useState(false);
+  const [dismissChecked, setDismissChecked] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      setDismissChecked(true);
+      return;
+    }
     const stored = window.localStorage.getItem('topbar-dismissed');
-    if (!stored) return false;
+    if (!stored) {
+      setDismissed(false);
+      setDismissChecked(true);
+      return;
+    }
     try {
       const timestamp = parseInt(stored, 10);
       const now = Date.now();
       const daysSinceDismissed = (now - timestamp) / (1000 * 60 * 60 * 24);
       if (daysSinceDismissed < DISMISS_DURATION_DAYS) {
-        return true;
+        setDismissed(true);
+      } else {
+        window.localStorage.removeItem('topbar-dismissed');
+        setDismissed(false);
       }
-      window.localStorage.removeItem('topbar-dismissed');
-      return false;
     } catch {
-      return false;
+      setDismissed(false);
+    } finally {
+      setDismissChecked(true);
     }
-  });
+  }, []);
   const { data, error } = useSWR(getApiEndpoint(TOPBAR_RANGE), fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -192,7 +205,7 @@ const TopbarNotification = ({ onHeightChange }) => {
   }, [config?.countdownEnabled, targetDate]);
 
   const showTopbar = Boolean(
-    config?.enabled && !dismissed && !error && config.title
+    dismissChecked && config?.enabled && !dismissed && !error && config.title
   );
   const shouldRender = showTopbar;
 

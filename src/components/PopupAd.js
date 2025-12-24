@@ -33,6 +33,7 @@ const DEV_SAMPLE_POPUP = {
 const PopupAd = () => {
   const [popup, setPopup] = useState(null);
   const [dismissed, setDismissed] = useState(false);
+  const [dismissChecked, setDismissChecked] = useState(false);
   const [email, setEmail] = useState('');
   const [submitState, setSubmitState] = useState('idle'); // idle | submitting | success | error
   const [submitError, setSubmitError] = useState('');
@@ -151,15 +152,20 @@ const PopupAd = () => {
 
   // Sync dismissed state when popup changes
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient) {
+      setDismissChecked(true);
+      return;
+    }
     if (!popup) {
       setDismissed(false);
+      setDismissChecked(true);
       return;
     }
     const storageKeyLocal = `popup-dismissed-${popup.key || 'popup'}`;
     const stored = window.localStorage.getItem(storageKeyLocal);
     if (!stored) {
       setDismissed(false);
+      setDismissChecked(true);
       return;
     }
     try {
@@ -174,6 +180,8 @@ const PopupAd = () => {
       }
     } catch {
       setDismissed(false);
+    } finally {
+      setDismissChecked(true);
     }
   }, [isClient, popup]);
 
@@ -229,6 +237,7 @@ const PopupAd = () => {
   };
 
   const shouldHide = useMemo(() => {
+    if (!dismissChecked) return true;
     if (isLoading) return true;
     if (!popup) return true;
     if (!popup.enabled) return true;
@@ -236,19 +245,8 @@ const PopupAd = () => {
     if (popup.desktopOnly && !isDesktop) return true;
     const hasContent = popup.title || popup.subtitle || popup.description || popup.image || (popup.ctaText && popup.url) || popup.collectEmail;
 
-    // Debug: log popup data
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[PopupAd Debug]', {
-        popup,
-        ctaText: popup.ctaText,
-        url: popup.url,
-        hasCTA: Boolean(popup.ctaText && popup.url),
-        shouldHide: !hasContent
-      });
-    }
-
     return !hasContent;
-  }, [dismissed, isDesktop, isLoading, popup]);
+  }, [dismissChecked, dismissed, isDesktop, isLoading, popup]);
 
   if (shouldHide) return null;
 
