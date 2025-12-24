@@ -651,7 +651,7 @@ const TrashPage = ({
       },
       scrollingDuration
     );
-    const [poses, posByPartName, posByOrder] = getPoses(data, newHeight, explosionGap);
+    const [poses, posByPartName] = getPoses(data, newHeight, explosionGap);
     const combineParts = [];
 
     // ========================================
@@ -755,11 +755,19 @@ const TrashPage = ({
       );
     });
 
+    const offsetSign = combineParts.length
+      ? combineParts.reduce((s, o) => {
+          if (s === 0) return 0;
+          const sign = o ? Math.sign(o[1]) : null;
+          return typeof s === "number" ? (s === sign ? s : 0) : sign;
+        }, null)
+      : 0;
     const totalOffset = combineParts.length
       ? combineParts.reduce((s, o) => {
           return s + (o ? o[1] : 0);
         }, 0)
       : 0;
+    // console.log(combineParts, offsetSign, totalOffset)
 
     // ========================================
     // Page 3: 調整垃圾整體位置（部件對齊）
@@ -776,124 +784,15 @@ const TrashPage = ({
     }
 
     // ========================================
-    // 計算合併後的部件群組和新的間距分配
-    // ========================================
-    const mergedGroups = [];
-    const partToGroupIndex = {};
-
-    data.imgs.forEach((cfg, i) => {
-      if (combineParts[cfg.order]) {
-        // 這個部件要合併到別的部件，跳過
-        return;
-      }
-
-      // 建立新群組
-      const groupIndex = mergedGroups.length;
-      const group = {
-        mainOrder: cfg.order,
-        mainPartName: cfg.partName,
-        parts: [cfg.order],
-        originalY: parseFloat(poses[i])
-      };
-
-      // 找出所有要合併到這個部件的其他部件
-      combineParts.forEach((cp, idx) => {
-        if (cp && cp[0] === cfg.partName) {
-          group.parts.push(idx);
-          partToGroupIndex[idx] = groupIndex;
-        }
-      });
-
-      partToGroupIndex[cfg.order] = groupIndex;
-      mergedGroups.push(group);
-    });
-
-    // 計算新的等距 Y 位置
-    const groupCount = mergedGroups.length;
-    const originalPartCount = data.imgs.filter(cfg => cfg.partName).length; // 原始有名稱的部件數量
-
-    // 如果全部合併，清除 trashXRef 的 y 偏移，讓它們回到中央
-    if (groupCount === 1 && originalPartCount > 1 && totalOffset) {
-      theTimeline.to(
-        trashXRef.current,
-        {
-          y: 0,
-          duration: scrollingDuration,
-        },
-        2 * scrollingDuration
-      );
-    }
-
-    if (groupCount > 1 && groupCount < originalPartCount) {
-      // 有合併發生，需要重新計算間距
-      // 策略：縮小群組間距以集中在中間範圍（避免超出畫面且視覺上緊凑）
-
-      // 計算原始的平均間距
-      const firstY = mergedGroups[0].originalY;
-      const lastY = mergedGroups[groupCount - 1].originalY;
-      const totalSpan = lastY - firstY;
-      const originalGap = totalSpan / (originalPartCount - 1);
-
-      // 新的群組間距：
-      // - 兩群組：使用兩個群組中「相鄰部件」的原始距離（而非首尾距離）
-      // - 多於兩群組：使用原始平均間距
-      let newGap;
-      if (groupCount === 2) {
-        // 找到群組 0 中 order 最大的部件（最靠近群組 1）
-        const maxOrderInGroup0 = Math.max(...mergedGroups[0].parts);
-        // 找到群組 1 中 order 最小的部件（最靠近群組 0）
-        const minOrderInGroup1 = Math.min(...mergedGroups[1].parts);
-        // 計算這兩個相鄰部件的原始距離
-        const adjacentGap = posByOrder[minOrderInGroup1] - posByOrder[maxOrderInGroup0];
-        newGap = adjacentGap;
-      } else {
-        // 多群組時，使用平均間距
-        newGap = originalGap;
-      }
-      const groupSpan = newGap * (groupCount - 1);
-
-      // 計算新的起始位置，使所有群組集中在中間範圍，避免超出畫面
-      const midpoint = (firstY + lastY) / 2;
-      const newStartY = midpoint - groupSpan / 2;
-
-      mergedGroups.forEach((group, idx) => {
-        // 所有群組按原始間距從計算的起始位置開始排列
-        group.newY = newStartY + newGap * idx;
-      });
-
-      // 計算群組整體的中點，然後調整使其垂直置中（中點 = 0%）
-      const groupsStartY = mergedGroups[0].newY;
-      const groupsEndY = mergedGroups[groupCount - 1].newY;
-      const groupsMidpoint = (groupsStartY + groupsEndY) / 2;
-      const centeringOffset = -groupsMidpoint;
-
-      mergedGroups.forEach((group) => {
-        group.newY += centeringOffset;
-      });
-    } else if (groupCount === 1 && originalPartCount > 1) {
-      // 全部合併成一個群組，部件回到重疊位置（y = 0%），視覺上居中
-    } else {
-      // 沒有合併或只有一個群組，維持原位置
-      mergedGroups.forEach(group => {
-        group.newY = group.originalY;
-      });
-    }
-
-    // ========================================
     // Page 3-4: 部件回收率和分類信息展示
     // ========================================
     data.imgs.forEach((cfg, i) => {
-      const groupIndex = partToGroupIndex[cfg.order];
-      const targetGroup = mergedGroups[groupIndex];
-      // 全部合併時，所有部件回到 y = 0%（重疊），否則使用計算的 newY
-      const targetY = (groupCount === 1 && originalPartCount > 1) ? 0 : targetGroup.newY;
-
       if (combineParts[cfg.order]) {
-        // 如果部件有組合關係，移動到群組的新位置並隱藏標記
+        // 如果部件有組合關係，調整位置並隱藏標記
         theTimeline.to(
           layerRefs[cfg.index].current,
           {
-            y: `${targetY}%`,
+            y: posByPartName[combineParts[cfg.order][0]],
             duration: scrollingDuration,
           },
           2 * scrollingDuration
@@ -930,15 +829,19 @@ const TrashPage = ({
           );
         }
       } else {
-        // 非合併部件，移動到群組的新等距位置
-        theTimeline.to(
-          layerRefs[cfg.index].current,
-          {
-            y: `${targetY}%`,
-            duration: scrollingDuration,
-          },
-          2 * scrollingDuration
-        );
+        if (offsetSign < 0) {
+          if (cfg.order < combineParts.length && !combineParts[cfg.order]) {
+            const nextPart = combineParts.slice(cfg.order).find(Boolean);
+            theTimeline.to(
+              layerRefs[cfg.index].current,
+              {
+                y: `${poses[i].replace("%", "") * 1 + nextPart[1]}%`,
+                duration: scrollingDuration,
+              },
+              2 * scrollingDuration
+            );
+          }
+        }
 
         if (cfg.partName) {
           // 初始化回收率圓形圖表
