@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { MdMenu, MdExpandMore, MdExpandLess } from 'react-icons/md';
 import { StaticImage } from 'gatsby-plugin-image';
+import { useLocation } from '@reach/router';
 
 import Box from '../components/Box';
 import Button from '../components/Button';
@@ -30,7 +31,7 @@ const links = [
   { name: '關於我們', en: 'About Us', to: '/about/' },
   { name: '文章專區', en: 'Articles', href: '/blog/' },
   { name: '課程申請', href: COURSE_APPLY_URL, hideEn: true, isExternal: true },
-  { name: '友站連結', isDropdown: true, subLinks: [
+  { name: '資源連結', isDropdown: true, subLinks: [
     { name: 'RE-THINK 官網', href: 'https://rethinktw.cc/BkzgJ', isExternal: true },
     { name: '海廢圖鑑', href: 'https://rethinktw.cc/kRoiM', isExternal: true },
   ]},
@@ -53,6 +54,7 @@ const mobileButtons = [
 const Header = ({ isEn, topOffset = 0, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [expandedIndex, setExpandedIndex] = useState(null)
+  const location = useLocation()
   const handleClose = () => {
     setExpandedIndex(null)
     onClose()
@@ -170,6 +172,8 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
             onClick={onOpen}
             aria-label="選單"
             icon={<MdMenu size="2em" />}
+            _hover={{ bg: 'black', color: 'white' }}
+            _focus={{ bg: 'black', color: 'white' }}
           />
           <Drawer
             isOpen={isOpen}
@@ -190,8 +194,9 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                             as="button"
                             onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
                             width="100%"
-                            color="white"
-                            _hover={{ color: 'gray.200' }}
+                            color={subLinks.some(sub => sub.href === location.pathname || sub.to === location.pathname) ? 'yellow.400' : 'white'}
+                            _hover={{ color: 'yellow.400' }}
+                            _focus={{ color: 'yellow.400' }}
                             alignItems="center"
                             justifyContent="space-between"
                           >
@@ -208,8 +213,9 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                                     width="100%"
                                     href={subHref}
                                     isExternal={subIsExternal}
-                                    color="white"
-                                    _hover={{ color: 'gray.200' }}
+                                    color={subHref === location.pathname ? 'yellow.400' : 'white'}
+                                    _hover={{ color: 'yellow.400' }}
+                                    _focus={{ color: 'yellow.400' }}
                                   >
                                     {subName}
                                   </Link>
@@ -225,8 +231,9 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                           width="100%"
                           href={href}
                           isExternal={isExternal}
-                          color="white"
-                          _hover={{ color: 'gray.200' }}
+                          color={(to && location.pathname.startsWith(to)) || (href && location.pathname === href) ? 'yellow.400' : 'white'}
+                          _hover={{ color: 'yellow.400' }}
+                          _focus={{ color: 'yellow.400' }}
                         >{isEn ? en : name}</Link>
                       )}
                     </Box>
