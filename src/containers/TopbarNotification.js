@@ -106,8 +106,6 @@ const Countdown = ({ countdown }) => {
           minWidth={responsive("3.2em", "3.6em")}
         >
           <Text
-            fontFamily="number"
-            fontWeight="400"
             fontSize={responsive("1.05em", "1.1em")}
             color="black"
             lineHeight="1.1"
@@ -116,9 +114,9 @@ const Countdown = ({ countdown }) => {
           </Text>
           <Text
             fontSize={responsive("0.7em", "0.75em")}
-            fontWeight="400"
             color="black"
             lineHeight="1.2"
+            mt="0.2em"
           >
             {label}
           </Text>
