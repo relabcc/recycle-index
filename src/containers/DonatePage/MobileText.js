@@ -19,7 +19,7 @@ const MobileText = ({ title = [], description = [] }) => {
         <text
           transform="translate(30.18 50.1)"
           fontSize="28"
-          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC"
+          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC, Noto Sans TC"
           fontWeight="bold"
           letterSpacing="0.12em"
         >
@@ -28,7 +28,7 @@ const MobileText = ({ title = [], description = [] }) => {
         <text
           transform="translate(29 153.84)"
           fontSize="14"
-          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC"
+          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC, Noto Sans TC"
           fontWeight="bold"
           letterSpacing="0.03em"
         >

@@ -3,26 +3,21 @@ import ReactMarkdown from 'react-markdown'
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Box from '../../components/Box';
-// import Image from '../../components/Image';
 import Flex from '../../components/Flex';
 import Text from '../../components/Text';
 import Link from '../../components/Link';
 import useShowHeader from '../../contexts/header/useShowHeader';
 
-// import rethink from './rethink.svg'
-// import relab from './relab.svg'
-// import renato from './renato.svg'
-// import about from './about.svg'
-// import picture from './picture.svg'
 import { responsive } from '../../components/ThemeProvider/theme';
 import Footer from '../Footer';
+import DonatePage from '../DonatePage';
 
 const data = [
   {
     team: '發起團隊',
     name: 'RE-THINK\n社團法人台灣重新思考環境教育協會',
     intro: 'RE-THINK的目標就是解決台灣爆量的垃圾問題，身為本土最具社群號召力的環保團體，我們從2013年開始，RE-THINK帶領超過3萬群眾在全台灣淨灘。\n在全台海灘撿越久的垃圾，才發現牽連到的問題越多。所以，我們製作[《海廢圖鑑》](https://oceantrash.rethinktw.org/)，用最ㄎㄧㄤ的方式把全台灣的海洋廢棄物搜集成網站，讓大家重新認識海洋廢棄物。但光了解海廢還不夠，我們生活中每天都製造了源源不絕的垃圾，其中更有不少垃圾沒有妥善被處理。於是讓大家懂分、懂丟的《回收大百科》就這麼誕生了！',
-    logo: <StaticImage placeholder="blurred" src="rethink.svg" alt="RE-THINK" />,
+    logo: <StaticImage placeholder="blurred" src="rethink.png" alt="RE-THINK" />,
     url: 'https://rethinktw.org/',
   },
   {
@@ -69,7 +64,7 @@ const About = () => {
               <Text textAlign="justify" mt="1em">在台灣，回收體系極度複雜，不見得有永遠的標準答案。我們盡可能透過最專業的夥伴、彙整最可行資訊、找到最大的交集，逐步帶給大家最可靠的回收知識和規範。我們歡迎個人、教育單位、企業品牌，一起跟我們合作，為台灣的回收找到更好的解方。</Text>
             </Box>
             <Flex pt={responsive('1em', 0)} justifyContent="flex-end" alignItems="flex-end">
-              <Text lineHeight="1" fontSize="1em">RE-THINK創辦人</Text>
+              <Text lineHeight="1" fontSize="1em">RE-THINK 創辦人</Text>
               <Text.Inline lineHeight="1" pl="0.3125em" fontSize="1.75em">
                 黃之揚
               </Text.Inline>
@@ -120,7 +115,7 @@ const About = () => {
           </Flex>
         ))}
       </Box>
-      {/* <Sponsor textColor="white" bgColor="colors.yellow" /> */}
+      <DonatePage />
       <Footer />
     </Box>
   )

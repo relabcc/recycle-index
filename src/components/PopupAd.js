@@ -264,7 +264,7 @@ const PopupAd = () => {
         right="0"
         bottom="0"
         bg="rgba(0,0,0,0.6)"
-        zIndex="overlay"
+        zIndex="popover"
         pointerEvents="auto"
         onClick={handleDismiss}
         aria-label="關閉公告覆蓋層"
@@ -304,13 +304,9 @@ const PopupAd = () => {
                 margin="0"
                 padding="0"
               >
-                {isDesktop ? (
-                  <Image src={popup.image} alt={popup.title || 'popup'} width="100%" height="100%" objectFit="cover" display="block" />
-                ) : (
-                  <AspectRatio ratio={1} width="100%">
-                    <Image src={popup.image} alt={popup.title || 'popup'} objectFit="cover" />
-                  </AspectRatio>
-                )}
+                <AspectRatio ratio={1} width="100%">
+                  <Image src={popup.image} alt={popup.title || 'popup'} objectFit="cover" />
+                </AspectRatio>
               </Box>
             ) : null}
 

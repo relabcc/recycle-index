@@ -55,7 +55,7 @@ let progressTimer;
 
 const extractLink = (value) => {
   const pttn = /([^[]+)\[([^\]]+)]/.exec(value || "");
-  return pttn ? { text: pttn[1], url: pttn[2] } : { text: null, url: null };
+  return pttn ? { text: pttn[1], url: pttn[2] } : { text: value, url: null };
 };
 
 const Wrapper = styled.div`
@@ -125,10 +125,14 @@ const TrashDescription = (props) => (
 const TrashAdditional = ({ data, bg }) => {
   const { text, url } = useMemo(() => extractLink(data), [data]);
   return text ? (
-    <Box mt="2" bg="white" p="1" ml="-1" mr="-1">
-      <ReLink color={bg} href={url} isExternal>
-        {text}
-      </ReLink>
+    <Box mt="2" bg="white" p="1" ml="-1" mr="-1" color={bg}>
+      {url ? (
+        <ReLink color="inherit" href={url} isExternal>
+          {text}
+        </ReLink>
+      ) : (
+        text
+      )}
     </Box>
   ) : null;
 };

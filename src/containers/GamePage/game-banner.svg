@@ -11,7 +11,7 @@
     <polygon points="245 190 116 450 406 581 1257.59 435.37 1283 178 245 190" fill="#fff" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
     <polygon points="239 172 110 432 400 563 1251.59 417.37 1277 160 239 172" fill="#fff" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
     <polygon points="233 154 104 414 394 545 1245.59 399.37 1271 142 233 154" fill="#fff" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    <text transform="matrix(1, -0.08, 0.08, 1, 248.28, 425.45)" font-size="185.09" fill="#ff6a95" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" font-family="Noto Sans CJK TC, Noto Sans CJK TC" font-weight="900" letter-spacing="0.06em">垃圾大考驗</text>
+    <text transform="matrix(1, -0.08, 0.08, 1, 248.28, 425.45)" font-size="185.09" fill="#ff6a95" stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" font-family="Noto Sans CJK TC, Noto Sans CJK TC, Noto Sans TC" font-weight="900" letter-spacing="0.06em">垃圾大考驗</text>
     <g>
       <path d="M60,318.49C48.9,324.56,69.44,383.42,105.87,450s74.94,115.54,86,109.47l14.22-7.78-8.81-4.3c1-39-90.8-206.73-124.23-226.9l1.13-9.73-11.3,6.18Z" fill="#f8f8f8" stroke="#040204" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
       <ellipse cx="139.61" cy="431.48" rx="22.89" ry="137.34" transform="translate(-190.05 120.05) rotate(-28.7)" fill="#f8f8f8" stroke="#040204" stroke-miterlimit="10" stroke-width="2"/>

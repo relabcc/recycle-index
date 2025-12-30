@@ -40,7 +40,7 @@ const links = [
 // Buttons displayed next to the mobile hamburger menu
 const mobileButtons = [
   {
-    name: '贊助',
+    name: '捐款',
     en: 'Donate',
     href: DONATE_URL,
     isExternal: true,

@@ -21,7 +21,7 @@ const DesktopText = ({ title = [], description = [] }) => {
         <text
           transform="translate(101.18 146.98)"
           fontSize="54"
-          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC"
+          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC, Noto Sans TC"
           fontWeight="bold"
           letterSpacing="0.12em"
         >
@@ -30,7 +30,7 @@ const DesktopText = ({ title = [], description = [] }) => {
         <text
           transform="translate(149.64 271.65)"
           fontSize="24"
-          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC"
+          fontFamily="NotoSansCJKtc-Bold-B5pc-H, Noto Sans CJK TC, Noto Sans TC"
           fontWeight="bold"
           letterSpacing="0.1em"
         >

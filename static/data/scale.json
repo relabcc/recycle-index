@@ -3282,7 +3282,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": "translate(16%,42%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "木製音響",
