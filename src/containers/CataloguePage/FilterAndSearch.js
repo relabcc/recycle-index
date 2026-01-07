@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState, useEffect } from 'react'
 import Select from 'react-select'
 import { MdSearch } from 'react-icons/md'
 import { GrFilter } from 'react-icons/gr'
@@ -8,6 +8,7 @@ import {
   useDisclosure,
   useRadio,
 } from '@chakra-ui/react';
+import { getApiEndpoint } from '../../helpers/apiHelpers';
 
 import Flex from '../../components/Flex';
 import Modal from '../../components/Modal';
@@ -19,19 +20,6 @@ import theme, { Media, responsive } from '../../components/ThemeProvider/theme';
 
 import useIsEn from '../useIsEn'
 import trashEn from '../trashEn'
-
-const recommendedKeywords = [
-  '充電線/電源線',
-  '碎玻璃',
-  '木材/木頭家具',
-  '衣架',
-  '打火機',
-  '鞋',
-  '耳機',
-  '行李箱',
-  '陶瓷碗盤',
-  '絨毛娃娃玩偶',
-]
 
 const filterOptions = (isEn) => ([
   {
@@ -206,7 +194,28 @@ const FilterAndSearch = ({ onChange, values, setFieldValue, searchCandidates = [
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [searchDraft, setSearchDraft] = useState(values.search || '')
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
+  const [recommendedKeywords, setRecommendedKeywords] = useState([])
   const suggestionRefs = useRef([])
+
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      try {
+        const url = getApiEndpoint('keyword!A1:A99')
+        const response = await fetch(url)
+        if (response.ok) {
+          const data = await response.json()
+          // data 格式: { values: [["keyword1"], ["keyword2"], ...] }
+          if (data && data.values && Array.isArray(data.values)) {
+            const keywords = data.values.map(row => row[0]).filter(Boolean)
+            setRecommendedKeywords(keywords)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch recommended keywords:', error)
+      }
+    }
+    fetchKeywords()
+  }, [])
 
   React.useEffect(() => {
     setSearchDraft(values.search || '')
