@@ -60,7 +60,7 @@ function main() {
     const idStr = item["最終序號"];
     const idNum = Number(idStr);
     const name = item["品項"];
-    if (Number.isFinite(idNum) && idNum > 121 && name) {
+    if (Number.isFinite(idNum) && idNum >= 121 && name) {
       targetNames.add(name);
     }
   });
@@ -84,7 +84,7 @@ function main() {
     const current = toNumber(entry[key]);
     if (!Number.isFinite(current)) return;
 
-    const next = Math.round(current * 1.5);
+    const next = Math.round(current * 1.35);
     if (next !== current) {
       if (!dryRun) entry[key] = String(next);
       changed++;
