@@ -48,7 +48,7 @@ const PerTrash = ({ data }) => {
   const nodeRef = useRef();
   const isVisible = useIsVisible(nodeRef, { once: true });
   const transform = useMemo(() => {
-    if (!data) return "";
+    if (!data || !data.transform) return "";
     const scale = ((data.transform.homeScale || 100) * 0.85) / 100;
     return `scale(${scale}) translate(${["homeX", "homeY"]
       .map(

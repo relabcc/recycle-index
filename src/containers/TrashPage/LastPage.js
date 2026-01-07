@@ -33,6 +33,7 @@ const FinalTrash = ({
   endTransition,
   faceId,
   moreTrashes,
+  debugGrid = false,
 }) => {
   const [loaded, setLoaded] = React.useState(false);
   useEffect(() => {
@@ -50,39 +51,56 @@ const FinalTrash = ({
           mx="auto"
           pt={responsive("0", "5vh")}
         >
-          <BackgroundImage
-            src={isMobile ? shareBgMobile : shareBg}
-            ratio={isMobile ? 750 / 574 : 1368 / 746}
-            overflow="visible"
-          >
-            <SizeMe>
-              {({ size }) => (
-                <Box.Absolute
-                  left={responsive("2em", "40%")}
-                  top={responsive("3em", "36%")}
-                  transform={responsive("", "trnsateY(-50%)")}
-                  width={responsive("55%", "45%")}
-                >
-                  <Box fontSize={`${size.width / 25}px`}>
-                    <Text
-                      letterSpacing="0.05em"
-                      fontSize={responsive("1.75em", "2.25em")}
-                      fontWeight="900"
-                    >
-                      ＃如果你不好好丟垃圾
-                    </Text>
-                    <Text
-                      fontSize={responsive("3.25em", "3.5em")}
-                      fontWeight="900"
-                      color={colorScheme}
-                    >
-                      {data.share}
-                    </Text>
-                  </Box>
-                </Box.Absolute>
-              )}
-            </SizeMe>
-          </BackgroundImage>
+          <Box position="relative">
+            <BackgroundImage
+              src={isMobile ? shareBgMobile : shareBg}
+              ratio={isMobile ? 750 / 574 : 1368 / 746}
+              overflow="visible"
+            >
+              <SizeMe>
+                {({ size }) => (
+                  <Box.Absolute
+                    left={responsive("2em", "40%")}
+                    top={responsive("3em", "36%")}
+                    transform={responsive("", "trnsateY(-50%)")}
+                    width={responsive("55%", "45%")}
+                  >
+                    <Box fontSize={`${size.width / 25}px`}>
+                      <Text
+                        letterSpacing="0.05em"
+                        fontSize={responsive("1.75em", "2.25em")}
+                        fontWeight="900"
+                      >
+                        ＃如果你不好好丟垃圾
+                      </Text>
+                      <Text
+                        fontSize={responsive("3.25em", "3.5em")}
+                        fontWeight="900"
+                        color={colorScheme}
+                      >
+                        {data.share}
+                      </Text>
+                    </Box>
+                  </Box.Absolute>
+                )}
+              </SizeMe>
+            </BackgroundImage>
+            {debugGrid && (
+              <Box.Absolute
+                top={0}
+                right={0}
+                bottom={0}
+                left={0}
+                pointerEvents="none"
+                opacity={0.35}
+                css={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18) 1px, transparent 1px, transparent 50px), repeating-linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18) 1px, transparent 1px, transparent 50px)",
+                  backgroundSize: "50px 50px, 50px 50px",
+                }}
+              />
+            )}
+          </Box>
           <Flex
             fontSize={responsive("1em", "0.625em")}
             px="0.25em"
