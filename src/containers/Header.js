@@ -195,8 +195,6 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                             onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
                             width="100%"
                             color={subLinks.some(sub => sub.href === location.pathname || sub.to === location.pathname) ? 'yellow.400' : 'white'}
-                            _hover={{ color: 'yellow.400' }}
-                            _focus={{ color: 'yellow.400' }}
                             alignItems="center"
                             justifyContent="space-between"
                           >
@@ -214,8 +212,6 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                                     href={subHref}
                                     isExternal={subIsExternal}
                                     color={subHref === location.pathname ? 'yellow.400' : 'white'}
-                                    _hover={{ color: 'yellow.400' }}
-                                    _focus={{ color: 'yellow.400' }}
                                   >
                                     {subName}
                                   </Link>
@@ -232,8 +228,6 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                           href={href}
                           isExternal={isExternal}
                           color={(to && location.pathname.startsWith(to)) || (href && location.pathname === href) ? 'yellow.400' : 'white'}
-                          _hover={{ color: 'yellow.400' }}
-                          _focus={{ color: 'yellow.400' }}
                         >{isEn ? en : name}</Link>
                       )}
                     </Box>
