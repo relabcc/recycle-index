@@ -204,9 +204,11 @@ const FilterAndSearch = ({ onChange, values, setFieldValue, searchCandidates = [
         const response = await fetch(url)
         if (response.ok) {
           const data = await response.json()
-          // data 格式: { values: [["keyword1"], ["keyword2"], ...] }
-          if (data && data.values && Array.isArray(data.values)) {
-            const keywords = data.values.map(row => row[0]).filter(Boolean)
+          // 支援目前 API 回傳格式: [{ "關鍵字": "充電線/電源線" }, ...]
+          if (Array.isArray(data)) {
+            const keywords = data
+              .map(item => item?.['關鍵字'] || '')
+              .filter(Boolean)
             setRecommendedKeywords(keywords)
           }
         }
