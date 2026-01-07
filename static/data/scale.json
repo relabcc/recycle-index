@@ -41,7 +41,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "5",
     "faceNo": "2",
-    "face": "translate(0%,52%) skew(0deg,0deg) rotate(0deg) scale(2)"
+    "face": " translate(0%,52%) skew(0deg,0deg) rotate(0deg) scale(2)"
   },
   {
     "name": "保麗龍飲料杯",
@@ -107,7 +107,7 @@
     "mobileFirstY": "-3",
     "mobileExplosionY": "7",
     "faceNo": "5",
-    "face": " translate(-3%,-16%) skew(0deg,0deg) rotate(0deg) scale(1.1)"
+    "face": " translate(1%,-16%) skew(0deg,0deg) rotate(0deg) scale(1.1)"
   },
   {
     "name": "養樂多",
@@ -2528,7 +2528,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": "translate(-7%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "烤蛋白餐盒",
@@ -2550,7 +2550,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": "translate(3%,-10%) skew(0deg,0deg) rotate(0deg) scale(2)"
   },
   {
     "name": "茶葉蛋殼加塑膠袋",
@@ -2572,7 +2572,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": "translate(0%,0%) skew(0deg,0deg) rotate(0deg) scale(1.2)"
   },
   {
     "name": "包子紙",
@@ -2594,7 +2594,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": "translate(2%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "涼麵盒",
@@ -2616,7 +2616,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": "translate(5%,-9%) skew(0deg,0deg) rotate(0deg) scale(1.2)"
   },
   {
     "name": "生滾皮蛋煲粥",
@@ -2638,7 +2638,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "5",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": "translate(0%,-24%) skew(0deg,0deg) rotate(0deg) scale(1.7)"
   },
   {
     "name": "關東煮",
@@ -2660,7 +2660,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(-2%,-7%) skew(0deg,0deg) rotate(0deg) scale(0.8)"
   },
   {
     "name": "手機",
@@ -2682,7 +2682,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(-7deg) scale(2.4)"
   },
   {
     "name": "行動電源",
@@ -2704,7 +2704,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(-2%,-7%) skew(0deg,0deg) rotate(0deg) scale(0.8)"
   },
   {
     "name": "電腦主機",
@@ -2726,7 +2726,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "",
-    "face": "translate(0%,0%)"
+    "face": " translate(-10%,-19%) skew(0deg,0deg) rotate(0deg) scale(0.6)"
   },
   {
     "name": "筆電",
@@ -2748,7 +2748,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(14%,-16%) skew(-13deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "彈簧床墊",
@@ -2770,7 +2770,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(3%,-16%) skew(0deg,0deg) rotate(0deg) scale(1.2)"
   },
   {
     "name": "電視",
@@ -2792,7 +2792,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(-1%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "電風扇",
@@ -2815,7 +2815,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(-4%,-34%) skew(-9deg,2deg) rotate(0deg) scale(1.3)"
   },
   {
     "name": "汽車",
@@ -2837,7 +2837,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(-11%,-36%) skew(0deg,0deg) rotate(0deg) scale(1.4)"
   },
   {
     "name": "機車",
@@ -2859,7 +2859,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(-22%,-19%) skew(-28deg,9deg) rotate(0deg) scale(0.7)"
   },
   {
     "name": "電腦螢幕",
@@ -2881,7 +2881,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,-69%) skew(0deg,0deg) rotate(0deg) scale(1.3)"
   },
   {
     "name": "暖暖包",
@@ -2903,7 +2903,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(0deg) scale(0.8)"
   },
   {
     "name": "蛋殼",
@@ -2926,7 +2926,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "印表機",
@@ -2949,7 +2949,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,-46%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "冰箱",
@@ -2971,7 +2971,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(-11%,7%) skew(-7deg,-3deg) rotate(3deg) scale(0.9)"
   },
   {
     "name": "保溫瓶",
@@ -2993,7 +2993,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "平板",
@@ -3015,7 +3015,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,0%) skew(0deg,0deg) rotate(18deg) scale(1)"
   },
   {
     "name": "鍵盤",
@@ -3037,7 +3037,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "2.5",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(-7%,0%) skew(0deg,0deg) rotate(23deg) scale(2.3)"
   },
   {
     "name": "菜刀",
@@ -3059,7 +3059,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(-31%,-34%) skew(8deg,-3deg) rotate(-45deg) scale(1.3)"
   },
   {
     "name": "吹風機",
@@ -3104,7 +3104,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(-1%,24%) skew(0deg,0deg) rotate(0deg) scale(1.6)"
   },
   {
     "name": "馬克杯",
@@ -3126,7 +3126,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(-8%,-21%) skew(0deg,0deg) rotate(0deg) scale(1)"
+    "face": " translate(-11%,-31%) skew(0deg,0deg) rotate(0deg) scale(0.7)"
   },
   {
     "name": "書",
@@ -3148,7 +3148,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(-18%,0%) skew(0deg,0deg) rotate(37deg) scale(1.9)"
   },
   {
     "name": "延長線",
@@ -3170,7 +3170,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(-15%,0%) skew(0deg,0deg) rotate(0deg) scale(1)"
+    "face": " translate(-15%,0%) skew(0deg,0deg) rotate(0deg) scale(1.4)"
   },
   {
     "name": "不沾鍋",
@@ -3192,7 +3192,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(-25%,17%) skew(0deg,0deg) rotate(0deg) scale(1.2)"
   },
   {
     "name": "馬桶蓋",
@@ -3214,7 +3214,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(10%,-38%) skew(-30deg,-9deg) rotate(1deg) scale(1.2)"
   },
   {
     "name": "沙發",
@@ -3236,7 +3236,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,-2%) skew(-19deg,0deg) rotate(0deg) scale(0.7)"
   },
   {
     "name": "米酒瓶",
@@ -3259,7 +3259,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "3",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(1%,-24%) skew(0deg,0deg) rotate(0deg) scale(1.6)"
   },
   {
     "name": "藍芽耳機",
@@ -3282,7 +3282,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(16%,42%) skew(0deg,0deg) rotate(0deg) scale(1)"
+    "face": " translate(-3%,42%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "木製音響",
@@ -3305,7 +3305,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(26%,-7%) skew(0deg,7deg) rotate(0deg) scale(0.8)"
   },
   {
     "name": "不鏽鋼鍋",
@@ -3327,7 +3327,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(2%,20%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "薄床墊",
@@ -3349,7 +3349,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(1%,-8%) skew(0deg,0deg) rotate(0deg) scale(1.2)"
   },
   {
     "name": "錄音帶",
@@ -3372,7 +3372,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(-8%,-17%) skew(0deg,0deg) rotate(-17deg) scale(1.3)"
   },
   {
     "name": "電路板",
@@ -3394,7 +3394,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(5%,3%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "食用油",
@@ -3416,7 +3416,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(3%,-6%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "熱水器",
@@ -3438,7 +3438,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(11%,-15%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "燈座",
@@ -3460,7 +3460,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "1",
-    "face": "translate(0%,0%)"
+    "face": " translate(-1%,26%) skew(0deg,0deg) rotate(0deg) scale(0.8)"
   },
   {
     "name": "指甲油",
@@ -3483,7 +3483,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "2",
-    "face": "translate(0%,0%)"
+    "face": " translate(-2%,-29%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "電動牙刷",
@@ -3506,7 +3506,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "3",
-    "face": "translate(0%,0%)"
+    "face": " translate(0%,-22%) skew(0deg,0deg) rotate(0deg) scale(1)"
   },
   {
     "name": "體重計",
@@ -3529,7 +3529,7 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "4",
-    "face": "translate(0%,0%)"
+    "face": " translate(2%,-31%) skew(-6deg,1deg) rotate(14deg) scale(1.2)"
   },
   {
     "name": "壓克力",
@@ -3551,6 +3551,6 @@
     "mobileFirstY": "",
     "mobileExplosionY": "",
     "faceNo": "5",
-    "face": "translate(0%,0%)"
+    "face": " translate(3%,-6%) skew(0deg,0deg) rotate(0deg) scale(1)"
   }
 ]
