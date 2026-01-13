@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import imgSize from './imgSize'
 import { groupBy, reduce, size } from 'lodash'
 
-const useTrashData = (srcData, gatsbyImages) => {
+const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = []) => {
   const data = useMemo(() => {
     if (!srcData) return null
     // const index = id * 1
@@ -42,6 +42,27 @@ const useTrashData = (srcData, gatsbyImages) => {
     }, 0)
     const partsCount = size(grouped)
     let namedPartCount = 0
+
+    // 匹配 articles 數據
+    const matchedArticle = articles.find(article => article.垃圾 === srcData.name)
+
+    const additional = (srcData.additional && srcData.additional !== '')
+      ? srcData.additional
+      : (matchedArticle ? {
+          text: matchedArticle.文案,
+          url: matchedArticle.文章
+        } : null)
+
+    // 匹配 ocean-trash 數據
+    const matchedOceanTrash = oceanTrashList.find(item => item.回百垃圾 === srcData.name)
+
+    const oceanTrash = matchedOceanTrash ? {
+      name: matchedOceanTrash.海廢map,
+      url: matchedOceanTrash.URL,
+      imagePath: matchedOceanTrash.海廢map ? `/ocean-trash-images/${matchedOceanTrash.海廢map}.png` : null
+    } : null
+
+
     return {
       ...srcData,
       totalHeight,
@@ -49,6 +70,8 @@ const useTrashData = (srcData, gatsbyImages) => {
       centeroid,
       positions,
       partsCount,
+      additional,
+      oceanTrash,
       gatsbyImg: gatsbyImages[srcData.name],
       imgs: ordered.map(o => {
         if (o.partName) {
@@ -63,7 +86,7 @@ const useTrashData = (srcData, gatsbyImages) => {
         }
       }),
     }
-  }, [srcData, gatsbyImages])
+  }, [srcData, gatsbyImages, articles, oceanTrashList])
 
   return data
 }

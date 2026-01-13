@@ -208,15 +208,26 @@ const FaceEditor = ({ data, allData }) => {
 
 const FaceEditorWithData = (props) => {
   const {
-    pageContext: { id, gatsbyImg },
+    pageContext: { id, gatsbyImg, article, oceanTrash },
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
+  const articleData = useMemo(() => JSON.parse(article || 'null'), [article]);
+  const oceanTrashData = useMemo(() => JSON.parse(oceanTrash || 'null'), [oceanTrash]);
+
+  const articles = useMemo(() => {
+    return articleData ? [articleData] : [];
+  }, [articleData]);
+
+  const oceanTrashList = useMemo(() => {
+    return oceanTrashData ? [oceanTrashData] : [];
+  }, [oceanTrashData]);
+
   const srcData = useMemo(
     () => allData?.find((d) => d.id === id),
     [allData, id]
   );
-  const data = useTrashData(srcData, gatsbyImages);
+  const data = useTrashData(srcData, gatsbyImages, articles, oceanTrashList);
   return data ? <FaceEditor data={data} allData={allData} /> : null;
 };
 

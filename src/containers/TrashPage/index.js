@@ -123,7 +123,14 @@ const TrashDescription = (props) => (
 );
 
 const TrashAdditional = ({ data, bg }) => {
-  const { text, url } = useMemo(() => extractLink(data), [data]);
+  const { text, url } = useMemo(() => {
+    // 若 data 是物件，直接返回 text 和 url
+    if (data && typeof data === "object" && !Array.isArray(data)) {
+      return { text: data.text, url: data.url };
+    }
+    // 若 data 是字符串，用 extractLink 處理
+    return extractLink(data);
+  }, [data]);
   return text ? (
     <Box mt="2" bg="white" p="1" ml="-1" mr="-1" color={bg}>
       {url ? (
@@ -1142,15 +1149,26 @@ const TrashPage = ({
 
 const TashPageWithDevData = (props) => {
   const {
-    pageContext: { id, gatsbyImg },
+    pageContext: { id, gatsbyImg, article, oceanTrash },
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
+  const articleData = useMemo(() => JSON.parse(article || 'null'), [article]);
+  const oceanTrashData = useMemo(() => JSON.parse(oceanTrash || 'null'), [oceanTrash]);
+
+  const articles = useMemo(() => {
+    return articleData ? [articleData] : [];
+  }, [articleData]);
+
+  const oceanTrashList = useMemo(() => {
+    return oceanTrashData ? [oceanTrashData] : [];
+  }, [oceanTrashData]);
+
   const srcData = useMemo(
     () => allData?.find((d) => d.id == id),
     [allData, id]
   );
-  const data = useTrashData(srcData, gatsbyImages);
+  const data = useTrashData(srcData, gatsbyImages, articles, oceanTrashList);
   return data ? <TrashPage {...props} trashData={data} /> : null;
 };
 

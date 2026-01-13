@@ -82,6 +82,31 @@ module.exports = {
       },
     },
     `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `回收大百科｜台灣最具參考性的資源回收指南`,
+        short_name: `回收大百科`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#000000`,
+        display: `standalone`,
+        icon: `static/logo512.png`,
+        icons: [
+          {
+            src: `static/logo192.png`,
+            sizes: `192x192`,
+            type: `image/png`,
+          },
+          {
+            src: `static/logo512.png`,
+            sizes: `512x512`,
+            type: `image/png`,
+          },
+        ],
+        cache_busting_mode: 'none',
+      },
+    },
     // "gatsby-plugin-loadable-components-ssr",
   ],
   pathPrefix,
