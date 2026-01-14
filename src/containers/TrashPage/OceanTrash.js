@@ -65,8 +65,8 @@ const OceanTrash = ({ data, color }) => {
           display="flex"
           alignItems="center"
           position="relative"
-          pr={responsive('1.75em', '2.5em')}
-          pl={responsive('5em', '8em')}
+          pr={responsive("1.75em", "2.5em")}
+          pl={responsive("5em", "6.5em")}
         >
           {image && (
             <Box
@@ -82,10 +82,13 @@ const OceanTrash = ({ data, color }) => {
                 width="100%"
                 height="100%"
                 overflow="hidden"
-                css={isHovered && css`
-                  animation: ${swing} 0.6s ease-in-out infinite;
-                  transform-origin: center;
-                `}
+                css={
+                  isHovered &&
+                  css`
+                    animation: ${swing} 0.6s ease-in-out infinite;
+                    transform-origin: center;
+                  `
+                }
               >
                 <GatsbyImage
                   image={image}
@@ -95,9 +98,33 @@ const OceanTrash = ({ data, color }) => {
               </Box>
             </Box>
           )}
-          <Text fontWeight="400" lineHeight="1.2" fontSize={responsive("1.25em", "1.75em")} m={0}>
+          <Text
+            fontWeight="400"
+            lineHeight="1.2"
+            letterSpacing="0.1em"
+            fontSize={responsive("1.125em", "1.625em")}
+            mt="-0.2em"
+          >
             沒有丟好垃圾就會變成海廢
           </Text>
+          <Box
+            as="svg"
+            xmlns="http://www.w3.org/2000/svg"
+            width={responsive('9.5em', '13em')}
+            viewBox="0 0 178.53 13.73"
+            position="absolute"
+            right={responsive("0.5em", "1em")}
+            bottom={responsive("1.25em", "1.75em")}
+            display="block"
+            color="inherit"
+          >
+            <polyline
+              points="163.21 0.73 176 12.73 0 12.73"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </Box>
         </Box>
       </AspectRatio>
     </Box>
