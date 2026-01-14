@@ -71,10 +71,10 @@ const OceanTrash = ({ data, color }) => {
           {image && (
             <Box
               position="absolute"
-              left={responsive("2.5em", "4em")}
+              left={responsive("2.5em", "3.5em")}
               top="50%"
-              width={responsive("7.5em", "10em")}
-              height={responsive("7.5em", "10em")}
+              width={responsive("7em", "9em")}
+              height={responsive("7em", "9em")}
               overflow="visible"
               transform="translate(-50%, -50%)"
             >
