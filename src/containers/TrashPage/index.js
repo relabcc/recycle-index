@@ -177,7 +177,7 @@ const TrashArticle = ({ data, bg }) => {
   );
 };
 
-const TrashNote = ({ children, color, ...props }) => {
+const TrashNote = ({ children, color, article, ...props }) => {
   const { text, url } = useMemo(() => extractLink(children), [children]);
   const lined = useMemo(() => {
     const target = text || children;
@@ -192,23 +192,29 @@ const TrashNote = ({ children, color, ...props }) => {
     ) : (
       lined
     ));
+  const content = children && noteContent;
   return (
-    children &&
-    noteContent && (
+    (content || article) && (
       <Box.Absolute
         top={responsive("1em", "auto")}
         bottom={responsive("auto", "1.25em")}
         right={responsive("6%", "4.75em")}
         width={responsive("50%", "20%")}
       >
-        <Text
-          fontSize={responsive("0.875em", "0.875em")}
-          whiteSpace="pre-wrap"
-          color={color}
-          {...props}
-        >
-          *{noteContent}
-        </Text>
+        {noteContent && (
+          <Text
+            fontSize={responsive("0.875em", "0.875em")}
+            whiteSpace="pre-wrap"
+            color={color}
+            {...props}
+          >
+            *{noteContent}
+          </Text>
+        )}
+
+        {article && (
+          <TrashAdditional bg={color} data={article} variant="invert" />
+        )}
       </Box.Absolute>
     )
   );
@@ -559,10 +565,11 @@ const TrashPage = ({
         </SectionTitle>
       </h2>
       <TrashNumber color={colorScheme}>{n}</TrashNumber>
-      {data.recycleNote && (
-        <TrashNote color={colorScheme}>{data.recycleNote}</TrashNote>
+      {(data.recycleNote || data.article) && (
+        <TrashNote color={colorScheme} article={data.article}>
+          {data.recycleNote}
+        </TrashNote>
       )}
-      {data.article && <TrashArticle bg={colorScheme} data={data.article} />}
       <ChevDown onClick={() => fpApi.moveSectionDown()} />
     </Container>,
     createElement(LastPage, {
