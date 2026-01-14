@@ -34,6 +34,10 @@ const OceanTrash = ({ data, color }) => {
 
   const image = data.gatsbyImg?.large ? getImage(data.gatsbyImg.large) : null;
 
+  if (!image) {
+    return null;
+  }
+
   const handleClick = () => {
     if (data.url) {
       window.open(data.url, "_blank");
@@ -105,12 +109,12 @@ const OceanTrash = ({ data, color }) => {
             fontSize={responsive("1.125em", "1.625em")}
             mt="-0.2em"
           >
-            沒有丟好垃圾就會變成海廢
+            了解丟錯垃圾的入海之路
           </Text>
           <Box
             as="svg"
             xmlns="http://www.w3.org/2000/svg"
-            width={responsive('9.5em', '13em')}
+            width={responsive("9.5em", "13em")}
             viewBox="0 0 178.53 13.73"
             position="absolute"
             right={responsive("0.5em", "1em")}

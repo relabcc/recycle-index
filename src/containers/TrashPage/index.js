@@ -122,7 +122,7 @@ const TrashDescription = (props) => (
   </Box.Absolute>
 );
 
-const TrashAdditional = ({ data, bg }) => {
+const TrashAdditional = ({ data, bg, variant }) => {
   const { text, url } = useMemo(() => {
     // 若 data 是物件，直接返回 text 和 url
     if (data && typeof data === "object" && !Array.isArray(data)) {
@@ -131,8 +131,11 @@ const TrashAdditional = ({ data, bg }) => {
     // 若 data 是字符串，用 extractLink 處理
     return extractLink(data);
   }, [data]);
+  const invert = variant === "invert";
+  const background = invert ? bg : "white";
+  const textColor = invert ? "white" : bg;
   return text ? (
-    <Box mt="2" bg="white" p="1" ml="-1" mr="-1" color={bg}>
+    <Box mt="2" bg={background} p="1" ml="-1" mr="-1" color={textColor}>
       {url ? (
         <ReLink color="inherit" href={url} isExternal>
           {text}
@@ -161,6 +164,18 @@ const TrashValue = ({ additional, bg, ...props }) => (
     {additional ? <TrashAdditional bg={bg} data={additional} /> : null}
   </Box.Absolute>
 );
+
+const TrashArticle = ({ data, bg }) => {
+  return (
+    <Box.Absolute
+      bottom={responsive("12%", "3%")}
+      right={responsive("10%", "8em")}
+      width={responsive("80%", "25%")}
+    >
+      <TrashAdditional bg={bg} data={data} variant="invert" />
+    </Box.Absolute>
+  );
+};
 
 const TrashNote = ({ children, color, ...props }) => {
   const { text, url } = useMemo(() => extractLink(children), [children]);
@@ -547,6 +562,7 @@ const TrashPage = ({
       {data.recycleNote && (
         <TrashNote color={colorScheme}>{data.recycleNote}</TrashNote>
       )}
+      {data.article && <TrashArticle bg={colorScheme} data={data.article} />}
       <ChevDown onClick={() => fpApi.moveSectionDown()} />
     </Container>,
     createElement(LastPage, {
@@ -1153,8 +1169,11 @@ const TashPageWithDevData = (props) => {
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
-  const articleData = useMemo(() => JSON.parse(article || 'null'), [article]);
-  const oceanTrashData = useMemo(() => JSON.parse(oceanTrash || 'null'), [oceanTrash]);
+  const articleData = useMemo(() => JSON.parse(article || "null"), [article]);
+  const oceanTrashData = useMemo(
+    () => JSON.parse(oceanTrash || "null"),
+    [oceanTrash]
+  );
 
   const articles = useMemo(() => {
     return articleData ? [articleData] : [];

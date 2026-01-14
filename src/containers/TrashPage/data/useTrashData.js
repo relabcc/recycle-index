@@ -48,10 +48,12 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
 
     const additional = (srcData.additional && srcData.additional !== '')
       ? srcData.additional
-      : (matchedArticle ? {
-          text: matchedArticle.文案,
-          url: matchedArticle.文章
-        } : null)
+      : null
+
+    const article = matchedArticle ? {
+      text: matchedArticle.文案,
+      url: matchedArticle.文章
+    } : null
 
     // 匹配 ocean-trash 數據
     const matchedOceanTrash = oceanTrashList.find(item => item.回百垃圾 === srcData.name)
@@ -71,6 +73,7 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
       positions,
       partsCount,
       additional,
+      article,
       oceanTrash,
       gatsbyImg: gatsbyImages[srcData.name],
       imgs: ordered.map(o => {
