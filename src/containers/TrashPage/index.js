@@ -122,7 +122,7 @@ const TrashDescription = (props) => (
   </Box.Absolute>
 );
 
-const TrashAdditional = ({ data, bg, variant }) => {
+const TrashAdditional = ({ data, bg, variant, mt = 2 }) => {
   const { text, url } = useMemo(() => {
     // 若 data 是物件，直接返回 text 和 url
     if (data && typeof data === "object" && !Array.isArray(data)) {
@@ -135,7 +135,7 @@ const TrashAdditional = ({ data, bg, variant }) => {
   const background = invert ? bg : "white";
   const textColor = invert ? "white" : bg;
   return text ? (
-    <Box mt="2" bg={background} p="1" ml="-1" mr="-1" color={textColor}>
+    <Box mt={mt} bg={background} p="1" ml="-1" mr="-1" color={textColor}>
       {url ? (
         <ReLink color="inherit" href={url} isExternal>
           {text}
@@ -165,18 +165,6 @@ const TrashValue = ({ additional, bg, ...props }) => (
   </Box.Absolute>
 );
 
-const TrashArticle = ({ data, bg }) => {
-  return (
-    <Box.Absolute
-      bottom={responsive("12%", "3%")}
-      right={responsive("10%", "8em")}
-      width={responsive("80%", "25%")}
-    >
-      <TrashAdditional bg={bg} data={data} variant="invert" />
-    </Box.Absolute>
-  );
-};
-
 const TrashNote = ({ children, color, article, ...props }) => {
   const { text, url } = useMemo(() => extractLink(children), [children]);
   const lined = useMemo(() => {
@@ -193,13 +181,15 @@ const TrashNote = ({ children, color, article, ...props }) => {
       lined
     ));
   const content = children && noteContent;
+  const hasBoth = content && article;
   return (
     (content || article) && (
       <Box.Absolute
         top={responsive("1em", "auto")}
-        bottom={responsive("auto", "1.25em")}
-        right={responsive("6%", "4.75em")}
-        width={responsive("50%", "20%")}
+        bottom={responsive("auto", "1em")}
+        right={responsive("6%", "8em")}
+        width={responsive("50%", "25%")}
+        pb={hasBoth ? 0 : responsive("0", "0.5em")}
       >
         {noteContent && (
           <Text
@@ -213,7 +203,7 @@ const TrashNote = ({ children, color, article, ...props }) => {
         )}
 
         {article && (
-          <TrashAdditional bg={color} data={article} variant="invert" />
+          <TrashAdditional bg={color} data={article} variant="invert" mt="1" />
         )}
       </Box.Absolute>
     )
