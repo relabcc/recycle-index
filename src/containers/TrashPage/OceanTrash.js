@@ -1,0 +1,107 @@
+import React, { useState } from "react";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { AspectRatio } from "@chakra-ui/react";
+import { css, keyframes } from "@emotion/react";
+import Box from "../../components/Box";
+import Text from "../../components/Text";
+import oceanBaseSvg from "./ocean-base.svg";
+import { responsive } from "../../components/ThemeProvider/theme";
+
+const swing = keyframes`
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+`;
+
+const OceanTrash = ({ data, color }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  if (!data) {
+    return null;
+  }
+
+  const image = data.gatsbyImg?.large ? getImage(data.gatsbyImg.large) : null;
+
+  const handleClick = () => {
+    if (data.url) {
+      window.open(data.url, "_blank");
+    }
+  };
+
+  return (
+    <Box
+      as="button"
+      onClick={handleClick}
+      cursor={data.url ? "pointer" : "default"}
+      border="none"
+      bg="transparent"
+      p={0}
+      width="100%"
+      textAlign="right"
+      position="relative"
+      color={color}
+      transform={responsive(null, "translateY(-50%)")}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AspectRatio ratio={320 / 116} width={responsive("15em", "21em")}>
+        <Box
+          backgroundImage={`url(${oceanBaseSvg})`}
+          backgroundSize="contain"
+          backgroundPosition="center"
+          backgroundRepeat="no-repeat"
+          display="flex"
+          alignItems="center"
+          position="relative"
+          pr={responsive('1.75em', '2.5em')}
+          pl={responsive('5em', '8em')}
+        >
+          {image && (
+            <Box
+              position="absolute"
+              left={responsive("2.5em", "4em")}
+              top="50%"
+              width={responsive("7.5em", "10em")}
+              height={responsive("7.5em", "10em")}
+              overflow="visible"
+              transform="translate(-50%, -50%)"
+            >
+              <Box
+                width="100%"
+                height="100%"
+                overflow="hidden"
+                css={isHovered && css`
+                  animation: ${swing} 0.6s ease-in-out infinite;
+                  transform-origin: center;
+                `}
+              >
+                <GatsbyImage
+                  image={image}
+                  alt={data.name}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </Box>
+            </Box>
+          )}
+          <Text fontWeight="400" lineHeight="1.2" fontSize={responsive("1.25em", "1.75em")} m={0}>
+            沒有丟好垃圾就會變成海廢
+          </Text>
+        </Box>
+      </AspectRatio>
+    </Box>
+  );
+};
+
+export default OceanTrash;

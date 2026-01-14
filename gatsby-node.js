@@ -30,6 +30,7 @@ async function createTrashPage({ actions, graphql }) {
             node {
               name
               relativeDirectory
+              sourceInstanceName
               childImageSharp {
                 large: gatsbyImageData(
                   placeholder: TRACED_SVG
@@ -49,6 +50,15 @@ async function createTrashPage({ actions, graphql }) {
     `
   );
   const gatsbyImages = handleGatsbyImage(allFile);
+
+  // Extract ocean-trash images separately by sourceInstanceName
+  const oceanTrashImages = {};
+  allFile.edges.forEach(({ node }) => {
+    if (node.sourceInstanceName === 'ocean-trash-images' && node.childImageSharp) {
+      const decodedName = decodeURIComponent(node.name);
+      oceanTrashImages[decodedName] = node.childImageSharp;
+    }
+  });
 
   const trashes = getTrashes();
   return Promise.all(
@@ -77,6 +87,19 @@ async function createTrashPage({ actions, graphql }) {
         );
         const matchedArticle = articles.find(article => article.垃圾 === d.name);
         const matchedOceanTrash = oceanTrash.find(item => item.回百垃圾 === d.name);
+
+        // Add gatsby image data to oceanTrash if found
+        let oceanTrashWithImage = null;
+        if (matchedOceanTrash) {
+          const oceanTrashImageName = matchedOceanTrash.海廢map;
+          // Look for the image in oceanTrashImages extracted from ocean-trash-images folder
+          const oceanTrashImageSharp = oceanTrashImages[oceanTrashImageName];
+          oceanTrashWithImage = {
+            ...matchedOceanTrash,
+            gatsbyImg: oceanTrashImageSharp ? pick(oceanTrashImageSharp, ["large"]) : null,
+          };
+        }
+
         await createPage({
           // will be the url for the page
           path: `trash/${d.id}`,
@@ -91,7 +114,7 @@ async function createTrashPage({ actions, graphql }) {
             gatsbyImg: JSON.stringify(pickedImag),
             readMore: JSON.stringify(readMore),
             article: JSON.stringify(matchedArticle || null),
-            oceanTrash: JSON.stringify(matchedOceanTrash || null),
+            oceanTrash: JSON.stringify(oceanTrashWithImage || null),
           },
         });
         if (process.env.NODE_ENV === "development" || process.env.CF_PAGES) {
@@ -109,7 +132,7 @@ async function createTrashPage({ actions, graphql }) {
               gatsbyImg: JSON.stringify(pickedImag),
               readMore: JSON.stringify(readMore),
               article: JSON.stringify(matchedArticle || null),
-              oceanTrash: JSON.stringify(matchedOceanTrash || null),
+              oceanTrash: JSON.stringify(oceanTrashWithImage || null),
             },
           });
         }
@@ -127,7 +150,7 @@ async function createTrashPage({ actions, graphql }) {
             gatsbyImg: JSON.stringify(pickedImag),
             readMore: JSON.stringify(readMore),
             article: JSON.stringify(matchedArticle || null),
-            oceanTrash: JSON.stringify(matchedOceanTrash || null),
+            oceanTrash: JSON.stringify(oceanTrashWithImage || null),
           },
         });
       })

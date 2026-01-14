@@ -24,6 +24,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `ocean-trash-images`,
+        path: `${__dirname}/src/ocean-trash-images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `homepage`,
         path: `${__dirname}/src/containers/HomePage`,
       },

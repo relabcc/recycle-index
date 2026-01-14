@@ -20,6 +20,7 @@ import Handling from "./Handling";
 import PerTrash from "../CataloguePage/PerTrash";
 import SponsorNote from "./SponsorNote";
 import DonatePage from "../DonatePage";
+import OceanTrash from "./OceanTrash";
 
 const FinalTrash = ({
   windowSize,
@@ -107,6 +108,7 @@ const FinalTrash = ({
             justifyContent={responsive("", "flex-end")}
             mt={responsive("-10%", "-4rem")}
             mr={responsive(0, "-2rem")}
+            pos="relative"
           >
             <FB
               aria-label="分享到FB"
@@ -124,12 +126,30 @@ const FinalTrash = ({
               isExternal
               href={`https://social-plugins.line.me/lineit/share?url=${pageUrl}`}
             />
+            <Box
+              pos="absolute"
+              left="100%"
+              top="50%"
+              display={responsive("none", "block")}
+              zIndex={1}
+            >
+              <OceanTrash color={colorScheme} data={data.oceanTrash} />
+            </Box>
           </Flex>
         </Box>
       </Box>
       <Box bg={colorScheme} pb="1em" pt="2em" position="relative">
         <Container px="1.25em">
           <Flex pt="1em" flexDirection={responsive("column", "row")}>
+            <Box
+              pb="1em"
+              mb="1em"
+              color="white"
+              borderBottom="2px solid"
+              display={responsive("block", "none")}
+            >
+              <OceanTrash color={colorScheme} data={data.oceanTrash} />
+            </Box>
             <Box>
               <Box pr={responsive(0, "1.5em")}>
                 <Text

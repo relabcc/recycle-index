@@ -59,7 +59,7 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
     const oceanTrash = matchedOceanTrash ? {
       name: matchedOceanTrash.海廢map,
       url: matchedOceanTrash.URL,
-      imagePath: matchedOceanTrash.海廢map ? `/ocean-trash-images/${matchedOceanTrash.海廢map}.png` : null
+      gatsbyImg: matchedOceanTrash.gatsbyImg
     } : null
 
 
