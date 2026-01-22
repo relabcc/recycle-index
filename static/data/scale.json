@@ -2639,5 +2639,27 @@
     "mobileExplosionY": "5",
     "faceNo": "2",
     "face": "translate(0%,0%)"
+  },
+  {
+    "name": "關東煮",
+    "scale": "80",
+    "x": "-2",
+    "y": "6",
+    "shareScale": "60",
+    "rotate": "",
+    "mobileScale": "100",
+    "mobileX": "0",
+    "mobileY": "4",
+    "mobileShareScale": "70",
+    "firstY": "",
+    "gap": "",
+    "explosionScale": "",
+    "homeScale": "162",
+    "homeX": "",
+    "homeY": "10",
+    "mobileFirstY": "",
+    "mobileExplosionY": "",
+    "faceNo": "1",
+    "face": " translate(-2%,-7%) skew(0deg,0deg) rotate(0deg) scale(0.8)"
   }
 ]
