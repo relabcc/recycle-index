@@ -24,22 +24,14 @@ import Circle from "../../components/Circle";
 import Container from "../../components/Container";
 import withData from "./data/withData";
 import animations from "./data/animations";
-// import ChevDown from './ChevDown';
-// import Hashtag from './Hashtag';
 import RateCircle from "./RateCircle";
 import Face from "../Face";
 import isIos from "../../components/utils/isIos";
 
-// import trash from './trash-bag.svg'
-// import planb from './planb.svg'
-// import planbBubble from './planb-bubble.svg'
-// import ScrollIndicator from './ScrollIndicator';
 import containerWidthContext from "../../contexts/containerWidth/context";
 import useResponsive from "../../contexts/mediaQuery/useResponsive";
 import useShowHeader from "../../contexts/header/useShowHeader";
 import theme, { Media, responsive } from "../../components/ThemeProvider/theme";
-// import FullpageLoading from '../../components/FullpageLoading';
-// import useLoader from '../../utils/useLoader';
 import imgSize from "./data/imgSize";
 import useIsEn from "../useIsEn";
 import trashEn from "../trashEn";
@@ -48,16 +40,11 @@ import TrashTitle from "./TrashTitle";
 import ReLink from "../../components/Link";
 import useTrashData from "./data/useTrashData";
 import useAllTrashes from "./data/useAllTrashes";
-// const GSAP = loadable.lib(() => import('gsap'))
 const Hashtag = loadable(() => import("./Hashtag"));
 const ScrollIndicator = loadable(() => import("./ScrollIndicator"));
 const ChevDown = loadable(() => import("./ChevDown"));
-// const LastPage = loadable(() => import('./LastPage'))
-
-// import useReloadOnOrentation from '../../utils/useReloadOnOrentation';
 
 let fpApi;
-// const pageCount = 5
 const trashSidePos = 20;
 const scrollingDuration = 1;
 const idealWidth = 200;
@@ -65,6 +52,11 @@ const idealWidth = 200;
 let theTimeline;
 let endTimeline;
 let progressTimer;
+
+const extractLink = (value) => {
+  const pttn = /([^[]+)\[([^\]]+)]/.exec(value || "");
+  return pttn ? { text: pttn[1], url: pttn[2] } : { text: value, url: null };
+};
 
 const Wrapper = styled.div`
   height: 100%;
@@ -131,15 +123,16 @@ const TrashDescription = (props) => (
 );
 
 const TrashAdditional = ({ data, bg }) => {
-  const [text, url] = useMemo(() => {
-    const pttn = /([^[]+)\[([^\]]+)]/.exec(data);
-    return pttn ? [pttn[1], pttn[2]] : [];
-  }, [data]);
+  const { text, url } = useMemo(() => extractLink(data), [data]);
   return text ? (
-    <Box mt="2" bg="white" p="1" ml="-1" mr="-1">
-      <ReLink color={bg} href={url} isExternal>
-        {text}
-      </ReLink>
+    <Box mt="2" bg="white" p="1" ml="-1" mr="-1" color={bg}>
+      {url ? (
+        <ReLink color="inherit" href={url} isExternal>
+          {text}
+        </ReLink>
+      ) : (
+        text
+      )}
     </Box>
   ) : null;
 };
@@ -162,12 +155,24 @@ const TrashValue = ({ additional, bg, ...props }) => (
   </Box.Absolute>
 );
 
-const TrashNote = ({ children, ...props }) => {
+const TrashNote = ({ children, color, ...props }) => {
+  const { text, url } = useMemo(() => extractLink(children), [children]);
   const lined = useMemo(() => {
-    return children && children.replace(/\|/g, "\n");
-  }, [children]);
+    const target = text || children;
+    return target && target.replace(/\|/g, "\n");
+  }, [children, text]);
+  const noteContent =
+    lined &&
+    (url ? (
+      <ReLink color={color} href={url} isExternal>
+        {lined}
+      </ReLink>
+    ) : (
+      lined
+    ));
   return (
-    children && (
+    children &&
+    noteContent && (
       <Box.Absolute
         top={responsive("1em", "auto")}
         bottom={responsive("auto", "1.25em")}
@@ -177,9 +182,10 @@ const TrashNote = ({ children, ...props }) => {
         <Text
           fontSize={responsive("0.875em", "0.875em")}
           whiteSpace="pre-wrap"
+          color={color}
           {...props}
         >
-          *{lined}
+          *{noteContent}
         </Text>
       </Box.Absolute>
     )
@@ -197,6 +203,13 @@ const TrashNumber = ({ children, ...props }) => (
     <Text.Number fontSize={responsive("1.25em", "1em")}>{children}</Text.Number>
   </Box.Absolute>
 );
+
+// Circle with responsive font scaling for very small screens
+const RwdCircle = styled(Circle)`
+  @media (max-width: 400px) {
+    font-size: 0.8em;
+  }
+`;
 
 const getPoses = (data, newHeight, explosionGap) => {
   const posByPartName = {};
@@ -372,7 +385,7 @@ const TrashPage = ({
                       className="circle-container"
                       pointerEvents="all"
                     >
-                      <Circle
+                      <RwdCircle
                         bg={colorScheme}
                         width={responsive("7em", "7.5em")}
                         textAlign="center"
@@ -396,9 +409,9 @@ const TrashPage = ({
                         >
                           {data.partsDetail[partName]}
                         </Text>
-                      </Circle>
+                      </RwdCircle>
                       <Box.FullAbs className="circle-2" transform="scale(0)">
-                        <Circle
+                        <RwdCircle
                           border="2px solid"
                           borderColor={colorScheme}
                           bg="white"
@@ -426,7 +439,7 @@ const TrashPage = ({
                               %
                             </Text>
                           )}
-                        </Circle>
+                        </RwdCircle>
                       </Box.FullAbs>
                       <Box.Absolute
                         className="circle-rate"
@@ -602,6 +615,10 @@ const TrashPage = ({
 
     const animation = animations[data.name];
 
+    // ========================================
+    // Page 1: 從垃圾標題頁過渡到垃圾爆炸頁
+    // ========================================
+    // 隱藏臉部、垃圾旋轉歸零、垃圾放大爆炸
     theTimeline.to(faceRef.current, {
       opacity: 0,
       duration: scrollingDuration,
@@ -621,6 +638,7 @@ const TrashPage = ({
       : isMobile
       ? `${50 + (data.transform.mobileExplosionY || 0)}%`
       : "50%";
+    // 垃圾尺寸變大，中心位置調整（爆炸效果的準備）
     theTimeline.to(
       trashRef.current,
       {
@@ -636,9 +654,12 @@ const TrashPage = ({
     const [poses, posByPartName] = getPoses(data, newHeight, explosionGap);
     const combineParts = [];
 
+    // ========================================
+    // Page 2: 垃圾爆炸 - 各個部件向外展開
+    // ========================================
     data.imgs.forEach((cfg, i) => {
       gsap.set(layerRefs[cfg.index].current, { y: "0%" });
-      // calc parts y position
+      // 每個部件向外移動，創造爆炸效果
       theTimeline.to(
         layerRefs[cfg.index].current,
         {
@@ -647,6 +668,7 @@ const TrashPage = ({
         },
         scrollingDuration
       );
+      // 如果有動畫配置（如旋轉、縮放等），在爆炸時執行
       if (animation && animation[cfg.layerName]) {
         Object.entries(animation[cfg.layerName]).forEach(([d, ani]) => {
           theTimeline.to(
@@ -659,6 +681,10 @@ const TrashPage = ({
           );
         });
       }
+
+      // ========================================
+      // Page 2-3: 部件標記出現（名稱圓形和連接線）
+      // ========================================
       if (cfg.partName) {
         gsap.set(
           partsRefs[cfg.index].current.querySelector(".circle-container"),
@@ -674,6 +700,7 @@ const TrashPage = ({
         gsap.set(partsRefs[cfg.index].current.querySelector(".circle-1"), {
           opacity: 0,
         });
+        // 部件名稱圓形向邊緣移動
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".circle-container"),
           {
@@ -684,6 +711,7 @@ const TrashPage = ({
           },
           scrollingDuration
         );
+        // 連接線出現
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".line"),
           {
@@ -693,6 +721,7 @@ const TrashPage = ({
           },
           scrollingDuration
         );
+        // 部件名稱圓形顯示
         theTimeline.to(
           partsRefs[cfg.index].current.querySelector(".circle-1"),
           {
@@ -712,6 +741,10 @@ const TrashPage = ({
           }
         }
       }
+
+      // ========================================
+      // Page 4-5: 垃圾回到初始位置
+      // ========================================
       theTimeline.to(
         layerRefs[cfg.index].current,
         {
@@ -735,6 +768,10 @@ const TrashPage = ({
         }, 0)
       : 0;
     // console.log(combineParts, offsetSign, totalOffset)
+
+    // ========================================
+    // Page 3: 調整垃圾整體位置（部件對齊）
+    // ========================================
     if (totalOffset) {
       theTimeline.to(
         trashXRef.current,
@@ -746,8 +783,12 @@ const TrashPage = ({
       );
     }
 
+    // ========================================
+    // Page 3-4: 部件回收率和分類信息展示
+    // ========================================
     data.imgs.forEach((cfg, i) => {
       if (combineParts[cfg.order]) {
+        // 如果部件有組合關係，調整位置並隱藏標記
         theTimeline.to(
           layerRefs[cfg.index].current,
           {
@@ -757,6 +798,7 @@ const TrashPage = ({
           2 * scrollingDuration
         );
         if (cfg.partName) {
+          // 隱藏部件標記和連接線
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-container"),
             {
@@ -802,12 +844,14 @@ const TrashPage = ({
         }
 
         if (cfg.partName) {
+          // 初始化回收率圓形圖表
           gsap.set(partsRefs[cfg.index].current.querySelector(".circle-2"), {
             scale: 0,
           });
           gsap.set(partsRefs[cfg.index].current.querySelector(".circle-rate"), {
             opacity: 0,
           });
+          // 顯示分類信息圓形（circle-2：白底框線）
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-2"),
             {
@@ -816,6 +860,7 @@ const TrashPage = ({
             },
             2 * scrollingDuration
           );
+          // 顯示回收率圓形圖表
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-rate"),
             {
@@ -830,6 +875,11 @@ const TrashPage = ({
           if (rateEle) {
             rateEles.push(rateEle);
           }
+
+          // ========================================
+          // Page 5: 所有部件標記和信息隱藏，回到初始狀態
+          // ========================================
+          // 隱藏部件名稱和連接線
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-container"),
             {
@@ -858,6 +908,7 @@ const TrashPage = ({
             },
             scrollingDuration * 3
           );
+          // 隱藏分類和回收率圓形
           theTimeline.to(
             partsRefs[cfg.index].current.querySelector(".circle-2"),
             {
@@ -877,6 +928,7 @@ const TrashPage = ({
         }
 
         if (animation && animation[cfg.layerName]) {
+          // 回到初始動畫狀態
           theTimeline.to(
             animaRefs[cfg.index].current,
             {
@@ -888,6 +940,10 @@ const TrashPage = ({
         }
       }
     });
+
+    // ========================================
+    // Page 5: 垃圾回到初始位置和大小
+    // ========================================
     // const { top, ...rest } = defaultTrashCfg;
     theTimeline.to(
       trashRef.current,
@@ -897,6 +953,10 @@ const TrashPage = ({
       },
       scrollingDuration * 3
     );
+
+    // ========================================
+    // endTimeline: 最後頁面的垃圾位置轉換（進入分享/推薦頁面）
+    // ========================================
     const scale =
       (isMobile && data.transform.mobileShareScale
         ? data.transform.mobileShareScale
@@ -922,22 +982,16 @@ const TrashPage = ({
         },
         0
       )
-      .to(faceRef.current, { duration: scrollingDuration, opacity: 1 });
+      .to(faceRef.current, {
+        duration: scrollingDuration,
+        opacity: 1,
+      });
 
     endTimeline.pause();
     theTimeline.pause();
   };
   useEffect(() => {
     init();
-    // if (fpApi) {
-    //   fpApi.silentMoveTo(1)
-    //   setTimeout(() => {
-    //     if (progressTimer) {
-    //       progressTimer.stop();
-    //       setProgress(0)
-    //     }
-    //   })
-    // }
   }, [data, windowSize.height, containerWidth, isMobile, inited]);
   const bgColor = useMemo(
     () => get(theme, `colors.${colorScheme}`),
@@ -955,9 +1009,11 @@ const TrashPage = ({
             verticalCentered={false}
             onLeave={(origin, destination) => {
               setPageLoaded((p) => Math.max(p, destination.index));
+
               theTimeline.tweenTo(destination.index * scrollingDuration, {
                 duration: scrollingDuration,
               });
+
               endTimeline.tweenTo(
                 Math.max(destination.index - 3, 0) * scrollingDuration
               );
@@ -1054,6 +1110,7 @@ const TrashPage = ({
                   transform={data.transform.face}
                   ref={faceRef}
                   id={faceId}
+                  zIndex="99"
                 />
               </div>
             </AspectRatio>
@@ -1075,7 +1132,6 @@ const TrashPage = ({
           />
         </Box.Fixed>
       </Media>
-      {/* {!inited && <FullpageLoading />} */}
     </Wrapper>
   );
 };
