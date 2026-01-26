@@ -269,9 +269,15 @@ const drawCross = (ctx, x, y, size = 12, color = "rgba(255,0,0,0.65)") => {
 };
 
 const getFaceImage = async (data) => {
-  const face = await loadImage(
-    path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`)
-  );
+  const facePath = path.resolve(__dirname, `faces/face${data.transform.faceNo}.svg`);
+
+  // 检查 face 文件是否存在
+  if (!fs.existsSync(facePath)) {
+    console.warn(`⚠️  Face file not found: face${data.transform.faceNo}.svg (item: ${data.name})`);
+    return [null, {}];
+  }
+
+  const face = await loadImage(facePath);
   const canvas = createCanvas(...imgSize);
   const ctx = canvas.getContext("2d");
   const [faceMatrix, transformCfg] = parseTransform(data.transform.face.trim());
@@ -348,7 +354,9 @@ const createOg = async (data) => {
   ctx.drawImage(trash, -trashSize[0] / 2, -trashSize[1] / 2, ...trashSize);
   // face 已在自身畫布中套用 rotate/scale/skew 以及 translate，
   // 這裡僅需與 trash 同步基準對齊。
-  ctx.drawImage(face, -trashSize[0] / 2, -trashSize[1] / 2, ...trashSize);
+  if (face) {
+    ctx.drawImage(face, -trashSize[0] / 2, -trashSize[1] / 2, ...trashSize);
+  }
 
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
