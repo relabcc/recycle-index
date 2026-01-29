@@ -34,9 +34,10 @@ const data = [
     intro: '2014年成立，REnato lab運用系統性觀點和與各行各業合作，令每日生活成為邁向永續的一部分。為了回應過度消費引起的自然資源耗竭議題，REnato lab以循環經濟、科技、知識分享作為主軸，尋找為地球和人類創造更好明天的可能路徑。\n此次REnato lab合作回收大百科專案，希望引導讀者從消費開始思考資源利用，將資源進入正確回收處理管道、提升再利用價值一事重新詮釋，邀請更多人加入行列，讓地球獲得喘息空間。',
     logo: <StaticImage placeholder="blurred" src="renato.svg" alt="REnato lab" />,
     url: 'https://renato-lab.com/',
-    donate: 'https://rethinktw.org/action/education/recycleproject/?utm_source=recycleblog&utm_medium=blog&utm_campaign=260114_recycleblog_headerbuttom'
   },
 ]
+
+const donateUrl = 'https://rethinktw.org/action/education/recycleproject/?utm_source=recycleblog&utm_medium=blog&utm_campaign=260114_recycleblog_headerbuttom'
 
 const About = () => {
   useShowHeader('colors.yellow')
@@ -113,25 +114,25 @@ const About = () => {
                   {intro}
                 </ReactMarkdown>
               </Text>
-              {donate && (
-                <Box mt="1.5em">
-                  <ReButton
-                    href={donate}
-                    isExternal
-                    variant="outline"
-                    colorScheme="black"
-                    bg="colors.neonGreen"
-                    borderWidth="0.15em"
-                    fontSize="0.75em"
-                    fontFamily="number"
-                  >
-                    捐款支持
-                  </ReButton>
-                </Box>
-              )}
             </Box>
           </Flex>
         ))}
+        <Flex justifyContent="center" pb="3em">
+          <ReButton
+            href={donateUrl}
+            isExternal
+            variant="outline"
+            colorScheme="black"
+            bg="colors.neonGreen"
+            borderWidth="0.15em"
+            fontSize="1em"
+            fontFamily="number"
+            px="2em"
+            py="1em"
+          >
+            捐款支持
+          </ReButton>
+        </Flex>
       </Box>
       <DonatePage />
       <Footer />
