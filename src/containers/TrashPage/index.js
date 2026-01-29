@@ -22,6 +22,8 @@ import Box from "../../components/Box";
 import Text from "../../components/Text";
 import Circle from "../../components/Circle";
 import Container from "../../components/Container";
+import ArticleBox from "../../components/ArticleBox";
+import useTrashArticle from "./data/useTrashArticle";
 import withData from "./data/withData";
 import animations from "./data/animations";
 import RateCircle from "./RateCircle";
@@ -165,12 +167,14 @@ const TrashValue = ({ additional, bg, ...props }) => (
   </Box.Absolute>
 );
 
-const TrashNote = ({ children, color, article, ...props }) => {
+const TrashNote = ({ children, color, trashName, ...props }) => {
   const { text, url } = useMemo(() => extractLink(children), [children]);
+  const article = useTrashArticle(trashName);
   const lined = useMemo(() => {
     const target = text || children;
     return target && target.replace(/\|/g, "\n");
   }, [children, text]);
+
   const noteContent =
     lined &&
     (url ? (
@@ -203,7 +207,7 @@ const TrashNote = ({ children, color, article, ...props }) => {
         )}
 
         {article && (
-          <TrashAdditional bg={color} data={article} variant="invert" mt="1" />
+          <ArticleBox article={article} trashName={trashName} color={color} />
         )}
       </Box.Absolute>
     )
@@ -555,11 +559,9 @@ const TrashPage = ({
         </SectionTitle>
       </h2>
       <TrashNumber color={colorScheme}>{n}</TrashNumber>
-      {(data.recycleNote || data.article) && (
-        <TrashNote color={colorScheme} article={data.article}>
-          {data.recycleNote}
-        </TrashNote>
-      )}
+      <TrashNote color={colorScheme} trashName={data.name}>
+        {data.recycleNote}
+      </TrashNote>
       <ChevDown onClick={() => fpApi.moveSectionDown()} />
     </Container>,
     createElement(LastPage, {

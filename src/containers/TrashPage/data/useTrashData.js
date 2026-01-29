@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import imgSize from './imgSize'
 import { groupBy, reduce, size } from 'lodash'
 
-const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = []) => {
+const useTrashData = (srcData, gatsbyImages, oceanTrashList = []) => {
   const data = useMemo(() => {
     if (!srcData) return null
     // const index = id * 1
@@ -43,17 +43,9 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
     const partsCount = size(grouped)
     let namedPartCount = 0
 
-    // 匹配 articles 數據
-    const matchedArticle = articles.find(article => article.垃圾 === srcData.name)
-
     const additional = (srcData.additional && srcData.additional !== '')
       ? srcData.additional
       : null
-
-    const article = matchedArticle ? {
-      text: matchedArticle.文案,
-      url: matchedArticle.文章
-    } : null
 
     // 匹配 ocean-trash 數據
     const matchedOceanTrash = oceanTrashList.find(item => item.回百垃圾 === srcData.name)
@@ -73,7 +65,6 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
       positions,
       partsCount,
       additional,
-      article,
       oceanTrash,
       gatsbyImg: gatsbyImages[srcData.name],
       imgs: ordered.map(o => {
@@ -89,7 +80,7 @@ const useTrashData = (srcData, gatsbyImages, articles = [], oceanTrashList = [])
         }
       }),
     }
-  }, [srcData, gatsbyImages, articles, oceanTrashList])
+  }, [srcData, gatsbyImages, oceanTrashList])
 
   return data
 }

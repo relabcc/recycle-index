@@ -1223,6 +1223,7 @@
     "firstY": "",
     "gap": "200",
     "explosionScale": "85",
+    "deskExplosionScale": "40",
     "homeScale": "200",
     "homeX": "-3",
     "homeY": "-10",

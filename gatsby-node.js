@@ -4,7 +4,6 @@ const { sampleSize, pick, mapValues } = require("lodash");
 const data = require("./static/data/data.json");
 const cfg = require("./static/data/cfg.json");
 const scale = require("./static/data/scale.json");
-const articles = require("./static/data/articles.json");
 const oceanTrash = require("./static/data/ocean-trash.json");
 const getFormatedTrashes = require("./src/containers/TrashPage/data/getFormatedTrashes");
 const handleGatsbyImage = require("./src/utils/handleGatsbyImage");
@@ -85,7 +84,6 @@ async function createTrashPage({ actions, graphql }) {
         const pickedImag = mapValues(gatsbyImages[d.name], (imgs) =>
           pick(imgs, ["large"])
         );
-        const matchedArticle = articles.find(article => article.垃圾 === d.name);
         const matchedOceanTrash = oceanTrash.find(item => item.回百垃圾 === d.name);
 
         // Add gatsby image data to oceanTrash if found
@@ -113,7 +111,6 @@ async function createTrashPage({ actions, graphql }) {
             rawData: JSON.stringify(d),
             gatsbyImg: JSON.stringify(pickedImag),
             readMore: JSON.stringify(readMore),
-            article: JSON.stringify(matchedArticle || null),
             oceanTrash: JSON.stringify(oceanTrashWithImage || null),
           },
         });
@@ -131,7 +128,6 @@ async function createTrashPage({ actions, graphql }) {
               rawData: JSON.stringify(d),
               gatsbyImg: JSON.stringify(pickedImag),
               readMore: JSON.stringify(readMore),
-              article: JSON.stringify(matchedArticle || null),
               oceanTrash: JSON.stringify(oceanTrashWithImage || null),
             },
           });
@@ -149,7 +145,6 @@ async function createTrashPage({ actions, graphql }) {
             rawData: JSON.stringify(d),
             gatsbyImg: JSON.stringify(pickedImag),
             readMore: JSON.stringify(readMore),
-            article: JSON.stringify(matchedArticle || null),
             oceanTrash: JSON.stringify(oceanTrashWithImage || null),
           },
         });

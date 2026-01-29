@@ -4,20 +4,12 @@ import useTrashData from "./useTrashData";
 
 const withData = (SubComp) => (props) => {
   const {
-    pageContext: { id, name, rawData, gatsbyImg, readMore, article, oceanTrash },
+    pageContext: { id, name, rawData, gatsbyImg, readMore, oceanTrash },
   } = props;
   const srcData = useMemo(() => JSON.parse(rawData), [rawData]);
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const moreTrashes = useMemo(() => JSON.parse(readMore), [readMore]);
-  const articleData = useMemo(() => JSON.parse(article || 'null'), [article]);
   const oceanTrashData = useMemo(() => JSON.parse(oceanTrash || 'null'), [oceanTrash]);
-
-  const articles = useMemo(() => {
-    if (articleData) {
-      return [articleData];
-    }
-    return [];
-  }, [articleData]);
 
   const oceanTrashList = useMemo(() => {
     if (oceanTrashData) {
@@ -26,7 +18,7 @@ const withData = (SubComp) => (props) => {
     return [];
   }, [oceanTrashData]);
 
-  const data = useTrashData(srcData, gatsbyImages, articles, oceanTrashList);
+  const data = useTrashData(srcData, gatsbyImages, oceanTrashList);
   return (
     <>
       <Helmet>
