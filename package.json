@@ -82,6 +82,7 @@
     "deepmerge": "^4.2.2",
     "eslint-config-react-app": "^6.0.0",
     "gh-pages": "^3.2.3",
-    "rematrix": "^0.7.2"
+    "rematrix": "^0.7.2",
+    "wrangler": "^4.61.0"
   }
 }

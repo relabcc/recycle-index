@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import {
   Drawer,
   DrawerBody,
@@ -24,20 +24,6 @@ import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
 import { DONATE_URL, COURSE_APPLY_URL } from '../constants/links';
 
-const links = [
-  { name: '101+垃圾', en: '101+ Must-Know Trashes', to: '/catalogue/' },
-  { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game/' },
-  { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how/' },
-  { name: '關於我們', en: 'About Us', to: '/about/' },
-  { name: '文章專區', en: 'Articles', href: '/blog/' },
-  { name: '課程申請', href: COURSE_APPLY_URL, hideEn: true, isExternal: true },
-  { name: '資源連結', isDropdown: true, subLinks: [
-    { name: 'RE-THINK 官網', href: 'https://rethinktw.cc/BkzgJ', isExternal: true },
-    { name: '海廢圖鑑', href: 'https://rethinktw.cc/kRoiM', isExternal: true },
-  ]},
-  { name: '捐款支持', href: DONATE_URL, isSupport: true, hideEn: true, isExternal: true },
-]
-
 // Buttons displayed next to the mobile hamburger menu
 const mobileButtons = [
   {
@@ -54,7 +40,47 @@ const mobileButtons = [
 const Header = ({ isEn, topOffset = 0, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [expandedIndex, setExpandedIndex] = useState(null)
+  const [articleCategories, setArticleCategories] = useState([])
   const location = useLocation()
+
+  // 從服務器端 API 獲取文章分類菜單
+  useEffect(() => {
+    const fetchArticleCategories = async () => {
+      try {
+        // 調用服務器端 API，由它來處理 WordPress 認證
+        const response = await fetch('/api/wordpress-menu')
+        if (!response.ok) throw new Error('Failed to fetch menu')
+
+        const data = await response.json()
+
+        if (data.success && data.items) {
+          setArticleCategories(data.items)
+        } else {
+          throw new Error(data.error || 'Failed to fetch menu items')
+        }
+      } catch (error) {
+        console.error('Error fetching article categories:', error)
+        setArticleCategories([])
+      }
+    }
+
+    fetchArticleCategories()
+  }, [])
+
+  const links = [
+    { name: '101+垃圾', en: '101+ Must-Know Trashes', to: '/catalogue/' },
+    { name: '丟垃圾大考驗', en: 'Recycle Challenge', to: '/game/' },
+    { name: '必懂的回收知識', en: 'What Happened After Recycling', to: '/how/' },
+    { name: '關於我們', en: 'About Us', to: '/about/' },
+    { name: '課程申請', href: COURSE_APPLY_URL, hideEn: true, isExternal: true },
+    { name: '資源連結', isDropdown: true, subLinks: [
+      { name: 'RE-THINK 官網', href: 'https://rethinktw.cc/BkzgJ', isExternal: true },
+      { name: '海廢圖鑑', href: 'https://rethinktw.cc/kRoiM', isExternal: true },
+    ]},
+    { name: '文章專區', en: 'Articles', isDropdown: true, subLinks: articleCategories },
+    { name: '捐款支持', href: DONATE_URL, isSupport: true, hideEn: true, isExternal: true },
+  ]
+
   const handleClose = () => {
     setExpandedIndex(null)
     onClose()

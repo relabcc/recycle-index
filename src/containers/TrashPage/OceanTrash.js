@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { AspectRatio } from "@chakra-ui/react";
+import { AspectRatio, useMediaQuery } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import Box from "../../components/Box";
 import Text from "../../components/Text";
@@ -27,6 +27,7 @@ const swing = keyframes`
 
 const OceanTrash = ({ data, color }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
 
   if (!data) {
     return null;
@@ -87,7 +88,7 @@ const OceanTrash = ({ data, color }) => {
                 height="100%"
                 overflow="hidden"
                 css={
-                  isHovered &&
+                  (isMobile || isHovered) &&
                   css`
                     animation: ${swing} 0.6s ease-in-out infinite;
                     transform-origin: center;

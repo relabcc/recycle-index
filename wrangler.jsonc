@@ -1,14 +1,15 @@
 {
   "name": "recycle-index",
   "compatibility_date": "2025-11-17",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "pages_build_output_dir": "./public",
-  "env": {
-    "production": {
-      "vars": {
-        "GOOGLE_CLIENT_EMAIL": "re-think@re-lab-205708.iam.gserviceaccount.com",
-        "SHEET_ID": "1tbnPTbStDsY8M8TE6TAP0QnwdwOzo8IxNOocoFup1uM"
-      }
-    }
+  "vars": {
+    "GOOGLE_CLIENT_EMAIL": "re-think@re-lab-205708.iam.gserviceaccount.com",
+    "SHEET_ID": "1tbnPTbStDsY8M8TE6TAP0QnwdwOzo8IxNOocoFup1uM",
+    "WORDPRESS_URL": "https://recycle.rethinktw.org/test_blog",
+    "WORDPRESS_USERNAME": "api",
+    "WORDPRESS_PASSWORD": "rxdH lpgl 3XKx 4l3q TEi1 SU6A"
   }
 }
