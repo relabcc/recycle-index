@@ -23,6 +23,7 @@ import Flex from '../components/Flex';
 import Link from '../components/Link';
 import theme, { Media, responsive } from '../components/ThemeProvider/theme';
 import { DONATE_URL, COURSE_APPLY_URL } from '../constants/links';
+import SocialMediaLinks from './Footer/SocialMediaLinks';
 
 // Buttons displayed next to the mobile hamburger menu
 const mobileButtons = [
@@ -211,53 +212,58 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
             <DrawerOverlay>
               <DrawerContent bg="gray.900" color="white">
                 <DrawerCloseButton color="white" />
-                <DrawerBody pt="3em" pl="2em">
-                  {links.map(({ name, en, hideEn, to, href, isExternal, isDropdown, subLinks }, i) => (!isEn || !hideEn) && (
-                    <Box key={i} py="0.5em" fontSize="1.125em" fontFamily={theme.fonts.number}>
-                      {isDropdown && subLinks ? (
-                        <>
-                          <Flex
-                            as="button"
-                            onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
+                <DrawerBody pt="3em" pl="2em" display="flex" flexDirection="column">
+                  <Box>
+                    {links.map(({ name, en, hideEn, to, href, isExternal, isDropdown, subLinks }, i) => (!isEn || !hideEn) && (
+                      <Box key={i} py="0.5em" fontSize="1.125em" fontFamily={theme.fonts.number}>
+                        {isDropdown && subLinks ? (
+                          <>
+                            <Flex
+                              as="button"
+                              onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
+                              width="100%"
+                              color={subLinks.some(sub => sub.href === location.pathname || sub.to === location.pathname) ? 'yellow.400' : 'white'}
+                              alignItems="center"
+                              justifyContent="space-between"
+                            >
+                              <Box as="span">{isEn ? en : name}</Box>
+                              {expandedIndex === i ? <MdExpandLess size="1.25em" /> : <MdExpandMore size="1.25em" />}
+                            </Flex>
+                            {expandedIndex === i && (
+                              <Box pl="1em" pt="0.5em">
+                                {subLinks.map(({ name: subName, href: subHref, isExternal: subIsExternal }, j) => (
+                                  <Box key={j} py="0.25em">
+                                    <Link
+                                      onClick={handleClose}
+                                      to={subHref && `${isEn ? '/en' : ''}${subHref}`}
+                                      width="100%"
+                                      href={subHref}
+                                      isExternal={subIsExternal}
+                                      color={subHref === location.pathname ? 'yellow.400' : 'white'}
+                                    >
+                                      {subName}
+                                    </Link>
+                                  </Box>
+                                ))}
+                              </Box>
+                            )}
+                          </>
+                        ) : (
+                          <Link
+                            onClick={handleClose}
+                            to={to && `${isEn ? '/en' : ''}${to}`}
                             width="100%"
-                            color={subLinks.some(sub => sub.href === location.pathname || sub.to === location.pathname) ? 'yellow.400' : 'white'}
-                            alignItems="center"
-                            justifyContent="space-between"
-                          >
-                            <Box as="span">{isEn ? en : name}</Box>
-                            {expandedIndex === i ? <MdExpandLess size="1.25em" /> : <MdExpandMore size="1.25em" />}
-                          </Flex>
-                          {expandedIndex === i && (
-                            <Box pl="1em" pt="0.5em">
-                              {subLinks.map(({ name: subName, href: subHref, isExternal: subIsExternal }, j) => (
-                                <Box key={j} py="0.25em">
-                                  <Link
-                                    onClick={handleClose}
-                                    to={subHref && `${isEn ? '/en' : ''}${subHref}`}
-                                    width="100%"
-                                    href={subHref}
-                                    isExternal={subIsExternal}
-                                    color={subHref === location.pathname ? 'yellow.400' : 'white'}
-                                  >
-                                    {subName}
-                                  </Link>
-                                </Box>
-                              ))}
-                            </Box>
-                          )}
-                        </>
-                      ) : (
-                        <Link
-                          onClick={handleClose}
-                          to={to && `${isEn ? '/en' : ''}${to}`}
-                          width="100%"
-                          href={href}
-                          isExternal={isExternal}
-                          color={(to && location.pathname.startsWith(to)) || (href && location.pathname === href) ? 'yellow.400' : 'white'}
-                        >{isEn ? en : name}</Link>
-                      )}
-                    </Box>
-                  ))}
+                            href={href}
+                            isExternal={isExternal}
+                            color={(to && location.pathname.startsWith(to)) || (href && location.pathname === href) ? 'yellow.400' : 'white'}
+                          >{isEn ? en : name}</Link>
+                        )}
+                      </Box>
+                    ))}
+                  </Box>
+                  <Box pt="1.5em" pb="1em" mt="auto">
+                    <SocialMediaLinks />
+                  </Box>
                 </DrawerBody>
               </DrawerContent>
             </DrawerOverlay>

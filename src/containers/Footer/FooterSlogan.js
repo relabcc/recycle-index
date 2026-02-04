@@ -31,7 +31,7 @@ const FooterSlogan = () => {
             <br />
             成為你我日常
           </Box>
-          <Box width={responsive("120px", "160px")} display="inline-block">
+          <Box width={responsive("7.5em", "10em")} display="inline-block">
             <Link
               isExternal
               href="https://directories.onepercentfortheplanet.org/profile/taiwan-rethink-environmental-education-association"
