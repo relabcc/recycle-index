@@ -34,7 +34,11 @@ const socialLinks = [
   },
 ];
 
-const SocialMediaLinks = () => {
+const SocialMediaLinks = ({
+  bg = "white",
+  hoverBg = "yellow.400",
+  iconColor = "black",
+}) => {
   return (
     <Flex gap="0.75em" pt="0.5em">
       {socialLinks.map(({ icon, label, href }) => (
@@ -47,12 +51,12 @@ const SocialMediaLinks = () => {
           justifyContent="center"
           w="32px"
           h="32px"
-          bg="white"
+          bg={bg}
           borderRadius="6px"
-          _hover={{ bg: "yellow.400" }}
+          _hover={{ bg: hoverBg }}
           transition="background-color 0.2s"
         >
-          <Icon as={icon} fontSize="24px" color="black" />
+          <Icon as={icon} fontSize="24px" color={iconColor} />
         </Link>
       ))}
     </Flex>

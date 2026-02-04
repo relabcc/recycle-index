@@ -210,7 +210,7 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
             blockScrollOnMount={false}
           >
             <DrawerOverlay>
-              <DrawerContent bg="gray.900" color="white">
+              <DrawerContent bg="black" color="white">
                 <DrawerCloseButton color="white" />
                 <DrawerBody pt="3em" pl="2em" display="flex" flexDirection="column">
                   <Box>
@@ -262,7 +262,7 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
                     ))}
                   </Box>
                   <Box pt="1.5em" pb="1em" mt="auto">
-                    <SocialMediaLinks />
+                    <SocialMediaLinks bg="black" iconColor="white" hoverBg="yellow.400" />
                   </Box>
                 </DrawerBody>
               </DrawerContent>
