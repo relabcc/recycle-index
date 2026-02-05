@@ -74,6 +74,7 @@ const Footer = ({ isAbout, isTrash, noSep, noSponsor, ...props }) => {
             pt={responsive("2.5em", "2.5em")}
             pb={responsive("2.5em", "2.5em")}
             alignItems="start"
+            px={responsive("0", "6em")}
           >
             {/* Newsletter */}
             <Newsletter />

@@ -25,6 +25,11 @@ const swing = keyframes`
   }
 `;
 
+const trashSize = [
+  '5.5em',
+  '8em'
+];
+
 const OceanTrash = ({ data, color }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -53,7 +58,7 @@ const OceanTrash = ({ data, color }) => {
       border="none"
       bg="transparent"
       p={0}
-      width="100%"
+      width={responsive("15em", "21em")}
       textAlign="right"
       position="relative"
       color={color}
@@ -61,8 +66,10 @@ const OceanTrash = ({ data, color }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <AspectRatio ratio={320 / 116} width={responsive("15em", "21em")}>
         <Box
+          style={{
+            aspectRatio: '320 / 116'
+          }}
           backgroundImage={`url(${oceanBaseSvg})`}
           backgroundSize="contain"
           backgroundPosition="center"
@@ -78,15 +85,14 @@ const OceanTrash = ({ data, color }) => {
               position="absolute"
               left={responsive("2.5em", "3.5em")}
               top="50%"
-              width={responsive("7em", "9em")}
-              height={responsive("7em", "9em")}
+              width={responsive(trashSize[0], trashSize[1])}
+              height={responsive(trashSize[0], trashSize[1])}
               overflow="visible"
               transform="translate(-50%, -50%)"
             >
               <Box
                 width="100%"
                 height="100%"
-                overflow="hidden"
                 css={
                   (isMobile || isHovered) &&
                   css`
@@ -98,7 +104,11 @@ const OceanTrash = ({ data, color }) => {
                 <GatsbyImage
                   image={image}
                   alt={data.name}
-                  style={{ width: "100%", height: "100%" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    filter: "drop-shadow(0 0.2em 0.2em rgba(0, 0, 0, 0.6))",
+                  }}
                 />
               </Box>
             </Box>
@@ -131,7 +141,6 @@ const OceanTrash = ({ data, color }) => {
             />
           </Box>
         </Box>
-      </AspectRatio>
     </Box>
   );
 };

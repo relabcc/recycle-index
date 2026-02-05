@@ -12,6 +12,7 @@ const FooterSlogan = () => {
       bg="#111"
       py={responsive("1.25em", "1.25em")}
       mt={responsive("2.5em", "2.5em")}
+      px={responsive("0", "6em")}
     >
       <Container>
         <Flex

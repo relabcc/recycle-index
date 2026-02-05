@@ -1164,20 +1164,14 @@ const TrashPage = ({
 
 const TashPageWithDevData = (props) => {
   const {
-    pageContext: { id, gatsbyImg, article, oceanTrash },
+    pageContext: { id, gatsbyImg, oceanTrash },
   } = props;
   const gatsbyImages = useMemo(() => JSON.parse(gatsbyImg), [gatsbyImg]);
   const allData = useAllTrashes();
-  const articleData = useMemo(() => JSON.parse(article || "null"), [article]);
   const oceanTrashData = useMemo(
     () => JSON.parse(oceanTrash || "null"),
     [oceanTrash]
   );
-
-  const articles = useMemo(() => {
-    return articleData ? [articleData] : [];
-  }, [articleData]);
-
   const oceanTrashList = useMemo(() => {
     return oceanTrashData ? [oceanTrashData] : [];
   }, [oceanTrashData]);
@@ -1186,7 +1180,7 @@ const TashPageWithDevData = (props) => {
     () => allData?.find((d) => d.id == id),
     [allData, id]
   );
-  const data = useTrashData(srcData, gatsbyImages, articles, oceanTrashList);
+  const data = useTrashData(srcData, gatsbyImages, oceanTrashList);
   return data ? <TrashPage {...props} trashData={data} /> : null;
 };
 
