@@ -1,5 +1,15 @@
 const { fromPairs, mapValues, mapKeys, groupBy } = require("lodash");
 
+const MIN_LAYER_HEIGHT = 100;
+
+const isBlankValue = (value) => value === "" || value === null || value === undefined;
+
+const toNumber = (value) => {
+  if (isBlankValue(value)) return null;
+  const num = Number(value);
+  return Number.isNaN(num) ? null : num;
+};
+
 const cfgKeys = {
   垃圾名稱: "name",
   圖層順序: "layerOrder",
@@ -87,8 +97,30 @@ const remapKeys = (data, keyMap) =>
     return mapped;
   });
 
+const applyMinLayerHeight = (layer) => {
+  if (isBlankValue(layer.height)) return layer;
+
+  const height = toNumber(layer.height);
+  if (height === null) return layer;
+
+  const clampedHeight = Math.max(height, MIN_LAYER_HEIGHT);
+  if (clampedHeight === height) {
+    return { ...layer, height: clampedHeight };
+  }
+
+  const y = toNumber(layer.y);
+  const adjustedY = y === null ? layer.y : y - (clampedHeight - height) / 2;
+
+  return {
+    ...layer,
+    height: clampedHeight,
+    y: adjustedY,
+  };
+};
+
 module.exports = (data, scale = [], cfg = []) => {
-  const grouped = groupBy(remapKeys(cfg, cfgKeys), "name");
+  const cfgLayers = remapKeys(cfg, cfgKeys).map(applyMinLayerHeight);
+  const grouped = groupBy(cfgLayers, "name");
   const scales = scale.reduce((all, d) => {
     all[d.name] = d;
     return all;
