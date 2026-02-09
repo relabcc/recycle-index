@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { AspectRatio, useMediaQuery } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import Box from "../../components/Box";
 import Text from "../../components/Text";
@@ -96,7 +96,7 @@ const OceanTrash = ({ data, color }) => {
                 css={
                   (isMobile || isHovered) &&
                   css`
-                    animation: ${swing} 0.6s ease-in-out infinite;
+                    animation: ${swing} 1.2s ease-in-out infinite;
                     transform-origin: center;
                   `
                 }

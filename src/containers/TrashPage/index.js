@@ -168,6 +168,7 @@ const TrashValue = ({ additional, bg, ...props }) => (
 );
 
 const TrashNote = ({ children, color, trashName, ...props }) => {
+  const { isMobile } = useResponsive();
   const { text, url } = useMemo(() => extractLink(children), [children]);
   const article = useTrashArticle(trashName);
   const lined = useMemo(() => {
@@ -186,30 +187,74 @@ const TrashNote = ({ children, color, trashName, ...props }) => {
     ));
   const content = children && noteContent;
   const hasBoth = content && article;
+  if (isMobile) {
+    return (
+      (content || article) && (
+        <Box.Absolute
+          top={responsive("1em", "auto")}
+          bottom={responsive("auto", "1em")}
+          right={responsive("6%", "8em")}
+          width={responsive("50%", "25%")}
+          pb={hasBoth ? 0 : responsive("0", "0.5em")}
+        >
+          {noteContent && (
+            <Text
+              fontSize={responsive("0.875em", "0.875em")}
+              whiteSpace="pre-wrap"
+              color={color}
+              {...props}
+            >
+              *{noteContent}
+            </Text>
+          )}
+          {article && (
+            <ArticleBox
+              article={article}
+              trashName={trashName}
+              color={color}
+            />
+          )}
+        </Box.Absolute>
+      )
+    );
+  }
+
   return (
     (content || article) && (
-      <Box.Absolute
-        top={responsive("1em", "auto")}
-        bottom={responsive("auto", "1em")}
-        right={responsive("6%", "8em")}
-        width={responsive("50%", "25%")}
-        pb={hasBoth ? 0 : responsive("0", "0.5em")}
-      >
+      <>
         {noteContent && (
-          <Text
-            fontSize={responsive("0.875em", "0.875em")}
-            whiteSpace="pre-wrap"
-            color={color}
-            {...props}
+          <Box.Absolute
+            top={responsive("1em", "auto")}
+            bottom={responsive("auto", "1em")}
+            right={responsive("6%", "8em")}
+            width={responsive("50%", "25%")}
           >
-            *{noteContent}
-          </Text>
+            <Text
+              fontSize={responsive("0.875em", "0.875em")}
+              whiteSpace="pre-wrap"
+              color={color}
+              {...props}
+            >
+              *{noteContent}
+            </Text>
+          </Box.Absolute>
         )}
 
         {article && (
-          <ArticleBox article={article} trashName={trashName} color={color} />
+          <Box.Absolute
+            top={responsive("1em", "1em")}
+            bottom={responsive("auto", "auto")}
+            right={responsive("6%", "8em")}
+            width={responsive("50%", "25%")}
+          >
+            <ArticleBox
+              article={article}
+              trashName={trashName}
+              color={color}
+            />
+          </Box.Absolute>
         )}
-      </Box.Absolute>
+      </>
     )
   );
 };
@@ -421,7 +466,7 @@ const TrashPage = ({
                       >
                         <Text
                           color="black"
-                          fontSize={responsive("1.125em", "0.9375em")}
+                          fontSize={responsive("1em", "0.9375em")}
                           fontWeight="900"
                           px={responsive("0.625em", "0")}
                         >
@@ -447,7 +492,7 @@ const TrashPage = ({
                         >
                           <Text
                             color="black"
-                            fontSize={responsive("1.125em", "0.9375em")}
+                            fontSize={responsive("1em", "0.9375em")}
                             fontWeight="900"
                             px={responsive("0.5em", "0")}
                           >
