@@ -242,10 +242,9 @@ const TrashNote = ({ children, color, trashName, ...props }) => {
 
         {article && (
           <Box.Absolute
-            top={responsive("1em", "1em")}
-            bottom={responsive("auto", "auto")}
-            right={responsive("6%", "8em")}
-            width={responsive("50%", "25%")}
+            top="5em"
+            left="1.5em"
+            width="25%"
           >
             <ArticleBox
               article={article}

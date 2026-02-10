@@ -18,14 +18,26 @@ const ArticleBox = ({ trashName, bg, color, article }) => {
   const textColor = 'white';
 
   return text ? (
-    <Box mt={2} bg={background} p="1" ml="-1" mr="-1" color={textColor}>
-      {url ? (
-        <ReLink color="inherit" href={url} isExternal>
-          {text}
-        </ReLink>
-      ) : (
-        text
-      )}
+    <Box mt={2} color={textColor}>
+      <Box.Inline
+        bg={background}
+        px="0.5em"
+        py="0.25em"
+        display="inline"
+        whiteSpace="pre-wrap"
+        style={{
+          boxDecorationBreak: "clone",
+          WebkitBoxDecorationBreak: "clone",
+        }}
+      >
+        {url ? (
+          <ReLink color="inherit" href={url} isExternal>
+            {text}
+          </ReLink>
+        ) : (
+          text
+        )}
+      </Box.Inline>
     </Box>
   ) : null;
 };
