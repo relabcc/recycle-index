@@ -49,23 +49,40 @@ export async function onRequest(context) {
     console.log('Password has spaces:', wordpressPasswordRaw?.includes(' '));
     
     // Debug: 显示 Authorization header 的尾部（用于验证）
-    if (wordpressUsername && wordpressPassword) {
-      const authString = `${wordpressUsername}:${wordpressPassword}`;
-      const authBase64 = btoa(authString);
-      console.log('Auth base64 tail:', authBase64.slice(-8));
-      console.log('Auth base64 length:', authBase64.length);
+    const authHeader = wordpressUsername && wordpressPassword
+      ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
+      : undefined;
+
+    if (authHeader) {
+      console.log('Auth base64 tail:', authHeader.slice(-8));
+      console.log('Auth base64 length:', authHeader.length - 'Basic '.length);
     }
+
+    const fetchWithFallback = async (primaryUrl, fallbackUrl) => {
+      const primaryResponse = await fetch(primaryUrl, {
+        headers: {
+          'Authorization': authHeader,
+        },
+      });
+
+      const contentType = primaryResponse.headers.get('content-type') || '';
+      if (primaryResponse.status === 404 && contentType.includes('text/html') && fallbackUrl) {
+        console.log('Primary REST route returned HTML 404, trying fallback:', fallbackUrl);
+        return fetch(fallbackUrl, {
+          headers: {
+            'Authorization': authHeader,
+          },
+        });
+      }
+
+      return primaryResponse;
+    };
 
     // 1. Get all menus
     const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
+    const menusFallbackUrl = `${wordpressUrl}/?rest_route=/wp/v2/menus`;
     console.log('WP menus URL:', menusUrl);
-    const menusResponse = await fetch(menusUrl, {
-      headers: {
-        'Authorization': wordpressUsername && wordpressPassword
-          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-          : undefined,
-      },
-    });
+    const menusResponse = await fetchWithFallback(menusUrl, menusFallbackUrl);
 
     if (!menusResponse.ok) {
       const errorData = await menusResponse.text();
@@ -95,14 +112,9 @@ export async function onRequest(context) {
 
     // 3. Get all menu items for this menu
     const itemsUrl = `${wordpressUrl}/wp-json/wp/v2/menu-items?menus=${articleMenu.id}`;
+    const itemsFallbackUrl = `${wordpressUrl}/?rest_route=/wp/v2/menu-items&menus=${articleMenu.id}`;
     console.log('WP menu items URL:', itemsUrl);
-    const itemsResponse = await fetch(itemsUrl, {
-      headers: {
-        'Authorization': wordpressUsername && wordpressPassword
-          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-          : undefined,
-      },
-    });
+    const itemsResponse = await fetchWithFallback(itemsUrl, itemsFallbackUrl);
 
     if (!itemsResponse.ok) {
       const errorData = await itemsResponse.text();
