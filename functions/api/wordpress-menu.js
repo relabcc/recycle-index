@@ -9,6 +9,39 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
+const BACKUP_MENU_ITEMS = [
+  {
+    name: '家庭－居家生活',
+    href: 'https://recycle.rethinktw.org/test_blog/category/home/',
+    isExternal: false,
+  },
+  {
+    name: '家庭－廚房',
+    href: 'https://recycle.rethinktw.org/test_blog/category/kitchen/',
+    isExternal: false,
+  },
+  {
+    name: '家庭－衛浴',
+    href: 'https://recycle.rethinktw.org/test_blog/category/bathroom/',
+    isExternal: false,
+  },
+  {
+    name: '環保知識',
+    href: 'https://recycle.rethinktw.org/test_blog/category/knowledge/',
+    isExternal: false,
+  },
+  {
+    name: '辦公室',
+    href: 'https://recycle.rethinktw.org/test_blog/category/office/',
+    isExternal: false,
+  },
+  {
+    name: '餐廳/夜市',
+    href: 'https://recycle.rethinktw.org/test_blog/category/restarunt/',
+    isExternal: false,
+  },
+];
+
 function handleCORS(request) {
   if (request.method === 'OPTIONS') {
     return new Response(null, {
@@ -98,11 +131,15 @@ export async function onRequest(context) {
     const articleMenu = menus.find(menu => menu.name === '文章分類');
 
     if (!articleMenu) {
+      console.error('Menu "文章分類" not found. Using backup menu items.');
       return new Response(JSON.stringify({
-        error: 'Menu "文章分類" not found',
+        success: true,
+        fallback: true,
+        reason: 'Menu "文章分類" not found',
         availableMenus: menus.map(m => m.name),
+        items: BACKUP_MENU_ITEMS,
       }), {
-        status: 404,
+        status: 200,
         headers: {
           'Content-Type': 'application/json',
           ...CORS_HEADERS,
@@ -146,9 +183,12 @@ export async function onRequest(context) {
   } catch (error) {
     console.error('Error fetching WordPress menu:', error);
     return new Response(JSON.stringify({
-      error: error.message,
+      success: true,
+      fallback: true,
+      reason: error.message,
+      items: BACKUP_MENU_ITEMS,
     }), {
-      status: 500,
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         ...CORS_HEADERS,
