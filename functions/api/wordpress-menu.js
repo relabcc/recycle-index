@@ -43,6 +43,24 @@ export async function onRequest(context) {
 
     console.log('WP URL:', wordpressUrl);
 
+    const authHeader = wordpressUsername && wordpressPassword
+      ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
+      : undefined;
+    if (authHeader) {
+      console.log('Auth header present:', true);
+      console.log('Auth header length:', authHeader.length);
+      console.log('Auth header b64 length:', authHeader.replace(/^Basic\s+/i, '').length);
+      console.log('Auth header b64 tail:', authHeader.slice(-4));
+    } else {
+      console.log('Auth header present:', false);
+      console.log('Auth inputs:', {
+        hasUsername: Boolean(wordpressUsername),
+        hasPassword: Boolean(wordpressPassword),
+        usernameLength: wordpressUsername ? wordpressUsername.length : 0,
+        passwordLength: wordpressPassword ? wordpressPassword.length : 0,
+      });
+    }
+
     // 1. Get all menus
     const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
     const menusUrlFallback = `${wordpressUrl}/?rest_route=/wp/v2/menus`;
@@ -51,9 +69,7 @@ export async function onRequest(context) {
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-        'Authorization': wordpressUsername && wordpressPassword
-          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-          : undefined,
+        'Authorization': authHeader,
       },
     });
 
@@ -64,9 +80,7 @@ export async function onRequest(context) {
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-          'Authorization': wordpressUsername && wordpressPassword
-            ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-            : undefined,
+          'Authorization': authHeader,
         },
       });
     }
@@ -105,9 +119,7 @@ export async function onRequest(context) {
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-        'Authorization': wordpressUsername && wordpressPassword
-          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-          : undefined,
+        'Authorization': authHeader,
       },
     });
 
@@ -118,9 +130,7 @@ export async function onRequest(context) {
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-          'Authorization': wordpressUsername && wordpressPassword
-            ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-            : undefined,
+          'Authorization': authHeader,
         },
       });
     }
