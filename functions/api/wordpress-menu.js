@@ -41,8 +41,12 @@ export async function onRequest(context) {
       });
     }
 
+    console.log('WP URL:', wordpressUrl);
+
     // 1. Get all menus
-    const menusResponse = await fetch(`${wordpressUrl}/wp-json/wp/v2/menus`, {
+    const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
+    console.log('WP menus URL:', menusUrl);
+    const menusResponse = await fetch(menusUrl, {
       headers: {
         'Authorization': wordpressUsername && wordpressPassword
           ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
@@ -52,7 +56,9 @@ export async function onRequest(context) {
 
     if (!menusResponse.ok) {
       const errorData = await menusResponse.text();
-      console.error('Menus fetch error:', errorData);
+      console.error('Menus fetch status:', menusResponse.status, menusResponse.statusText);
+      console.error('Menus fetch content-type:', menusResponse.headers.get('content-type'));
+      console.error('Menus fetch error (first 500 chars):', errorData.slice(0, 500));
       throw new Error(`Failed to fetch menus: ${menusResponse.status} ${menusResponse.statusText}. Details: ${errorData}`);
     }
 
@@ -75,20 +81,21 @@ export async function onRequest(context) {
     }
 
     // 3. Get all menu items for this menu
-    const itemsResponse = await fetch(
-      `${wordpressUrl}/wp-json/wp/v2/menu-items?menus=${articleMenu.id}`,
-      {
-        headers: {
-          'Authorization': wordpressUsername && wordpressPassword
-            ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-            : undefined,
-        },
-      }
-    );
+    const itemsUrl = `${wordpressUrl}/wp-json/wp/v2/menu-items?menus=${articleMenu.id}`;
+    console.log('WP menu items URL:', itemsUrl);
+    const itemsResponse = await fetch(itemsUrl, {
+      headers: {
+        'Authorization': wordpressUsername && wordpressPassword
+          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
+          : undefined,
+      },
+    });
 
     if (!itemsResponse.ok) {
       const errorData = await itemsResponse.text();
-      console.error('Menu items fetch error:', errorData);
+      console.error('Menu items fetch status:', itemsResponse.status, itemsResponse.statusText);
+      console.error('Menu items fetch content-type:', itemsResponse.headers.get('content-type'));
+      console.error('Menu items fetch error (first 500 chars):', errorData.slice(0, 500));
       throw new Error(`Failed to fetch menu items: ${itemsResponse.status} ${itemsResponse.statusText}. Details: ${errorData}`);
     }
 

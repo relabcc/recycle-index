@@ -6,3 +6,4 @@ loadable-stats-build-javascript.json
 
 .DS_Store
 .wrangler/
+.dev.vars
