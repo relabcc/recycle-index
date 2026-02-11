@@ -27,7 +27,8 @@ export async function onRequest(context) {
 
     const wordpressUrl = context.env.WORDPRESS_URL;
     const wordpressUsername = context.env.WORDPRESS_USERNAME;
-    const wordpressPassword = context.env.WORDPRESS_PASSWORD;
+    // WordPress Application Password 需要移除空格
+    const wordpressPassword = context.env.WORDPRESS_PASSWORD?.replace(/\s+/g, '');
 
     if (!wordpressUrl) {
       return new Response(JSON.stringify({
@@ -43,57 +44,26 @@ export async function onRequest(context) {
 
     console.log('WP URL:', wordpressUrl);
 
-    const authHeader = wordpressUsername && wordpressPassword
-      ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
-      : undefined;
-    if (authHeader) {
-      console.log('Auth header present:', true);
-      console.log('Auth header length:', authHeader.length);
-      console.log('Auth header b64 length:', authHeader.replace(/^Basic\s+/i, '').length);
-      console.log('Auth header b64 tail:', authHeader.slice(-4));
-    } else {
-      console.log('Auth header present:', false);
-      console.log('Auth inputs:', {
-        hasUsername: Boolean(wordpressUsername),
-        hasPassword: Boolean(wordpressPassword),
-        usernameLength: wordpressUsername ? wordpressUsername.length : 0,
-        passwordLength: wordpressPassword ? wordpressPassword.length : 0,
-      });
-    }
-
     // 1. Get all menus
     const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
-    const menusUrlFallback = `${wordpressUrl}/?rest_route=/wp/v2/menus`;
     console.log('WP menus URL:', menusUrl);
     const menusResponse = await fetch(menusUrl, {
       headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-        'Authorization': authHeader,
+        'Authorization': wordpressUsername && wordpressPassword
+          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
+          : undefined,
       },
     });
 
-    let menusResponseFinal = menusResponse;
-    if (!menusResponseFinal.ok && menusResponseFinal.status === 404) {
-      console.log('WP menus URL fallback:', menusUrlFallback);
-      menusResponseFinal = await fetch(menusUrlFallback, {
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-          'Authorization': authHeader,
-        },
-      });
-    }
-
-    if (!menusResponseFinal.ok) {
+    if (!menusResponse.ok) {
       const errorData = await menusResponse.text();
-      console.error('Menus fetch status:', menusResponseFinal.status, menusResponseFinal.statusText);
-      console.error('Menus fetch content-type:', menusResponseFinal.headers.get('content-type'));
+      console.error('Menus fetch status:', menusResponse.status, menusResponse.statusText);
+      console.error('Menus fetch content-type:', menusResponse.headers.get('content-type'));
       console.error('Menus fetch error (first 500 chars):', errorData.slice(0, 500));
-      throw new Error(`Failed to fetch menus: ${menusResponseFinal.status} ${menusResponseFinal.statusText}. Details: ${errorData}`);
+      throw new Error(`Failed to fetch menus: ${menusResponse.status} ${menusResponse.statusText}. Details: ${errorData}`);
     }
 
-    const menus = await menusResponseFinal.json();
+    const menus = await menusResponse.json();
 
     // 2. Find the menu named "文章分類"
     const articleMenu = menus.find(menu => menu.name === '文章分類');
@@ -113,37 +83,24 @@ export async function onRequest(context) {
 
     // 3. Get all menu items for this menu
     const itemsUrl = `${wordpressUrl}/wp-json/wp/v2/menu-items?menus=${articleMenu.id}`;
-    const itemsUrlFallback = `${wordpressUrl}/?rest_route=/wp/v2/menu-items&menus=${articleMenu.id}`;
     console.log('WP menu items URL:', itemsUrl);
     const itemsResponse = await fetch(itemsUrl, {
       headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-        'Authorization': authHeader,
+        'Authorization': wordpressUsername && wordpressPassword
+          ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
+          : undefined,
       },
     });
 
-    let itemsResponseFinal = itemsResponse;
-    if (!itemsResponseFinal.ok && itemsResponseFinal.status === 404) {
-      console.log('WP menu items URL fallback:', itemsUrlFallback);
-      itemsResponseFinal = await fetch(itemsUrlFallback, {
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (compatible; recycle-index/1.0)',
-          'Authorization': authHeader,
-        },
-      });
-    }
-
-    if (!itemsResponseFinal.ok) {
-      const errorData = await itemsResponseFinal.text();
-      console.error('Menu items fetch status:', itemsResponseFinal.status, itemsResponseFinal.statusText);
-      console.error('Menu items fetch content-type:', itemsResponseFinal.headers.get('content-type'));
+    if (!itemsResponse.ok) {
+      const errorData = await itemsResponse.text();
+      console.error('Menu items fetch status:', itemsResponse.status, itemsResponse.statusText);
+      console.error('Menu items fetch content-type:', itemsResponse.headers.get('content-type'));
       console.error('Menu items fetch error (first 500 chars):', errorData.slice(0, 500));
-      throw new Error(`Failed to fetch menu items: ${itemsResponseFinal.status} ${itemsResponseFinal.statusText}. Details: ${errorData}`);
+      throw new Error(`Failed to fetch menu items: ${itemsResponse.status} ${itemsResponse.statusText}. Details: ${errorData}`);
     }
 
-    const items = await itemsResponseFinal.json();
+    const items = await itemsResponse.json();
 
     // 4. Transform menu items to the format we need
     const menuItems = items.map(item => ({
