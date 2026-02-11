@@ -27,8 +27,9 @@ export async function onRequest(context) {
 
     const wordpressUrl = context.env.WORDPRESS_URL;
     const wordpressUsername = context.env.WORDPRESS_USERNAME;
+    const wordpressPasswordRaw = context.env.WORDPRESS_PASSWORD;
     // WordPress Application Password 需要移除空格
-    const wordpressPassword = context.env.WORDPRESS_PASSWORD?.replace(/\s+/g, '');
+    const wordpressPassword = wordpressPasswordRaw?.replace(/\s+/g, '');
 
     if (!wordpressUrl) {
       return new Response(JSON.stringify({
@@ -43,6 +44,17 @@ export async function onRequest(context) {
     }
 
     console.log('WP URL:', wordpressUrl);
+    console.log('Password raw length:', wordpressPasswordRaw?.length);
+    console.log('Password clean length:', wordpressPassword?.length);
+    console.log('Password has spaces:', wordpressPasswordRaw?.includes(' '));
+    
+    // Debug: 显示 Authorization header 的尾部（用于验证）
+    if (wordpressUsername && wordpressPassword) {
+      const authString = `${wordpressUsername}:${wordpressPassword}`;
+      const authBase64 = btoa(authString);
+      console.log('Auth base64 tail:', authBase64.slice(-8));
+      console.log('Auth base64 length:', authBase64.length);
+    }
 
     // 1. Get all menus
     const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
