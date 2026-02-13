@@ -12,3 +12,11 @@ export const getApiEndpoint = (range) => {
 
   return `${base}?${params.toString()}`;
 };
+
+// Build popup submit endpoint; use remote API when running locally
+export const getPopupSubmitEndpoint = () => {
+  const isLocal = typeof window !== "undefined" && window.location.hostname === "localhost";
+  return isLocal
+    ? "https://recycle-index.pages.dev/api/popup"
+    : "/api/popup";
+};

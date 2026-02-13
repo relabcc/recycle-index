@@ -9,7 +9,7 @@ import Text from './Text';
 import Button from './Button';
 import Input from './Input';
 import { responsive } from './ThemeProvider/theme';
-import { getApiEndpoint } from '../helpers/apiHelpers';
+import { getApiEndpoint, getPopupSubmitEndpoint } from '../helpers/apiHelpers';
 
 const POPUP_RANGE = "popup!A1:B10";
 const DISMISS_DURATION_DAYS = 30;
@@ -211,7 +211,7 @@ const PopupAd = () => {
     setSubmitError('');
     setSubmitState('submitting');
     try {
-      const endpoint = getApiEndpoint('popup');
+      const endpoint = getPopupSubmitEndpoint();
       const payload = {
         email: trimmed,
         popupKey: popup.key,
