@@ -229,6 +229,7 @@ const PopupAd = () => {
 
       setSubmitState('success');
       setEmail('');
+      handleDismiss();
     } catch (err) {
       console.error('[popup] email submit error', err);
       setSubmitState('error');
