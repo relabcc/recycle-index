@@ -71,7 +71,15 @@ try {
 
     if (empty($articleMenu)) {
         $availableMenus = array_map(function($m) { return $m['name']; }, $menus);
-        throw new Exception('Menu "文章分類" not found. Available menus: ' . implode(', ', $availableMenus));
+        http_response_code(200);
+        echo json_encode([
+            'success' => true,
+            'fallback' => true,
+            'reason' => 'Menu "文章分類" not found',
+            'availableMenus' => $availableMenus,
+            'items' => getBackupMenuItems($wordpressUrl),
+        ]);
+        exit;
     }
 
     // 3. Fetch menu items for this menu
@@ -110,10 +118,50 @@ try {
     ]);
 
 } catch (Exception $e) {
-    http_response_code(500);
+    http_response_code(200);
     echo json_encode([
-        'error' => $e->getMessage(),
+        'success' => true,
+        'fallback' => true,
+        'reason' => $e->getMessage(),
+        'items' => getBackupMenuItems($wordpressUrl ?? ''),
     ]);
+}
+
+function getBackupMenuItems($wordpressUrl) {
+    $baseUrl = rtrim((string)$wordpressUrl, '/');
+
+    return [
+        [
+            'name' => '家庭－居家生活',
+            'href' => $baseUrl . '/category/home/',
+            'isExternal' => false,
+        ],
+        [
+            'name' => '家庭－廚房',
+            'href' => $baseUrl . '/category/kitchen/',
+            'isExternal' => false,
+        ],
+        [
+            'name' => '家庭－衛浴',
+            'href' => $baseUrl . '/category/bathroom/',
+            'isExternal' => false,
+        ],
+        [
+            'name' => '環保知識',
+            'href' => $baseUrl . '/category/knowledge/',
+            'isExternal' => false,
+        ],
+        [
+            'name' => '辦公室',
+            'href' => $baseUrl . '/category/office/',
+            'isExternal' => false,
+        ],
+        [
+            'name' => '餐廳/夜市',
+            'href' => $baseUrl . '/category/restarunt/',
+            'isExternal' => false,
+        ],
+    ];
 }
 
 /**

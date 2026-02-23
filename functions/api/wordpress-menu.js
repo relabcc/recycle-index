@@ -9,38 +9,42 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-const BACKUP_MENU_ITEMS = [
-  {
-    name: '家庭－居家生活',
-    href: 'https://recycle.rethinktw.org/test_blog/category/home/',
-    isExternal: false,
-  },
-  {
-    name: '家庭－廚房',
-    href: 'https://recycle.rethinktw.org/test_blog/category/kitchen/',
-    isExternal: false,
-  },
-  {
-    name: '家庭－衛浴',
-    href: 'https://recycle.rethinktw.org/test_blog/category/bathroom/',
-    isExternal: false,
-  },
-  {
-    name: '環保知識',
-    href: 'https://recycle.rethinktw.org/test_blog/category/knowledge/',
-    isExternal: false,
-  },
-  {
-    name: '辦公室',
-    href: 'https://recycle.rethinktw.org/test_blog/category/office/',
-    isExternal: false,
-  },
-  {
-    name: '餐廳/夜市',
-    href: 'https://recycle.rethinktw.org/test_blog/category/restarunt/',
-    isExternal: false,
-  },
-];
+function getBackupMenuItems(wordpressUrl) {
+  const baseUrl = (wordpressUrl || '').replace(/\/$/, '');
+
+  return [
+    {
+      name: '家庭－居家生活',
+      href: `${baseUrl}/category/home/`,
+      isExternal: false,
+    },
+    {
+      name: '家庭－廚房',
+      href: `${baseUrl}/category/kitchen/`,
+      isExternal: false,
+    },
+    {
+      name: '家庭－衛浴',
+      href: `${baseUrl}/category/bathroom/`,
+      isExternal: false,
+    },
+    {
+      name: '環保知識',
+      href: `${baseUrl}/category/knowledge/`,
+      isExternal: false,
+    },
+    {
+      name: '辦公室',
+      href: `${baseUrl}/category/office/`,
+      isExternal: false,
+    },
+    {
+      name: '餐廳/夜市',
+      href: `${baseUrl}/category/restarunt/`,
+      isExternal: false,
+    },
+  ];
+}
 
 function handleCORS(request) {
   if (request.method === 'OPTIONS') {
@@ -51,6 +55,8 @@ function handleCORS(request) {
 }
 
 export async function onRequest(context) {
+  const wordpressUrl = context.env.WORDPRESS_URL;
+
   try {
     // Handle CORS preflight requests
     const corsResponse = handleCORS(context.request);
@@ -58,7 +64,6 @@ export async function onRequest(context) {
       return corsResponse;
     }
 
-    const wordpressUrl = context.env.WORDPRESS_URL;
     const wordpressUsername = context.env.WORDPRESS_USERNAME;
     const wordpressPasswordRaw = context.env.WORDPRESS_PASSWORD;
     // WordPress Application Password 需要移除空格
@@ -76,20 +81,10 @@ export async function onRequest(context) {
       });
     }
 
-    console.log('WP URL:', wordpressUrl);
-    console.log('Password raw length:', wordpressPasswordRaw?.length);
-    console.log('Password clean length:', wordpressPassword?.length);
-    console.log('Password has spaces:', wordpressPasswordRaw?.includes(' '));
-    
     // Debug: 显示 Authorization header 的尾部（用于验证）
     const authHeader = wordpressUsername && wordpressPassword
       ? `Basic ${btoa(`${wordpressUsername}:${wordpressPassword}`)}`
       : undefined;
-
-    if (authHeader) {
-      console.log('Auth base64 tail:', authHeader.slice(-8));
-      console.log('Auth base64 length:', authHeader.length - 'Basic '.length);
-    }
 
     const fetchWithFallback = async (primaryUrl, fallbackUrl) => {
       const primaryResponse = await fetch(primaryUrl, {
@@ -114,7 +109,6 @@ export async function onRequest(context) {
     // 1. Get all menus
     const menusUrl = `${wordpressUrl}/wp-json/wp/v2/menus`;
     const menusFallbackUrl = `${wordpressUrl}/?rest_route=/wp/v2/menus`;
-    console.log('WP menus URL:', menusUrl);
     const menusResponse = await fetchWithFallback(menusUrl, menusFallbackUrl);
 
     if (!menusResponse.ok) {
@@ -137,7 +131,7 @@ export async function onRequest(context) {
         fallback: true,
         reason: 'Menu "文章分類" not found',
         availableMenus: menus.map(m => m.name),
-        items: BACKUP_MENU_ITEMS,
+        items: getBackupMenuItems(wordpressUrl),
       }), {
         status: 200,
         headers: {
@@ -150,7 +144,6 @@ export async function onRequest(context) {
     // 3. Get all menu items for this menu
     const itemsUrl = `${wordpressUrl}/wp-json/wp/v2/menu-items?menus=${articleMenu.id}`;
     const itemsFallbackUrl = `${wordpressUrl}/?rest_route=/wp/v2/menu-items&menus=${articleMenu.id}`;
-    console.log('WP menu items URL:', itemsUrl);
     const itemsResponse = await fetchWithFallback(itemsUrl, itemsFallbackUrl);
 
     if (!itemsResponse.ok) {
@@ -186,7 +179,7 @@ export async function onRequest(context) {
       success: true,
       fallback: true,
       reason: error.message,
-      items: BACKUP_MENU_ITEMS,
+      items: getBackupMenuItems(wordpressUrl),
     }), {
       status: 200,
       headers: {
