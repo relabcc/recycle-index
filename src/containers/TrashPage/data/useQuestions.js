@@ -3,6 +3,7 @@ import { useMemo } from "react"
 
 import useData from "./useData"
 import useGatsbyImage from "./useGatsbyImage"
+import normalizeName from "../../../utils/normalizeName"
 
 const useQuestions = (run = 0) => {
   const data = useData()
@@ -23,14 +24,20 @@ const useQuestions = (run = 0) => {
     const formatted = questions.map(layers => {
       const partName = get(layers.find(l => l.partName), 'partName')
       const trash = trashes[layers[0].name]
+      if (!trash) return null
+
+      const trashName = normalizeName(trash.name)
+
+      const mappedLayers = layers.map(o => ({
+        ...o,
+        gatsbyImg: get(gatsbyImages, [trashName, normalizeName(o.layerName || o.name)]),
+      }))
+
       return {
         trash,
         partName,
         recyclable: get(trash.belongsTo, partName || trash.name) !== '一般垃圾',
-        layers: layers.map(o => ({
-          ...o,
-          gatsbyImg: get(gatsbyImages, [trash.name, o.layerName || o.name]),
-        })),
+        layers: mappedLayers,
       }
     }).filter(d => d && d.trash)
     return formatted

@@ -36,9 +36,14 @@ const useGatsbyImage = () => {
           const name = normalizeName(group);
           f[name] = {};
           files.forEach(({ node }) => {
-            const nodeName = normalizeName(node.name);
-            const [pn, partName] = nodeName.split("-");
-            f[name][partName || pn] = node.childImageSharp;
+            const rawName = decodeURIComponent(String(node.name));
+            const nodeName = normalizeName(rawName);
+            const [, ...partSegments] = rawName
+              .split(/[\-－]/)
+              .map((s) => s.trim())
+              .filter(Boolean);
+            const partName = normalizeName(partSegments.join("-"));
+            f[name][partName || nodeName] = node.childImageSharp;
           });
         } else {
           files.forEach(({ node }) => {
