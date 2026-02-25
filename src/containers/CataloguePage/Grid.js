@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { useFormik } from "formik";
 import { isArray, range } from "lodash";
 import loadable from "@loadable/component";
@@ -12,6 +12,7 @@ import diff from "./diff";
 import useIsEn from "../useIsEn";
 import trashEn from "../trashEn";
 import { useSearchParam } from "react-use";
+import { TopbarHeightContext } from "../Layout";
 
 const FilterAndSearch = loadable(() => import("./FilterAndSearch"));
 
@@ -19,6 +20,7 @@ let searched;
 let filterApplied;
 
 const Catalogue = ({ data }) => {
+  const topbarHeight = useContext(TopbarHeightContext);
   const places = useSearchParam("places");
   const recycleStatus = useSearchParam("recycleStatus");
   const recycleValue = useSearchParam("recycleValue");
@@ -122,7 +124,7 @@ const Catalogue = ({ data }) => {
     <Box bg="gray.100">
       <Box
         position="fixed"
-        top={theme.headerHeight}
+        top={`calc(${theme.headerHeight} + ${topbarHeight}px)`}
         left="0"
         right="0"
         bg="white"

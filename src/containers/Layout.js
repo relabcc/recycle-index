@@ -14,6 +14,7 @@ import TopbarNotification from './TopbarNotification';
 import PopupAd from '../components/PopupAd';
 
 export const EnContext = createContext()
+export const TopbarHeightContext = createContext(0)
 
 const description = [
   '寶特瓶回收瓶蓋要分開嗎？PLA是什麼？資源回收這麼難，回收大百科收錄台灣人必懂的 101+ 常見垃圾，提供正確資源回收分類知識、認識垃圾回收價值，讓你懂分、懂丟、懂垃圾。',
@@ -57,18 +58,20 @@ const Layout = ({ children, path }) => {
             <meta name="og:image" content={`${data.site.siteMetadata.siteUrl}/og-0113.jpg`} />
           </Helmet>
           <EnContext.Provider value={isEn}>
-            {!hideHeader && (
-              <>
-                <TopbarNotification onHeightChange={setTopbarHeight} />
-                <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} topOffset={topbarHeight} />
-              </>
-            )}
-            <Box pt={topbarHeight}>
-              {children}
-              <PopupAd />
-              <LineButton />
-              <DonateButton />
-            </Box>
+            <TopbarHeightContext.Provider value={topbarHeight}>
+              {!hideHeader && (
+                <>
+                  <TopbarNotification onHeightChange={setTopbarHeight} />
+                  <Header height={theme.headerHeight} bg={headerBg} isEn={isEn} topOffset={topbarHeight} />
+                </>
+              )}
+              <Box pt={topbarHeight}>
+                {children}
+                <PopupAd />
+                <LineButton />
+                <DonateButton />
+              </Box>
+            </TopbarHeightContext.Provider>
           </EnContext.Provider>
         </>
       )}

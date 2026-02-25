@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { useFormik } from 'formik'
 import { cloneDeep, isArray, range, shuffle } from 'lodash';
 import { SizeMe } from 'react-sizeme';
@@ -13,6 +13,7 @@ import Text from '../../components/Text';
 import Flex from '../../components/Flex';
 import theme, { responsive } from '../../components/ThemeProvider/theme';
 import FilterAndSearch from './FilterAndSearch';
+import { TopbarHeightContext } from '../Layout';
 
 import useResponsive from '../../contexts/mediaQuery/useResponsive'
 
@@ -95,6 +96,7 @@ const getGrid = (items, perRow, perfect) => {
 }
 
 const Catalogue = ({ shouldFix }) => {
+  const topbarHeight = useContext(TopbarHeightContext)
   const { values, handleChange, setFieldValue } = useFormik({
     initialValues: {
       search: '',
@@ -132,7 +134,7 @@ const Catalogue = ({ shouldFix }) => {
 
   return (
     <Box height="100%" bg="white">
-      <Box position={shouldFix ? 'fixed' : 'absolute'} top={theme.headerHeight} left="0" right="0" bg="white" px="2em" zIndex="dropdown">
+      <Box position={shouldFix ? 'fixed' : 'absolute'} top={`calc(${theme.headerHeight} + ${topbarHeight}px)`} left="0" right="0" bg="white" px="2em" zIndex="dropdown">
         <FilterAndSearch onChange={handleChange} setFieldValue={setFieldValue} values={values} />
       </Box>
       <Box pt={theme.headerHeight} px="0.25em">

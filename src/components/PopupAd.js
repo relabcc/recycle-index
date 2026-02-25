@@ -405,7 +405,6 @@ const PopupAd = () => {
 
               {popup.ctaText && popup.url ? (
                 <Button
-                  as={ChakraLink}
                   href={popup.url}
                   isExternal={/^https?:\/\//i.test(popup.url)}
                   bg={buttonBg}
