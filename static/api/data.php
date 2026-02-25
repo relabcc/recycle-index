@@ -16,19 +16,31 @@ try {
         throw new Exception('Range parameter is required. Usage: ?range=info!A2:A2');
     }
 
-    // Define processor function for info data
-    $processInfoData = function($responseData) {
-        if (empty($responseData['values']) || empty($responseData['values'][0]) || !isset($responseData['values'][0][0])) {
+    // Define processor function for sheet data (compatible with JS version)
+    $processSheetData = function($responseData) {
+        if (empty($responseData['values'])) {
             throw new Exception('No data returned from spreadsheet');
         }
 
-        // Since INFO_SHEET_RANGE is "info!A2:A2", we expect a single cell value
-        $infoText = $responseData['values'][0][0];
-        return ['info' => $infoText];
+        // First row is the header
+        $header = $responseData['values'][0];
+        // Remaining rows are data
+        $data = array_slice($responseData['values'], 1);
+
+        // Convert each row to an associative array using header as keys
+        $result = array_map(function($row) use ($header) {
+            $obj = [];
+            foreach ($header as $index => $key) {
+                $obj[$key] = $row[$index] ?? '';
+            }
+            return $obj;
+        }, $data);
+
+        return $result;
     };
 
     // Fetch and process the sheet data
-    $result = $sheetsService->getSheetData($range, $processInfoData);
+    $result = $sheetsService->getSheetData($range, $processSheetData);
 
     echo json_encode($result);
 

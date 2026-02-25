@@ -1,9 +1,16 @@
 RewriteEngine On
 
-# 處理 /api/events 請求
+# 處理 /api/data 請求
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^events$ events.php [L,QSA]
+RewriteRule ^data$ data.php [L,QSA]
 
-# 如果有其他 API 端點，可以加在這裡
-# RewriteRule ^other-endpoint$ other-endpoint.php [L,QSA]
+# 處理 /api/wordpress-menu 請求
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^wordpress-menu$ wordpress-menu.php [L,QSA]
+
+# 處理 /api/popup 請求
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^popup$ popup.php [L,QSA]
