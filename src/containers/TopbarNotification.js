@@ -269,7 +269,7 @@ const TopbarNotification = ({ onHeightChange }) => {
           >
             <Text
               fontWeight="normal"
-              fontSize={responsive("0.95rem", "1.05rem", "1.1rem")}
+              fontSize={responsive("0.8rem", "1.05rem", "1.1rem")}
               lineHeight="1.35"
             >
               {config.title}
@@ -282,7 +282,7 @@ const TopbarNotification = ({ onHeightChange }) => {
                 isExternal={isExternalLink}
                 height="auto"
                 py="0.6em"
-                px={responsive("1.1em", "1.4em")}
+                px="1.4em"
                 fontSize={responsive("0.9em", "0.95em")}
                 fontWeight="700"
                 letterSpacing="normal"
