@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import useSWR from 'swr';
-import { CloseButton, Image, Link as ChakraLink, useMediaQuery, AspectRatio } from '@chakra-ui/react';
+import { CloseButton, Image, useMediaQuery, AspectRatio } from '@chakra-ui/react';
 import { useMedia } from 'react-use';
 
 import Box from './Box';
@@ -136,16 +136,24 @@ const PopupAd = () => {
   useEffect(() => {
     if (popupError) {
       if (process.env.NODE_ENV === 'development') {
+        setDismissed(false);
+        setDismissChecked(false);
         setPopup(DEV_SAMPLE_POPUP);
       } else {
+        setDismissed(false);
+        setDismissChecked(true);
         setPopup(null);
       }
       return;
     }
 
     if (swrPopup) {
+      setDismissed(false);
+      setDismissChecked(false);
       setPopup((prev) => (prev && isSamePopup(prev, swrPopup) ? prev : swrPopup));
     } else {
+      setDismissed(false);
+      setDismissChecked(true);
       setPopup(null);
     }
   }, [swrPopup, popupError]);
@@ -161,6 +169,7 @@ const PopupAd = () => {
       setDismissChecked(true);
       return;
     }
+    setDismissChecked(false);
     const storageKeyLocal = `popup-dismissed-${popup.key || 'popup'}`;
     const stored = window.localStorage.getItem(storageKeyLocal);
     if (!stored) {
