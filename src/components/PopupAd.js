@@ -12,7 +12,7 @@ import { responsive } from './ThemeProvider/theme';
 import { getApiEndpoint, getPopupSubmitEndpoint } from '../helpers/apiHelpers';
 
 const POPUP_RANGE = "popup!A1:B10";
-const DISMISS_DURATION_DAYS = 30;
+const DISMISS_DURATION_DAYS = 7;
 
 const DEV_SAMPLE_POPUP = {
   key: 'dev-sample',
@@ -28,6 +28,7 @@ const DEV_SAMPLE_POPUP = {
   textColor: '#ffffff',
   buttonColor: '#ff6695',
   buttonTextColor: '#000000',
+  dismissDays: DISMISS_DURATION_DAYS,
 };
 
 const PopupAd = () => {
@@ -68,6 +69,17 @@ const PopupAd = () => {
     return ['true', '1', 'yes', 'y', '是', 'checked'].includes(normalized);
   };
 
+  const parseDismissDays = (value) => {
+    if (value === null || value === undefined || value === '') {
+      return DISMISS_DURATION_DAYS;
+    }
+    const parsed = parseInt(String(value).trim(), 10);
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      return DISMISS_DURATION_DAYS;
+    }
+    return parsed;
+  };
+
   const normalizePopup = useCallback((data) => {
     if (!data) return null;
 
@@ -104,6 +116,7 @@ const PopupAd = () => {
       buttonTextColor: source.buttonTextColor ?? source['按鈕文字色'] ?? '#000000',
       closeButtonColor: source.closeButtonColor ?? source['關閉鍵色'] ?? '#000000',
       desktopOnly: parseBoolean(source.desktopOnly ?? source['僅桌機']),
+      dismissDays: parseDismissDays(source.dismissDays ?? source['關閉天數']),
       key: source.key ?? source['Key'] ?? 'popup',
     };
   }, []);
@@ -129,6 +142,7 @@ const PopupAd = () => {
       'buttonTextColor',
       'closeButtonColor',
       'desktopOnly',
+      'dismissDays',
     ];
     return keys.every((k) => a[k] === b[k]);
   };
@@ -181,7 +195,8 @@ const PopupAd = () => {
       const timestamp = parseInt(stored, 10);
       const now = Date.now();
       const daysSinceDismissed = (now - timestamp) / (1000 * 60 * 60 * 24);
-      if (daysSinceDismissed < DISMISS_DURATION_DAYS) {
+      const dismissDurationDays = parseDismissDays(popup.dismissDays);
+      if (daysSinceDismissed < dismissDurationDays) {
         setDismissed(true);
       } else {
         window.localStorage.removeItem(storageKeyLocal);

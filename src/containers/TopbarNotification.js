@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "@reach/router";
 import useSWR from "swr";
 import { MdClose } from "react-icons/md";
 
@@ -129,6 +130,7 @@ const Countdown = ({ countdown }) => {
 const DISMISS_DURATION_DAYS = 30;
 
 const TopbarNotification = ({ onHeightChange }) => {
+  const location = useLocation();
   const barRef = useRef(null);
   const [dismissed, setDismissed] = useState(false);
   const [dismissChecked, setDismissChecked] = useState(false);
@@ -172,6 +174,10 @@ const TopbarNotification = ({ onHeightChange }) => {
     [config]
   );
   const [countdown, setCountdown] = useState(null);
+  const isTrashPage = useMemo(
+    () => /^\/trash(?:\/|$)/i.test(location?.pathname || ""),
+    [location?.pathname]
+  );
   const isExternalLink = useMemo(
     () => Boolean(config?.url && /^https?:\/\//i.test(config.url)),
     [config?.url]
@@ -203,7 +209,12 @@ const TopbarNotification = ({ onHeightChange }) => {
   }, [config?.countdownEnabled, targetDate]);
 
   const showTopbar = Boolean(
-    dismissChecked && config?.enabled && !dismissed && !error && config.title
+    dismissChecked &&
+      config?.enabled &&
+      !dismissed &&
+      !error &&
+      config.title &&
+      !isTrashPage
   );
   const shouldRender = showTopbar;
 
