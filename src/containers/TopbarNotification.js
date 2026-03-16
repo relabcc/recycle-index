@@ -253,7 +253,7 @@ const TopbarNotification = ({ onHeightChange }) => {
       right="0"
       bg="#4e4108"
       color="white"
-      zIndex="modal"
+      zIndex="banner"
       boxShadow="0 2px 0 rgba(0,0,0,0.1)"
     >
       <Container

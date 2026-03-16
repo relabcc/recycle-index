@@ -208,6 +208,7 @@ const Header = ({ isEn, topOffset = 0, ...props }) => {
             onClose={handleClose}
             finalFocusRef={btnRef}
             blockScrollOnMount={false}
+            zIndex="tooltip"
           >
             <DrawerOverlay>
               <DrawerContent bg="black" color="white">
