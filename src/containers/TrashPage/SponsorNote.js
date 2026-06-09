@@ -10,6 +10,7 @@ const links = {
   foodpanda: "https://www.foodpanda.com.tw/",
   犀牛盾: "https://shop.rhinoshield.tw/sustainability/recycling",
   "Family Mart": "https://www.family.com.tw/NewEnterprise/CSR/EcoFriendly/Article/3095/",
+  "Tetra Pak": "https://www.facebook.com/Tetra.Pak.TW",
 };
 
 const logos = {
@@ -53,6 +54,12 @@ const logos = {
     <BackgroundImage
       src={require("./sponsors/familyMart.png").default}
       ratio={1869 / 453}
+    />
+  ),
+  "Tetra Pak": (
+    <BackgroundImage
+      src={require("./sponsors/tetraPak.png").default}
+      ratio={6217 / 1679}
     />
   ),
 };

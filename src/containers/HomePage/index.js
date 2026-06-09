@@ -43,6 +43,28 @@ const Wrapper = styled(Box)`
   .section {
     height: 100%;
   }
+  &:not(.is-ready) {
+    overflow: hidden;
+  }
+  &:not(.is-ready) #fullpage {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    background: ${theme.colors.colors.yellow};
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0s linear 0s;
+  }
+  &.is-ready::before {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+  }
 `;
 
 const mountRatio = 3424 / 1844;
@@ -102,6 +124,7 @@ const HomePage = ({
   const windowSize = useWindowSize();
 
   const [inited, setInited] = useState(false);
+  const [ready, setReady] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(0);
   const [trashMx, trashMt, trashWidth] = useMemo(() => {
     const scaleRatio = Math.min(
@@ -387,12 +410,17 @@ const HomePage = ({
     });
     timeline.pause();
     timeline2.pause();
+    setReady(true);
   };
   useEffect(() => {
     init();
   }, [windowSize, containerWidth, inited]);
   return (
-    <Wrapper className="home-bg" bg="colors.yellow" height="100%">
+    <Wrapper
+      className={`home-bg${ready ? " is-ready" : ""}`}
+      bg="colors.yellow"
+      height="100%"
+    >
       {useMemo(
         () => (
           <ReactFullpage
