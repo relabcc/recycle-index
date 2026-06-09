@@ -47,23 +47,11 @@ const Wrapper = styled(Box)`
     overflow: hidden;
   }
   &:not(.is-ready) #fullpage {
-    opacity: 0;
-    visibility: hidden;
+    height: 100%;
+    overflow: hidden;
   }
-  &::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 2147483647;
-    background: ${theme.colors.colors.yellow};
-    opacity: 1;
-    pointer-events: none;
-    transition: opacity 0.18s ease, visibility 0s linear 0s;
-  }
-  &.is-ready::before {
-    opacity: 0;
+  &:not(.is-ready) .section:not(:first-of-type) {
     visibility: hidden;
-    transition: opacity 0.18s ease, visibility 0s linear 0.18s;
   }
 `;
 
