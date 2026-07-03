@@ -1,6 +1,7 @@
 node_modules/
 .cache/
 public
+*.tar.gz
 .wordpress-cache
 loadable-stats-build-javascript.json
 
