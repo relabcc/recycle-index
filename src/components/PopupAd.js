@@ -58,7 +58,9 @@ const PopupAd = () => {
       }
       return response.json();
     },
-    { revalidateOnFocus: false }
+    // ponytail: popup 設定一個 session 抓一次就夠，關掉所有自動重新驗證，
+    // 避免外掛觸發的 focus/reconnect 事件讓彈窗重複重整（無痕正常、一般模式迴圈的元凶）
+    { revalidateOnFocus: false, revalidateOnReconnect: false, revalidateIfStale: false }
   );
 
   // Helpers to normalize sheet key-value rows (欄位/設定)
@@ -147,27 +149,17 @@ const PopupAd = () => {
     return keys.every((k) => a[k] === b[k]);
   };
 
+  // ponytail: 只更新 popup 本身，dismissed / dismissChecked 交由下面的 Effect（依 popup 身分）決定。
+  // 重新驗證時若內容相同，isSamePopup 讓 popup 參照不變 → 不會重跑下面的 effect → 保留使用者的「已關閉」。
   useEffect(() => {
     if (popupError) {
-      if (process.env.NODE_ENV === 'development') {
-        setDismissed(false);
-        setDismissChecked(false);
-        setPopup(DEV_SAMPLE_POPUP);
-      } else {
-        setDismissed(false);
-        setDismissChecked(true);
-        setPopup(null);
-      }
+      setPopup(process.env.NODE_ENV === 'development' ? DEV_SAMPLE_POPUP : null);
       return;
     }
 
     if (swrPopup) {
-      setDismissed(false);
-      setDismissChecked(false);
       setPopup((prev) => (prev && isSamePopup(prev, swrPopup) ? prev : swrPopup));
     } else {
-      setDismissed(false);
-      setDismissChecked(true);
       setPopup(null);
     }
   }, [swrPopup, popupError]);
