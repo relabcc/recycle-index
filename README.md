@@ -1,48 +1,19 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# 回收大百科
 
-## 🚀 Quick start
+回收大百科網站，使用 Gatsby 產生靜態頁面。
 
-1.  **Create a Gatsby site.**
+## 本機開發
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+```bash
+npm install
+npm run develop
+```
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+預設開發網址為 <http://localhost:8000/>。
 
-2.  **Start developing.**
+## 正式發布
 
-    Navigate into your new site’s directory and start it up.
+正式網站部署在 Hosting.com，使用打包檔上傳並解壓縮覆蓋。請依照[正式部署說明](docs/deployment.md)操作。
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
-
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.js` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+- GitHub Pages 已停用，勿使用 `npm run deploy` 發布正式站。
+- Cloudflare Pages 為測試站，不是正式發布目標。

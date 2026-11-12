@@ -66,6 +66,7 @@ const Wrapper = styled.div`
     height: 100%;
   }
   .section {
+    position: relative;
     height: 100%;
     & > div {
       height: 100%;
@@ -73,6 +74,24 @@ const Wrapper = styled.div`
   }
   .fp-is-overflow > .fp-overflow {
     overflow-x: hidden;
+  }
+  &:not(.is-ready) {
+    /* Layout's parent has no explicit height before fullPage initializes. */
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+  &:not(.is-ready) #fullpage {
+    height: 100%;
+    overflow: hidden;
+  }
+  &:not(.is-ready) .section:not(:first-of-type) {
+    visibility: hidden;
+  }
+  @media (min-width: 768px) {
+    &:not(.is-ready) .trash-first-title h1 {
+      font-size: var(--trash-title-desktop-size);
+    }
   }
 `;
 
@@ -341,6 +360,7 @@ const TrashPage = ({
   const animaRefs = useMemo(() => data.imgs.map(() => createRef()), [data]);
   const partsRefs = useMemo(() => data.imgs.map(() => createRef()), [data]);
   const [inited, setInited] = useState(false);
+  const [ready, setReady] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(0);
   const gradeData = useMemo(() => {
     return {
@@ -551,6 +571,7 @@ const TrashPage = ({
         </Text.Number>
       </Box.Absolute>
       <Box.AbsCenter
+        className="trash-first-title"
         top={responsive("17%", "40%")}
         width="100%"
         textAlign="center"
@@ -626,7 +647,7 @@ const TrashPage = ({
   const pagesRefs = useMemo(() => range(pageCount).map(() => createRef()), []);
   // const pageRevealRefs = useMemo(() => range(pageCount).map(() => createRef()), [])
   const init = () => {
-    if (!inited) return;
+    if (!inited || !Number.isFinite(windowSize.height) || !containerWidth) return;
     if (theTimeline) {
       theTimeline.kill();
     }
@@ -1059,6 +1080,7 @@ const TrashPage = ({
 
     endTimeline.pause();
     theTimeline.pause();
+    setReady(true);
   };
   useEffect(() => {
     init();
@@ -1068,7 +1090,13 @@ const TrashPage = ({
     [colorScheme]
   );
   return (
-    <Wrapper height="100%">
+    <Wrapper
+      className={ready ? "is-ready" : ""}
+      style={{
+        "--trash-title-desktop-size": `${100 / Math.max(data.name.length + 1, 4.5)}vw`,
+      }}
+      height="100%"
+    >
       {useMemo(
         () => (
           <ReactFullpage
@@ -1078,6 +1106,7 @@ const TrashPage = ({
             scrollingSpeed={scrollingDuration * 1000}
             verticalCentered={false}
             onLeave={(origin, destination) => {
+              if (!theTimeline || !endTimeline) return false;
               setPageLoaded((p) => Math.max(p, destination.index));
 
               theTimeline.tweenTo(destination.index * scrollingDuration, {
@@ -1145,7 +1174,7 @@ const TrashPage = ({
         left="0"
         right="0"
         height="100%"
-        display={!inited || scrollProgress >= 1 ? "none" : "block"}
+        display={!ready || scrollProgress >= 1 ? "none" : "block"}
         zIndex="docked"
         pointerEvents="none"
         pt={theme.headerHeight}
@@ -1171,6 +1200,7 @@ const TrashPage = ({
                   <GatsbyImage
                     image={data.gatsbyImg.large}
                     alt={data.name}
+                    loading="eager"
                     css={css`
                       width: 100%;
                     `}
