@@ -148,16 +148,27 @@ const TrashAdditional = ({ data, bg, variant, mt = 2 }) => {
   const { text, url } = useMemo(() => {
     // 若 data 是物件，直接返回 text 和 url
     if (data && typeof data === "object" && !Array.isArray(data)) {
-      return { text: data.text, url: data.url };
+      return { text: data.text?.trim(), url: data.url };
     }
     // 若 data 是字符串，用 extractLink 處理
-    return extractLink(data);
+    const extracted = extractLink(data);
+    return { text: extracted.text?.trim(), url: extracted.url };
   }, [data]);
   const invert = variant === "invert";
   const background = invert ? bg : "white";
   const textColor = invert ? "white" : bg;
   return text ? (
-    <Box mt={mt} bg={background} p="1" ml="-1" mr="-1" color={textColor}>
+    <Box
+      mt={mt}
+      bg={background}
+      p="1"
+      ml="-1"
+      mr="-1"
+      color={textColor}
+      fontSize={responsive("0.875em", "1em")}
+      lineHeight="1.5"
+      whiteSpace="pre-line"
+    >
       {url ? (
         <ReLink color="inherit" href={url} isExternal>
           {text}
@@ -171,7 +182,7 @@ const TrashAdditional = ({ data, bg, variant, mt = 2 }) => {
 
 const TrashValue = ({ additional, bg, ...props }) => (
   <Box.Absolute
-    bottom={responsive("12%", "10%")}
+    bottom={responsive("8%", "10%")}
     right={responsive("10%", "8em")}
     width={responsive("80%", "25%")}
   >
