@@ -138,6 +138,7 @@ const TrashDescription = (props) => (
       letterSpacing="0.075em"
       textAlign="justify"
       fontSize={responsive("0.75em", "1em")}
+      whiteSpace="pre-line"
       {...props}
     />
   </Box.Absolute>
